@@ -1,2 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#49624b"/><g fill="#e9a17e"><ellipse cx="32" cy="17" rx="7" ry="13"/><ellipse cx="32" cy="47" rx="7" ry="13"/><ellipse cx="17" cy="32" rx="13" ry="7"/><ellipse cx="47" cy="32" rx="13" ry="7"/><ellipse cx="21.5" cy="21.5" rx="7" ry="13" transform="rotate(-45 21.5 21.5)"/><ellipse cx="42.5" cy="42.5" rx="7" ry="13" transform="rotate(-45 42.5 42.5)"/><ellipse cx="42.5" cy="21.5" rx="7" ry="13" transform="rotate(45 42.5 21.5)"/><ellipse cx="21.5" cy="42.5" rx="7" ry="13" transform="rotate(45 21.5 42.5)"/></g><circle cx="32" cy="32" r="6" fill="#efd17d"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" role="img" aria-labelledby="title">
+  <title id="title">Fuar Çiçekcim çiçek amblemi</title>
+  <path d="M15 52V39a25 25 0 0 1 50 0v13" stroke="#49624b" stroke-width="1.5"/>
+  <path d="M19 51c6-3 13-4 21-4s15 1 21 4" stroke="#c9a76b" stroke-width="1.2"/>
+  <path d="M40 50c0-10-1-17-1-24m1 24c-1-8-7-13-14-17m14 17c1-8 7-13 14-17" stroke="#49624b" stroke-width="1.7" stroke-linecap="round"/>
+  <path d="M33 43c-8 1-12-3-13-9 7-1 12 2 13 9Zm14 0c8 1 12-3 13-9-7-1-12 2-13 9Z" fill="#dce4d5" stroke="#49624b" stroke-width="1.2" stroke-linejoin="round"/>
+  <g stroke="#bd7058" stroke-width="1.2" stroke-linejoin="round">
+    <path d="M39 19c-1-5 2-9 5-9s6 4 5 9c4-3 8-2 9 1s-2 7-7 8c4 2 5 6 3 8s-7 1-10-3c-1 5-5 7-8 5s-2-7 1-10c-5 1-8-2-7-5s5-5 9-4Z" fill="#f0d9cc"/>
+  </g>
+  <circle cx="44" cy="24" r="3" fill="#c9a76b"/>
+  <path d="M31 51h18l-2 12H33l-2-12Z" fill="#49624b"/>
+  <path d="M29 51h22" stroke="#c9a76b" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
 
