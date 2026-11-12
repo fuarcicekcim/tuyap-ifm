@@ -8,7 +8,7 @@ Fuar standları ve kurumsal etkinlikler için tek sayfalık, mobil uyumlu çiçe
 
 ## Ürün kataloğu
 
-Sitede katalogdaki 18 ürün, ürün görseli, katalog fiyatı ve WhatsApp sipariş bağlantısıyla listelenir. Saksı bitkisi fiyatları 50 adet ve üzeri alımlarda geçerlidir; katalog fiyatlarına %20 KDV eklenir. Stok ve teslimat ayrıntıları sipariş öncesi WhatsApp'tan teyit edilmelidir.
+Sitede katalogdaki 18 ürün, ürün görseli, katalog fiyatı ve WhatsApp sipariş bağlantısıyla listelenir. Ürün kartlarında fiyat ve %20 KDV bilgisi gösterilir. Ürün fotoğrafları orijinal kadrajlarıyla, kırpılmadan gösterilir. Stok ve teslimat ayrıntıları sipariş öncesi WhatsApp'tan teyit edilmelidir.
 
 WhatsApp sipariş hattı: `+90 547 567 0406`  
 E-posta: `fuarcicekcim@gmail.com`

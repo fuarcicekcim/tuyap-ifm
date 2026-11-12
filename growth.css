@@ -40,7 +40,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .delivery-note { max-width: 820px; margin: 24px 0 0; font-size: 12px; line-height: 1.85; color: #566250; }
 .product-card { display: flex; flex-direction: column; }
 .product-info { display: flex; flex-direction: column; flex: 1; }
-.bulk-note { margin: -5px 0 16px; font-size: 11px; line-height: 1.7; color: #5b6254; }
 .buy-button { margin-top: auto; gap: 10px; }
 .faq { padding: 95px 10vw; background: var(--paper); }
 .faq-list { max-width: 900px; }
