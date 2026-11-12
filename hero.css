@@ -1,0 +1,83 @@
+/* Quiet exhibition background with a clear reading area. */
+.hero {
+  display: block;
+  min-height: 650px;
+  padding: 90px 10vw 85px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #f7f5ef;
+}
+.hero-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 65% center;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    rgba(247, 245, 239, .99) 0%,
+    rgba(247, 245, 239, .97) 28%,
+    rgba(247, 245, 239, .86) 44%,
+    rgba(247, 245, 239, .35) 65%,
+    rgba(247, 245, 239, .12) 100%);
+}
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 600px);
+  max-width: 600px;
+}
+.hero .hero-text { color: #526058; max-width: 465px; }
+.hero .hero-note { color: #687267; }
+@media (max-width: 850px) {
+  .hero {
+    display: block;
+    grid-template-columns: none;
+    min-height: 650px;
+    padding: 76px 7vw 75px;
+    gap: 0;
+  }
+  .hero-copy { width: min(100%, 540px); max-width: 540px; }
+  .hero-backdrop { object-position: 68% center; }
+  .hero::before {
+    background: linear-gradient(90deg,
+      rgba(247, 245, 239, .99) 0%,
+      rgba(247, 245, 239, .96) 36%,
+      rgba(247, 245, 239, .80) 58%,
+      rgba(247, 245, 239, .30) 100%);
+  }
+}
+@media (max-width: 620px) {
+  .hero {
+    display: block;
+    grid-template-columns: none;
+    flex-direction: initial;
+    align-items: initial;
+    min-height: 760px;
+    padding: 58px 24px 235px;
+    gap: 0;
+  }
+  .hero-copy { width: 100%; max-width: none; }
+  .hero-backdrop { object-position: 72% bottom; }
+  .hero::before {
+    background: linear-gradient(180deg,
+      rgba(247, 245, 239, .99) 0%,
+      rgba(247, 245, 239, .98) 26%,
+      rgba(247, 245, 239, .93) 48%,
+      rgba(247, 245, 239, .72) 65%,
+      rgba(247, 245, 239, .15) 86%,
+      rgba(247, 245, 239, .08) 100%);
+  }
+  .hero .hero-note { margin-top: 28px; }
+}
+
