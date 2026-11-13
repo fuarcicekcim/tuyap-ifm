@@ -27,20 +27,18 @@ const products = [...productGrid.querySelectorAll('.product-card')];
 const filters = [...document.querySelectorAll('.filter-button')];
 const catalogStatus = document.querySelector('#catalog-status');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const catalogUrl = document.querySelector('link[rel="canonical"]').href;
 
 for (const product of products) {
   const link = product.querySelector('.buy-button');
   const name = product.querySelector('h3').textContent.trim();
   const price = product.querySelector('.product-amount').textContent.trim().replace(/^₺\s*/, '');
   const tax = product.querySelector('.product-price small').textContent.trim();
-  const photo = new URL(product.querySelector('.product-photo img').getAttribute('src'), catalogUrl);
   const url = new URL(link.href);
   const template = url.searchParams.get('text');
-  const fields = template.split('\n\n')[1];
+  const details = template.slice(template.indexOf('\n\n') + 2);
   const message = `Merhaba, Fuar Çiçekçim’den ${name} (${price} TL ${tax}) siparişi vermek istiyorum.`;
 
-  url.searchParams.set('text', `${message}\n\n${fields}\n\nÜrün fotoğrafı: ${photo.href}`);
+  url.searchParams.set('text', `${message}\n\n${details}`);
   link.href = url.href;
   link.setAttribute('aria-label', `Hemen sipariş ver: ${name}, ${price} TL ${tax}`);
 }
