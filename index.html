@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="growth.css?v=product-first-1">
   <link rel="stylesheet" href="branding.css">
   <link rel="stylesheet" href="hero.css?v=product-first-1">
+  <link rel="stylesheet" href="conversion.css?v=1">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -50,8 +51,8 @@
   <a class="skip-link" href="#main-content">İçeriğe geç</a>
   <header class="site-header">
     <a class="brand" href="#anasayfa" aria-label="Fuar Çiçekçim ana sayfa"><img class="brand-logo" src="assets/fuar-cicekcim-logo-yatay.png" alt="Fuar Çiçekçim" width="720" height="240"></a>
-    <button class="menu-toggle" aria-label="Menüyü aç" aria-expanded="false">☰</button>
-    <nav class="navigation" aria-label="Ana menü">
+    <button class="menu-toggle" aria-label="Menüyü aç" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="navigation" id="main-nav" aria-label="Ana menü">
       <a href="#urunler">Ürünler</a>
       <a href="#hizmetler">Hizmetler</a>
       <a href="#teslimat">TÜYAP & İFM</a>
@@ -70,14 +71,41 @@
         <h1>TÜYAP ve İFM’ye<br><em>çiçek teslimatı.</em></h1>
         <div class="hero-actions">
           <a href="#urunler" class="button">Ürünleri incele <span aria-hidden="true">↓</span></a>
+          <a href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20h%C4%B1zl%C4%B1%20sipari%C5%9F%20vermek%20istiyorum.%0A%C3%9Cr%C3%BCn%20%2F%20tasar%C4%B1m%3A%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" class="button hero-order" target="_blank" rel="noopener">
+            <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> WhatsApp Hızlı Sipariş
+          </a>
           <p class="availability"><span aria-hidden="true"></span> 7/24 açığız</p>
         </div>
       </div>
     </section>
 
-    <section class="catalog" id="urunler">
+    <section class="trust-bar" aria-labelledby="trust-title">
+      <div class="trust-inner">
+        <h2 id="trust-title">Neden Fuar Çiçekçim?</h2>
+        <ul class="trust-items">
+          <li class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m13 2-9 12h7l-1 8 10-12h-7l1-8Z"/></svg>
+            <span class="trust-copy"><strong>90 dakikada standa teslimat</strong><small>TÜYAP ve İFM · Sipariş onayıyla</small></span>
+          </li>
+          <li class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h4l2-3h4l2 3h4a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1Zm12 6a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/></svg>
+            <span class="trust-copy"><strong>Teslimatta fotoğraf onayı</strong><small>WhatsApp üzerinden</small></span>
+          </li>
+          <li class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6V3Zm8 0v5h4M9 12h6m-6 4h6"/></svg>
+            <span class="trust-copy"><strong>Kurumsal e-Fatura</strong><small>Şirket bilgilerinize düzenlenir</small></span>
+          </li>
+          <li class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 4c1 7-2 13-8 13-3 0-5-2-5-5 0-5 6-8 13-8ZM4 20l9-9"/></svg>
+            <span class="trust-copy"><strong>Doğrudan seradan</strong><small>Taze ve bakımlı bitkiler</small></span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="catalog" id="urunler" aria-labelledby="catalog-title">
       <div class="catalog-heading">
-        <h2>Ürünler</h2>
+        <h2 id="catalog-title">Ürünler</h2>
         <div class="catalog-filters" role="group" aria-label="Ürün kategorileri">
           <button class="filter-button is-active" data-filter="all" aria-pressed="true">Tümü</button>
           <button class="filter-button" data-filter="plants" aria-pressed="false">Saksı bitkileri</button>
@@ -85,38 +113,281 @@
           <button class="filter-button" data-filter="wreaths" aria-pressed="false">Çelenkler</button>
         </div>
       </div>
+      <p class="visually-hidden" id="catalog-status" role="status"></p>
       <div class="product-grid">
-        <article class="product-card" data-category="plants"><div class="product-photo" role="img" aria-label="Benjamin bitkisi" style="background-image:url('assets/products/benjamin.webp')"></div><div class="product-info"><span class="product-type">SAKSI BİTKİSİ</span><h3>Benjamin</h3><p class="product-price">₺1.350 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Benjamin%20%C3%A7i%C3%A7e%C4%9Fi%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%201.350%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
-        <article class="product-card" data-category="plants"><div class="product-photo" role="img" aria-label="Şeflera bitkisi" style="background-image:url('assets/products/seflera.jpg?v=2')"></div><div class="product-info"><span class="product-type">SAKSI BİTKİSİ</span><h3>Şeflera</h3><p class="product-price">₺1.400 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20%C5%9Eeflera%20%C3%A7i%C3%A7e%C4%9Fi%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%201.400%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
-        <article class="product-card" data-category="plants"><div class="product-photo" role="img" aria-label="Kauçuk bitkisi" style="background-image:url('assets/products/kaucuk.jpg')"></div><div class="product-info"><span class="product-type">SAKSI BİTKİSİ</span><h3>Kauçuk</h3><p class="product-price">₺1.500 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Kau%C3%A7uk%20bitkisi%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%201.500%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
+        <article class="product-card" data-category="plants">
+          <div class="product-photo">
+            <img src="assets/products/benjamin.webp" alt="Benjamin bitkisi" width="600" height="660" decoding="async">
+            <span class="product-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m13 2-9 12h7l-1 8 10-12h-7l1-8Z"/></svg> Aynı gün teslim</span>
+          </div>
+          <div class="product-info">
+            <span class="product-type">SAKSI BİTKİSİ</span>
+            <h3>Benjamin</h3>
+            <p class="product-price"><span class="product-amount">₺1.350</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20Benjamin%20%281.350%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Benjamin, 1.350 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
+        <article class="product-card" data-category="plants">
+          <div class="product-photo">
+            <img src="assets/products/seflera.jpg?v=2" alt="Şeflera bitkisi" width="800" height="1200" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">SAKSI BİTKİSİ</span>
+            <h3>Şeflera</h3>
+            <p class="product-price"><span class="product-amount">₺1.400</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20%C5%9Eeflera%20%281.400%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Şeflera, 1.400 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
+        <article class="product-card" data-category="plants">
+          <div class="product-photo">
+            <img src="assets/products/kaucuk.jpg" alt="Kauçuk bitkisi" width="500" height="500" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">SAKSI BİTKİSİ</span>
+            <h3>Kauçuk</h3>
+            <p class="product-price"><span class="product-amount">₺1.500</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20Kau%C3%A7uk%20%281.500%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Kauçuk, 1.500 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
 
-        <article class="product-card" data-category="plants"><div class="product-photo" role="img" aria-label="Yucca bitkisi" style="background-image:url('assets/products/yucca.jpg')"></div><div class="product-info"><span class="product-type">SAKSI BİTKİSİ</span><h3>Yucca</h3><p class="product-price">₺2.950 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Yucca%20bitkisi%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%202.950%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
-        <article class="product-card" data-category="plants"><div class="product-photo" role="img" aria-label="Massengena bitkisi" style="background-image:url('assets/products/massengena.jpg')"></div><div class="product-info"><span class="product-type">SAKSI BİTKİSİ</span><h3>Massengena</h3><p class="product-price">₺2.650 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Massengena%20bitkisi%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%202.650%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
-        <article class="product-card" data-category="plants"><div class="product-photo" role="img" aria-label="Marginata bitkisi" style="background-image:url('assets/products/marginata.jpeg')"></div><div class="product-info"><span class="product-type">SAKSI BİTKİSİ</span><h3>Marginata</h3><p class="product-price">₺1.700 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Marginata%20bitkisi%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%201.700%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
+        <article class="product-card" data-category="plants">
+          <div class="product-photo">
+            <img src="assets/products/yucca.jpg" alt="Yucca bitkisi" width="800" height="800" loading="lazy" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">SAKSI BİTKİSİ</span>
+            <h3>Yucca</h3>
+            <p class="product-price"><span class="product-amount">₺2.950</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20Yucca%20%282.950%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Yucca, 2.950 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
+        <article class="product-card" data-category="plants">
+          <div class="product-photo">
+            <img src="assets/products/massengena.jpg" alt="Massengena bitkisi" width="600" height="660" loading="lazy" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">SAKSI BİTKİSİ</span>
+            <h3>Massengena</h3>
+            <p class="product-price"><span class="product-amount">₺2.650</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20Massengena%20%282.650%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Massengena, 2.650 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
+        <article class="product-card" data-category="plants">
+          <div class="product-photo">
+            <img src="assets/products/marginata.jpeg" alt="Marginata bitkisi" width="750" height="1050" loading="lazy" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">SAKSI BİTKİSİ</span>
+            <h3>Marginata</h3>
+            <p class="product-price"><span class="product-amount">₺1.700</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20Marginata%20%281.700%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Marginata, 1.700 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
 
-        <article class="product-card" data-category="plants"><div class="product-photo" role="img" aria-label="Spatifilyum bitkisi" style="background-image:url('assets/products/spatifilyum.png')"></div><div class="product-info"><span class="product-type">SAKSI BİTKİSİ</span><h3>Spatifilyum</h3><p class="product-price">₺1.050 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Spatifilyum%20bitkisi%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%201.050%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
-        <article class="product-card" data-category="plants"><div class="product-photo" role="img" aria-label="Sansevieria bitkisi" style="background-image:url('assets/products/sansevieria.jpg')"></div><div class="product-info"><span class="product-type">SAKSI BİTKİSİ</span><h3>Sansevieria</h3><p class="product-price">₺2.300 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Sansevieria%20bitkisi%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%202.300%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
-        <article class="product-card" data-category="plants"><div class="product-photo" role="img" aria-label="Antoryum bitkisi" style="background-image:url('assets/products/antoryum.jpg')"></div><div class="product-info"><span class="product-type">SAKSI BİTKİSİ</span><h3>Antoryum</h3><p class="product-price">₺2.250 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Antoryum%20bitkisi%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%202.250%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
+        <article class="product-card" data-category="plants">
+          <div class="product-photo">
+            <img src="assets/products/spatifilyum.png" alt="Spatifilyum bitkisi" width="582" height="640" loading="lazy" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">SAKSI BİTKİSİ</span>
+            <h3>Spatifilyum</h3>
+            <p class="product-price"><span class="product-amount">₺1.050</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20Spatifilyum%20%281.050%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Spatifilyum, 1.050 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
+        <article class="product-card" data-category="plants">
+          <div class="product-photo">
+            <img src="assets/products/sansevieria.jpg" alt="Sansevieria bitkisi" width="639" height="720" loading="lazy" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">SAKSI BİTKİSİ</span>
+            <h3>Sansevieria</h3>
+            <p class="product-price"><span class="product-amount">₺2.300</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20Sansevieria%20%282.300%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Sansevieria, 2.300 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
+        <article class="product-card" data-category="plants">
+          <div class="product-photo">
+            <img src="assets/products/antoryum.jpg" alt="Antoryum bitkisi" width="1300" height="1430" loading="lazy" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">SAKSI BİTKİSİ</span>
+            <h3>Antoryum</h3>
+            <p class="product-price"><span class="product-amount">₺2.250</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20Antoryum%20%282.250%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Antoryum, 2.250 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
 
-        <article class="product-card" data-category="orchids"><div class="product-photo" role="img" aria-label="Çift dallı orkide" style="background-image:url('assets/products/cift-dalli-orkide.webp')"></div><div class="product-info"><span class="product-type">ORKİDE</span><h3>Çift Dallı Orkide</h3><p class="product-price">₺3.500 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20%C3%87ift%20Dall%C4%B1%20Orkide%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%203.500%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
-        <article class="product-card" data-category="orchids"><div class="product-photo" role="img" aria-label="Çift dallı orkide aranjmanı" style="background-image:url('assets/products/orkide-aranjman-4750.png')"></div><div class="product-info"><span class="product-type">ORKİDE & ARANJMAN</span><h3>Çift Dallı Orkide Aranjman</h3><p class="product-price">₺4.750 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20%C3%87ift%20Dall%C4%B1%20Orkide%20Aranjman%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%204.750%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
-        <article class="product-card" data-category="orchids"><div class="product-photo" role="img" aria-label="Dört dallı orkide aranjmanı" style="background-image:url('assets/products/orkide-aranjman-8500.jpeg')"></div><div class="product-info"><span class="product-type">ORKİDE & ARANJMAN</span><h3>4 Dallı Orkide Aranjman</h3><p class="product-price">₺8.500 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%204%20Dall%C4%B1%20Orkide%20Aranjman%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%208.500%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
+        <article class="product-card" data-category="orchids">
+          <div class="product-photo product-photo--cover">
+            <img src="assets/products/cift-dalli-orkide.webp" alt="Çift dallı orkide" width="1440" height="1800" loading="lazy" decoding="async">
+            <span class="product-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m13 2-9 12h7l-1 8 10-12h-7l1-8Z"/></svg> Aynı gün teslim</span>
+          </div>
+          <div class="product-info">
+            <span class="product-type">ORKİDE</span>
+            <h3>Çift Dallı Orkide</h3>
+            <p class="product-price"><span class="product-amount">₺3.500</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20%C3%87ift%20Dall%C4%B1%20Orkide%20%283.500%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Çift Dallı Orkide, 3.500 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
+        <article class="product-card" data-category="orchids">
+          <div class="product-photo">
+            <img src="assets/products/orkide-aranjman-4750.png" alt="Çift dallı orkide aranjmanı" width="700" height="769" loading="lazy" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">ORKİDE &amp; ARANJMAN</span>
+            <h3>Çift Dallı Orkide Aranjman</h3>
+            <p class="product-price"><span class="product-amount">₺4.750</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20%C3%87ift%20Dall%C4%B1%20Orkide%20Aranjman%20%284.750%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Çift Dallı Orkide Aranjman, 4.750 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
+        <article class="product-card" data-category="orchids">
+          <div class="product-photo">
+            <img src="assets/products/orkide-aranjman-8500.jpeg" alt="Dört dallı orkide aranjmanı" width="600" height="800" loading="lazy" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">ORKİDE &amp; ARANJMAN</span>
+            <h3>4 Dallı Orkide Aranjman</h3>
+            <p class="product-price"><span class="product-amount">₺8.500</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%204%20Dall%C4%B1%20Orkide%20Aranjman%20%288.500%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: 4 Dallı Orkide Aranjman, 8.500 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
 
-        <article class="product-card" data-category="orchids"><div class="product-photo" role="img" aria-label="Tek katlı ferforje aranjman" style="background-image:url('assets/products/tek-katli-ferforje.jpg')"></div><div class="product-info"><span class="product-type">FERFORJE ARANJMAN</span><h3>Tek Katlı Ferforje Aranjman</h3><p class="product-price">₺6.500 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Tek%20Katl%C4%B1%20Ferforje%20Aranjman%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%206.500%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
-        <article class="product-card" data-category="orchids"><div class="product-photo" role="img" aria-label="Çift dallı orkide aranjmanı" style="background-image:url('assets/products/orkide-aranjman-9500.webp')"></div><div class="product-info"><span class="product-type">ORKİDE & ARANJMAN</span><h3>Çift Dallı Orkide Aranjman</h3><p class="product-price">₺9.500 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20%C3%87ift%20Dall%C4%B1%20Orkide%20Aranjman%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%209.500%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
-        <article class="product-card" data-category="orchids"><div class="product-photo" role="img" aria-label="Çift katlı ferforje aranjman" style="background-image:url('assets/products/cift-katli-ferforje.jpg')"></div><div class="product-info"><span class="product-type">FERFORJE ARANJMAN</span><h3>Çift Katlı Ferforje Aranjman</h3><p class="product-price">₺12.500 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20%C3%87ift%20Katl%C4%B1%20Ferforje%20Aranjman%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%2012.500%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
+        <article class="product-card" data-category="orchids">
+          <div class="product-photo">
+            <img src="assets/products/tek-katli-ferforje.jpg" alt="Tek katlı ferforje aranjman" width="850" height="1275" loading="lazy" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">FERFORJE ARANJMAN</span>
+            <h3>Tek Katlı Ferforje Aranjman</h3>
+            <p class="product-price"><span class="product-amount">₺6.500</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20Tek%20Katl%C4%B1%20Ferforje%20Aranjman%20%286.500%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Tek Katlı Ferforje Aranjman, 6.500 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
+        <article class="product-card" data-category="orchids">
+          <div class="product-photo">
+            <img src="assets/products/orkide-aranjman-9500.webp" alt="Çift dallı orkide aranjmanı" width="950" height="1267" loading="lazy" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">ORKİDE &amp; ARANJMAN</span>
+            <h3>Çift Dallı Orkide Aranjman</h3>
+            <p class="product-price"><span class="product-amount">₺9.500</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20%C3%87ift%20Dall%C4%B1%20Orkide%20Aranjman%20%289.500%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Çift Dallı Orkide Aranjman, 9.500 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
+        <article class="product-card" data-category="orchids">
+          <div class="product-photo">
+            <img src="assets/products/cift-katli-ferforje.jpg" alt="Çift katlı ferforje aranjman" width="300" height="450" loading="lazy" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">FERFORJE ARANJMAN</span>
+            <h3>Çift Katlı Ferforje Aranjman</h3>
+            <p class="product-price"><span class="product-amount">₺12.500</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20%C3%87ift%20Katl%C4%B1%20Ferforje%20Aranjman%20%2812.500%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Çift Katlı Ferforje Aranjman, 12.500 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
 
-        <article class="product-card" data-category="wreaths"><div class="product-photo" role="img" aria-label="Tek katlı çelenk" style="background-image:url('assets/products/tek-katli-celenk.webp')"></div><div class="product-info"><span class="product-type">ÇELENK</span><h3>Tek Katlı Çelenk</h3><p class="product-price">₺3.500 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Tek%20Katl%C4%B1%20%C3%87elenk%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%203.500%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
-        <article class="product-card" data-category="wreaths"><div class="product-photo" role="img" aria-label="Çift katlı çelenk" style="background-image:url('assets/products/cift-katli-celenk.jpg')"></div><div class="product-info"><span class="product-type">ÇELENK</span><h3>Çift Katlı Çelenk</h3><p class="product-price">₺5.000 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20%C3%87ift%20Katl%C4%B1%20%C3%87elenk%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%205.000%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
-        <article class="product-card" data-category="wreaths"><div class="product-photo" role="img" aria-label="Cenaze çelengi" style="background-image:url('assets/products/cenaze-celengi.jpg')"></div><div class="product-info"><span class="product-type">ÇELENK</span><h3>Cenaze Çelengi</h3><p class="product-price">₺5.750 <small>+ %20 KDV</small></p><a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Cenaze%20%C3%87elengi%20i%C3%A7in%20bilgi%20almak%20istiyorum.%20Katalog%20fiyat%C4%B1%3A%205.750%20TL%20%2B%20KDV.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener">Sipariş için bilgi al <span aria-hidden="true">↗</span></a></div></article>
+        <article class="product-card" data-category="wreaths">
+          <div class="product-photo">
+            <img src="assets/products/tek-katli-celenk.webp" alt="Tek katlı çelenk" width="553" height="608" loading="lazy" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">ÇELENK</span>
+            <h3>Tek Katlı Çelenk</h3>
+            <p class="product-price"><span class="product-amount">₺3.500</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20Tek%20Katl%C4%B1%20%C3%87elenk%20%283.500%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Tek Katlı Çelenk, 3.500 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
+        <article class="product-card" data-category="wreaths">
+          <div class="product-photo">
+            <img src="assets/products/cift-katli-celenk.jpg" alt="Çift katlı çelenk" width="300" height="400" loading="lazy" decoding="async">
+            <span class="product-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m13 2-9 12h7l-1 8 10-12h-7l1-8Z"/></svg> Aynı gün teslim</span>
+          </div>
+          <div class="product-info">
+            <span class="product-type">ÇELENK</span>
+            <h3>Çift Katlı Çelenk</h3>
+            <p class="product-price"><span class="product-amount">₺5.000</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20%C3%87ift%20Katl%C4%B1%20%C3%87elenk%20%285.000%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Çift Katlı Çelenk, 5.000 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
+        <article class="product-card" data-category="wreaths">
+          <div class="product-photo">
+            <img src="assets/products/cenaze-celengi.jpg" alt="Cenaze çelengi" width="639" height="720" loading="lazy" decoding="async">
+          </div>
+          <div class="product-info">
+            <span class="product-type">ÇELENK</span>
+            <h3>Cenaze Çelengi</h3>
+            <p class="product-price"><span class="product-amount">₺5.750</span> <small>+ %20 KDV</small></p>
+            <p class="product-assurance">TÜYAP ve İFM teslimatı dahil</p>
+            <a class="buy-button" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20Cenaze%20%C3%87elengi%20%285.750%20TL%20%2B%20%2520%20KDV%29%20sipari%C5%9Fi%20vermek%20istiyorum.%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="Hemen sipariş ver: Cenaze Çelengi, 5.750 TL + %20 KDV">
+              <svg class="order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg> <span>Hemen Sipariş Ver</span>
+            </a>
+          </div>
+        </article>
       </div>
-      <p class="catalog-note">Katalog fiyatlarına %20 KDV eklenir.</p>
+      <p class="catalog-note">Aynı gün teslimat için stok ve fuar giriş uygunluğu sipariş sırasında teyit edilir.</p>
     </section>
 
     <section class="intro" id="hakkimizda">
       <div class="section-index">BİZ KİMİZ</div>
       <div><h2>Çiçekler, markanızın<br><em>en güzel karşılaması.</em></h2></div>
-      <p>Bir standın havasını değiştiren küçük dokunuşlardan, etkinliğin tamamlayıcı çiçek düzenlemelerine kadar; fikrinize ve alanınıza uygun çözümler hazırlıyoruz.</p>
+      <p>Fuar standları ve kurumsal etkinlikler için mekânınıza uygun çiçekler, bitkiler ve çelenkler hazırlıyoruz.</p>
+      <ul class="about-proof" aria-label="Fuar siparişlerimiz">
+        <li class="proof-card"><strong>2 fuar merkezi</strong><span>TÜYAP ve İstanbul Fuar Merkezi’nde standa teslimat</span></li>
+        <li class="proof-card"><strong>7/24 sipariş hattı</strong><span>Sipariş ve teslimat bilgileri için WhatsApp iletişimi</span></li>
+        <li class="proof-card"><strong>Firmaya özel hazırlık</strong><span>Firma logonuzla bant ve mesajınızla tebrik kartı</span></li>
+      </ul>
     </section>
 
     <section class="venues" id="teslimat" aria-labelledby="venues-heading">
@@ -144,7 +415,7 @@
           <a class="venue-link" href="#urunler">İFM için ürün seç <span aria-hidden="true">↗</span></a>
         </article>
       </div>
-      <p class="delivery-note">7/24 açığız. Fuar teslimatları, seçilen ürünün stok durumu ve fuar alanının giriş koşullarına göre sipariş sırasında onaylanan zaman aralığında planlanır.</p>
+      <p class="delivery-note">TÜYAP ve İFM’ye 90 dakikada standa teslimat, ürünün stokta ve fuar girişinin uygun olduğu siparişlerde geçerlidir. Süre sipariş onayından başlar. Teslimat fotoğrafını WhatsApp’tan paylaşırız.</p>
     </section>
 
     <section class="services" id="hizmetler">
@@ -180,11 +451,11 @@
         </details>
         <details>
           <summary>7/24 açık mısınız, teslimat saatini nasıl belirliyorsunuz?</summary>
-          <p>Evet, Fuar Çiçekçim 7/24 açıktır. Teslimat aralığı seçilen ürün, stok ve fuar alanının giriş koşullarına göre sipariş sırasında onaylanır. İstediğiniz saati paylaşın; uygun teslimat planını birlikte belirleyelim.</p>
+          <p>Fuar Çiçekçim 7/24 açıktır. Stok ve fuar girişi uygunsa TÜYAP ve İFM’ye sipariş onayından itibaren 90 dakikada teslimat yaparız. Teslimat aralığını sipariş sırasında teyit ederiz.</p>
         </details>
         <details>
           <summary>Fiyatlara KDV dahil mi?</summary>
-          <p>Ürün kartlarında belirtilen fiyatlara %20 KDV eklenir.</p>
+          <p>Ürün kartlarında belirtilen fiyatlara %20 KDV eklenir. TÜYAP ve İFM’ye standa teslimat ürün fiyatına dahildir. Şirket bilgilerinizi paylaştığınızda kurumsal e-Fatura düzenleriz.</p>
         </details>
       </div>
     </section>
@@ -202,32 +473,10 @@
   </main>
 
   <footer class="site-footer"><a class="brand" href="#anasayfa" aria-label="Fuar Çiçekçim ana sayfa"><img class="brand-logo" src="assets/fuar-cicekcim-logo-yatay.png" alt="Fuar Çiçekçim" width="720" height="240"></a><div class="footer-contact"><span>7/24 açık · TÜYAP & İFM</span><a href="tel:+905475670406">+90 547 567 0406</a></div><a href="#anasayfa">Başa dön ↑</a></footer>
-  <script>
-    const toggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.navigation');
-    toggle.addEventListener('click', () => {
-      const open = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!open));
-      nav.classList.toggle('is-open', !open);
-    });
-    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-      nav.classList.remove('is-open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }));
-    const filters = document.querySelectorAll('.filter-button');
-    const products = document.querySelectorAll('.product-card');
-    filters.forEach(button => button.addEventListener('click', () => {
-      filters.forEach(item => {
-        item.classList.remove('is-active');
-        item.setAttribute('aria-pressed', 'false');
-      });
-      button.classList.add('is-active');
-      button.setAttribute('aria-pressed', 'true');
-      const selected = button.dataset.filter;
-      products.forEach(product => {
-        product.hidden = selected !== 'all' && product.dataset.category !== selected;
-      });
-    }));
-  </script>
+  <a class="quick-order-fab" href="https://wa.me/905475670406?text=Merhaba%2C%20Fuar%20%C3%87i%C3%A7ek%C3%A7im%E2%80%99den%20h%C4%B1zl%C4%B1%20sipari%C5%9F%20vermek%20istiyorum.%0A%C3%9Cr%C3%BCn%20%2F%20tasar%C4%B1m%3A%0A%0AFuar%20ad%C4%B1%3A%20%0ATeslimat%20tarihi%3A%20%0ASalon%20%2F%20stant%20no%3A%20%0AAl%C4%B1c%C4%B1%20firma%3A%20%0AAl%C4%B1c%C4%B1%20ad%C4%B1%20%2F%20telefon%3A%20%0AAdet%3A%20%0AKart%20%2F%20%C3%A7elenk%20yaz%C4%B1s%C4%B1%3A%20%0AB%C3%BCt%C3%A7e%3A%20%0A%C4%B0stenen%20teslimat%20aral%C4%B1%C4%9F%C4%B1%3A%20" target="_blank" rel="noopener" aria-label="WhatsApp: Fuar Standına Hızlı Sipariş">
+    <svg class="quick-order-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 11.6a8.7 8.7 0 0 1-8.7 8.7 9 9 0 0 1-4.2-1.1l-4.5 1.2 1.2-4.4a8.8 8.8 0 1 1 16.2-4.4ZM9.1 7.7c-.4.1-.9.6-.9 1.4 0 2.4 2.8 5.4 5.4 6 .9.2 1.8-.2 2.1-1.1l.1-.5-2.1-1.1-.8.9c-1.4-.5-2.4-1.5-2.9-2.8l.7-.8-.9-2Z"/></svg>
+    <span class="quick-order-tooltip" aria-hidden="true">Fuar Standına Hızlı Sipariş</span>
+  </a>
+  <script src="storefront.js?v=1" defer></script>
 </body>
 </html>
