@@ -42,27 +42,31 @@
   width: min(100%, 600px);
   max-width: 600px;
 }
-.hero-venues {
+.hero-venues { margin-bottom: 18px; }
+.hero-venues-label {
+  margin: 0 0 8px;
+  color: #3f5849;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+.hero-venue-logos {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   gap: 8px;
-  margin: 0 0 26px;
 }
-.hero-venues span {
-  display: inline-flex;
-  align-items: center;
-  max-width: 100%;
-  padding: 9px 13px;
-  border: 1px solid rgba(73, 98, 75, .22);
-  border-radius: 999px;
-  background: rgba(247, 245, 239, .82);
-  color: #3f5849;
-  font-size: 11.5px;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: .025em;
+.hero-venue-logo {
+  display: grid;
+  place-items: center;
+  min-width: 98px;
+  height: 44px;
+  padding: 4px 10px;
+  border: 1px solid rgba(73, 98, 75, .18);
+  border-radius: 8px;
+  background: #fffefa;
 }
+.hero-venue-logo img { display: block; width: 78px; height: auto; }
+.hero-venue-logo-ifm img { width: 43px; }
 .hero .hero-text { color: #526058; max-width: 465px; }
 .hero h1 { margin: 0 0 22px; }
 .hero .hero-note { color: #687267; margin-top: 32px; }
@@ -99,10 +103,9 @@
     order: 1;
     width: 100%;
     max-width: none;
-    padding: 36px 24px 0;
+    padding: 24px 24px 0;
   }
-  .hero-venues { margin-bottom: 22px; gap: 7px; }
-  .hero-venues span { padding: 8px 11px; font-size: 10.5px; }
+  .hero-venues { margin-bottom: 18px; }
   .hero h1 { margin-bottom: 18px; }
   .hero .button {
     width: 100%;
@@ -117,7 +120,7 @@
     z-index: auto;
     flex: none;
     width: calc(100% - 32px);
-    margin: 28px 16px 0;
+    margin: 20px 16px 0;
     aspect-ratio: 4 / 3;
     border-radius: 20px;
     overflow: hidden;
