@@ -2,7 +2,6 @@ const heroGallery = document.querySelector('[data-hero-gallery]');
 
 if (heroGallery) {
   const slides = [...heroGallery.querySelectorAll('.hero-slide')];
-  const toggle = heroGallery.querySelector('.hero-gallery__toggle');
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let current = 0;
   let previous;
@@ -35,14 +34,10 @@ if (heroGallery) {
 
   function setPaused(value) {
     paused = value;
-    toggle.classList.toggle('is-paused', paused);
-    toggle.setAttribute('aria-label', paused ? 'Görsel geçişini başlat' : 'Görsel geçişini durdur');
     scheduleSlide();
   }
 
-  toggle.addEventListener('click', () => setPaused(!paused));
   motion.addEventListener('change', () => setPaused(motion.matches));
   document.addEventListener('visibilitychange', scheduleSlide);
-  toggle.hidden = false;
   setPaused(paused);
 }
