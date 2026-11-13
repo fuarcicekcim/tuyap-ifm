@@ -19,6 +19,7 @@
   object-position: 50% 51%;
 }
 
+.hero-gallery .hero-slide--plants { object-position: 50% 18%; }
 .hero-gallery .hero-slide--orchid { object-position: 50% 26%; }
 .hero-gallery .hero-slide--ferforje { object-position: 50% 38%; }
 .hero-slide.is-previous { z-index: 0; opacity: 1; }
