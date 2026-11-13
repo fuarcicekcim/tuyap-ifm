@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="branding.css">
   <link rel="stylesheet" href="hero.css?v=product-first-1">
   <link rel="stylesheet" href="conversion.css?v=header-1">
+  <link rel="stylesheet" href="hero-gallery.css?v=1">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -97,10 +98,18 @@
 
   <main id="main-content" tabindex="-1">
     <section class="hero" id="anasayfa">
-      <picture class="hero-media">
-        <source media="(max-width: 620px)" srcset="assets/fuar-teslimati-hero-mobil.jpg" width="960" height="720">
-        <img class="hero-backdrop" src="assets/fuar-teslimati-hero.jpg" alt="Temsili fuar teslimatı. Fuar Çiçekçim şeridi ve gönderen kartı bulunan hediye paketli kırmızı antoryum stant görevlisine teslim ediliyor." width="1920" height="800" fetchpriority="high" decoding="async">
-      </picture>
+      <div class="hero-media hero-gallery" data-hero-gallery>
+        <img class="hero-backdrop hero-slide hero-slide--plants is-current" src="assets/hero/tuyap-saksi.webp" srcset="assets/hero/tuyap-saksi-768.webp 768w, assets/hero/tuyap-saksi.webp 1536w" sizes="(max-width: 620px) calc(100vw - 32px), 65vw" alt="TÜYAP standında Mavi Tasarım şeritli kauçuk ve antoryum" width="1536" height="1024" fetchpriority="high" decoding="async">
+        <img class="hero-backdrop hero-slide hero-slide--orchid" src="assets/hero/tuyap-orkide.webp" srcset="assets/hero/tuyap-orkide-768.webp 768w, assets/hero/tuyap-orkide.webp 1536w" sizes="(max-width: 620px) calc(100vw - 32px), 65vw" alt="TÜYAP standında Atlas Tasarım ve İyi Fuarlar şeritli beyaz orkide ve masa aranjmanı" width="1536" height="1024" fetchpriority="low" decoding="async" aria-hidden="true">
+        <img class="hero-backdrop hero-slide hero-slide--ferforje" src="assets/hero/ifm-ferforje.webp" srcset="assets/hero/ifm-ferforje-768.webp 768w, assets/hero/ifm-ferforje.webp 1536w" sizes="(max-width: 620px) calc(100vw - 32px), 65vw" alt="İFM standında Rota Mimarlık ve İyi Fuarlar şeritli ayaklı ferforje aranjman" width="1536" height="1024" fetchpriority="low" decoding="async" aria-hidden="true">
+        <div class="hero-gallery__controls">
+          <span class="hero-gallery__caption">Temsili görsel</span>
+          <button class="hero-gallery__toggle" type="button" aria-label="Görsel geçişini durdur" hidden>
+            <span class="hero-gallery__pause" aria-hidden="true"></span>
+            <span class="hero-gallery__play" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
       <div class="hero-copy">
         <h1>TÜYAP ve İFM’ye<br><em>çiçek teslimatı.</em></h1>
         <div class="hero-actions">
@@ -526,5 +535,6 @@
     </a>
   </nav>
   <script src="storefront.js?v=header-1" defer></script>
+  <script src="hero-gallery.js?v=1" defer></script>
 </body>
 </html>
