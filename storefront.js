@@ -1,5 +1,16 @@
 const menuToggle = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('#main-nav');
+const siteHeader = document.querySelector('.site-header');
+const announcement = document.querySelector('.site-announcement');
+const compactHeader = window.matchMedia('(max-width: 1160px)');
+
+function updateHeader() {
+  siteHeader.classList.toggle('is-scrolled', window.scrollY >= announcement.offsetHeight);
+}
+
+updateHeader();
+window.addEventListener('scroll', updateHeader, { passive: true });
+window.addEventListener('resize', updateHeader);
 
 function setMenuOpen(open) {
   menuToggle.setAttribute('aria-expanded', String(open));
@@ -8,11 +19,33 @@ function setMenuOpen(open) {
 }
 
 menuToggle.addEventListener('click', () => {
-  setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true');
+  const open = menuToggle.getAttribute('aria-expanded') !== 'true';
+  setMenuOpen(open);
+  if (open) navigation.querySelector('a').focus();
 });
 
 navigation.addEventListener('click', (event) => {
-  if (event.target.closest('a')) setMenuOpen(false);
+  if (!compactHeader.matches) return;
+
+  const link = event.target.closest('a');
+  if (!link) return;
+
+  setMenuOpen(false);
+  const section = document.getElementById(link.hash.slice(1));
+  if (section) {
+    section.tabIndex = -1;
+    section.focus({ preventScroll: true });
+  }
+});
+
+compactHeader.addEventListener('change', () => {
+  const focusedInNavigation = navigation.contains(document.activeElement);
+  setMenuOpen(false);
+  if (compactHeader.matches && focusedInNavigation) menuToggle.focus();
+});
+
+document.addEventListener('click', (event) => {
+  if (!siteHeader.contains(event.target)) setMenuOpen(false);
 });
 
 document.addEventListener('keydown', (event) => {
