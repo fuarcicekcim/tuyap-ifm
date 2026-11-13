@@ -296,6 +296,9 @@ svg.trust-icon { padding: 7px; }
 .buy-button span,
 .hero-actions .order-icon { font-size: inherit; }
 .order-icon { display: inline-flex; flex: none; align-items: center; }
+.site-footer .admin-entry { color: #778172; font-size: 11px; text-decoration: none; }
+.site-footer .admin-entry:hover { color: var(--order-forest); }
+[data-region][hidden], #catalog-empty[hidden] { display: none !important; }
 .order-icon svg, svg.order-icon { width: 17px; height: 17px; }
 
 .about-proof {

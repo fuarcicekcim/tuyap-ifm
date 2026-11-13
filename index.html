@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="growth.css?v=product-first-1">
   <link rel="stylesheet" href="branding.css">
   <link rel="stylesheet" href="hero.css?v=product-first-1">
-  <link rel="stylesheet" href="conversion.css?v=header-1">
+  <link rel="stylesheet" href="conversion.css?v=admin-1">
   <link rel="stylesheet" href="hero-gallery.css?v=3">
   <script type="application/ld+json">
   {
@@ -53,7 +53,7 @@
   <div class="site-announcement">
     <div class="announcement-inner">
       <div class="announcement-group">
-        <span class="announcement-status"><span class="live-dot" aria-hidden="true"></span>7/24 Fuar Acil Teslimat Hattı Aktif</span>
+        <span class="announcement-status"><span class="live-dot" aria-hidden="true"></span><span data-announcement-text>7/24 Fuar Acil Teslimat Hattı Aktif</span></span>
         <a class="announcement-delivery" href="#teslimat" title="Sipariş onayı, stok ve fuar giriş koşullarına göre"><span aria-hidden="true">⚡</span> TÜYAP &amp; İFM’ye 90 Dakikada Standa Teslimat</a>
       </div>
       <div class="announcement-group announcement-group--trust">
@@ -412,6 +412,7 @@
           </div>
         </article>
       </div>
+      <p id="catalog-empty" class="catalog-note" hidden>Bu kategoride şu anda ürün bulunmuyor.</p>
       <p class="catalog-note">Aynı gün teslimat için stok ve fuar giriş uygunluğu sipariş sırasında teyit edilir.</p>
     </section>
 
@@ -430,21 +431,21 @@
       <div class="section-index">TÜYAP & İSTANBUL FUAR MERKEZİ</div>
       <h2 id="venues-heading">Fuarınız için<br><em>birlikte planlayalım.</em></h2>
       <div class="hero-venue-logos">
-        <div class="hero-venue-logo">
+        <div class="hero-venue-logo" data-region="tuyap">
           <img src="assets/tuyap-teslimat-logo.png" alt="TÜYAP" width="193" height="56">
         </div>
-        <div class="hero-venue-logo hero-venue-logo-ifm">
+        <div class="hero-venue-logo hero-venue-logo-ifm" data-region="ifm">
           <img src="assets/ifm-teslimat-logo.svg" alt="İstanbul Fuar Merkezi (İFM)" width="100" height="80">
         </div>
       </div>
       <div class="venue-grid">
-        <article class="venue-card">
+        <article class="venue-card" data-region="tuyap">
           <span class="venue-label">TÜYAP’A YAKIN KONUM</span>
           <h3>TÜYAP Fuar Alanı</h3>
           <p>TÜYAP’a yakın konumumuzdan fuar katılımcıları, firmalar ve ziyaretçiler için çiçek aranjmanı, çelenk ve özel tasarım siparişleri hazırlıyoruz.</p>
           <a class="venue-link" href="#urunler">TÜYAP için ürün seç <span aria-hidden="true">↗</span></a>
         </article>
-        <article class="venue-card">
+        <article class="venue-card" data-region="ifm">
           <span class="venue-label">İFM’YE DE HİZMET VERİYORUZ</span>
           <h3>İstanbul Fuar Merkezi (İFM)</h3>
           <p>İFM’deki stant ve etkinlikler için de hizmet veriyoruz. Seçtiğiniz ürün, etkinlik tarihi, salon ve stant bilgilerinize göre teslimatı birlikte planlıyoruz.</p>
@@ -487,11 +488,11 @@
         </details>
         <details>
           <summary>7/24 açık mısınız, teslimat saatini nasıl belirliyorsunuz?</summary>
-          <p>Fuar Çiçekçim 7/24 açıktır. Stok ve fuar girişi uygunsa TÜYAP ve İFM’ye sipariş onayından itibaren 90 dakikada teslimat yaparız. Teslimat aralığını sipariş sırasında teyit ederiz.</p>
+          <p data-delivery-summary>Fuar Çiçekçim 7/24 açıktır. Stok ve fuar girişi uygunsa TÜYAP ve İFM’ye sipariş onayından itibaren 90 dakikada teslimat yaparız. Teslimat aralığını sipariş sırasında teyit ederiz.</p>
         </details>
         <details>
           <summary>Fiyatlara KDV dahil mi?</summary>
-          <p>Ürün kartlarında belirtilen fiyatlara %20 KDV eklenir. TÜYAP ve İFM’ye standa teslimat ürün fiyatına dahildir. Şirket bilgilerinizi paylaştığınızda kurumsal e-Fatura düzenleriz.</p>
+          <p data-vat-summary>Ürün kartlarında belirtilen fiyatlara %20 KDV eklenir. TÜYAP ve İFM’ye standa teslimat ürün fiyatına dahildir. Şirket bilgilerinizi paylaştığınızda kurumsal e-Fatura düzenleriz.</p>
         </details>
       </div>
     </section>
@@ -508,7 +509,7 @@
     </section>
   </main>
 
-  <footer class="site-footer"><a class="brand" href="#anasayfa" aria-label="Fuar Çiçekçim ana sayfa"><img class="brand-logo" src="assets/fuar-cicekcim-logo-yatay.png" alt="Fuar Çiçekçim" width="720" height="240"></a><div class="footer-contact"><span>7/24 açık · TÜYAP & İFM</span><a href="tel:+905475670406">+90 547 567 0406</a></div><a href="#anasayfa">Başa dön ↑</a></footer>
+  <footer class="site-footer"><a class="brand" href="#anasayfa" aria-label="Fuar Çiçekçim ana sayfa"><img class="brand-logo" src="assets/fuar-cicekcim-logo-yatay.png" alt="Fuar Çiçekçim" width="720" height="240"></a><div class="footer-contact"><span>7/24 açık · TÜYAP & İFM</span><a href="tel:+905475670406">+90 547 567 0406</a></div><a class="admin-entry" href="admin.html">🔒 Yönetici</a><a href="#anasayfa">Başa dön ↑</a></footer>
   <nav class="contact-rail" aria-label="Hızlı iletişim">
     <a class="contact-rail__link contact-rail__link--instagram" href="https://www.instagram.com/fuarcicekcim/" target="_blank" rel="noopener" aria-label="Instagram">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
@@ -527,7 +528,9 @@
       <span class="contact-rail__label">WhatsApp’tan sipariş ver</span>
     </a>
   </nav>
-  <script src="storefront.js?v=header-1" defer></script>
+  <script src="products-data.js" defer></script>
+  <script src="catalog-store.js?v=1" defer></script>
+  <script src="storefront.js?v=admin-1" defer></script>
   <script src="hero-gallery.js?v=2" defer></script>
 </body>
 </html>
