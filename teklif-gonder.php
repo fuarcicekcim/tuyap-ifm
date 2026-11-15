@@ -130,7 +130,7 @@ function smtp_send(array $cfg, string $to, string $subject, string $body, string
   $fp = @stream_socket_client("$prefix$host:$port", $errno, $errstr, 15);
   if (!$fp) { $err = "SMTP bağlantı hatası: $errstr"; return false; }
   $read = function () use ($fp) { $r = ''; while ($line = fgets($fp, 512)) { $r .= $line; if (substr($line, 3, 1) === ' ') break; } return $r; };
-  $cmd = function (string $c, array $okCodes) use ($fp, $read, &$err) { fwrite($fp, $c . "\r\n"); $r = $read(); $code = (int) substr($r, 0, 3); if (!in_array($code, $okCodes, true)) { $err = "SMTP: $c → $r"; return false; } return true; };
+  $cmd = function (string $c, array $okCodes) use ($fp, $read, &$err) { fwrite($fp, $c . "\r\n"); $r = $read(); $code = (int) substr($r, 0, 3); if (!in_array($code, $okCodes, true)) { $err = "SMTP yanıt kodu $code → $r"; return false; } return true; };
   $read();
   if (!$cmd('EHLO ' . ($_SERVER['HTTP_HOST'] ?? 'localhost'), [250])) return false;
   if ($port === 587) { if (!$cmd('STARTTLS', [220])) return false; stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT); if (!$cmd('EHLO ' . ($_SERVER['HTTP_HOST'] ?? 'localhost'), [250])) return false; }
