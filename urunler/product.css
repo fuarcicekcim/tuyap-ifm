@@ -73,3 +73,9 @@ a:focus-visible { outline: 2px solid #a44831; outline-offset: 4px; }
   .product-detail { grid-template-columns: 1fr; }
   .product-detail__photo { max-height: min(54svh, 480px); }
 }
+
+.product-detail__kicker { margin: 0 0 8px; font-size: .7rem; letter-spacing: .14em; font-weight: 700; color: #49624b; }
+.product-scene { margin-top: 28px; border: 1px solid #e0d7ca; border-radius: 18px; background: #fffcf8; padding: clamp(18px, 4vw, 32px); }
+.product-scene h2 { margin: 0 0 14px; font: 500 clamp(20px, 3vw, 26px)/1.2 "Playfair Display", Georgia, serif; }
+.product-scene img { display: block; width: 100%; max-width: 640px; height: auto; margin: 0 auto; border-radius: 12px; background: #eee8df; }
+.product-scene__note { margin: 14px auto 0; max-width: 640px; color: #566155; font-size: .85rem; line-height: 1.5; }

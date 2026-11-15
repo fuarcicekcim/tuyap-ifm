@@ -133,10 +133,12 @@ function renderCatalog(nextCatalog) {
     image.src = window.FuarStore.assetUrl(product.image);
     image.alt = product.alt || product.name;
     image.loading = index < 3 ? 'eager' : 'lazy';
-    const badge = card.querySelector('.product-badge');
+    let badge = card.querySelector('.product-badge');
     const badgeName = catalog.badges.find(badge => badge.id === product.badge)?.name;
-    if (badgeName) badge.replaceChildren(document.createTextNode(badgeName));
-    else badge.remove();
+    if (badgeName) {
+      if (!badge) { badge = document.createElement('span'); badge.className = 'product-badge'; photo.append(badge); }
+      badge.replaceChildren(document.createTextNode(badgeName));
+    } else badge?.remove();
     const category = catalog.categories.find(category => category.id === product.category);
     const factoryName = factoryCategories.find(category => category.id === product.category)?.name;
     card.querySelector('.product-type').textContent = product.label && category.name === factoryName ? product.label : category.name.toLocaleUpperCase('tr-TR');
