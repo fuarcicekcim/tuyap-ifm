@@ -87,10 +87,11 @@ $govde = implode("\n", $satirlar);
 $konu  = "Teklif: $firma — $fuar" . ($stant ? " ($stant)" : '');
 
 // Yedek kayıt
+$saved = false;
 if (!empty($cfg['teklifleri_kaydet'])) {
   $dir = __DIR__ . '/veri';
   if (!is_dir($dir)) { @mkdir($dir, 0755, true); @file_put_contents("$dir/.htaccess", "Require all denied\n"); @file_put_contents("$dir/index.html", ""); }
-  @file_put_contents("$dir/teklifler-" . date('Y-m') . ".txt", $govde . "\n\n" . str_repeat('=', 64) . "\n\n", FILE_APPEND | LOCK_EX);
+  $saved = @file_put_contents("$dir/teklifler-" . date('Y-m') . ".txt", $govde . "\n\n" . str_repeat('=', 64) . "\n\n", FILE_APPEND | LOCK_EX) !== false;
 }
 
 // E-posta gönder
@@ -114,10 +115,10 @@ if (!empty($cfg['smtp_host'])) {
   if (!$ok) $err = 'mail() başarısız';
 }
 
-if ($ok || !empty($cfg['teklifleri_kaydet'])) {
+if ($ok || $saved) {
   // E-posta gitmese bile dosyaya kaydedildiyse kullanıcıya başarı dönüyoruz; sorun loglanır.
   if (!$ok) error_log("fuarcicekcim teklif e-postası gönderilemedi: $err");
-  echo json_encode(['ok' => true, 'mail' => (bool) $ok], JSON_UNESCAPED_UNICODE);
+  echo json_encode(['ok' => true, 'mail' => (bool) $ok, 'saved' => $saved], JSON_UNESCAPED_UNICODE);
 } else {
   fail('E-posta gönderilemedi. Lütfen WhatsApp ile iletin.', 500);
 }
