@@ -177,6 +177,13 @@
         const res = await fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ ...data, mesaj: buildMessage(data), sayfa: location.href }) });
         const json = await res.json().catch(() => ({}));
         if (!res.ok || !json.ok) throw new Error(json.error || 'Sunucu yanıt vermedi.');
+        if (json.mail !== true) {
+          if (json.saved !== true) throw new Error('Talep kaydedilemedi.');
+          statusBox.textContent = 'Talebiniz kaydedildi ancak bildirim iletilemedi. Hızlı onay için "WhatsApp’tan gönder" düğmesini kullanın; bilgileriniz mesaja hazır olarak eklendi.';
+          statusBox.classList.add('err');
+          updateWa();
+          return;
+        }
         statusBox.textContent = 'Teşekkürler! Talebiniz bize ulaştı. En kısa sürede WhatsApp veya telefonla dönüş yapacağız. Daha hızlı yanıt için yandaki WhatsApp düğmesini de kullanabilirsiniz.';
         statusBox.classList.add('ok');
         form.reset(); updateWa();
