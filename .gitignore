@@ -8,3 +8,10 @@ config.php
 veri/
 # Yayın rehberi yönetici PIN'i içerir; proje kökündeki kopyası esas alınır
 YAYIN-REHBERI.md
+
+# Vite: bağımlılıklar, derleme çıktısı ve gizli ortam değişkenleri
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
