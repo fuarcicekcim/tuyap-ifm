@@ -75,7 +75,7 @@
 
       <main class="admin-content" id="admin-main-content">
         <div class="publish-banner">
-          <div class="publish-copy"><span class="publish-icon"><i data-lucide="hard-drive-download" aria-hidden="true"></i></span><p><strong>Değişiklikleriniz bu tarayıcıya kaydedilir.</strong><span>Tüm ziyaretçilere yayınlamak için güncel veri dosyasını GitHub’a yükleyin.</span></p></div>
+          <div class="publish-copy"><span class="publish-icon"><i data-lucide="hard-drive-download" aria-hidden="true"></i></span><p><strong>Değişiklikleriniz bu tarayıcıya kaydedilir.</strong><span>Tüm ziyaretçilere yayınlamak için “Dışa aktar” penceresinden <strong>Sunucuya yayınla</strong>’yı kullanın.</span></p></div>
           <button class="admin-button admin-button--terracotta" id="export-button" type="button"><i data-lucide="download" aria-hidden="true"></i><span>Güncel veriyi indir / kopyala</span></button>
         </div>
 
@@ -162,10 +162,11 @@
   </dialog>
 
   <dialog class="admin-dialog export-dialog" id="export-dialog" aria-labelledby="export-title">
-    <div class="dialog-heading"><div><span class="dialog-eyebrow">GITHUB PAGES</span><h2 id="export-title">Güncel veriyi yayınlayın</h2></div><button class="icon-button" type="button" data-close-dialog="export-dialog" aria-label="Dışa aktarma penceresini kapat"><i data-lucide="x" aria-hidden="true"></i></button></div>
-    <p class="dialog-description">Güncel <code>products-data.js</code> dosyasını indirin ve GitHub deponuzdaki aynı dosyanın yerine yükleyin. Yayın tamamlandığında değişiklikler tüm ziyaretçilere yansır.</p>
+    <div class="dialog-heading"><div><span class="dialog-eyebrow">FUARCICEKCIM.COM</span><h2 id="export-title">Güncel veriyi sunucuya yayınlayın</h2></div><button class="icon-button" type="button" data-close-dialog="export-dialog" aria-label="Dışa aktarma penceresini kapat"><i data-lucide="x" aria-hidden="true"></i></button></div>
+    <p class="dialog-description">Yayın şifrenizi girip <strong>Sunucuya yayınla</strong>’ya basın; <code>products-data.js</code> doğrudan sitede güncellenir ve tüm ziyaretçilere yansır. (Şifre: cPanel’deki <code>config.php</code> → <code>admin_sifre</code>.) Alternatif olarak dosyayı indirip File Manager ile yükleyebilirsiniz.</p>
+    <label class="form-field"><span>Yayın şifresi</span><input id="publish-password" type="password" autocomplete="current-password" placeholder="config.php içindeki admin_sifre"></label>
     <label class="form-field export-code-label"><span>Veri dosyasının içeriği</span><textarea id="export-code" rows="10" readonly spellcheck="false"></textarea></label>
-    <div class="dialog-actions"><button class="admin-button admin-button--quiet" id="copy-data-button" type="button"><i data-lucide="copy" aria-hidden="true"></i> Kodu kopyala</button><button class="admin-button admin-button--primary" id="download-data-button" type="button"><i data-lucide="download" aria-hidden="true"></i> products-data.js indir</button></div>
+    <div class="dialog-actions"><button class="admin-button admin-button--quiet" id="copy-data-button" type="button"><i data-lucide="copy" aria-hidden="true"></i> Kodu kopyala</button><button class="admin-button admin-button--quiet" id="download-data-button" type="button"><i data-lucide="download" aria-hidden="true"></i> products-data.js indir</button><button class="admin-button admin-button--primary" id="publish-server-button" type="button"><i data-lucide="cloud-upload" aria-hidden="true"></i> Sunucuya yayınla</button></div>
   </dialog>
 
   <dialog class="admin-dialog confirm-dialog" id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-description">

@@ -566,6 +566,27 @@
   });
 
   get('export-button').addEventListener('click', exportData);
+  get('publish-server-button')?.addEventListener('click', async () => {
+    const button = get('publish-server-button');
+    const password = get('publish-password').value;
+    if (!password) { notify('Yayın şifresini girin.'); get('publish-password').focus(); return; }
+    button.disabled = true;
+    try {
+      const response = await fetch('api/katalog-kaydet.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ sifre: password, kaynak: get('export-code').value })
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.error || `Sunucu hatası (${response.status})`);
+      notify('Katalog sunucuya yayınlandı. Değişiklikler tüm ziyaretçilere yansıyor.');
+      get('publish-password').value = '';
+    } catch (error) {
+      notify(`Yayınlanamadı: ${error.message}`);
+    } finally {
+      button.disabled = false;
+    }
+  });
   get('download-data-button').addEventListener('click', () => {
     const blob = new Blob([get('export-code').value], { type: 'text/javascript;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -576,7 +597,7 @@
     link.click();
     link.remove();
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-    notify('products-data.js indirildi. Tüm ziyaretçilere yayınlamak için bu dosyayı GitHub deponuza yükleyin.');
+    notify('products-data.js indirildi. Tüm ziyaretçilere yayınlamak için cPanel File Manager ile site kök dizinine yükleyin.');
   });
   get('copy-data-button').addEventListener('click', async () => {
     try {

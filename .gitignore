@@ -2,3 +2,9 @@
 Thumbs.db
 desktop.ini
 
+
+# Sunucuya özel ayarlar ve çalışma verileri (depoya girmez)
+config.php
+veri/
+# Yayın rehberi yönetici PIN'i içerir; proje kökündeki kopyası esas alınır
+YAYIN-REHBERI.md

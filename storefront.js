@@ -107,9 +107,6 @@ function syncSettings() {
   document.querySelector('.hero h1').firstChild.textContent = destination;
   const deliveryAnnouncement = document.querySelector('.announcement-delivery');
   deliveryAnnouncement.textContent = regionNames.length ? `⚡ ${destination} 90 Dakikada Standa Teslimat` : 'Teslimatı birlikte planlayalım';
-  const venueNavigation = document.querySelector('.nav-venue');
-  const venueIcon = venueNavigation.querySelector('svg');
-  venueNavigation.replaceChildren(venueIcon, document.createTextNode(` ${regionNames.join(' & ') || 'Teslimat'}`));
   document.querySelector('.trust-item:first-child strong').textContent = regionNames.length ? '90 dakikada standa teslimat' : 'Teslimatı birlikte planlayalım';
   document.querySelector('.trust-item:first-child small').textContent = regionNames.length ? `${regionNames.join(' ve ')} · Sipariş onayıyla` : 'WhatsApp üzerinden iletişim';
   for (const element of document.querySelectorAll('[data-region]')) element.hidden = !settings.regions[element.dataset.region];
@@ -117,7 +114,7 @@ function syncSettings() {
   document.querySelector('.delivery-note').textContent = regionNames.length ? `${destination} 90 dakikada standa teslimat, ürünün stokta ve fuar girişinin uygun olduğu siparişlerde geçerlidir. Süre sipariş onayından başlar. Teslimat fotoğrafını WhatsApp’tan paylaşırız.` : 'Fuar ve stant bilgilerinizi paylaşın, teslimat seçeneklerini birlikte planlayalım.';
   document.querySelector('.proof-card strong').textContent = `${regionNames.length} aktif fuar merkezi`;
   document.querySelector('.proof-card span').textContent = regionNames.length ? `${regionNames.join(' ve ')} stantlarına teslimat` : 'Teslimat için bizimle iletişime geçin';
-  document.querySelector('.footer-contact span').textContent = `7/24 açık${regionNames.length ? ` · ${regionNames.join(' & ')}` : ''}`;
+  const footerContact = document.querySelector('.footer-contact span'); if (footerContact) footerContact.textContent = `7/24 açık${regionNames.length ? ` · ${regionNames.join(' & ')}` : ''}`;
   document.querySelector('.contact > p:not(.contact-hours)').textContent = 'Fuar etkinliğinizi ve ihtiyaçlarınızı anlatın, size uygun çiçek çözümlerini birlikte planlayalım.';
   document.querySelector('[data-delivery-summary]').textContent = `Fuar Çiçekçim 7/24 açıktır. ${regionNames.length ? `Stok ve fuar girişi uygunsa ${destination} sipariş onayından itibaren 90 dakikada teslimat yaparız.` : 'Teslimat seçenekleri için bizimle iletişime geçebilirsiniz.'} Teslimat aralığını sipariş sırasında teyit ederiz.`;
   updateHeader();
