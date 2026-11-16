@@ -22,7 +22,7 @@ function header() {
 <div class="topbar">
   <div class="wrap">
     <p class="topbar__msgs">
-      <a class="topbar__msg topbar__call" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="topbar"><span class="topbar__call-icon">${icon('phone')}<span class="topbar__live" aria-hidden="true"></span></span><span class="topbar__long">7/24 Telefon Hattımız Açık · <u>${esc(CONTACT.phoneDisplay)}</u></span><span class="topbar__short">7/24 Hat Açık</span></a>
+      <a class="topbar__msg topbar__call" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="topbar"><span class="topbar__call-icon">${icon('phone')}<span class="topbar__live" aria-hidden="true"></span></span><span class="topbar__long">7/24 · <u>${esc(CONTACT.phoneDisplay)}</u></span><span class="topbar__short">7/24 Arayın</span></a>
       <span class="topbar__msg"><img class="topbar__bolt" src="/assets/icons/simsek-3d.webp" width="36" height="64" alt="" decoding="async"><span class="topbar__long">TÜYAP ve İFM’ye <strong>${DELIVERY.minutes} Dakikada</strong> Standa Teslimat</span><span class="topbar__short">TÜYAP &amp; İFM’ye <strong>${DELIVERY.minutes} dk’da</strong> teslimat</span></span>
     </p>
     <span class="topbar__extra">
