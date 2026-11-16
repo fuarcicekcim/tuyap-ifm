@@ -1,7 +1,7 @@
 import './styles/tokens.css';
 import './styles/base.css';
 import './styles/layout.css';
-import { track } from './js/analytics.js';
+import { track, initAnalytics } from './js/analytics.js';
 import { initReveal } from './js/reveal.js';
 import { initDrawer } from './js/drawer.js';
 import { initCatalog } from './js/catalog.js';
@@ -11,6 +11,7 @@ import './styles/content.css';
 import './styles/sections.css';
 import './styles/drawer.css';
 
+initAnalytics();
 initDrawer();
 refreshPrices(initCatalog());
 initQuote();

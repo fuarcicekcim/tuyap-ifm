@@ -20,6 +20,8 @@ export function kvkk() {
     <p>Veriler, internet sitemizdeki formlar ve WhatsApp yazışmaları aracılığıyla elektronik ortamda; KVKK m. 5/2-c (sözleşmenin kurulması ve ifası), m. 5/2-ç (hukuki yükümlülük) ve m. 5/2-f (meşru menfaat) hukuki sebeplerine dayanılarak işlenir.</p>
     <h2>Aktarım</h2>
     <p>Kişisel verileriniz yalnızca siparişin yerine getirilmesi için gerekli olduğu ölçüde; e-posta ve barındırma hizmeti sağlayıcıları, WhatsApp (Meta Platforms) iletişim altyapısı ve yasal olarak yetkili kamu kurumları ile paylaşılabilir. Bu hizmet sağlayıcılarının bir kısmının sunucuları yurt dışında bulunabilir.</p>
+    <h2>Çerezler ve ölçüm araçları</h2>
+    <p>Sitemizde, ziyaretlerin ve reklamlarımızın etkinliğini ölçmek amacıyla Google LLC tarafından sağlanan Google Analytics ve Google Ads hizmetleri kullanılabilir. Bu araçlar çerezler ve benzeri teknolojilerle; ziyaret edilen sayfalar, tıklanan butonlar (sipariş, WhatsApp, telefon), cihaz ve tarayıcı bilgisi, yaklaşık konum ve reklam tıklama bilgisi gibi verileri toplar. Bu veriler Google’ın yurt dışındaki sunucularında işlenebilir. Sipariş formuna yazdığınız ad, telefon, e-posta ve fatura bilgileri bu araçlara gönderilmez. Çerezleri tarayıcınızın ayarlarından silebilir veya engelleyebilir; Google reklam kişiselleştirmesini adssettings.google.com adresinden kapatabilirsiniz.</p>
     <h2>Haklarınız</h2>
     <p>KVKK m. 11 uyarınca verilerinizin işlenip işlenmediğini öğrenme, bilgi talep etme, düzeltilmesini veya silinmesini isteme ve işlemeye itiraz etme haklarına sahipsiniz. Taleplerinizi ${esc(CONTACT.email)} adresine iletebilirsiniz.</p>
   </div>

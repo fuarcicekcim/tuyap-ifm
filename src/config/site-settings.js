@@ -56,7 +56,17 @@ export const RIBBON = {
 };
 
 export const ANALYTICS = {
-  // GA4 ölçüm kimliği (G-XXXXXXX) ve Google Ads dönüşüm kimliği kullanıcıdan alınınca doldurulacak.
+  // Boş bırakılan kimlik için hiçbir Google etiketi yüklenmez; site yine sorunsuz çalışır.
+  // GA4 ölçüm kimliği: Google Analytics → Yönetici → Veri akışları → "G-XXXXXXXXXX".
   ga4Id: '',
+  // Google Ads etiket kimliği: Google Ads → Hedefler → Dönüşümler → etiket kurulumu → "AW-XXXXXXXXXX".
   adsId: '',
+  // Her dönüşüm işleminin etiketi (send_to'daki "/" işaretinden sonraki kısım, ör. "AbC1dEfGhIjK").
+  // Etiketi boş olan işlem Google Ads'e dönüşüm olarak gönderilmez (GA4'e olay olarak yine gider).
+  conversions: {
+    order_submit: '', // Sipariş gönderimi (sepet tutarı, KDV dahil, TRY)
+    whatsapp_click: '', // Herhangi bir WhatsApp butonuna tıklama
+    phone_click: '', // Telefon numarasına tıklama
+    corporate_quote_submit: '', // Kurumsal teklif formunun gönderilmesi
+  },
 };

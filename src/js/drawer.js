@@ -169,7 +169,7 @@ async function submit(e) {
     timeout,
   ]);
 
-  track('order_submit', { value: totals.gross, currency: 'TRY', items: cart.count, order_id: no });
+  track('order_submit', { value: totals.gross, currency: 'TRY', item_count: cart.count, order_id: no });
   if (waWin) { waWin.opener = null; waWin.location.href = waUrl; }
   else window.location.href = waUrl;
 
