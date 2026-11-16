@@ -98,7 +98,7 @@ function products(catalog) {
     <h2 class="sr-only" id="urunler-baslik">Fuar çiçekleri ve fiyatları</h2>
     <div class="products__bar">
       <div class="filters" role="tablist" aria-label="Kategoriye göre filtrele">
-        ${tabs.map(([id, name, n], i) => `<button class="filters__tab" type="button" role="tab" aria-selected="${i === 0}" data-filter="${id}">${esc(name)}<span>${n}</span></button>`).join('')}
+        ${tabs.map(([id, name], i) => `<button class="filters__tab" type="button" role="tab" aria-selected="${i === 0}" data-filter="${id}">${esc(name)}</button>`).join('')}
       </div>
     </div>
     <div class="grid" data-grid>
