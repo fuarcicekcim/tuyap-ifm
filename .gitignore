@@ -12,6 +12,7 @@ YAYIN-REHBERI.md
 # Vite: bağımlılıklar, derleme çıktısı ve gizli ortam değişkenleri
 node_modules/
 dist/
+.build/
 .env
 .env.*
 !.env.example
