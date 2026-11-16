@@ -55,26 +55,33 @@ function hero() {
 function fairBand() {
   const venue = VENUES.find((v) => v.id === FAIR_DAYS.activeFairVenue);
   const wd = new Intl.DateTimeFormat('tr-TR', { weekday: 'short', timeZone: 'Europe/Istanbul' });
-  const year = FAIR_DAYS.days[0].slice(0, 4);
+  const mon = new Intl.DateTimeFormat('tr-TR', { month: 'long', timeZone: 'Europe/Istanbul' });
+  const days = FAIR_DAYS.days;
+  const first = days[0];
+  const last = days[days.length - 1];
+  const at = (d) => new Date(`${d}T12:00:00+03:00`);
   return `
 <section class="fairband" aria-labelledby="fuar-baslik">
-  <div class="wrap fairband__inner">
-    <a class="fairband__logo" href="${FAIR_DAYS.activeFairPage}" aria-label="${esc(FAIR_DAYS.activeFairName)} sayfası">
-      <img src="/assets/fuar/avrasya-pencere-kapi-logo.webp" width="440" height="174" alt="Avrasya Pencere &amp; Kapı Fuarı logosu" loading="lazy" decoding="async">
-      <span class="fairband__logo-sep" aria-hidden="true"></span>
-      <img src="/assets/fuar/avrasya-cam-logo.webp" width="366" height="174" alt="Avrasya Cam Fuarı logosu" loading="lazy" decoding="async">
-    </a>
-    <div class="fairband__body">
-      <p class="eyebrow">Sıradaki fuar · ${esc(venue.short)}</p>
-      <h2 id="fuar-baslik">${esc(FAIR_DAYS.activeFairName)}</h2>
-      <p class="fairband__meta"><span>${icon('calendar')}${trRange(FAIR_DAYS.days)} ${year}</span><span>${icon('map-pin')}${esc(venue.name)}, ${esc(venue.district)}</span></p>
-    </div>
-    <ol class="fairband__days" aria-label="Fuar günleri">
-      ${FAIR_DAYS.days.map((d) => `<li><small>${wd.format(new Date(`${d}T12:00:00+03:00`))}</small><strong>${d.slice(8)}</strong></li>`).join('')}
-    </ol>
-    <div class="fairband__ctas">
-      <button class="btn btn--gold" type="button" data-drawer-open data-fair="${esc(FAIR_DAYS.activeFairName)}" data-venue="${esc(venue.name)}" data-track-location="fair-band">${icon('shopping-bag')}Bu fuar için sipariş</button>
-      <a class="fairband__link" href="${FAIR_DAYS.activeFairPage}">Fuar sayfası ${icon('arrow-up-right')}</a>
+  <div class="wrap">
+    <div class="fairband__card">
+      <p class="fairband__date" aria-label="${trRange(days)} ${first.slice(0, 4)}">
+        <strong>${Number(first.slice(8))}–${Number(last.slice(8))}</strong>
+        <span>${esc(mon.format(at(first)))} ${first.slice(0, 4)}</span>
+        <small>${esc(wd.format(at(first)))} – ${esc(wd.format(at(last)))}</small>
+      </p>
+      <div class="fairband__body">
+        <p class="eyebrow">Sıradaki fuar · ${esc(venue.short)}</p>
+        <h2 id="fuar-baslik">${esc(FAIR_DAYS.activeFairName)}</h2>
+        <p class="fairband__meta">${icon('map-pin')}${esc(venue.name)}, ${esc(venue.district)}</p>
+      </div>
+      <a class="fairband__logo" href="${FAIR_DAYS.activeFairPage}" aria-label="${esc(FAIR_DAYS.activeFairName)} sayfası">
+        <img src="/assets/fuar/avrasya-pencere-kapi-logo.webp" width="440" height="174" alt="Avrasya Pencere &amp; Kapı Fuarı logosu" loading="lazy" decoding="async">
+        <img src="/assets/fuar/avrasya-cam-logo.webp" width="366" height="174" alt="Avrasya Cam Fuarı logosu" loading="lazy" decoding="async">
+      </a>
+      <div class="fairband__ctas">
+        <button class="btn btn--gold" type="button" data-drawer-open data-fair="${esc(FAIR_DAYS.activeFairName)}" data-venue="${esc(venue.name)}" data-track-location="fair-band">${icon('shopping-bag')}Bu fuar için sipariş</button>
+        <a class="fairband__link" href="${FAIR_DAYS.activeFairPage}">Fuar sayfası ${icon('arrow-up-right')}</a>
+      </div>
     </div>
   </div>
 </section>`;

@@ -195,36 +195,8 @@
   .hero__chapter.is-active .hero__chapter-bar i { transform: scaleX(1); }
 }
 
-/* ---------- Aktif fuar şeridi ---------- */
-.fairband { background: var(--paper); border-bottom: 1px solid var(--line); }
-.fairband__inner { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.1rem 1.25rem; align-items: center; padding-block: 1.4rem; }
-.fairband__logo { grid-column: 1 / -1; justify-self: start; display: flex; align-items: center; gap: .9rem; padding: .6rem .9rem; background: #fff; border: 1px solid var(--line); }
-.fairband__logo-sep { width: 1px; align-self: stretch; background: var(--line); }
-.fairband__logo img { width: auto; height: 46px; }
-.fairband__body .eyebrow { margin-bottom: .35rem; }
-.fairband h2 { font-size: var(--step-1); font-weight: 600; line-height: 1.15; }
-.fairband__meta { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; margin-top: .45rem; font-size: .86rem; color: var(--muted); }
-.fairband__meta span { display: inline-flex; align-items: center; gap: .35rem; }
-.fairband__meta .icon { width: 14px; height: 14px; color: var(--gold); flex: none; }
-.fairband__days { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; padding: 0; list-style: none; border: 1px solid var(--line); background: #fff; }
-.fairband__days li { display: grid; justify-items: center; padding: .45rem .6rem; }
-.fairband__days li + li { border-left: 1px solid var(--line); }
-.fairband__days small { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-.fairband__days strong { font-family: var(--font-display); font-size: 1.7rem; font-weight: 500; line-height: 1.05; color: var(--forest); }
-.fairband__ctas { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.25rem; }
-.fairband__link { display: inline-flex; align-items: center; gap: .3rem; font-weight: 600; font-size: .9rem; color: var(--forest); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
-.fairband__link .icon { width: 14px; height: 14px; }
-@media (min-width: 1200px) {
-  .fairband__inner { grid-template-columns: auto minmax(0, 1fr) auto auto; gap: 2.2rem; padding-block: 1.6rem; }
-  .fairband__logo { grid-column: auto; }
-  .fairband__logo img { height: 56px; }
-  .fairband__days, .fairband__ctas { grid-column: auto; }
-  .fairband__days li { padding: .5rem 1rem; }
-  .fairband__ctas { flex-direction: column; align-items: stretch; text-align: center; gap: .6rem; }
-  .fairband__link { justify-content: center; }
-}
 
-.fairband + .section { padding-top: clamp(2rem, 1.4rem + 1.6vw, 3rem); }
+
 
 /* ---------- Güven şeridi ---------- */
 .trust { border-bottom: 1px solid var(--line); background: var(--paper); }
@@ -357,12 +329,7 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   .footer__tag-venue { background: rgba(23, 54, 40, .75); }
 }
 
-/* Tablet / küçük masaüstü: fuar şeridi iki sütun (logo + bilgi), günler ve butonlar alt satırda yan yana. */
-@media (min-width: 768px) and (max-width: 1199px) {
-  .fairband__logo { grid-column: auto; }
-  .fairband__days { grid-column: 1 / 2; }
-  .fairband__ctas { grid-column: 2 / 3; }
-}
+
 
 
 
@@ -379,7 +346,48 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 .hero__rail { animation: hero-fade 1.2s var(--ease) .35s both; }
 @keyframes hero-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes hero-fade { from { opacity: 0; } to { opacity: 1; } }
-.fairband { border-bottom: 0; }
 @media (prefers-reduced-motion: reduce) {
   .hero__copy > *, .hero__rail { animation: none; }
 }
+
+/* ---------- Fuar şeridi: tek, toplu kart ---------- */
+/* Solda koyu tarih bloğu, ortada fuar adı ve yer, sağda resmi logolar ve sipariş butonu. */
+.fairband { padding-top: clamp(1rem, 2vw, 1.5rem); }
+.fairband__card {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 1rem 1.1rem;
+  padding: .75rem; border: 1px solid var(--line); border-radius: clamp(12px, 1.3vw, 18px);
+  background: #fff; box-shadow: 0 14px 40px -30px rgba(23, 54, 40, .45);
+}
+.fairband__date {
+  display: grid; justify-items: center; align-content: center; gap: .1rem;
+  min-width: 6.4rem; margin: 0; padding: .7rem .9rem; border-radius: clamp(8px, 1vw, 12px);
+  background: var(--forest); color: var(--cream); text-align: center;
+}
+.fairband__date strong { font-family: var(--font-display); font-size: 1.9rem; font-weight: 500; line-height: 1; }
+.fairband__date span { font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-soft); }
+.fairband__date small { font-size: .7rem; color: rgba(247, 245, 240, .65); }
+.fairband__body { min-width: 0; }
+.fairband__body .eyebrow { margin-bottom: .25rem; }
+.fairband h2 { font-size: var(--step-1); font-weight: 600; line-height: 1.15; }
+.fairband__meta { display: flex; align-items: center; gap: .35rem; margin: .35rem 0 0; font-size: .84rem; color: var(--muted); }
+.fairband__meta .icon { width: 14px; height: 14px; color: var(--gold); flex: none; }
+.fairband__logo { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .55rem .5rem; border-top: 1px solid var(--line); }
+.fairband__logo img { width: auto; height: 34px; }
+.fairband__logo img + img { padding-left: 1rem; border-left: 1px solid var(--line); }
+.fairband__ctas { grid-column: 1 / -1; display: flex; align-items: center; gap: .5rem 1.1rem; }
+.fairband__ctas .btn { flex: 1; justify-content: center; }
+.fairband__link { display: inline-flex; align-items: center; gap: .3rem; white-space: nowrap; font-weight: 600; font-size: .86rem; color: var(--forest); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
+.fairband__link .icon { width: 14px; height: 14px; }
+@media (min-width: 768px) {
+  .fairband__card { grid-template-columns: auto minmax(0, 1fr) auto; gap: 1rem 1.6rem; padding: .7rem; }
+  .fairband__logo { grid-column: auto; padding: .2rem 0 .2rem 1.6rem; border-top: 0; border-left: 1px solid var(--line); }
+  .fairband__logo img { height: 40px; }
+  .fairband__ctas { justify-content: flex-end; padding: .75rem .4rem .1rem; border-top: 1px solid var(--line); }
+  .fairband__ctas .btn { flex: none; }
+}
+@media (min-width: 1200px) {
+  .fairband__card { grid-template-columns: auto minmax(0, 1fr) auto auto; }
+  .fairband__ctas { grid-column: auto; padding: 0 .6rem 0 0; border-top: 0; }
+}
+
+.fairband + .section { padding-top: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); }
