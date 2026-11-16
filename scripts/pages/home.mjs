@@ -38,6 +38,7 @@ function hero() {
         <li>${icon('truck')}Teslimat fiyata dahil</li>
         <li>${icon('camera')}Fotoğraflı teslim onayı</li>
       </ul>
+      ${heroFair()}
     </div>
   </div>
 
@@ -51,41 +52,27 @@ function hero() {
 </section>`;
 }
 
-// Hero altındaki aktif fuar şeridi: resmi logo, gün gün tarih, fuara özel sipariş.
-function fairBand() {
+// Hero içindeki aktif fuar kartı: tarih bloğu, fuar adı ve yeri, resmi logolar, fuara özel sipariş.
+function heroFair() {
   const venue = VENUES.find((v) => v.id === FAIR_DAYS.activeFairVenue);
-  const wd = new Intl.DateTimeFormat('tr-TR', { weekday: 'short', timeZone: 'Europe/Istanbul' });
   const mon = new Intl.DateTimeFormat('tr-TR', { month: 'long', timeZone: 'Europe/Istanbul' });
   const days = FAIR_DAYS.days;
   const first = days[0];
   const last = days[days.length - 1];
-  const at = (d) => new Date(`${d}T12:00:00+03:00`);
-  return `
-<section class="fairband" aria-labelledby="fuar-baslik">
-  <div class="wrap">
-    <div class="fairband__card">
-      <p class="fairband__date" aria-label="${trRange(days)} ${first.slice(0, 4)}">
-        <strong>${Number(first.slice(8))}–${Number(last.slice(8))}</strong>
-        <span>${esc(mon.format(at(first)))} ${first.slice(0, 4)}</span>
-        <small>${esc(wd.format(at(first)))} – ${esc(wd.format(at(last)))}</small>
-      </p>
-      <div class="fairband__body">
-        <p class="eyebrow">Sıradaki fuar · ${esc(venue.short)}</p>
-        <h2 id="fuar-baslik">${esc(FAIR_DAYS.activeFairName)}</h2>
-        <p class="fairband__meta">${icon('map-pin')}${esc(venue.name)}, ${esc(venue.district)}</p>
-      </div>
-      <a class="fairband__logo" href="${FAIR_DAYS.activeFairPage}" aria-label="${esc(FAIR_DAYS.activeFairName)} sayfası">
-        <img src="/assets/fuar/avrasya-pencere-kapi-logo.webp" width="440" height="174" alt="Avrasya Pencere &amp; Kapı Fuarı logosu" loading="lazy" decoding="async">
-        <img src="/assets/fuar/avrasya-cam-logo.webp" width="366" height="174" alt="Avrasya Cam Fuarı logosu" loading="lazy" decoding="async">
-      </a>
-      <div class="fairband__ctas">
-        <button class="btn btn--gold" type="button" data-drawer-open data-fair="${esc(FAIR_DAYS.activeFairName)}" data-venue="${esc(venue.name)}" data-track-location="fair-band">${icon('shopping-bag')}Bu fuar için sipariş</button>
-        <a class="fairband__link" href="${FAIR_DAYS.activeFairPage}">Fuar sayfası ${icon('arrow-up-right')}</a>
-      </div>
-    </div>
-  </div>
-</section>`;
+  return `<div class="hero__fair" role="group" aria-labelledby="fuar-baslik">
+        <p class="hero__fair-date" aria-label="${trRange(days)} ${first.slice(0, 4)}"><strong>${Number(first.slice(8))}–${Number(last.slice(8))}</strong><span>${esc(mon.format(new Date(`${first}T12:00:00+03:00`)))}</span></p>
+        <div class="hero__fair-body">
+          <small>Sıradaki fuar · ${esc(venue.short)}</small>
+          <h2 id="fuar-baslik">${esc(FAIR_DAYS.activeFairName)}</h2>
+          <p class="hero__fair-links"><button type="button" data-drawer-open data-fair="${esc(FAIR_DAYS.activeFairName)}" data-venue="${esc(venue.name)}" data-track-location="hero-fair">Bu fuar için sipariş ${icon('arrow-right')}</button><a href="${FAIR_DAYS.activeFairPage}">Fuar sayfası</a></p>
+        </div>
+        <a class="hero__fair-logos" href="${FAIR_DAYS.activeFairPage}" aria-label="${esc(FAIR_DAYS.activeFairName)} sayfası">
+          <img src="/assets/fuar/avrasya-pencere-kapi-logo.webp" width="440" height="174" alt="Avrasya Pencere &amp; Kapı Fuarı logosu" decoding="async">
+          <img src="/assets/fuar/avrasya-cam-logo.webp" width="366" height="174" alt="Avrasya Cam Fuarı logosu" decoding="async">
+        </a>
+      </div>`;
 }
+
 
 function trust() {
   const items = [
@@ -208,6 +195,6 @@ export function home(catalog) {
     description: `TÜYAP ve İFM fuar standlarına açılış çelengi, kuşaklı VIP orkide, stant aranjmanı ve saksı bitkisi. ${DELIVERY.promise}, fotoğraflı teslim onayı ve kurumsal e-Fatura.`,
     preload: `<link rel="preload" as="image" href="/assets/hero/tuyap-orkide-768.webp" imagesrcset="/assets/hero/tuyap-orkide-768.webp 768w, /assets/hero/tuyap-orkide.webp 1536w" imagesizes="100vw" fetchpriority="high">`,
     jsonld: schema(),
-    body: hero() + fairBand() + products(catalog) + trust() + corporate() + steps() + faq(),
+    body: hero() + products(catalog) + trust() + corporate() + steps() + faq(),
   });
 }

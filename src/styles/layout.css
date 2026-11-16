@@ -343,6 +343,7 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 .hero__copy > * { animation: hero-rise .9s var(--ease) both; }
 .hero__copy > :nth-child(2) { animation-delay: .12s; }
 .hero__copy > :nth-child(3) { animation-delay: .24s; }
+.hero__copy > :nth-child(4) { animation-delay: .36s; }
 .hero__rail { animation: hero-fade 1.2s var(--ease) .35s both; }
 @keyframes hero-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes hero-fade { from { opacity: 0; } to { opacity: 1; } }
@@ -350,44 +351,44 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   .hero__copy > *, .hero__rail { animation: none; }
 }
 
-/* ---------- Fuar şeridi: tek, toplu kart ---------- */
-/* Solda koyu tarih bloğu, ortada fuar adı ve yer, sağda resmi logolar ve sipariş butonu. */
-.fairband { padding-top: clamp(1rem, 2vw, 1.5rem); }
-.fairband__card {
-  display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 1rem 1.1rem;
-  padding: .75rem; border: 1px solid var(--line); border-radius: clamp(12px, 1.3vw, 18px);
-  background: #fff; box-shadow: 0 14px 40px -30px rgba(23, 54, 40, .45);
+/* ---------- Hero içindeki fuar kartı ---------- */
+.hero__fair {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: .8rem 1rem;
+  max-width: 40rem; margin-top: 1.5rem; padding: .6rem; border-radius: 14px;
+  background: rgba(247, 245, 240, .06); border: 1px solid rgba(247, 245, 240, .14);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
 }
-.fairband__date {
-  display: grid; justify-items: center; align-content: center; gap: .1rem;
-  min-width: 6.4rem; margin: 0; padding: .7rem .9rem; border-radius: clamp(8px, 1vw, 12px);
-  background: var(--forest); color: var(--cream); text-align: center;
+.hero__fair-date { display: grid; justify-items: center; gap: .15rem; min-width: 5rem; margin: 0; padding: .6rem .7rem; border-radius: 10px; border: 1px solid rgba(197, 160, 89, .55); background: rgba(197, 160, 89, .1); }
+.hero__fair-date strong { font-family: var(--font-display); font-size: 1.6rem; font-weight: 500; line-height: 1; color: var(--cream); }
+.hero__fair-date span { font-size: .64rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-soft); }
+.hero__fair-body { min-width: 0; }
+.hero__fair-body small { display: block; font-size: .64rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.hero__fair-body h2 { margin: .2rem 0 0; font-size: 1.12rem; font-weight: 500; line-height: 1.2; color: var(--cream); }
+.hero__fair-links { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1.1rem; margin: .4rem 0 0; font-size: .8rem; }
+.hero__fair-links button, .hero__fair-links a { display: inline-flex; align-items: center; gap: .3rem; padding: 0; border: 0; background: none; font: inherit; font-weight: 600; color: var(--gold-soft); cursor: pointer; text-decoration: none; }
+.hero__fair-links a { color: rgba(247, 245, 240, .7); text-decoration: underline; text-decoration-color: rgba(247, 245, 240, .3); text-underline-offset: 3px; }
+.hero__fair-links .icon { width: 14px; height: 14px; transition: transform .25s var(--ease); }
+@media (hover: hover) {
+  .hero__fair-links button:hover .icon { transform: translateX(3px); }
+  .hero__fair-links a:hover { color: var(--cream); }
 }
-.fairband__date strong { font-family: var(--font-display); font-size: 1.9rem; font-weight: 500; line-height: 1; }
-.fairband__date span { font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-soft); }
-.fairband__date small { font-size: .7rem; color: rgba(247, 245, 240, .65); }
-.fairband__body { min-width: 0; }
-.fairband__body .eyebrow { margin-bottom: .25rem; }
-.fairband h2 { font-size: var(--step-1); font-weight: 600; line-height: 1.15; }
-.fairband__meta { display: flex; align-items: center; gap: .35rem; margin: .35rem 0 0; font-size: .84rem; color: var(--muted); }
-.fairband__meta .icon { width: 14px; height: 14px; color: var(--gold); flex: none; }
-.fairband__logo { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .55rem .5rem; border-top: 1px solid var(--line); }
-.fairband__logo img { width: auto; height: 34px; }
-.fairband__logo img + img { padding-left: 1rem; border-left: 1px solid var(--line); }
-.fairband__ctas { grid-column: 1 / -1; display: flex; align-items: center; gap: .5rem 1.1rem; }
-.fairband__ctas .btn { flex: 1; justify-content: center; }
-.fairband__link { display: inline-flex; align-items: center; gap: .3rem; white-space: nowrap; font-weight: 600; font-size: .86rem; color: var(--forest); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
-.fairband__link .icon { width: 14px; height: 14px; }
-@media (min-width: 768px) {
-  .fairband__card { grid-template-columns: auto minmax(0, 1fr) auto; gap: 1rem 1.6rem; padding: .7rem; }
-  .fairband__logo { grid-column: auto; padding: .2rem 0 .2rem 1.6rem; border-top: 0; border-left: 1px solid var(--line); }
-  .fairband__logo img { height: 40px; }
-  .fairband__ctas { justify-content: flex-end; padding: .75rem .4rem .1rem; border-top: 1px solid var(--line); }
-  .fairband__ctas .btn { flex: none; }
+.hero__fair-logos { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: .8rem; padding: .45rem .8rem; border-radius: 9px; background: #fff; }
+.hero__fair-logos img { width: auto; height: 30px; }
+.hero__fair-logos img + img { padding-left: .8rem; border-left: 1px solid var(--line); }
+@media (min-width: 560px) {
+  .hero__fair { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .hero__fair-logos { grid-column: auto; flex-direction: column; gap: .35rem; padding: .5rem .7rem; }
+  .hero__fair-logos img { height: 26px; }
+  .hero__fair-logos img + img { padding: .35rem 0 0; border-left: 0; border-top: 1px solid var(--line); }
 }
-@media (min-width: 1200px) {
-  .fairband__card { grid-template-columns: auto minmax(0, 1fr) auto auto; }
-  .fairband__ctas { grid-column: auto; padding: 0 .6rem 0 0; border-top: 0; }
+@media (min-width: 1024px) {
+  .hero { --hero-h: clamp(520px, 62svh, 600px); }
+  .hero__fair { max-width: min(36rem, calc(100vw - var(--stage-w) - 3rem)); }
+  .hero__fair-logos img { height: 30px; }
 }
-
-.fairband + .section { padding-top: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); }
+/* Dar masaüstünde kart fotoğrafa taşmasın: logolar gizlenir (fuar sayfasında duruyor). */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .hero__fair { grid-template-columns: auto minmax(0, 1fr); }
+  .hero__fair-logos { display: none; }
+}
+.hero + .section { padding-top: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); }
