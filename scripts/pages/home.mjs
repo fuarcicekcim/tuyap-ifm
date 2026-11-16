@@ -103,7 +103,6 @@ function products(catalog) {
       <div class="filters" role="tablist" aria-label="Kategoriye göre filtrele">
         ${tabs.map(([id, name, n], i) => `<button class="filters__tab" type="button" role="tab" aria-selected="${i === 0}" data-filter="${id}">${esc(name)}<span>${n}</span></button>`).join('')}
       </div>
-      <p class="products__note">Fiyatlar KDV hariç (+%${PRICING.vatRate}) · Standa teslimat dahil</p>
     </div>
     <div class="grid" data-grid>
       ${catalog.products.map(card).join('')}
