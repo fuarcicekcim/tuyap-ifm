@@ -15,10 +15,10 @@
 @media (min-width: 1024px) { .topbar__msgs { column-gap: 2rem; } .topbar__msg + .topbar__msg { padding-left: 2rem; } }
 .topbar__call { color: var(--cream) !important; }
 .topbar__call u { text-decoration: underline; text-decoration-color: rgba(197, 160, 89, .7); text-decoration-thickness: 1px; text-underline-offset: 4px; font-variant-numeric: tabular-nums; transition: text-decoration-color .25s var(--ease), color .25s var(--ease); }
-@media (hover: hover) { .topbar__call:hover u { color: var(--gold-soft); text-decoration-color: var(--gold-soft); } .topbar__call:hover .topbar__call-icon { background: rgba(197, 160, 89, .26); } }
-.topbar__call-icon { position: relative; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: rgba(197, 160, 89, .16); box-shadow: inset 0 0 0 1px rgba(197, 160, 89, .45); color: var(--gold-soft); flex: none; transition: background .25s var(--ease); }
-.topbar__call-icon .icon { width: 12px; height: 12px; animation: phone-ring 4s ease-in-out 1.5s infinite; transform-origin: 50% 50%; }
-.topbar__call-icon .topbar__live { position: absolute; right: -2px; top: -2px; width: 7px; height: 7px; border: 1.5px solid var(--forest); }
+@media (hover: hover) { .topbar__call:hover u { color: var(--gold-soft); text-decoration-color: var(--gold-soft); } }
+.topbar__call-icon { position: relative; display: inline-grid; place-items: center; width: 21px; height: 20px; flex: none; }
+.topbar__phone3d { display: block; width: 21px; height: 20px; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .4)); animation: phone-ring 4s ease-in-out 1.5s infinite; transform-origin: 40% 70%; }
+.topbar__call-icon .topbar__live { position: absolute; right: -3px; top: -3px; width: 7px; height: 7px; border: 1.5px solid var(--forest); }
 @keyframes phone-ring { 0%, 12%, 100% { transform: rotate(0); } 2%, 6%, 10% { transform: rotate(-14deg); } 4%, 8% { transform: rotate(14deg); } }
 .topbar__live { position: relative; width: 7px; height: 7px; border-radius: 50%; background: #7bd389; flex: none; }
 .topbar__live::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid #7bd389; animation: hero-pulse 2s var(--ease) infinite; }
@@ -40,7 +40,7 @@
 .topbar__extra .icon { width: 15px; height: 15px; color: var(--gold); flex: none; }
 @media (max-width: 419px) { .topbar__msg + .topbar__msg { padding-left: .75rem; } .topbar__msgs { gap: .5rem .75rem; font-size: .74rem; letter-spacing: 0; } .topbar__msg { gap: .35rem; } }
 @media (min-width: 640px) { .topbar__long { display: inline; } .topbar__short { display: none; } }
-@media (prefers-reduced-motion: reduce) { .topbar__live::after, .topbar__bolt, .topbar__call-icon .icon { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .topbar__live::after, .topbar__bolt, .topbar__phone3d { animation: none; } }
 
 .header {
   position: sticky; top: 0; z-index: 40;
@@ -264,19 +264,81 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* ---------- Alt bilgi ---------- */
-.footer { background: var(--ink); color: var(--muted-on-dark); padding-block: var(--space-l) var(--space-m); font-size: .92rem; }
-.footer a { color: var(--cream); text-decoration: none; }
-.footer__grid { display: grid; gap: 2rem; }
-.footer__brand { font-family: var(--font-display); font-size: var(--step-2); color: var(--cream); line-height: 1.1; }
-.footer h2 { font-family: var(--font-ui); font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; font-weight: 600; }
-.footer .footer__h2-gap { margin-top: 2rem; }
-.footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
-.footer__bottom { margin-top: var(--space-l); padding-top: 1.25rem; border-top: 1px solid var(--line-on-dark); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; font-size: var(--step--1); }
-@media (min-width: 768px) { .footer__grid { grid-template-columns: 2fr 1fr 1fr 1.3fr; } }
+/* Krem → gül kurusu → adaçayı geçişi; en altta dev marka yazısı, önünde/arkasında süzülen çiçekler. */
+.footer {
+  position: relative; overflow: hidden; isolation: isolate;
+  padding-top: var(--space-l);
+  background: linear-gradient(180deg, var(--cream) 0%, #f3ebe4 26%, #ecdcd6 52%, #dfe3d4 78%, #c9d8c9 100%);
+  color: var(--muted); font-size: .9rem;
+}
+.footer a { color: var(--ink); text-decoration: none; transition: color .25s var(--ease); }
+@media (hover: hover) { .footer a:hover { color: var(--gold); } }
+.footer__top { position: relative; z-index: 3; display: grid; gap: 2.2rem; }
+.footer__tag { max-width: 30rem; margin: 0; font-family: var(--font-display); font-size: var(--step-1); line-height: 1.35; color: var(--forest); }
+.footer__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1.5rem; }
+.footer h2 { margin: 0 0 .9rem; font-family: var(--font-ui); font-size: .7rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: rgba(20, 20, 20, .45); }
+.footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.footer__col a { font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+.footer__social { display: flex; flex-wrap: wrap; gap: .8rem 1.6rem; }
+.footer__social a { font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.footer__legal { position: relative; z-index: 3; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .8rem 2rem; margin-top: var(--space-l); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(20, 20, 20, .5); }
+.footer__legal-links { display: flex; flex-wrap: wrap; gap: .8rem 2rem; }
+.footer__legal a { color: var(--ink); }
+
+/* Dev marka yazısı: kenardan kenara. */
+.footer__mark {
+  position: relative; z-index: 1;
+  margin: .4rem 0 0; padding-inline: var(--gutter);
+  font-family: var(--font-display); font-weight: 500; line-height: .82;
+  font-size: calc((100vw - 2 * var(--gutter)) / 5.15);
+  letter-spacing: -.02em; white-space: nowrap; text-align: center;
+  color: var(--forest);
+  padding-bottom: .1em;
+}
+.footer__mark em { font-style: italic; font-weight: 400; color: #2f5a43; }
+
+/* Süzülen botanik öğeler */
+.footer__flora { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.flora { --k: 1; position: absolute; left: var(--x); top: var(--y); width: calc(var(--s) * var(--k)); z-index: 0; transform: translate3d(-50%, calc(-50% + var(--py, 0px)), 0) rotate(var(--r)); will-change: transform; }
+.flora.is-front { z-index: 4; }
+.flora svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 10px 14px rgba(10, 31, 23, .18)); animation: flora-float var(--d) ease-in-out infinite alternate; }
+.flora:nth-child(even) svg { animation-direction: alternate-reverse; }
+@keyframes flora-float { from { transform: translateY(-8px) rotate(-5deg); } to { transform: translateY(8px) rotate(5deg); } }
+.footer__flora { z-index: auto; }
+.flora { z-index: 0; }
+.flora.is-front { z-index: 4; }
+.flora.is-desk { display: none; }
+
+@media (min-width: 768px) {
+  .footer__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .footer__top { grid-template-columns: minmax(0, 1.1fr) minmax(0, 2.4fr) minmax(0, 1.4fr); align-items: start; gap: 3rem; }
+  .footer__social { flex-direction: column; align-items: flex-end; gap: .7rem; }
+  .flora.is-desk { display: block; }
+  .flora { --k: 1.15; }
+}
+@media (min-width: 1440px) {
+  .flora { --k: 1.4; }
+}
+@media (max-width: 767px) {
+  .flora { --k: .62; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flora svg { animation: none; }
+}
 
 /* Tablet / küçük masaüstü: fuar şeridi iki sütun (logo + bilgi), günler ve butonlar alt satırda yan yana. */
 @media (min-width: 768px) and (max-width: 1199px) {
   .fairband__logo { grid-column: auto; }
   .fairband__days { grid-column: 1 / 2; }
   .fairband__ctas { grid-column: 2 / 3; }
+}
+
+/* Mobil alt bilgi: çiçekler yalnızca marka yazısının çevresinde, bağlantıların üstüne binmez. */
+@media (max-width: 767px) {
+  .footer__mark { margin-top: 2.2rem; }
+  .flora { display: none; top: auto; }
+  .flora:nth-child(5) { display: block; left: 47%; bottom: -.2rem; --k: .4; }
+  .flora:nth-child(9) { display: block; left: 93%; bottom: 3.4rem; --k: .55; }
 }

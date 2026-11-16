@@ -1,4 +1,5 @@
 import { SITE, CONTACT, DELIVERY, VENUES, FAIR_DAYS, PRICING, RIBBON } from '../../src/config/site-settings.js';
+import { flora } from './flora.mjs';
 import { esc, icon, trDay } from './html.mjs';
 
 const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap';
@@ -22,7 +23,7 @@ function header() {
 <div class="topbar">
   <div class="wrap">
     <p class="topbar__msgs">
-      <a class="topbar__msg topbar__call" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="topbar"><span class="topbar__call-icon">${icon('phone')}<span class="topbar__live" aria-hidden="true"></span></span><span class="topbar__long">7/24 · <u>${esc(CONTACT.phoneDisplay)}</u></span><span class="topbar__short">7/24 Arayın</span></a>
+      <a class="topbar__msg topbar__call" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="topbar"><span class="topbar__call-icon"><img class="topbar__phone3d" src="/assets/icons/telefon-3d.webp" width="76" height="72" alt="" decoding="async"><span class="topbar__live" aria-hidden="true"></span></span><span class="topbar__long">7/24 · <u>${esc(CONTACT.phoneDisplay)}</u></span><span class="topbar__short">7/24 Arayın</span></a>
       <span class="topbar__msg"><img class="topbar__bolt" src="/assets/icons/simsek-3d.webp" width="36" height="64" alt="" decoding="async"><span class="topbar__long">TÜYAP ve İFM’ye <strong>${DELIVERY.minutes} Dakikada</strong> Standa Teslimat</span><span class="topbar__short">TÜYAP &amp; İFM’ye <strong>${DELIVERY.minutes} dk’da</strong> teslimat</span></span>
     </p>
     <span class="topbar__extra">
@@ -130,41 +131,33 @@ function drawer() {
 </div>`;
 }
 
+// Alt bilgi: krem → gül → adaçayı geçişli zemin, ince büyük harfli bağlantı sütunları,
+// en altta tüm genişliği kaplayan marka yazısı ve önünde/arkasında süzülen botanik öğeler.
 function footer() {
   const year = new Date().getFullYear();
+  const col = (title, links) => `<div class="footer__col"><h2>${title}</h2><ul>${links.map(([href, text]) => `<li><a href="${href}">${text}</a></li>`).join('')}</ul></div>`;
   return `
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer__grid">
-      <div>
-        <p class="footer__brand">Fuar <em>Çiçekçim</em></p>
-        <p>TÜYAP ve İstanbul Fuar Merkezi’ndeki standlara çelenk, orkide, aranjman ve saksı bitkisi. ${esc(DELIVERY.promise)}.</p>
-      </div>
-      <div>
-        <h2>Fuar Merkezleri</h2>
-        <ul>${VENUES.map((v) => `<li><a href="${v.page}">${esc(v.short)} fuar çiçekçisi</a></li>`).join('')}<li><a href="/fuar-cicekcisi.html">Fuar çiçekçisi</a></li><li><a href="/fuar-takvimi.html">Fuar takvimi</a></li><li><a href="/teslimat-sureci.html">Teslimat süreci</a></li></ul>
-        <h2 class="footer__h2-gap">Koleksiyon</h2>
-        <ul><li><a href="/kategori/acilis-fuar-celengi.html">Açılış &amp; fuar çelengi</a></li><li><a href="/kategori/vip-orkide.html">VIP orkide</a></li><li><a href="/kategori/stant-aranjmani.html">Stant aranjmanı</a></li><li><a href="/kategori/saksi-bitkisi.html">Saksı bitkisi</a></li></ul>
-      </div>
-      <div>
-        <h2>Kurumsal</h2>
-        <ul><li><a href="/fuar-paketleri.html">Fuar paketleri</a></li><li><a href="/hizmetler.html">Hizmetler</a></li><li><a href="/teklif.html">Kurumsal teklif</a></li><li><a href="/hakkimizda.html">Hakkımızda</a></li><li><a href="/sss.html">Sık sorulan sorular</a></li><li><a href="/blog/">Rehberler</a></li><li><a href="/blog/fuar-cicegi-fiyatlari-2026.html">Fiyat rehberi</a></li><li><a href="/iletisim.html">İletişim</a></li><li><a href="/kvkk.html">KVKK aydınlatma metni</a></li></ul>
-      </div>
-      <div>
-        <h2>İletişim</h2>
-        <ul>
-          <li><a href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="footer">${esc(CONTACT.phoneDisplay)}</a></li>
-          <li><a href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="footer">WhatsApp sipariş hattı (7/24)</a></li>
-          <li><a href="mailto:${CONTACT.email}">${esc(CONTACT.email)}</a></li>
-          <li>${esc(SITE.address.district)}, ${esc(SITE.address.city)}</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer__bottom">
-      <span>© ${year} ${esc(SITE.name)}</span>
-      <a href="${CONTACT.instagram}" target="_blank" rel="noopener">Instagram @fuarcicekcim</a>
-    </div>
+<footer class="footer" data-footer>
+  <div class="footer__flora" aria-hidden="true">${flora()}</div>
+  <div class="wrap footer__top">
+    <p class="footer__tag">TÜYAP ve İstanbul Fuar Merkezi’ndeki standlara çelenk, orkide, aranjman ve saksı bitkisi. ${esc(DELIVERY.promise)}.</p>
+    <nav class="footer__cols" aria-label="Alt menü">
+      ${col('Fuar merkezleri', [...VENUES.map((v) => [v.page, `${esc(v.short)} fuar çiçekçisi`]), ['/fuar-cicekcisi.html', 'Fuar çiçekçisi'], ['/fuar-takvimi.html', 'Fuar takvimi'], ['/teslimat-sureci.html', 'Teslimat süreci']])}
+      ${col('Koleksiyon', [['/kategori/acilis-fuar-celengi.html', 'Açılış &amp; fuar çelengi'], ['/kategori/vip-orkide.html', 'VIP orkide'], ['/kategori/stant-aranjmani.html', 'Stant aranjmanı'], ['/kategori/saksi-bitkisi.html', 'Saksı bitkisi'], ['/fuar-paketleri.html', 'Fuar paketleri']])}
+      ${col('Kurumsal', [['/hizmetler.html', 'Hizmetler'], ['/teklif.html', 'Kurumsal teklif'], ['/hakkimizda.html', 'Hakkımızda'], ['/sss.html', 'Sık sorulan sorular'], ['/blog/', 'Rehberler'], ['/blog/fuar-cicegi-fiyatlari-2026.html', 'Fiyat rehberi'], ['/iletisim.html', 'İletişim']])}
+    </nav>
+    <ul class="footer__social">
+      <li><a href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="footer">${esc(CONTACT.phoneDisplay)}</a></li>
+      <li><a href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="footer">WhatsApp</a></li>
+      <li><a href="${CONTACT.instagram}" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="mailto:${CONTACT.email}">E-posta</a></li>
+    </ul>
   </div>
+  <div class="wrap footer__legal">
+    <span>© ${year} ${esc(SITE.name)} · ${esc(SITE.address.district)}, ${esc(SITE.address.city)}</span>
+    <span class="footer__legal-links"><a href="/kvkk.html">KVKK aydınlatma metni</a><a href="/teslimat-sureci.html">Teslimat koşulları</a></span>
+  </div>
+  <p class="footer__mark" aria-hidden="true">Fuar <em>Çiçekçim</em></p>
 </footer>`;
 }
 

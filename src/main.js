@@ -8,6 +8,7 @@ import { initDrawer } from './js/drawer.js';
 import { initCatalog } from './js/catalog.js';
 import { refreshPrices } from './js/prices.js';
 import { initQuote } from './js/quote.js';
+import { initFooter } from './js/footer.js';
 import './styles/content.css';
 import './styles/sections.css';
 import './styles/drawer.css';
@@ -17,6 +18,7 @@ initHero();
 initDrawer();
 refreshPrices(initCatalog());
 initQuote();
+initFooter();
 
 const DESKTOP = '(min-width: 1024px) and (pointer: fine) and (prefers-reduced-motion: no-preference)';
 
