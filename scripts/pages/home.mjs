@@ -117,7 +117,7 @@ function clients() {
   return `
 <section class="clients" aria-labelledby="musteri-baslik">
   <div class="wrap clients__head">
-    <p class="eyebrow" id="musteri-baslik">Fuarlarda çiçeklerini bize emanet eden firmalar</p>
+    <p class="eyebrow" id="musteri-baslik">Bize güvenen firmalar</p>
   </div>
   <div class="clients__marquee">
     <ul class="clients__track">
