@@ -18,15 +18,18 @@
 .topbar__wa-icon .topbar__live { position: absolute; right: -2px; top: -2px; width: 7px; height: 7px; border: 1.5px solid var(--forest); }
 .topbar__live { position: relative; width: 7px; height: 7px; border-radius: 50%; background: #7bd389; flex: none; }
 .topbar__live::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid #7bd389; animation: hero-pulse 2s var(--ease) infinite; }
-.topbar__bolt { display: block; width: 11px; height: 20px; flex: none; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35)); animation: bolt-strike 4s cubic-bezier(.3, 0, .2, 1) 1s infinite; transform-origin: 50% 100%; }
-/* Şimşek "çakma" efekti: yukarıdan hızla iner, oturur, hafif seker ve kısa altın parıltı verir; sonra bekler. */
+.topbar__bolt { display: block; width: 11px; height: 20px; flex: none; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35)); animation: bolt-strike 5s cubic-bezier(.3, 0, .2, 1) 1s infinite; transform-origin: 50% 100%; }
+/* Şimşek: yukarıdan "çakar", oturup seker, altın parıltı verir; ardından olduğu yerde 360° döner, sonra bekler (5 sn döngü). */
 @keyframes bolt-strike {
-  0%   { transform: translateY(-16px) scale(.9); opacity: 0; }
-  7%   { transform: translateY(1px) scale(1.06, .92); opacity: 1; filter: drop-shadow(0 0 6px rgba(255, 170, 90, .95)) brightness(1.35); }
-  11%  { transform: translateY(-2px) scale(.98, 1.03); }
-  15%  { transform: translateY(0) scale(1); filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35)) brightness(1); }
-  100% { transform: translateY(0) scale(1); opacity: 1; }
+  0%   { transform: perspective(60px) translateY(-16px) scale(.9) rotateY(0deg); opacity: 0; }
+  6%   { transform: perspective(60px) translateY(1px) scale(1.06, .92) rotateY(0deg); opacity: 1; filter: drop-shadow(0 0 6px rgba(255, 170, 90, .95)) brightness(1.35); }
+  9%   { transform: perspective(60px) translateY(-2px) scale(.98, 1.03) rotateY(0deg); }
+  12%  { transform: perspective(60px) translateY(0) scale(1) rotateY(0deg); filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35)) brightness(1); }
+  16%  { transform: perspective(60px) translateY(0) scale(1) rotateY(0deg); animation-timing-function: cubic-bezier(.45, 0, .2, 1); }
+  34%  { transform: perspective(60px) translateY(0) scale(1) rotateY(360deg); filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35)) brightness(1); }
+  100% { transform: perspective(60px) translateY(0) scale(1) rotateY(360deg); opacity: 1; }
 }
+
 .topbar__long { display: none; }
 .topbar__extra { display: none; align-items: center; gap: 1.5rem; }
 .topbar__extra a { display: inline-flex; align-items: center; gap: .4rem; font-weight: 600; }
