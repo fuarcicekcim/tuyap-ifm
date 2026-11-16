@@ -34,7 +34,7 @@ function hero() {
         <a class="btn btn--ghost-light btn--lg" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero" data-magnetic>${icon('message-circle')}<span>WhatsApp<span class="hero__wa-more">’tan Yazın</span></span></a>
       </div>
       <ul class="hero__facts">
-        <li>${icon('timer')}Onaydan itibaren <strong>${DELIVERY.minutes} dakikada</strong> standa</li>
+        <li>${icon('timer')}<span>Onaydan sonra <strong>${DELIVERY.minutes} dakikada</strong> standa teslim</span></li>
         <li>${icon('truck')}Teslimat fiyata dahil</li>
         <li>${icon('camera')}Fotoğraflı teslim onayı</li>
       </ul>
