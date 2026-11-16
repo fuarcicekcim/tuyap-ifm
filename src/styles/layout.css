@@ -468,3 +468,4 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 }
 /* 3B WhatsApp logosu: butonda yazının solunda, hafif gölgeli. */
 .wa3d { width: 24px; height: 24px; margin-left: -.5rem; flex: none; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .35)); }
+.wa3d--dock { width: 26px; height: 26px; margin-left: 0; border-radius: 50%; box-shadow: 0 0 0 2px rgba(255, 255, 255, .9), 0 2px 6px rgba(0, 0, 0, .3); filter: none; }

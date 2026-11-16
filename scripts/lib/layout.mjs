@@ -51,7 +51,7 @@ function dock() {
   return `
 <div class="dock" role="region" aria-label="Hızlı sipariş">
   <a class="btn btn--ghost-light" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="dock">${icon('phone')}Ara</a>
-  <a class="btn btn--wa" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="dock">${icon('message-circle')}WhatsApp’la Sipariş</a>
+  <a class="btn btn--wa" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="dock"><img class="wa3d wa3d--dock" src="/assets/icons/whatsapp-3d.webp" width="96" height="96" alt="" decoding="async">WhatsApp’la Sipariş</a>
 </div>`;
 }
 
