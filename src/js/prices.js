@@ -24,6 +24,14 @@ export function refreshPrices(products) {
       const price = latest.get(el.dataset.priceId);
       if (price && el.textContent !== tl(price)) el.textContent = tl(price);
     });
+    // Paket fiyatı = içindeki ürünlerin güncel fiyat toplamı.
+    const sum = (ids) => ids.split(',').reduce((s, part) => {
+      const [id, qty] = part.split(':');
+      return s + (latest.get(id) ?? NaN) * (Number(qty) || 1);
+    }, 0);
+    const vatRate = Number(data.settings?.vat ?? 20);
+    document.querySelectorAll('[data-pkg-sum]').forEach((el) => { const n = sum(el.dataset.pkgSum); if (n) el.textContent = tl(n); });
+    document.querySelectorAll('[data-pkg-gross]').forEach((el) => { const n = sum(el.dataset.pkgGross); if (n) el.textContent = tl(Math.round(n * (100 + vatRate)) / 100); });
     products.forEach((p, id) => { if (latest.has(id)) p.price = latest.get(id); });
     cart.items.forEach((i) => { if (latest.has(i.id) && latest.get(i.id) !== i.price) cart.setPrice(i.id, latest.get(i.id)); });
   };

@@ -43,6 +43,22 @@ export function initCatalog() {
   initFilters();
 
   document.addEventListener('click', (e) => {
+    const pkgBtn = e.target.closest('[data-pkg]');
+    if (pkgBtn) {
+      const list = pkgBtn.dataset.pkg.split(',').map((s) => {
+        const [id, qty] = s.split(':');
+        return { product: products.get(id), qty: Number(qty) || 1 };
+      }).filter((x) => x.product);
+      if (!list.length) return;
+      const name = pkgBtn.dataset.pkgName;
+      cart.addMany(list, name);
+      const value = list.reduce((s, x) => s + x.product.price * x.qty, 0);
+      track('add_to_cart', { item_list_name: name, value, currency: 'TRY', items: list.map((x) => ({ item_id: x.product.id, item_name: x.product.name, quantity: x.qty, price: x.product.price })) });
+      const label = pkgBtn.querySelector('span');
+      if (label) { label.textContent = 'Pakete eklendi'; setTimeout(() => { label.textContent = 'Paketi ekle'; }, 1600); }
+      openDrawer('add_package');
+      return;
+    }
     const btn = e.target.closest('[data-add]');
     if (!btn) return;
     const product = products.get(btn.dataset.add);

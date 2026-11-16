@@ -21,10 +21,18 @@ function save() {
 export const cart = {
   get items() { return items; },
   get count() { return items.reduce((n, i) => n + i.qty, 0); },
-  add(product) {
+  add(product, qty = 1, pkg = '', silent = false) {
     const found = items.find((i) => i.id === product.id);
-    if (found) found.qty = Math.min(found.qty + 1, 99);
-    else items = [...items, { id: product.id, name: product.name, price: product.price, image: product.image, cat: product.cat, qty: 1 }];
+    if (found) {
+      found.qty = Math.min(found.qty + qty, 99);
+      if (pkg && !found.pkg) found.pkg = pkg;
+    } else {
+      items = [...items, { id: product.id, name: product.name, price: product.price, image: product.image, cat: product.cat, qty: Math.min(qty, 99), ...(pkg ? { pkg } : {}) }];
+    }
+    if (!silent) save();
+  },
+  addMany(list, pkg) {
+    list.forEach(({ product, qty }) => this.add(product, qty, pkg, true));
     save();
   },
   setQty(id, qty) {

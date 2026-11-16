@@ -38,7 +38,7 @@ function renderCart(items) {
     <li class="cart-item">
       <img src="${esc(i.image)}" width="64" height="96" alt="" loading="lazy">
       <div class="cart-item__info">
-        <p class="cart-item__cat">${esc(i.cat || '')}</p>
+        <p class="cart-item__cat">${esc(i.pkg ? `${i.pkg} · ${i.cat || ''}` : i.cat || '')}</p>
         <p class="cart-item__name">${esc(i.name)}</p>
         <p class="cart-item__price">${tl(i.price * i.qty)} <small>+ KDV</small></p>
       </div>
@@ -112,7 +112,7 @@ function buildMessage(no, data, totals) {
   const lines = [`*Yeni sipariş · Fuar Çiçekçim*`, `Sipariş no: ${no}`, ''];
   if (cart.items.length) {
     lines.push('*Ürünler*');
-    cart.items.forEach((i) => lines.push(`• ${i.qty} × ${i.name} — ${tl(i.price * i.qty)}`));
+    cart.items.forEach((i) => lines.push(`• ${i.qty} × ${i.name}${i.pkg ? ` (${i.pkg})` : ''} — ${tl(i.price * i.qty)}`));
     lines.push(`Ara toplam (KDV hariç): ${tl(totals.net)}`, `KDV %${PRICING.vatRate}: ${tl(totals.vat)}`, `*Toplam (KDV dahil): ${tl(totals.gross)}*`, '');
   }
   lines.push('*Teslimat*',
@@ -157,7 +157,7 @@ async function submit(e) {
     tur: 'siparis',
     siparis_no: no,
     stant: [data.salon && `Salon ${data.salon}`, `Stant ${data.stant}`].filter(Boolean).join(' / '),
-    urunler: cart.items.map((i) => `${i.qty} × ${i.name} (${tl(i.price * i.qty)} + KDV)`),
+    urunler: cart.items.map((i) => `${i.qty} × ${i.name}${i.pkg ? ` [${i.pkg}]` : ''} (${tl(i.price * i.qty)} + KDV)`),
     ara_toplam: tl(totals.net),
     kdv: tl(totals.vat),
     toplam: tl(totals.gross),

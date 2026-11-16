@@ -7,6 +7,7 @@ export const waLink = (text = 'Merhaba, fuar standına çiçek siparişi vermek 
   `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(text)}`;
 
 const NAV = [
+  ['/#paketler', 'Fuar Paketleri'],
   ['/#urunler', 'Ürünler'],
   ['/#kurumsal', 'Kurumsal'],
   [VENUES[0].page, 'TÜYAP'],

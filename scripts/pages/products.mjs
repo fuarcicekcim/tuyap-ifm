@@ -51,7 +51,7 @@ export const CATEGORY_COPY = {
   },
 };
 
-const thumb = (img, w = 400) => img.replace(/\.webp$/, `-${w}.webp`);
+export const thumb = (img, w = 400) => img.replace(/\.webp$/, `-${w}.webp`);
 const fuarImg = (p) => p.image.replace(/\.webp$/, '-fuar.webp');
 
 export function card(p, i = 9) {
