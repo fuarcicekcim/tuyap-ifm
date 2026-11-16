@@ -160,3 +160,9 @@
 .closing h2 { font-size: var(--step-4); max-width: 16ch; }
 .closing__lead { color: var(--muted-on-dark); font-size: var(--step-1); margin: 0; }
 .closing__ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-top: .75rem; }
+
+/* Ana sayfa ürünleri: başlıksız, doğrudan kategori sekmeleri ve kısa fiyat notu. */
+.products__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 2rem; margin-bottom: clamp(1.25rem, 2.5vw, 2rem); }
+.products__bar .filters { margin-block: 0; max-width: calc(100% + 2 * var(--gutter)); }
+@media (min-width: 768px) { .products__bar .filters { margin: 0; padding: 0 0 2px; } }
+.products__note { margin: 0; font-size: .8rem; color: var(--muted); }

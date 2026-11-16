@@ -104,13 +104,12 @@ function products(catalog) {
   return `
 <section class="section products" id="urunler" aria-labelledby="urunler-baslik">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Koleksiyon · ${catalog.products.length} ürün</p>
-      <h2 id="urunler-baslik" data-split>Fuarda fark edilen <em>çiçekler.</em></h2>
-      <p class="section-head__lead">Fiyatlar KDV hariçtir; %${PRICING.vatRate} KDV eklenir. ${esc(PRICING.deliveryIncluded)} Birden fazla ürünü tek siparişte birleştirebilirsiniz.</p>
-    </div>
-    <div class="filters" role="tablist" aria-label="Kategoriye göre filtrele">
-      ${tabs.map(([id, name, n], i) => `<button class="filters__tab" type="button" role="tab" aria-selected="${i === 0}" data-filter="${id}">${esc(name)}<span>${n}</span></button>`).join('')}
+    <h2 class="sr-only" id="urunler-baslik">Fuar çiçekleri ve fiyatları</h2>
+    <div class="products__bar">
+      <div class="filters" role="tablist" aria-label="Kategoriye göre filtrele">
+        ${tabs.map(([id, name, n], i) => `<button class="filters__tab" type="button" role="tab" aria-selected="${i === 0}" data-filter="${id}">${esc(name)}<span>${n}</span></button>`).join('')}
+      </div>
+      <p class="products__note">Fiyatlar KDV hariç (+%${PRICING.vatRate}) · Standa teslimat dahil</p>
     </div>
     <div class="grid" data-grid>
       ${catalog.products.map(card).join('')}
