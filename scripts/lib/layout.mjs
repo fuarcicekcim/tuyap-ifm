@@ -162,7 +162,7 @@ function footer() {
         </div>
         <nav class="footer__cols" aria-label="Alt menü">
           ${col('Fuar merkezleri', [...VENUES.map((v) => [v.page, `${esc(v.short)} fuar çiçekçisi`]), ['/fuar-cicekcisi.html', 'Fuar çiçekçisi'], ['/fuar-takvimi.html', 'Fuar takvimi'], ['/teslimat-sureci.html', 'Teslimat süreci']])}
-          ${col('Koleksiyon', [['/kategori/acilis-fuar-celengi.html', 'Açılış &amp; fuar çelengi'], ['/kategori/vip-orkide.html', 'VIP orkide'], ['/kategori/stant-aranjmani.html', 'Stant aranjmanı'], ['/kategori/saksi-bitkisi.html', 'Saksı bitkisi'], ['/fuar-paketleri.html', 'Fuar paketleri']])}
+          ${col('Koleksiyon', [['/kategori/stant-aranjmani.html', 'Ferforje aranjman'], ['/kategori/saksi-bitkisi.html', 'Saksı bitkileri'], ['/kategori/vip-orkide.html', 'Orkideler'], ['/kategori/acilis-fuar-celengi.html', 'Fuar çelengi'], ['/fuar-paketleri.html', 'Fuar paketleri']])}
           ${col('Kurumsal', [['/hizmetler.html', 'Hizmetler'], ['/teklif.html', 'Kurumsal teklif'], ['/hakkimizda.html', 'Hakkımızda'], ['/sss.html', 'Sık sorulan sorular'], ['/blog/', 'Rehberler'], ['/blog/fuar-cicegi-fiyatlari-2026.html', 'Fiyat rehberi'], ['/iletisim.html', 'İletişim']])}
         </nav>
         <div class="footer__contact">

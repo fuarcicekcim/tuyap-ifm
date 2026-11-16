@@ -17,7 +17,7 @@ function initFilters() {
   let limit = PAGE;
 
   const apply = () => {
-    const visible = cards.filter((c) => filter === 'all' || c.dataset.cat === filter);
+    const visible = cards.filter((c) => filter === 'all' || (filter === 'vip' ? 'vip' in c.dataset : c.dataset.cat === filter));
     cards.forEach((c) => { c.hidden = true; });
     visible.slice(0, limit).forEach((c) => { c.hidden = false; });
     grid.classList.toggle('grid--all', filter === 'all');

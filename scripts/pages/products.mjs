@@ -10,8 +10,8 @@ const M = DELIVERY.minutes;
 // Kategoriye özgü, doğrulanmış bilgilere dayanan metinler.
 export const CATEGORY_COPY = {
   wreaths: {
-    title: 'Açılış ve fuar <em>çelengi.</em>',
-    lead: 'Stant önünde ilk bakışta görülen tebrik. Tek ve çift katlı çelenkler, ferforje ayaklı aranjmanlar; firma adınız ve mesajınız kuşakta.',
+    title: 'Fuar <em>çelengi.</em>',
+    lead: 'Stant önünde ilk bakışta görülen tebrik. Tek ve çift katlı çelenkler; firma adınız ve mesajınız kuşakta.',
     use: 'Açılış günü stant girişine, iş ortaklarınızın standına tebrik veya lansman alanına',
     body: '<p>Fuar çelengi, standın önünde ziyaretçinin ilk gördüğü tebriktir. Bu yüzden kuşak yazısı kısa, firma adı net olmalıdır. Kuşağa firma logonuzu bastırabilir, mesajı Türkçe, İngilizce veya iki dilli yazdırabilirsiniz.</p><p>Çelenkleri kurulum gününde ya da açılış sabahı standa yerleştiriyoruz; fuar sırasında verilen siparişlerde süre onaydan itibaren ' + M + ' dakikadır.</p>',
     faq: [
@@ -20,7 +20,7 @@ export const CATEGORY_COPY = {
     ],
   },
   orchids: {
-    title: 'VIP <em>orkide.</em>',
+    title: '<em>Orkideler.</em>',
     lead: 'Karşılama bankosu ve iş ortağı tebrikleri için çok dallı orkideler. Kuşaklı, kartlı, firma adınızla.',
     use: 'Karşılama bankosuna, yönetici tebriklerine ve VIP alanlara',
     body: '<p>Orkide, fuar salonunun kuru havasında ve suni ışığında birkaç gün boyunca formunu koruyan en uygun tebrik çiçeklerindendir. Dal sayısı arttıkça görünürlük de artar: iki dallı orkide standart bir tebrik, altı ve sekiz dallı orkideler ise yönetim düzeyinde veya ada standlarda tercih edilir.</p><p>Kuşağa logonuzu bastırabilir, yazıyı Türkçe, İngilizce veya iki dilli hazırlatabilirsiniz.</p>',
@@ -30,8 +30,8 @@ export const CATEGORY_COPY = {
     ],
   },
   arrangements: {
-    title: 'Stant <em>aranjmanı.</em>',
-    lead: 'Toplantı masaları ve karşılama alanı için orkide, lilyum, gül ve gerbera aranjmanları.',
+    title: 'Ferforje <em>aranjman.</em>',
+    lead: 'Stant girişine ayaklı ferforje aranjmanlar; toplantı masaları ve karşılama alanı için orkide, lilyum, gül ve gerbera aranjmanları.',
     use: 'Toplantı masalarına, karşılama alanına ve fuar içi kokteyllere',
     body: '<p>Stant aranjmanları, standın içinde misafirleri karşılayan çiçeklerdir; kendi standınız için ya da iş ortağınıza tebrik olarak gönderilebilir. Kesme çiçekli aranjmanlar açılış günü için idealdir; uzun fuarlarda solan çiçekleri fuar süresince değiştiriyoruz.</p><p>Fuar içi lansman, kokteyl veya sahne çiçeklendirmesi için <a href="/teklif.html">kurumsal teklif</a> isteyebilirsiniz.</p>',
     faq: [
@@ -40,7 +40,7 @@ export const CATEGORY_COPY = {
     ],
   },
   plants: {
-    title: 'Saksı <em>bitkisi.</em>',
+    title: 'Saksı <em>bitkileri.</em>',
     lead: 'Boş köşeleri, görüşme alanlarını ve geçişleri yeşillendiren hediye paketli saksı bitkileri. Fuar süresince kiralama seçeneğiyle.',
     use: 'Stant köşelerine, görüşme alanlarına ve geçişlere',
     body: '<p>Saksı bitkileri standa hacim ve yeşillik katar; klimalı salon koşullarına iyi uyum sağlayan türleri seçiyoruz. Bitkileri satın alabilir veya fuar süresince kiralayabilirsiniz; kiralama fiyatı için WhatsApp’tan yazın.</p><p>Hediye paketli saksı bitkileri iş ortaklarına tebrik olarak da gönderilebilir; kuşağa firma adınız yazılır.</p>',
@@ -56,7 +56,7 @@ const fuarImg = (p) => p.image.replace(/\.webp$/, '-fuar.webp');
 
 export function card(p, i = 9) {
   return `
-<article class="card${i === 0 ? ' card--feature' : ''}" data-cat="${p.category}">
+<article class="card${i === 0 ? ' card--feature' : ''}" data-cat="${p.category}"${p.vip ? ' data-vip' : ''}>
   <a class="card__media" href="${p.page}" tabindex="-1" aria-hidden="true">
     <img src="${thumb(p.image)}" srcset="${thumb(p.image)} 400w, ${p.image} 800w" sizes="(min-width: 1024px) ${i === 0 ? '46vw' : '22vw'}, (min-width: 768px) 30vw, 46vw" width="800" height="1200" alt="${esc(p.alt)}" loading="${i < 4 ? 'eager' : 'lazy'}" decoding="async">
     ${p.badge ? `<span class="card__badge">${esc(p.badge)}</span>` : ''}

@@ -82,8 +82,7 @@ function trust() {
 
 
 function products(catalog) {
-  const counts = Object.fromEntries(CATEGORIES.map((c) => [c.id, catalog.products.filter((p) => p.category === c.id).length]));
-  const tabs = [['all', 'Tümü', catalog.products.length], ...CATEGORIES.map((c) => [c.id, c.name, counts[c.id]])];
+  const tabs = [['all', 'Tümü'], ...CATEGORIES.map((c) => [c.id, c.name]), ['vip', 'VİP']];
   return `
 <section class="section products" id="urunler" aria-labelledby="urunler-baslik">
   <div class="wrap">
