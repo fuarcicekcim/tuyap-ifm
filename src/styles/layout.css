@@ -521,7 +521,7 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 .clients__track {
   flex: none; display: flex; align-items: center; gap: var(--gap);
   margin: 0; padding: 0; list-style: none;
-  animation: clients-scroll 38s linear infinite;
+  animation: clients-scroll 70s linear infinite;
 }
 .clients__track li { flex: none; display: grid; place-items: center; height: 72px; }
 .clients__track img {

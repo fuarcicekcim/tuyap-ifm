@@ -103,9 +103,13 @@ function products(catalog) {
 // Müşteri logoları: sürekli kayan şerit (kullanıcının verdiği gerçek müşteri logoları).
 const CLIENTS = [
   ['aker-asansor', 'Aker Asansör', 171, 160],
+  ['mp-plastik', 'MP Plastik', 209, 160],
   ['saha-asansor', 'Saha Asansör', 422, 160],
+  ['temapol', 'Temapol Polimer Plastik', 143, 160],
   ['arsanmak-makina', 'Arsanmak Makina', 480, 134],
+  ['deniz-plastik', 'Deniz Plastik', 258, 160],
   ['akko-makina', 'AKKO Makina', 480, 99],
+  ['pnr-plastik-elektrik', 'PNR Plastik & Elektrik', 403, 160],
   ['alucorex', 'Alucorex', 262, 160],
 ];
 
