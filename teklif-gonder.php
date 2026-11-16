@@ -57,12 +57,20 @@ $not     = $clean('not', 800);
 $urunNotu= $clean('urun_notu', 200);
 $urunler = array_map(fn($u) => mb_substr(strip_tags((string) $u), 0, 120), (array) ($data['urunler'] ?? []));
 $sayfa   = $clean('sayfa', 300);
+$siparis = $clean('tur', 20) === 'siparis';
+$sipNo   = preg_replace('/[^A-Z0-9\-]/', '', $clean('siparis_no', 30));
+$araTop  = $clean('ara_toplam', 40);
+$kdv     = $clean('kdv', 40);
+$toplam  = $clean('toplam', 40);
+$fUnvan  = $clean('fatura_unvan', 160);
+$fVd     = $clean('vergi_dairesi', 60);
+$fVno    = preg_replace('/\D/', '', $clean('vergi_no', 20));
 
 if ($firma === '' || $ad === '' || $tel === '' || $stant === '') fail('Firma, yetkili, telefon ve stant bilgisi zorunludur.');
 if (!preg_match('/\d{7,}/', preg_replace('/\D/', '', $tel))) fail('Geçerli bir telefon numarası yazın.');
 
 $satirlar = [
-  "Yeni fuar teklif talebi — fuarcicekcim.com",
+  $siparis ? "Yeni sipariş ($sipNo) — fuarcicekcim.com · ödeme WhatsApp'ta onaylanacak" : "Yeni fuar teklif talebi — fuarcicekcim.com",
   str_repeat('-', 48),
   "Fuar            : $fuar",
   "Fuar merkezi    : $merkez",
@@ -77,14 +85,26 @@ $satirlar = [
   "Adet / bütçe    : " . ($adet ?: '-') . " / " . ($butce ?: '-'),
   "Şerit / kart    : " . ($kart ?: '-'),
   "Not             : " . ($not ?: '-'),
+];
+if ($siparis) {
+  array_push($satirlar,
+    "Ara toplam      : " . ($araTop ?: '-') . " (KDV hariç)",
+    "KDV             : " . ($kdv ?: '-'),
+    "Toplam          : " . ($toplam ?: '-') . " (KDV dahil)",
+    "Fatura ünvanı   : " . ($fUnvan ?: '-'),
+    "Vergi dairesi   : " . ($fVd ?: '-'),
+    "Vergi / TC no   : " . ($fVno ?: '-')
+  );
+}
+array_push($satirlar,
   str_repeat('-', 48),
   "Tarih: " . date('d.m.Y H:i') . "  IP: $ip",
   "Sayfa: $sayfa",
   "",
-  "WhatsApp ile yanıtla: https://wa.me/" . preg_replace('/\D/', '', (strpos($tel, '0') === 0 ? '9' . $tel : $tel)),
-];
+  "WhatsApp ile yanıtla: https://wa.me/" . preg_replace('/\D/', '', (strpos($tel, '0') === 0 ? '9' . $tel : $tel))
+);
 $govde = implode("\n", $satirlar);
-$konu  = "Teklif: $firma — $fuar" . ($stant ? " ($stant)" : '');
+$konu  = ($siparis ? "Sipariş $sipNo: " : "Teklif: ") . "$firma — $fuar" . ($stant ? " ($stant)" : '') . ($siparis && $toplam ? " · $toplam" : '');
 
 // Yedek kayıt
 if (!empty($cfg['teklifleri_kaydet'])) {

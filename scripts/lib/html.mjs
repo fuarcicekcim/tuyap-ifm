@@ -16,5 +16,13 @@ export function icon(name, cls = 'icon') {
 
 export const tlPrice = (n) => new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 0 }).format(n) + ' TL';
 
+const trFmt = (opts) => new Intl.DateTimeFormat('tr-TR', { timeZone: 'Europe/Istanbul', ...opts });
+export const trDay = (iso) => trFmt({ day: 'numeric', month: 'long', weekday: 'long' }).format(new Date(`${iso}T12:00:00+03:00`));
+export function trRange(days) {
+  const first = new Date(`${days[0]}T12:00:00+03:00`);
+  const last = new Date(`${days.at(-1)}T12:00:00+03:00`);
+  return `${trFmt({ day: 'numeric' }).format(first)}–${trFmt({ day: 'numeric', month: 'long' }).format(last)}`;
+}
+
 export const jsonLd = (obj) =>
   `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, '\\u003c')}</script>`;

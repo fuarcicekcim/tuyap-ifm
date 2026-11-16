@@ -10,7 +10,8 @@ const DESKTOP = '(min-width: 1024px) and (pointer: fine) and (prefers-reduced-mo
 export let lenis = null;
 
 function initLenis() {
-  lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+  lenis = new Lenis({ lerp: 0.1, smoothWheel: true, prevent: (node) => !!node.closest?.('[data-drawer]') });
+  window.__lenis = lenis;
   lenis.on('scroll', ScrollTrigger.update);
   const tick = (time) => lenis.raf(time * 1000);
   gsap.ticker.add(tick);
@@ -19,6 +20,7 @@ function initLenis() {
     gsap.ticker.remove(tick);
     lenis.destroy();
     lenis = null;
+    window.__lenis = null;
   };
 }
 

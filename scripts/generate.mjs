@@ -2,20 +2,15 @@
 // statik dosyaları .build/public/ altına kopyalar. Ardından Vite .build/ klasörünü derler.
 import fs from 'node:fs';
 import path from 'node:path';
-import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
+import { loadCatalog } from './lib/catalog.mjs';
 import { home } from './pages/home.mjs';
+import { kvkk } from './pages/kvkk.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, '.build');
 const PUB = path.join(OUT, 'public');
-
-export function loadCatalog() {
-  const ctx = { window: {} };
-  vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'products-data.js'), 'utf8'), ctx);
-  return ctx.window.FUAR_CATALOG;
-}
 
 function write(rel, html) {
   const file = path.join(OUT, rel);
@@ -40,7 +35,8 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(PUB, { recursive: true });
 await copyStatic();
 
-const pages = { 'index.html': home() };
+const catalog = loadCatalog();
+const pages = { 'index.html': home(catalog), 'kvkk.html': kvkk() };
 for (const [rel, html] of Object.entries(pages)) write(rel, html);
 
 console.log(`Üretilen sayfa: ${Object.keys(pages).length}`);

@@ -1,5 +1,5 @@
-import { SITE, CONTACT, DELIVERY, VENUES } from '../../src/config/site-settings.js';
-import { esc, icon } from './html.mjs';
+import { SITE, CONTACT, DELIVERY, VENUES, FAIR_DAYS, PRICING, RIBBON } from '../../src/config/site-settings.js';
+import { esc, icon, trDay } from './html.mjs';
 
 const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap';
 
@@ -8,7 +8,7 @@ export const waLink = (text = 'Merhaba, fuar standına çiçek siparişi vermek 
 
 const NAV = [
   ['/#urunler', 'Ürünler'],
-  ['/#paketler', 'Fuar Paketleri'],
+  ['/#kurumsal', 'Kurumsal'],
   [VENUES[0].page, 'TÜYAP'],
   [VENUES[1].page, 'İFM'],
   ['/#nasil-calisir', 'Nasıl Çalışır'],
@@ -50,6 +50,82 @@ function dock() {
 <div class="dock" role="region" aria-label="Hızlı sipariş">
   <a class="btn btn--ghost-light" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="dock">${icon('phone')}Ara</a>
   <a class="btn btn--wa" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="dock">${icon('message-circle')}WhatsApp’la Sipariş</a>
+</div>`;
+}
+
+function drawer() {
+  const venueOpts = VENUES.map((v) => `
+      <label class="choice"><input type="radio" name="merkez" value="${esc(v.short)}" required${v.id === FAIR_DAYS.activeFairVenue ? ' checked' : ''}><span><strong>${esc(v.short)}</strong><small>${esc(v.name.replace(/ \(İFM\)$/, ''))}</small></span></label>`).join('');
+  const dayOpts = FAIR_DAYS.days.map((d) => `<option value="${esc(trDay(d))}">${esc(trDay(d))}</option>`).join('');
+  const slotOpts = FAIR_DAYS.timeSlots.map((s) => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+  return `
+<div class="drawer-root" data-drawer inert>
+  <div class="drawer__scrim" data-drawer-close></div>
+  <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-baslik">
+    <header class="drawer__head">
+      <div><p class="eyebrow">${esc(DELIVERY.promise)}</p><h2 id="drawer-baslik">Siparişiniz</h2></div>
+      <button class="drawer__close" type="button" data-drawer-close aria-label="Sipariş çekmecesini kapat">${icon('x')}</button>
+    </header>
+    <div class="drawer__scroll">
+      <section class="drawer__cart" aria-label="Sepetteki ürünler">
+        <ul class="cart-list" data-cart-list></ul>
+        <p class="cart-empty" data-cart-empty>Henüz ürün eklemediniz. <a href="/#urunler" data-drawer-close>Koleksiyona göz atın</a> ya da istediğiniz ürünü aşağıdaki not alanına yazın.</p>
+      </section>
+
+      <form class="order" id="siparis-formu" data-order-form novalidate>
+        <fieldset class="order__set">
+          <legend>Teslimat</legend>
+          <div class="choices">${venueOpts}</div>
+          <label class="field"><span>Fuar adı</span><input name="fuar_adi" autocomplete="off" value="${esc(FAIR_DAYS.activeFairName)}" maxlength="200"></label>
+          <div class="field-row">
+            <label class="field"><span>Salon no</span><input name="salon" inputmode="text" autocomplete="off" maxlength="20" placeholder="Örn. 5"></label>
+            <label class="field"><span>Stant no <b aria-hidden="true">*</b></span><input name="stant" required autocomplete="off" maxlength="40" placeholder="Örn. B12"></label>
+          </div>
+          <div class="field-row">
+            <label class="field"><span>Teslim günü</span><select name="tarih">${dayOpts}<option value="Diğer (nota yazıldı)">Diğer gün (nota yazın)</option></select></label>
+            <label class="field"><span>Saat aralığı</span><select name="saat"><option value="En kısa sürede">En kısa sürede (${DELIVERY.minutes} dk)</option>${slotOpts}</select></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="order__set">
+          <legend>Kuşak yazısı</legend>
+          <div class="ribbon" aria-hidden="true"><span class="ribbon__tail"></span><span class="ribbon__band"><span class="ribbon__text" data-ribbon-preview>İyi Fuarlar</span></span><span class="ribbon__tail ribbon__tail--end"></span></div>
+          <label class="field"><span>Kuşakta yazacak metin</span><input name="kart" maxlength="${RIBBON.maxChars}" autocomplete="off" placeholder="Örn. ATLAS TASARIM · İyi Fuarlar" data-ribbon-input aria-describedby="kusak-sayac"></label>
+          <p class="field__hint" id="kusak-sayac"><span data-ribbon-count>0</span>/${RIBBON.maxChars} karakter · Türkçe karakterler doğru basılır</p>
+        </fieldset>
+
+        <fieldset class="order__set">
+          <legend>İletişim</legend>
+          <label class="field"><span>Teslim alacak firma <b aria-hidden="true">*</b></span><input name="firma" required autocomplete="organization" maxlength="120"></label>
+          <label class="field"><span>Yetkili ad soyad <b aria-hidden="true">*</b></span><input name="adsoyad" required autocomplete="name" maxlength="120"></label>
+          <label class="field"><span>Telefon <b aria-hidden="true">*</b></span><input name="telefon" type="tel" required inputmode="tel" autocomplete="tel" maxlength="20" placeholder="05XX XXX XX XX"></label>
+          <label class="field"><span>E-posta</span><input name="eposta" type="email" inputmode="email" autocomplete="email" maxlength="120"></label>
+          <details class="invoice">
+            <summary>${icon('receipt-text')}Kurumsal fatura bilgisi <small>(isteğe bağlı)</small></summary>
+            <label class="field"><span>Firma ünvanı</span><input name="fatura_unvan" autocomplete="organization" maxlength="160"></label>
+            <div class="field-row">
+              <label class="field"><span>Vergi dairesi</span><input name="vergi_dairesi" maxlength="60"></label>
+              <label class="field"><span>Vergi / TC no</span><input name="vergi_no" inputmode="numeric" maxlength="11"></label>
+            </div>
+          </details>
+          <label class="field"><span>Not</span><textarea name="not" rows="3" maxlength="800" placeholder="Katalog dışı ürün, birden fazla stant veya gün, özel istekler…"></textarea></label>
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        </fieldset>
+
+        <label class="consent"><input type="checkbox" name="kvkk" required><span><a href="/kvkk.html" target="_blank" rel="noopener">KVKK aydınlatma metnini</a> okudum; sipariş için iletişim bilgilerimin işlenmesini kabul ediyorum.</span></label>
+        <p class="order__status" role="status" aria-live="polite" data-order-status></p>
+      </form>
+    </div>
+    <footer class="drawer__foot">
+      <dl class="totals">
+        <div><dt>Ara toplam <small>(KDV hariç)</small></dt><dd data-total-net>0 TL</dd></div>
+        <div><dt>KDV %${PRICING.vatRate}</dt><dd data-total-vat>0 TL</dd></div>
+        <div class="totals__grand"><dt>Toplam <small>(KDV dahil)</small></dt><dd data-total-gross>0 TL</dd></div>
+      </dl>
+      <button class="btn btn--wa drawer__submit" type="submit" form="siparis-formu" data-order-submit>${icon('message-circle')}WhatsApp’ta Siparişi Gönder</button>
+      <p class="drawer__note">${icon('shield-check')}${esc(PRICING.paymentNote)} Teslimat fiyata dahildir.</p>
+    </footer>
+  </aside>
 </div>`;
 }
 
@@ -125,6 +201,7 @@ ${body}
 </main>
 ${footer()}
 ${dock()}
+${drawer()}
 </body>
 </html>
 `;

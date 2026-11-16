@@ -96,7 +96,7 @@
 .hero__seal span { font-size: .8rem; font-weight: 600; letter-spacing: .04em; }
 
 @media (min-width: 1024px) {
-  .hero__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; column-gap: clamp(2rem, 5vw, 6rem); min-height: calc(100svh - var(--header-h) - 38px); max-height: 980px; }
+  .hero__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; column-gap: clamp(2rem, 5vw, 6rem); min-height: min(calc(100svh - var(--header-h) - 38px), 900px); }
   .hero__copy { padding-bottom: 1rem; }
   .hero__frame { aspect-ratio: 4 / 5.2; }
 }

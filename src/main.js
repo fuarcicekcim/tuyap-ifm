@@ -3,6 +3,13 @@ import './styles/base.css';
 import './styles/layout.css';
 import { track } from './js/analytics.js';
 import { initReveal } from './js/reveal.js';
+import { initDrawer } from './js/drawer.js';
+import { initCatalog } from './js/catalog.js';
+import './styles/sections.css';
+import './styles/drawer.css';
+
+initDrawer();
+initCatalog();
 
 const DESKTOP = '(min-width: 1024px) and (pointer: fine) and (prefers-reduced-motion: no-preference)';
 
