@@ -1,3 +1,5 @@
+/* Sepet açılınca kaydırma çubuğu gizlense de yeri korunur; sayfa yana kaymaz (titreme olmaz). */
+html { scrollbar-gutter: stable; }
 .drawer-locked, .drawer-locked body { overflow: hidden; }
 
 .drawer-root { position: fixed; inset: 0; z-index: 80; pointer-events: none; }
