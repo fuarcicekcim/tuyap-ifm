@@ -365,3 +365,21 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 }
 
 
+
+/* Hero yumuşatma: tam genişlik koyu blok yerine krem zemin üzerinde yuvarlatılmış kart;
+   ilk açılışta metinler sırayla, yumuşakça belirir (LCP görseli animasyonsuz). */
+.hero {
+  margin: clamp(.5rem, 1vw, 1rem) clamp(.5rem, 1.2vw, 1.25rem) 0;
+  border-radius: clamp(14px, 1.6vw, 24px);
+  box-shadow: 0 24px 60px -28px rgba(10, 31, 23, .45);
+}
+.hero__copy > * { animation: hero-rise .9s var(--ease) both; }
+.hero__copy > :nth-child(2) { animation-delay: .12s; }
+.hero__copy > :nth-child(3) { animation-delay: .24s; }
+.hero__rail { animation: hero-fade 1.2s var(--ease) .35s both; }
+@keyframes hero-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes hero-fade { from { opacity: 0; } to { opacity: 1; } }
+.fairband { border-bottom: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .hero__copy > *, .hero__rail { animation: none; }
+}
