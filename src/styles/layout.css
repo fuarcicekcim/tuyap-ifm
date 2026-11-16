@@ -270,7 +270,7 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 .footer {
   --sh: clamp(300px, 36vw, 600px);
   position: relative; overflow: hidden; isolation: isolate;
-  padding-bottom: clamp(1.25rem, 3vw, 2.5rem);
+  padding-bottom: clamp(.6rem, 1.2vw, 1rem);
   background: var(--forest); color: rgba(247, 245, 240, .72); font-size: .9rem;
 }
 .footer__scene { position: relative; height: var(--sh); overflow: hidden; }
@@ -308,7 +308,7 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 .footer__panel {
   position: relative; z-index: 3;
   margin-top: calc(var(--sh) * -.3);
-  padding: clamp(1.4rem, 1rem + 2vw, 3rem);
+  padding: clamp(1.4rem, 1rem + 2vw, 3rem) clamp(1.4rem, 1rem + 2vw, 3rem) clamp(1rem, .8rem + 1vw, 1.6rem);
   border-radius: 6px;
   background:
     radial-gradient(120% 90% at 0% 0%, rgba(197, 160, 89, .12), rgba(197, 160, 89, 0) 55%),
