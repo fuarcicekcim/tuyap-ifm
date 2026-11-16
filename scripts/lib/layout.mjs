@@ -130,31 +130,55 @@ function drawer() {
 </div>`;
 }
 
-// Alt bilgi: TÜYAP fotoğrafı arka planda; üstte net, aşağı doğru orman yeşiline kararır.
-// İçerik koyu kısımda krem renkte; fotoğrafın üzerinde süzülen botanik öğeler.
+// Alt bilgi: üstte TÜYAP (sol) ve İFM (sağ) fotoğrafları ortada yumuşak geçişle birleşir;
+// içerik, fotoğrafların alt kenarına binen buzlu cam bir panelde okunaklı durur.
 function footer() {
   const year = new Date().getFullYear();
   const col = (title, links) => `<div class="footer__col"><h2>${title}</h2><ul>${links.map(([href, text]) => `<li><a href="${href}">${text}</a></li>`).join('')}</ul></div>`;
+  const tuyap = VENUES.find((v) => v.id === 'tuyap');
+  const ifm = VENUES.find((v) => v.id === 'ifm');
   return `
 <footer class="footer" data-footer>
-  <img class="footer__photo" data-depth="-90" src="/assets/footer/tuyap-1600.webp" srcset="/assets/footer/tuyap-900.webp 900w, /assets/footer/tuyap-1600.webp 1600w" sizes="100vw" width="1600" height="800" alt="TÜYAP Fuar ve Kongre Merkezi binası, Büyükçekmece" loading="lazy" decoding="async">
-  <div class="wrap footer__top">
-    <p class="footer__tag">TÜYAP ve İstanbul Fuar Merkezi’ndeki standlara çelenk, orkide, aranjman ve saksı bitkisi. ${esc(DELIVERY.promise)}.</p>
-    <nav class="footer__cols" aria-label="Alt menü">
-      ${col('Fuar merkezleri', [...VENUES.map((v) => [v.page, `${esc(v.short)} fuar çiçekçisi`]), ['/fuar-cicekcisi.html', 'Fuar çiçekçisi'], ['/fuar-takvimi.html', 'Fuar takvimi'], ['/teslimat-sureci.html', 'Teslimat süreci']])}
-      ${col('Koleksiyon', [['/kategori/acilis-fuar-celengi.html', 'Açılış &amp; fuar çelengi'], ['/kategori/vip-orkide.html', 'VIP orkide'], ['/kategori/stant-aranjmani.html', 'Stant aranjmanı'], ['/kategori/saksi-bitkisi.html', 'Saksı bitkisi'], ['/fuar-paketleri.html', 'Fuar paketleri']])}
-      ${col('Kurumsal', [['/hizmetler.html', 'Hizmetler'], ['/teklif.html', 'Kurumsal teklif'], ['/hakkimizda.html', 'Hakkımızda'], ['/sss.html', 'Sık sorulan sorular'], ['/blog/', 'Rehberler'], ['/blog/fuar-cicegi-fiyatlari-2026.html', 'Fiyat rehberi'], ['/iletisim.html', 'İletişim']])}
-    </nav>
-    <ul class="footer__social">
-      <li><a href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="footer">${esc(CONTACT.phoneDisplay)}</a></li>
-      <li><a href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="footer">WhatsApp</a></li>
-      <li><a href="${CONTACT.instagram}" target="_blank" rel="noopener">Instagram</a></li>
-      <li><a href="mailto:${CONTACT.email}">E-posta</a></li>
-    </ul>
+  <div class="footer__scene">
+    <figure class="footer__venue footer__venue--tuyap">
+      <img data-depth="-70" src="/assets/footer/tuyap-1600.webp" srcset="/assets/footer/tuyap-900.webp 900w, /assets/footer/tuyap-1600.webp 1600w" sizes="(min-width: 768px) 62vw, 70vw" width="1600" height="800" alt="TÜYAP Fuar ve Kongre Merkezi binası, Büyükçekmece" loading="lazy" decoding="async">
+    </figure>
+    <figure class="footer__venue footer__venue--ifm">
+      <img data-depth="-70" src="/assets/footer/ifm-1280.webp" srcset="/assets/footer/ifm-800.webp 800w, /assets/footer/ifm-1280.webp 1280w" sizes="(min-width: 768px) 62vw, 70vw" width="1280" height="720" alt="İstanbul Fuar Merkezi (İFM) girişi, Yeşilköy" loading="lazy" decoding="async">
+    </figure>
+    <div class="wrap footer__tags">
+      <a class="footer__tag-venue" href="${tuyap.page}">${icon('map-pin')}<span><strong>${esc(tuyap.short)}</strong>${esc(tuyap.district)}</span></a>
+      <a class="footer__tag-venue" href="${ifm.page}">${icon('map-pin')}<span><strong>${esc(ifm.short)}</strong>${esc(ifm.district)}</span></a>
+    </div>
   </div>
-  <div class="wrap footer__legal">
-    <span>© ${year} ${esc(SITE.name)} · ${esc(SITE.address.district)}, ${esc(SITE.address.city)}</span>
-    <span class="footer__legal-links"><a href="/kvkk.html">KVKK aydınlatma metni</a><a href="/teslimat-sureci.html">Teslimat koşulları</a></span>
+
+  <div class="wrap">
+    <div class="footer__panel">
+      <div class="footer__top">
+        <div class="footer__intro">
+          <p class="footer__brand">Fuar <em>Çiçekçim</em></p>
+          <p class="footer__tag">TÜYAP ve İstanbul Fuar Merkezi’ndeki standlara çelenk, orkide, aranjman ve saksı bitkisi. ${esc(DELIVERY.promise)}.</p>
+        </div>
+        <nav class="footer__cols" aria-label="Alt menü">
+          ${col('Fuar merkezleri', [...VENUES.map((v) => [v.page, `${esc(v.short)} fuar çiçekçisi`]), ['/fuar-cicekcisi.html', 'Fuar çiçekçisi'], ['/fuar-takvimi.html', 'Fuar takvimi'], ['/teslimat-sureci.html', 'Teslimat süreci']])}
+          ${col('Koleksiyon', [['/kategori/acilis-fuar-celengi.html', 'Açılış &amp; fuar çelengi'], ['/kategori/vip-orkide.html', 'VIP orkide'], ['/kategori/stant-aranjmani.html', 'Stant aranjmanı'], ['/kategori/saksi-bitkisi.html', 'Saksı bitkisi'], ['/fuar-paketleri.html', 'Fuar paketleri']])}
+          ${col('Kurumsal', [['/hizmetler.html', 'Hizmetler'], ['/teklif.html', 'Kurumsal teklif'], ['/hakkimizda.html', 'Hakkımızda'], ['/sss.html', 'Sık sorulan sorular'], ['/blog/', 'Rehberler'], ['/blog/fuar-cicegi-fiyatlari-2026.html', 'Fiyat rehberi'], ['/iletisim.html', 'İletişim']])}
+        </nav>
+        <div class="footer__contact">
+          <h2>İletişim · 7/24</h2>
+          <a class="footer__phone" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="footer">${icon('phone')}${esc(CONTACT.phoneDisplay)}</a>
+          <ul class="footer__social">
+            <li><a href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="footer">WhatsApp</a></li>
+            <li><a href="${CONTACT.instagram}" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="mailto:${CONTACT.email}">E-posta</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__legal">
+        <span>© ${year} ${esc(SITE.name)} · ${esc(SITE.address.district)}, ${esc(SITE.address.city)}</span>
+        <span class="footer__legal-links"><a href="/kvkk.html">KVKK aydınlatma metni</a><a href="/teslimat-sureci.html">Teslimat koşulları</a></span>
+      </div>
+    </div>
   </div>
 </footer>`;
 }
