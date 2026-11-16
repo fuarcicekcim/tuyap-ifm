@@ -32,7 +32,7 @@ function header() {
 <header class="header">
   <div class="wrap">
     <a class="brand" href="/" aria-label="${esc(SITE.name)} ana sayfa">
-      <img class="brand__logo" src="/assets/brand/logo-yatay-360.webp" srcset="/assets/brand/logo-yatay-360.webp 360w, /assets/brand/logo-yatay-540.webp 540w" sizes="(min-width: 1024px) 270px, 192px" width="720" height="240" alt="${esc(SITE.name)}" decoding="async" fetchpriority="high">
+      <img class="brand__logo" src="/assets/brand/logo-yatay-360.webp" srcset="/assets/brand/logo-yatay-360.webp 360w, /assets/brand/logo-yatay-540.webp 540w" sizes="(min-width: 1024px) 225px, 192px" width="720" height="240" alt="${esc(SITE.name)}" decoding="async" fetchpriority="high">
     </a>
     <nav class="nav" aria-label="Ana menü">
       <ul>${NAV.map(([href, label]) => `<li><a href="${href}">${esc(label)}</a></li>`).join('')}</ul>

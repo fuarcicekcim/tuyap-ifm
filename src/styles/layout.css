@@ -21,7 +21,7 @@
 
 .brand { display: inline-flex; align-items: center; gap: .65rem; text-decoration: none; }
 .brand__logo { display: block; width: 192px; height: 64px; }
-@media (min-width: 1024px) { .brand__logo { width: 270px; height: 90px; } }
+@media (min-width: 1024px) { .brand__logo { width: 225px; height: 75px; } }
 .brand__name { font-family: var(--font-display); font-size: 1.55rem; font-weight: 600; letter-spacing: -.01em; line-height: 1; }
 .brand__name em { color: var(--gold); font-style: italic; font-weight: 500; }
 

@@ -32,7 +32,7 @@
   --max: 1320px;
   --radius: 2px;
   --ease: cubic-bezier(.22, 1, .36, 1);
-  --header-h: 100px;
+  --header-h: 80px;
   --dock-h: 64px;
 }
 
