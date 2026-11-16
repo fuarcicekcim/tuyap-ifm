@@ -18,8 +18,10 @@
 @media (hover: hover) { .topbar__call:hover u { color: var(--gold-soft); text-decoration-color: var(--gold-soft); } }
 .topbar__call-icon { position: relative; display: inline-grid; place-items: center; width: 21px; height: 20px; flex: none; }
 .topbar__phone3d { display: block; width: 21px; height: 20px; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .4)); animation: phone-ring 4s ease-in-out 1.5s infinite; transform-origin: 40% 70%; }
-.topbar__call-icon .topbar__live { position: absolute; right: -3px; top: -3px; width: 7px; height: 7px; border: 1.5px solid var(--forest); }
 @keyframes phone-ring { 0%, 12%, 100% { transform: rotate(0); } 2%, 6%, 10% { transform: rotate(-14deg); } 4%, 8% { transform: rotate(14deg); } }
+/* 7/24 vurgusu: altın metin üzerinden düzenli bir parıltı geçer. */
+.topbar__247 { font-weight: 800; letter-spacing: .02em; color: var(--gold); background: linear-gradient(100deg, var(--gold) 0%, var(--gold) 38%, #fff4d6 50%, var(--gold) 62%, var(--gold) 100%); background-size: 260% 100%; background-position: 100% 0; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shine-247 3.6s ease-in-out 1s infinite; }
+@keyframes shine-247 { 0% { background-position: 100% 0; } 55%, 100% { background-position: 0% 0; } }
 .topbar__live { position: relative; width: 7px; height: 7px; border-radius: 50%; background: #7bd389; flex: none; }
 .topbar__live::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid #7bd389; animation: hero-pulse 2s var(--ease) infinite; }
 .topbar__bolt { display: block; width: 11px; height: 20px; flex: none; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35)); animation: bolt-strike 5s cubic-bezier(.3, 0, .2, 1) 1s infinite; transform-origin: 50% 100%; }
@@ -40,7 +42,7 @@
 .topbar__extra .icon { width: 15px; height: 15px; color: var(--gold); flex: none; }
 @media (max-width: 419px) { .topbar__msg + .topbar__msg { padding-left: .75rem; } .topbar__msgs { gap: .5rem .75rem; font-size: .74rem; letter-spacing: 0; } .topbar__msg { gap: .35rem; } }
 @media (min-width: 640px) { .topbar__long { display: inline; } .topbar__short { display: none; } }
-@media (prefers-reduced-motion: reduce) { .topbar__live::after, .topbar__bolt, .topbar__phone3d { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .topbar__live::after, .topbar__bolt, .topbar__phone3d, .topbar__247 { animation: none; } }
 
 .header {
   position: sticky; top: 0; z-index: 40;
