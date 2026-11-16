@@ -190,7 +190,7 @@ export function avrasya(catalog, fairData) {
       imageAlt: 'TÜYAP’ta stant bankosunda firma adlı kuşaklı beyaz orkide',
     })
       + facts([['Fuar tarihi', range], ['Fuar merkezi', esc(TUYAP.name)], ['Teslimat', `Onaydan itibaren ${M} dk`], ['Esenyurt → TÜYAP', 'Yaklaşık 5 dakika']])
-      + productStrip(catalog.products.filter((p) => ['wreaths', 'orchids'].includes(p.category)).slice(0, 8), { title: 'Avrasya standları için <em>seçimler.</em>' })
+      + productStrip(catalog.products.filter((p) => ['ferforje', 'wreaths', 'orchids'].includes(p.category)).slice(0, 8), { title: 'Avrasya standları için <em>seçimler.</em>' })
       + faqBlock(faq)
       + ctaBand('Avrasya fuarında <em>ilk izlenimi siz bırakın.</em>'),
   });

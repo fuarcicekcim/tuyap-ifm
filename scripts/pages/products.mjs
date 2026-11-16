@@ -29,9 +29,19 @@ export const CATEGORY_COPY = {
       ['Orkideye logo basılabilir mi?', 'Evet. Logonuzu WhatsApp’tan gönderin; saten kuşağa logonuz ve mesajınız basılır.'],
     ],
   },
-  arrangements: {
+  ferforje: {
     title: 'Ferforje <em>aranjman.</em>',
-    lead: 'Stant girişine ayaklı ferforje aranjmanlar; toplantı masaları ve karşılama alanı için orkide, lilyum, gül ve gerbera aranjmanları.',
+    lead: 'Stant girişinde uzaktan görülen ayaklı ferforje aranjmanlar; firma adınız ve mesajınız kuşakta.',
+    use: 'Açılış günü stant girişine, iş ortaklarınızın standına tebrik veya lansman alanına',
+    body: '<p>Ayaklı ferforje aranjmanlar, standın girişinde göz hizasında durduğu için kalabalık fuar koridorlarında bile fark edilir. Kuşağa firma logonuzu bastırabilir, mesajı Türkçe, İngilizce veya iki dilli yazdırabilirsiniz.</p><p>Ferforjeleri kurulum gününde ya da açılış sabahı standa yerleştiriyoruz; fuar sırasında verilen siparişlerde süre onaydan itibaren ' + M + ' dakikadır.</p>',
+    faq: [
+      ['Ferforje kuşağına ne yazılır?', 'En yaygın kullanım “Başarılı bir fuar dileriz — Firma Adı” biçimindedir. Kuşağa firma logonuz da basılabilir.'],
+      ['Ferforje ne zaman teslim edilmeli?', 'Açılış kurdelesine yetişmesi için kurulum günü veya açılış sabahı teslimatı öneririz.'],
+    ],
+  },
+  arrangements: {
+    title: '<em>Aranjmanlar.</em>',
+    lead: 'Toplantı masaları ve karşılama alanı için orkide, lilyum, gül ve gerbera aranjmanları.',
     use: 'Toplantı masalarına, karşılama alanına ve fuar içi kokteyllere',
     body: '<p>Stant aranjmanları, standın içinde misafirleri karşılayan çiçeklerdir; kendi standınız için ya da iş ortağınıza tebrik olarak gönderilebilir. Kesme çiçekli aranjmanlar açılış günü için idealdir; uzun fuarlarda solan çiçekleri fuar süresince değiştiriyoruz.</p><p>Fuar içi lansman, kokteyl veya sahne çiçeklendirmesi için <a href="/teklif.html">kurumsal teklif</a> isteyebilirsiniz.</p>',
     faq: [

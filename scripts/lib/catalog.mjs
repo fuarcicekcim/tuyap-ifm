@@ -6,9 +6,10 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
 // products-data.js kategori kimlikleri → yeni sitedeki kategori adları (kullanıcı kararı 2026-11-17).
-// Web adresleri (slug) değişmez. Ferforje/ayaklı ürünler veride 'wreaths' altında; sitede 'Ferforje Aranjman'da gösterilir.
+// Mevcut web adresleri (slug) değişmez. Ferforje/ayaklı ürünler veride 'wreaths' altında; sitede ayrı 'Ferforje Aranjman' kategorisinde gösterilir.
 export const CATEGORIES = [
-  { id: 'arrangements', slug: 'stant-aranjmani', name: 'Ferforje Aranjman' },
+  { id: 'ferforje', slug: 'ferforje-aranjman', name: 'Ferforje Aranjman' },
+  { id: 'arrangements', slug: 'stant-aranjmani', name: 'Aranjmanlar' },
   { id: 'plants', slug: 'saksi-bitkisi', name: 'Saksı Bitkileri' },
   { id: 'orchids', slug: 'vip-orkide', name: 'Orkideler' },
   { id: 'wreaths', slug: 'acilis-fuar-celengi', name: 'Fuar Çelengi' },
@@ -17,7 +18,7 @@ export const CATEGORIES = [
 // VİP sekmesi: KDV hariç bu tutar ve üzerindeki ürünler (kullanıcı kararı 2026-11-17).
 export const VIP_MIN_PRICE = 7000;
 
-const displayCategory = (p) => (p.category === 'wreaths' && /ferforje|ayaklı/i.test(p.name) ? 'arrangements' : p.category);
+const displayCategory = (p) => (p.category === 'wreaths' && /ferforje|ayaklı/i.test(p.name) ? 'ferforje' : p.category);
 
 export const categoryOf = (id) => CATEGORIES.find((c) => c.id === id);
 
