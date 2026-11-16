@@ -94,9 +94,11 @@ export function initHero() {
     else { delete root.dataset.paused; run(); }
   };
   const rail = root.querySelector('.hero__rail');
-  rail.addEventListener('pointerenter', () => pause(true));
-  rail.addEventListener('pointerleave', () => pause(false));
-  rail.addEventListener('focusin', () => pause(true));
-  rail.addEventListener('focusout', () => pause(false));
+  if (rail) {
+    rail.addEventListener('pointerenter', () => pause(true));
+    rail.addEventListener('pointerleave', () => pause(false));
+    rail.addEventListener('focusin', () => pause(true));
+    rail.addEventListener('focusout', () => pause(false));
+  }
   document.addEventListener('visibilitychange', () => pause(document.hidden));
 }

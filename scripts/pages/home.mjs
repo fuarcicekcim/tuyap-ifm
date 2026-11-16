@@ -37,14 +37,6 @@ function hero() {
       ${heroFair()}
     </div>
   </div>
-
-  <div class="wrap hero__rail" role="group" aria-label="Sahneler">
-    ${SCENES.map((s, i) => `<button class="hero__chapter${i === 0 ? ' is-active' : ''}" type="button" data-goto="${i}" aria-pressed="${i === 0}">
-      <span class="hero__chapter-bar"><i></i></span>
-      <span class="hero__chapter-no">${s.no}</span>
-      <span class="hero__chapter-text"><strong>${esc(s.title)}</strong><small>${esc(s.where)}</small></span>
-    </button>`).join('')}
-  </div>
 </section>`;
 }
 

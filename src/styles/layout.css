@@ -482,8 +482,8 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 /* Mobil: fotoğraf üstte, alt kenarı kreme erir. */
 .hero__veil { background: linear-gradient(0deg, var(--cream) 0%, rgba(247, 245, 240, .7) 22%, rgba(247, 245, 240, 0) 55%); }
 @media (min-width: 1024px) {
-  /* Fotoğraf soldan kreme erir; alttaki sahne şeridi okunsun diye alt kenar koyulaşır. */
-  .hero__stage::after { background: linear-gradient(90deg, var(--cream) 0%, rgba(247, 245, 240, .6) 10%, rgba(247, 245, 240, 0) 28%), linear-gradient(0deg, rgba(20, 20, 20, .62) 0%, rgba(20, 20, 20, 0) 30%); }
+  /* Fotoğraf soldan kreme erir. */
+  .hero__stage::after { background: linear-gradient(90deg, var(--cream) 0%, rgba(247, 245, 240, .6) 10%, rgba(247, 245, 240, 0) 28%); }
   .hero h1 { font-size: clamp(3rem, 1rem + 3.4vw, 5.2rem); }
 }
 
