@@ -57,7 +57,7 @@ function hero() {
 
 function trust() {
   const items = [
-    ['truck', 'Standa doğrudan teslimat', 'TÜYAP ve İFM’de salon ve stant numaranıza'],
+    ['truck', 'Standa doğrudan teslimat', 'TÜYAP ve İFM’de salon ve stant numarasına'],
     ['camera', 'Fotoğraflı teslim onayı', 'Teslimat fotoğrafı WhatsApp’tan iletilir'],
     ['receipt-text', 'Kurumsal e-Fatura', 'Firma ünvanınıza düzenlenir'],
     ['message-circle', '7/24 WhatsApp hattı', 'Sipariş ve ödeme tek yazışmada netleşir'],
@@ -118,14 +118,14 @@ function steps() {
   const list = [
     ['Ürünü ve kuşak yazısını seçin', 'Çelenk, orkide veya aranjmanı sepete ekleyin. Firma adınızı ve mesajınızı yazın; kuşak önizlemesini anında görün.'],
     ['WhatsApp’ta onaylayın', `Sipariş özetiniz WhatsApp’a düzenli bir mesaj olarak düşer. Stok ve teslim saatini teyit eder, ödemeyi aynı yazışmada netleştiririz.`],
-    ['Standınıza teslim edelim', `Onaydan itibaren ${DELIVERY.minutes} dakikada salon ve stant numaranıza teslim ederiz. Teslimat fotoğrafı WhatsApp’tan size iletilir.`],
+    ['Standa teslim edelim', `Onaydan itibaren ${DELIVERY.minutes} dakikada salon ve stant numarasına teslim ederiz. Teslimat fotoğrafı WhatsApp’tan size iletilir.`],
   ];
   return `
 <section class="section section--dark steps" id="nasil-calisir" aria-labelledby="adim-baslik">
   <div class="wrap">
     <div class="section-head section-head--dark">
       <p class="eyebrow">Nasıl çalışıyoruz</p>
-      <h2 id="adim-baslik" data-split>Üç adımda <em>standınızda.</em></h2>
+      <h2 id="adim-baslik" data-split>Üç adımda <em>standda.</em></h2>
     </div>
     <ol class="steps__list">
       ${list.map(([t, d], i) => `<li class="steps__item" data-reveal><span class="steps__num">0${i + 1}</span><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('')}
@@ -137,7 +137,7 @@ function steps() {
 
 export const FAQ = [
   ['Teslimat ne kadar sürer?', `TÜYAP ve İFM’ye sipariş onayından itibaren ${DELIVERY.minutes} dakikada standa teslim ederiz. Süre sipariş onayından başlar; ürünün stokta ve fuar girişinin uygun olması gerekir. Fuar günleri için saat aralığı da seçebilirsiniz.`],
-  ['Hangi fuar merkezlerine teslimat yapıyorsunuz?', `${VENUES.map((v) => `${v.name} (${v.district})`).join(' ve ')}. Siparişte salon ve stant numaranızı yazmanız yeterlidir.`],
+  ['Hangi fuar merkezlerine teslimat yapıyorsunuz?', `${VENUES.map((v) => `${v.name} (${v.district})`).join(' ve ')}. Siparişte teslim edilecek standın salon ve stant numarasını yazmanız yeterlidir; kendi standınız da olabilir, müşterinizin veya iş ortağınızın standı da.`],
   ['Fiyatlara KDV ve teslimat dahil mi?', `Ürün fiyatları KDV hariçtir; %${PRICING.vatRate} KDV eklenir. TÜYAP ve İFM’ye standa teslimat fiyata dahildir. Sipariş çekmecesinde KDV hariç ve KDV dahil toplamı birlikte görürsünüz.`],
   ['Ödemeyi nasıl yapıyorum?', 'Sitede online ödeme alınmaz. Sipariş özetiniz WhatsApp’a iletilir; ödeme yöntemi ve onay aynı yazışmada netleşir.'],
   ['Kurumsal fatura kesiyor musunuz?', 'Evet. Firma ünvanı, vergi dairesi ve vergi numaranızı sipariş sırasında veya WhatsApp’tan paylaştığınızda kurumsal e-Fatura düzenleriz.'],

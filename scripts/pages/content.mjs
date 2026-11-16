@@ -27,7 +27,7 @@ export function tuyap(catalog, fairData) {
   const faq = [
     ['TÜYAP’a çiçek göndermek için hangi bilgiler gerekir?', 'Fuar adı, salon ve stant numarası, teslim alacak firma ve bir telefon numarası yeterlidir. Kuşak yazısını da siparişte belirtirsiniz.'],
     ['TÜYAP’a çiçek ne kadar sürede ulaşır?', `Sipariş onayından itibaren ${M} dakikada standa teslim ederiz. Süre onaydan başlar; ürünün stokta ve fuar girişinin uygun olması gerekir. Esenyurt’tan TÜYAP’a yol süremiz yaklaşık 5 dakikadır.`],
-    ['Kurulum gününde teslimat yapıyor musunuz?', 'Evet. Fuar açılışından önceki kurulum gününde veya açılış sabahı standınıza teslim edebiliriz; saat aralığını siparişte seçersiniz.'],
+    ['Kurulum gününde teslimat yapıyor musunuz?', 'Evet. Fuar açılışından önceki kurulum gününde veya açılış sabahı standa teslim edebiliriz; saat aralığını siparişte seçersiniz.'],
     ['TÜYAP teslimatı için ayrıca ücret ödüyor muyum?', `Hayır. TÜYAP’a standa teslimat ürün fiyatına dahildir; fiyatlara yalnızca %${PRICING.vatRate} KDV eklenir.`],
     ['Fuar boyunca çiçekler solarsa ne oluyor?', 'Fuar süresince solan çiçekleri değiştiriyoruz. WhatsApp hattından yazmanız yeterli.'],
     ['TÜYAP yakınındaki otellere de gönderiyor musunuz?', 'Evet. Fuar katılımcılarının konakladığı otellere karşılama çiçeği ve orkide gönderebiliyoruz; otel adı ve misafir adını yazın.'],
@@ -36,19 +36,19 @@ export function tuyap(catalog, fairData) {
   return landing({
     path: TUYAP.page,
     title: 'TÜYAP Çiçekçi | TÜYAP Fuarına Çiçek Gönder – Fuar Çiçekçim',
-    description: `TÜYAP’taki standınıza açılış çelengi, kuşaklı orkide ve stant aranjmanı. Esenyurt’tan TÜYAP’a 5 dakika; ${DELIVERY.promise}, fotoğraflı onay.`,
+    description: `TÜYAP’taki dilediğiniz standa açılış çelengi, kuşaklı orkide ve stant aranjmanı. Esenyurt’tan TÜYAP’a 5 dakika; ${DELIVERY.promise}, fotoğraflı onay.`,
     crumbs: [['Ana sayfa', '/'], ['TÜYAP fuar çiçekçisi', TUYAP.page]],
     hero: {
       eyebrow: 'TÜYAP çiçekçi · Büyükçekmece',
-      title: 'TÜYAP’taki standınıza, <em>beş dakika ötede.</em>',
-      lead: `Esenyurt’tan çalışıyoruz; TÜYAP Fuar ve Kongre Merkezi’ne yol süremiz yaklaşık 5 dakika. Açılış çelengini, kuşaklı orkideyi ve stant aranjmanını sipariş onayından itibaren ${M} dakikada salon ve stant numaranıza teslim ediyoruz.`,
+      title: 'TÜYAP’taki her standa, <em>beş dakika ötede.</em>',
+      lead: `Esenyurt’tan çalışıyoruz; TÜYAP Fuar ve Kongre Merkezi’ne yol süremiz yaklaşık 5 dakika. Açılış çelengini, kuşaklı orkideyi ve stant aranjmanını sipariş onayından itibaren ${M} dakikada salon ve stant numarasına teslim ediyoruz.`,
       image: '/assets/hero/tuyap-saksi-resmi-logo',
       imageAlt: 'TÜYAP’ta bir fuar standının önünde firma adlı kuşaklı saksı bitkisi',
     },
     factsList: [
       ['Yol süresi', 'Esenyurt → TÜYAP yaklaşık 5 dk'],
       ['Teslimat', `Onaydan itibaren ${M} dk`],
-      ['Teslim noktası', 'Salon ve stant numaranız'],
+      ['Teslim noktası', 'Verdiğiniz salon ve stant numarası'],
       ['Teslimat ücreti', 'Fiyata dahil · %20 KDV ayrıca'],
     ],
     sections: [
@@ -91,8 +91,8 @@ export function ifm(catalog, fairData) {
     crumbs: [['Ana sayfa', '/'], ['İFM fuar çiçekçisi', IFM.page]],
     hero: {
       eyebrow: 'İFM çiçekçi · Yeşilköy',
-      title: 'İstanbul Fuar Merkezi’nde <em>standınıza özel.</em>',
-      lead: `İFM’deki salon ve stant numaranıza kuşaklı orkide, açılış çelengi ve stant aranjmanını sipariş onayından itibaren ${M} dakikada teslim ediyoruz. Uluslararası katılımcılar için kuşak yazısı İngilizce veya iki dilli hazırlanır.`,
+      title: 'İstanbul Fuar Merkezi’nde <em>dilediğiniz standa.</em>',
+      lead: `İFM’de dilediğiniz standa, salon ve stant numarasına kuşaklı orkide, açılış çelengi ve stant aranjmanını sipariş onayından itibaren ${M} dakikada teslim ediyoruz. Uluslararası katılımcılar için kuşak yazısı İngilizce veya iki dilli hazırlanır.`,
       image: '/assets/hero/ifm-ferforje',
       imageAlt: 'İstanbul Fuar Merkezi’nde bir standın önünde beyaz çiçekli ayaklı ferforje aranjman',
     },
@@ -138,7 +138,7 @@ export function fuarCicekcisi(catalog, fairData) {
     hero: {
       eyebrow: 'Fuar çiçekçi · İstanbul',
       title: 'Fuar standlarına uzman, <em>size en yakın çiçekçi.</em>',
-      lead: `Yalnızca fuar ve kurumsal etkinlikler için çalışıyoruz. Esenyurt’tan TÜYAP’a yaklaşık 5 dakikada, İFM’deki standınıza ise sipariş onayından itibaren ${M} dakikada ulaşıyoruz.`,
+      lead: `Yalnızca fuar ve kurumsal etkinlikler için çalışıyoruz. Esenyurt’tan TÜYAP’a yaklaşık 5 dakikada, İFM’deki standlara ise sipariş onayından itibaren ${M} dakikada ulaşıyoruz.`,
     },
     factsList: [
       ['Konum', `${esc(SITE.address.district)}, ${esc(SITE.address.city)}`],
@@ -174,7 +174,7 @@ export function avrasya(catalog, fairData) {
   return page({
     path,
     title: `${fair.name} 2026 · TÜYAP Çiçek`,
-    description: `${range} ${fair.name} için TÜYAP’taki standınıza orkide, çelenk ve aranjman. ${DELIVERY.promise}, fotoğraflı onay.`,
+    description: `${range} ${fair.name} için TÜYAP’taki dilediğiniz standa orkide, çelenk ve aranjman. ${DELIVERY.promise}, fotoğraflı onay.`,
     jsonld: graph(
       businessNode(),
       { '@type': 'Event', name: fair.name, startDate: fair.start, endDate: fair.end, eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode', eventStatus: 'https://schema.org/EventScheduled', location: { '@type': 'Place', name: TUYAP.name, address: { '@type': 'PostalAddress', addressLocality: 'Büyükçekmece', addressRegion: 'İstanbul', addressCountry: 'TR' } } },
@@ -185,7 +185,7 @@ export function avrasya(catalog, fairData) {
       crumbs: [['Ana sayfa', '/'], ['TÜYAP', TUYAP.page], [fair.name, path]],
       eyebrow: `${range} · TÜYAP İstanbul`,
       title: `${esc(fair.name)} için <em>standınız hazır olsun.</em>`,
-      lead: `Avrasya fuarlarında iş ortaklarınıza iyi fuarlar dileyin, kendi standınızı çiçeklerle karşılamaya hazırlayın. Siparişinizi salon ve stant numaranıza göre ${M} dakikada teslim ediyoruz.`,
+      lead: `Avrasya fuarlarında iş ortaklarınıza iyi fuarlar dileyin, kendi standınızı çiçeklerle karşılamaya hazırlayın. Siparişinizi salon ve stant numarasına göre ${M} dakikada teslim ediyoruz.`,
       image: '/assets/hero/tuyap-orkide',
       imageAlt: 'TÜYAP’ta stant bankosunda firma adlı kuşaklı beyaz orkide',
     })
@@ -210,7 +210,7 @@ export function takvim(fairData) {
     crumbs: [['Ana sayfa', '/'], ['Fuar takvimi', path]],
     eyebrow: 'İstanbul fuar takvimi',
     title: 'TÜYAP ve İFM <em>fuar takvimi.</em>',
-    lead: 'Standınızın olduğu fuarı bulun ve “Bu fuar için sipariş” deyin; fuar adı ve fuar merkezi sipariş çekmecesine otomatik gelir.',
+    lead: 'Çiçek göndereceğiniz fuarı bulun ve “Bu fuar için sipariş” deyin; fuar adı ve fuar merkezi sipariş çekmecesine otomatik gelir.',
   }) + `
 <section class="section fairs">
   <div class="wrap">
@@ -360,7 +360,7 @@ export function teslimat() {
     ['Siparişi oluşturun', 'Ürünleri sepete ekleyin; fuar merkezi, salon ve stant numarası, teslim günü ve saat aralığını seçin. Kuşak yazısını canlı önizlemede görün.'],
     ['WhatsApp’ta onaylayın', 'Sipariş özetiniz numarasıyla birlikte WhatsApp’a düşer. Stok, teslim saati ve ödeme yöntemini (havale/EFT, kredi kartı veya teslimatta nakit) yazılı olarak netleştiririz.'],
     ['Hazırlık ve kuşak', 'Ürün hazırlanır, kuşağa firma adınız veya logonuz basılır. Yazı Türkçe, İngilizce veya iki dilli olabilir.'],
-    [`${M} dakikada standa teslim`, `Onaydan itibaren ${M} dakika içinde salon ve stant numaranıza teslim ederiz. Kurulum günü veya açılış sabahı için önceden planlama da yapılabilir.`],
+    [`${M} dakikada standa teslim`, `Onaydan itibaren ${M} dakika içinde salon ve stant numarasına teslim ederiz. Kurulum günü veya açılış sabahı için önceden planlama da yapılabilir.`],
     ['Fotoğraflı onay ve fatura', 'Teslimattan sonra standdaki fotoğrafı WhatsApp’tan gönderir, kurumsal e-Faturanızı düzenleriz.'],
     ['Fuar boyunca destek', 'Fuar süresince solan çiçekleri değiştirir, ek siparişleri aynı hattan alırız.'],
   ];

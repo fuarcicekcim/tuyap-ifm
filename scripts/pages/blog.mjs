@@ -77,7 +77,7 @@ export const POSTS = [
 <li><strong>Fuar sırasında:</strong> Ziyaret veya tebrik amaçlı; onaydan itibaren ${M} dakikada standa.</li>
 </ul>
 <h2>Teslimat nasıl yapılır?</h2>
-<p>Ürünü salon ve stant numaranıza kendimiz teslim ediyor, teslimattan sonra standdaki fotoğrafını WhatsApp’tan gönderiyoruz. Çelenkler genellikle stant önüne, orkideler bankoya veya masaya yerleştirilir. Esenyurt’tan TÜYAP’a yol süremiz yaklaşık 5 dakikadır.</p>
+<p>Ürünü salon ve stant numarasına kendimiz teslim ediyor, teslimattan sonra standdaki fotoğrafını WhatsApp’tan gönderiyoruz. Çelenkler genellikle stant önüne, orkideler bankoya veya masaya yerleştirilir. Esenyurt’tan TÜYAP’a yol süremiz yaklaşık 5 dakikadır.</p>
 <h2>Fiyat ve fatura</h2>
 <p>TÜYAP’a standa teslimat ürün fiyatına dahildir; fiyatlara %${PRICING.vatRate} KDV eklenir. Ödeme havale/EFT, kredi kartı veya teslimatta nakit yapılabilir; firmanıza kurumsal e-Fatura düzenlenir.</p>
 <h2>Sık yapılan hatalar</h2>

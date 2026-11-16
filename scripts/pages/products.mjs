@@ -33,7 +33,7 @@ export const CATEGORY_COPY = {
     title: 'Stant <em>aranjmanı.</em>',
     lead: 'Toplantı masaları ve karşılama alanı için orkide, lilyum, gül ve gerbera aranjmanları.',
     use: 'Toplantı masalarına, karşılama alanına ve fuar içi kokteyllere',
-    body: '<p>Stant aranjmanları, standınızın içinde misafirlerinizi karşılayan çiçeklerdir. Kesme çiçekli aranjmanlar açılış günü için idealdir; uzun fuarlarda solan çiçekleri fuar süresince değiştiriyoruz.</p><p>Fuar içi lansman, kokteyl veya sahne çiçeklendirmesi için <a href="/teklif.html">kurumsal teklif</a> isteyebilirsiniz.</p>',
+    body: '<p>Stant aranjmanları, standın içinde misafirleri karşılayan çiçeklerdir; kendi standınız için ya da iş ortağınıza tebrik olarak gönderilebilir. Kesme çiçekli aranjmanlar açılış günü için idealdir; uzun fuarlarda solan çiçekleri fuar süresince değiştiriyoruz.</p><p>Fuar içi lansman, kokteyl veya sahne çiçeklendirmesi için <a href="/teklif.html">kurumsal teklif</a> isteyebilirsiniz.</p>',
     faq: [
       ['Aranjman stant renklerime uygun hazırlanabilir mi?', 'Renk tercihinizi sipariş notuna veya WhatsApp’a yazın; içerik ve renkleri siparişte birlikte teyit ederiz.'],
       ['Kesme çiçekler kaç gün dayanır?', 'Açılış günü için idealdir; fuar boyunca solan çiçekleri değiştiriyoruz.'],
@@ -127,7 +127,7 @@ export function productPage(p, catalog) {
         <a class="btn btn--wa" href="${waLink(`Merhaba, ${p.name} (${tlPrice(p.price)} + KDV) için fuar standına sipariş vermek istiyorum.`)}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="product">${icon('message-circle')}WhatsApp’tan sor</a>
       </div>
       <ul class="pdp__values">
-        <li>${icon('truck')}<span><strong>${esc(DELIVERY.promise)}</strong> TÜYAP ve İFM’de salon ve stant numaranıza</span></li>
+        <li>${icon('truck')}<span><strong>${esc(DELIVERY.promise)}</strong> TÜYAP ve İFM’de salon ve stant numarasına</span></li>
         <li>${icon('type')}<span><strong>Kuşakta firma adınız</strong> logo baskısı; Türkçe, İngilizce veya iki dilli</span></li>
         <li>${icon('camera')}<span><strong>Fotoğraflı teslim onayı</strong> WhatsApp’tan iletilir</span></li>
         <li>${icon('receipt-text')}<span><strong>Kurumsal e-Fatura</strong> havale/EFT, kredi kartı veya teslimatta nakit</span></li>
