@@ -121,7 +121,7 @@
 .pdp__main { border: 1px solid var(--line); background: var(--paper); aspect-ratio: 2 / 3; overflow: hidden; }
 .pdp__main img, .pdp__alt img { width: 100%; height: 100%; object-fit: cover; }
 .pdp__alt { aspect-ratio: 2 / 3; overflow: hidden; border: 1px solid var(--line); position: relative; }
-.pdp__alt figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: .6rem .8rem; background: rgba(10, 31, 23, .78); color: var(--cream); font-size: .72rem; }
+.pdp__alt figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: .6rem .8rem; background: rgba(23, 54, 40, .78); color: var(--cream); font-size: .72rem; }
 .pdp__info h1 { font-size: var(--step-4); margin: .5rem 0 1rem; }
 .pdp__info .crumbs ol { color: var(--muted); }
 .pdp__price { display: flex; align-items: baseline; gap: .5rem; margin: 0; }

@@ -199,7 +199,7 @@ export function page({ path, title, description, body, jsonld = '', preload = ''
 <meta name="description" content="${esc(description)}">
 <meta name="robots" content="${robots}">
 <link rel="canonical" href="${canonical}">
-<meta name="theme-color" content="#0A1F17">
+<meta name="theme-color" content="#173628">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="${SITE.locale}">
 <meta property="og:site_name" content="${esc(SITE.name)}">

@@ -5,7 +5,7 @@ html { scrollbar-gutter: stable; }
 .drawer-root { position: fixed; inset: 0; z-index: 80; pointer-events: none; }
 .drawer-root.is-open { pointer-events: auto; }
 .drawer__scrim {
-  position: absolute; inset: 0; background: rgba(10, 31, 23, .5);
+  position: absolute; inset: 0; background: rgba(23, 54, 40, .5);
   opacity: 0; transition: opacity .35s var(--ease);
 }
 .drawer-root.is-open .drawer__scrim { opacity: 1; }
@@ -84,7 +84,7 @@ html { scrollbar-gutter: stable; }
 .choice input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
 
 /* Canlı kuşak önizlemesi */
-.ribbon { display: flex; align-items: stretch; margin: .25rem 0 1rem; filter: drop-shadow(0 6px 10px rgba(10, 31, 23, .18)); }
+.ribbon { display: flex; align-items: stretch; margin: .25rem 0 1rem; filter: drop-shadow(0 6px 10px rgba(23, 54, 40, .18)); }
 .ribbon__band {
   flex: 1; min-width: 0; display: grid; place-items: center; min-height: 64px; padding: .6rem 1rem;
   background: linear-gradient(180deg, #1d1d1d 0%, #0b0b0b 55%, #1a1a1a 100%);

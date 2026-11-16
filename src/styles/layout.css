@@ -111,7 +111,7 @@
 .hero__veil {
   position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
-    linear-gradient(0deg, rgba(10, 31, 23, .96) 0%, rgba(10, 31, 23, .78) 38%, rgba(10, 31, 23, .2) 70%, rgba(10, 31, 23, .35) 100%);
+    linear-gradient(0deg, rgba(23, 54, 40, .96) 0%, rgba(23, 54, 40, .78) 38%, rgba(23, 54, 40, .2) 70%, rgba(23, 54, 40, .35) 100%);
 }
 .hero__inner { display: grid; gap: var(--space-m); padding-top: clamp(8rem, 26vh, 13rem); padding-bottom: 1.5rem; }
 .hero__eyebrow { display: flex; align-items: center; gap: .6rem; margin-bottom: 1.25rem; color: var(--gold-soft); }
@@ -152,7 +152,7 @@
 /* Mobil/tablet: fotoğraf üst bantta, alt kenarı orman yeşiline erir; yazı düz zemin üzerinde okunur. */
 @media (max-width: 1023px) {
   .hero__stage, .hero__veil { bottom: auto; height: 30svh; }
-  .hero__veil { background: linear-gradient(0deg, var(--forest) 0%, rgba(10, 31, 23, .75) 22%, rgba(10, 31, 23, .1) 55%, rgba(10, 31, 23, .2) 100%); }
+  .hero__veil { background: linear-gradient(0deg, var(--forest) 0%, rgba(23, 54, 40, .75) 22%, rgba(23, 54, 40, .1) 55%, rgba(23, 54, 40, .2) 100%); }
   .hero__inner { padding-top: calc(30svh - 2.5rem); }
   .hero h1 { font-size: clamp(2.1rem, 1.5rem + 3vw, 3rem); }
   .hero__lead { font-size: 1rem; margin-top: 1rem; }
@@ -175,7 +175,7 @@
   /* Görsel alanı fotoğrafın oranına yakın tutulur (en fazla ~1.9:1), böylece kısa hero'da fotoğraf az kesilir. */
   .hero { --hero-h: clamp(420px, 50svh, 500px); --stage-w: min(60%, calc(var(--hero-h) * 1.9)); height: var(--hero-h); justify-content: center; }
   .hero__stage { left: auto; width: var(--stage-w); }
-  .hero__stage::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(90deg, var(--forest) 0%, rgba(10, 31, 23, .55) 12%, rgba(10, 31, 23, 0) 30%), linear-gradient(0deg, rgba(10, 31, 23, .85) 0%, rgba(10, 31, 23, 0) 32%); }
+  .hero__stage::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(90deg, var(--forest) 0%, rgba(23, 54, 40, .55) 12%, rgba(23, 54, 40, 0) 30%), linear-gradient(0deg, rgba(23, 54, 40, .85) 0%, rgba(23, 54, 40, 0) 32%); }
   .hero h1 { font-size: clamp(2.8rem, 1rem + 3vw, 4.8rem); max-width: none; white-space: nowrap; }
   .hero__lead { font-size: var(--step-0); margin-top: 1rem; }
   .hero__ctas { margin-top: 1.4rem; }
@@ -251,7 +251,7 @@
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
   display: grid; grid-template-columns: 1fr 1.6fr; gap: 8px;
   padding: 8px var(--gutter) calc(8px + env(safe-area-inset-bottom, 0px));
-  background: rgba(10, 31, 23, .96);
+  background: rgba(23, 54, 40, .96);
   border-top: 1px solid var(--line-on-dark);
 }
 /* Bazı Android tarayıcılar (ör. Xiaomi + Chrome) sayfayı sistem gezinme çubuğunun altına da çizer;
@@ -286,15 +286,15 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 .footer__scene::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
   background:
-    linear-gradient(180deg, var(--forest) 0%, rgba(10, 31, 23, .55) 12%, rgba(10, 31, 23, 0) 30%, rgba(10, 31, 23, 0) 52%, rgba(10, 31, 23, .7) 76%, var(--forest) 100%),
-    radial-gradient(60% 80% at 50% 50%, rgba(10, 31, 23, .12), rgba(10, 31, 23, 0) 70%);
+    linear-gradient(180deg, var(--forest) 0%, rgba(23, 54, 40, .55) 12%, rgba(23, 54, 40, 0) 30%, rgba(23, 54, 40, 0) 52%, rgba(23, 54, 40, .7) 76%, var(--forest) 100%),
+    radial-gradient(60% 80% at 50% 50%, rgba(23, 54, 40, .12), rgba(23, 54, 40, 0) 70%);
 }
 /* Fuar merkezi etiketleri: cam görünümlü, ilgili sayfaya gider. */
 .footer__tags { position: absolute; left: 0; right: 0; top: 17%; z-index: 2; display: flex; justify-content: space-between; gap: 1rem; pointer-events: none; }
 .footer__tag-venue {
   pointer-events: auto; display: inline-flex; align-items: center; gap: .55rem;
   padding: .55rem .9rem .55rem .7rem; border-radius: 999px;
-  background: rgba(10, 31, 23, .38); border: 1px solid rgba(247, 245, 240, .22);
+  background: rgba(23, 54, 40, .38); border: 1px solid rgba(247, 245, 240, .22);
   -webkit-backdrop-filter: blur(10px) saturate(1.2); backdrop-filter: blur(10px) saturate(1.2);
   color: var(--cream) !important; font-size: .78rem; line-height: 1.15; box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
   transition: background .25s var(--ease), border-color .25s var(--ease);
@@ -302,7 +302,7 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 .footer__tag-venue .icon { width: 15px; height: 15px; color: var(--gold-soft); flex: none; }
 .footer__tag-venue span { display: grid; }
 .footer__tag-venue strong { font-size: .82rem; letter-spacing: .08em; }
-@media (hover: hover) { .footer__tag-venue:hover { background: rgba(10, 31, 23, .6); border-color: rgba(197, 160, 89, .6); } }
+@media (hover: hover) { .footer__tag-venue:hover { background: rgba(23, 54, 40, .6); border-color: rgba(197, 160, 89, .6); } }
 
 /* Buzlu cam panel: fotoğrafların alt kenarına biner; yazılar her zaman okunur. */
 .footer__panel {
@@ -312,7 +312,7 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   border-radius: 6px;
   background:
     radial-gradient(120% 90% at 0% 0%, rgba(197, 160, 89, .12), rgba(197, 160, 89, 0) 55%),
-    linear-gradient(180deg, rgba(18, 48, 31, .66) 0%, rgba(10, 31, 23, .86) 100%);
+    linear-gradient(180deg, rgba(18, 48, 31, .66) 0%, rgba(23, 54, 40, .86) 100%);
   border: 1px solid rgba(247, 245, 240, .12);
   -webkit-backdrop-filter: blur(18px) saturate(1.25); backdrop-filter: blur(18px) saturate(1.25);
   box-shadow: 0 30px 80px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(197, 160, 89, .38);
@@ -353,8 +353,8 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   .footer__panel { margin-top: calc(var(--sh) * -.22); border-radius: 4px; }
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .footer__panel { background: rgba(10, 31, 23, .94); }
-  .footer__tag-venue { background: rgba(10, 31, 23, .75); }
+  .footer__panel { background: rgba(23, 54, 40, .94); }
+  .footer__tag-venue { background: rgba(23, 54, 40, .75); }
 }
 
 /* Tablet / küçük masaüstü: fuar şeridi iki sütun (logo + bilgi), günler ve butonlar alt satırda yan yana. */
@@ -371,7 +371,7 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 .hero {
   margin: clamp(.5rem, 1vw, 1rem) clamp(.5rem, 1.2vw, 1.25rem) 0;
   border-radius: clamp(14px, 1.6vw, 24px);
-  box-shadow: 0 24px 60px -28px rgba(10, 31, 23, .45);
+  box-shadow: 0 24px 60px -28px rgba(23, 54, 40, .45);
 }
 .hero__copy > * { animation: hero-rise .9s var(--ease) both; }
 .hero__copy > :nth-child(2) { animation-delay: .12s; }
