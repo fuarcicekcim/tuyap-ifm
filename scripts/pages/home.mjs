@@ -29,7 +29,6 @@ function hero() {
 
   <div class="wrap hero__inner">
     <div class="hero__copy">
-      <p class="eyebrow hero__eyebrow">7/24 sipariş · TÜYAP &amp; İFM fuar çiçekçisi</p>
       <h1 id="hero-baslik" data-split>TÜYAP ve İFM’de standınıza <em>${DELIVERY.minutes} dakikada</em> çiçek.</h1>
       <p class="hero__lead">Kuşaklı VIP orkide, açılış çelengi ve stant bitkileri; firmanızın adıyla hazırlanır, salon ve stant numaranıza teslim edilir, fotoğrafla onaylanır.</p>
       <div class="hero__ctas">
