@@ -8,8 +8,11 @@
 .topbar .wrap { display: flex; justify-content: center; align-items: center; gap: 1rem; min-height: 38px; }
 .topbar strong { color: var(--gold-soft); font-weight: 700; }
 .topbar a { color: var(--cream); text-decoration: none; }
-.topbar__msgs { display: flex; align-items: center; gap: .5rem 1.6rem; margin: 0; color: var(--cream); font-weight: 600; line-height: 1; }
+.topbar__msgs { display: flex; align-items: center; gap: .5rem 1.4rem; margin: 0; color: var(--cream); font-weight: 600; line-height: 1; }
 .topbar__msg { display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap; line-height: 1; }
+.topbar__msg + .topbar__msg { position: relative; padding-left: 1.4rem; }
+.topbar__msg + .topbar__msg::before { content: ''; position: absolute; left: 0; top: 50%; width: 1px; height: 14px; transform: translateY(-50%); background: rgba(197, 160, 89, .45); }
+@media (min-width: 1024px) { .topbar__msgs { column-gap: 2rem; } .topbar__msg + .topbar__msg { padding-left: 2rem; } }
 .topbar__call { color: var(--cream) !important; }
 .topbar__call u { text-decoration: underline; text-decoration-color: rgba(197, 160, 89, .7); text-decoration-thickness: 1px; text-underline-offset: 4px; font-variant-numeric: tabular-nums; transition: text-decoration-color .25s var(--ease), color .25s var(--ease); }
 @media (hover: hover) { .topbar__call:hover u { color: var(--gold-soft); text-decoration-color: var(--gold-soft); } .topbar__call:hover .topbar__call-icon { background: rgba(197, 160, 89, .26); } }
@@ -35,7 +38,7 @@
 .topbar__extra { display: none; align-items: center; gap: 1.6rem; color: var(--cream); font-weight: 600; line-height: 1; }
 .topbar__extra > * { display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap; }
 .topbar__extra .icon { width: 15px; height: 15px; color: var(--gold); flex: none; }
-@media (max-width: 419px) { .topbar__msgs { gap: .5rem .9rem; font-size: .74rem; letter-spacing: 0; } .topbar__msg { gap: .35rem; } }
+@media (max-width: 419px) { .topbar__msg + .topbar__msg { padding-left: .75rem; } .topbar__msgs { gap: .5rem .75rem; font-size: .74rem; letter-spacing: 0; } .topbar__msg { gap: .35rem; } }
 @media (min-width: 640px) { .topbar__long { display: inline; } .topbar__short { display: none; } }
 @media (prefers-reduced-motion: reduce) { .topbar__live::after, .topbar__bolt, .topbar__call-icon .icon { animation: none; } }
 
