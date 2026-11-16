@@ -3,6 +3,7 @@ import './styles/base.css';
 import './styles/layout.css';
 import { track, initAnalytics } from './js/analytics.js';
 import { initReveal } from './js/reveal.js';
+import { initHero } from './js/hero.js';
 import { initDrawer } from './js/drawer.js';
 import { initCatalog } from './js/catalog.js';
 import { refreshPrices } from './js/prices.js';
@@ -12,6 +13,7 @@ import './styles/sections.css';
 import './styles/drawer.css';
 
 initAnalytics();
+initHero();
 initDrawer();
 refreshPrices(initCatalog());
 initQuote();

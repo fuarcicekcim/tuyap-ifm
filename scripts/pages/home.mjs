@@ -6,31 +6,54 @@ import { graph, businessNode, faqNode } from '../lib/seo.mjs';
 import { page, waLink } from '../lib/layout.mjs';
 import { CATEGORIES } from '../lib/catalog.mjs';
 
-const HERO_IMG = '/assets/hero/tuyap-orkide';
+// Hero sahneleri: tam ekran, sırayla değişen stant görselleri. İlk sahne LCP görselidir.
+const SCENES = [
+  { img: '/assets/hero/tuyap-orkide', pos: '58% 40%', no: '01', title: 'Kuşaklı VIP orkide', where: 'Karşılama bankosu · TÜYAP',
+    alt: 'TÜYAP’ta bir fuar standının karşılama bankosunda firma adlı kuşaklı beyaz orkide ve pastel aranjman' },
+  { img: '/assets/hero/ifm-ferforje', pos: '56% 35%', no: '02', title: 'Ayaklı ferforje', where: 'Açılış tebriği · İFM',
+    alt: 'İFM’de bir standın girişinde firma adlı kuşaklı ayaklı ferforje çiçek aranjmanı' },
+  { img: '/assets/hero/tuyap-saksi', pos: '48% 45%', no: '03', title: 'Hediye paketli bitkiler', where: 'Stant yeşillendirme · TÜYAP',
+    alt: 'TÜYAP’ta bir standda firma adlı kuşakla hediye paketlenmiş kauçuk ve kırmızı antoryum' },
+];
 
 function hero() {
+  const venue = VENUES.find((v) => v.id === FAIR_DAYS.activeFairVenue);
   return `
-<section class="hero" aria-labelledby="hero-baslik">
-  <div class="wrap hero__grid">
+<section class="hero" aria-labelledby="hero-baslik" data-hero>
+  <div class="hero__stage">
+    ${SCENES.map((s, i) => `<div class="hero__scene${i === 0 ? ' is-active' : ''}" data-scene="${i}">
+      <img ${i === 0 ? `src="${s.img}.webp" srcset="${s.img}-768.webp 768w, ${s.img}.webp 1536w" fetchpriority="high"` : `data-src="${s.img}.webp" data-srcset="${s.img}-768.webp 768w, ${s.img}.webp 1536w"`}
+        sizes="100vw" width="1536" height="1024" alt="${esc(s.alt)}" decoding="async" style="object-position:${s.pos}">
+    </div>`).join('')}
+  </div>
+  <div class="hero__veil" aria-hidden="true"></div>
+
+  <div class="wrap hero__inner">
     <div class="hero__copy">
-      <p class="eyebrow hero__eyebrow">TÜYAP &amp; İFM fuar çiçekçisi</p>
-      <h1 id="hero-baslik" data-split>Standınızın ilk <em>izlenimi,</em> bizden.</h1>
-      <p class="hero__lead">Açılış çelengi, logolu kuşaklı VIP orkide ve stant aranjmanı. Firmanızın adıyla hazırlanır, sipariş onayından itibaren ${DELIVERY.minutes} dakikada standınıza teslim edilir.</p>
+      <p class="eyebrow hero__eyebrow"><span class="hero__live" aria-hidden="true"></span>7/24 sipariş · TÜYAP &amp; İFM fuar çiçekçisi</p>
+      <h1 id="hero-baslik" data-split>TÜYAP ve İFM’de standınıza <em>${DELIVERY.minutes} dakikada</em> çiçek.</h1>
+      <p class="hero__lead">Kuşaklı VIP orkide, açılış çelengi ve stant bitkileri; firmanızın adıyla hazırlanır, salon ve stant numaranıza teslim edilir, fotoğrafla onaylanır.</p>
       <div class="hero__ctas">
-        <button class="btn btn--gold" type="button" data-drawer-open data-track-location="hero" data-magnetic>${icon('shopping-bag')}Sipariş Oluştur</button>
-        <a class="btn btn--ghost-light" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero" data-magnetic>${icon('message-circle')}WhatsApp’tan Yazın</a>
+        <button class="btn btn--gold btn--lg" type="button" data-drawer-open data-track-location="hero" data-magnetic>${icon('shopping-bag')}Sipariş Oluştur</button>
+        <a class="btn btn--ghost-light btn--lg" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero" data-magnetic>${icon('message-circle')}WhatsApp’tan Yazın</a>
       </div>
       <p class="hero__note">${esc(DELIVERY.condition)} ${esc(PRICING.deliveryIncluded)}</p>
     </div>
-    <figure class="hero__media">
-      <div class="hero__frame">
-        <img src="${HERO_IMG}.webp" srcset="${HERO_IMG}-768.webp 768w, ${HERO_IMG}.webp 1536w" sizes="(min-width: 1024px) 40vw, 100vw"
-          width="1536" height="1024" alt="TÜYAP’ta bir fuar standının karşılama bankosunda firma adlı kuşaklı beyaz orkide ve pastel aranjman"
-          fetchpriority="high" decoding="async" data-parallax="8">
-        <div class="hero__seal"><strong>${DELIVERY.minutes} dk</strong><span>Sipariş onayından standınıza</span></div>
-      </div>
-      <figcaption class="hero__caption"><span>Kuşaklı VIP orkide · stant karşılama bankosu</span><span>${esc(FAIR_DAYS.activeFairName)}</span></figcaption>
-    </figure>
+
+    <aside class="hero__eta" aria-label="Tahmini teslim saati">
+      <p class="hero__eta-label">Şimdi onaylarsanız standınızda</p>
+      <p class="hero__eta-time"><span class="hero__eta-approx">≈</span><time data-eta>--:--</time></p>
+      <p class="hero__eta-meta">${esc(FAIR_DAYS.activeFairName)}<br>${trRange(FAIR_DAYS.days)} · ${esc(venue.short)}</p>
+      <button class="hero__eta-cta" type="button" data-drawer-open data-track-location="hero-eta">Siparişi başlat ${icon('arrow-right')}</button>
+    </aside>
+  </div>
+
+  <div class="wrap hero__rail" role="group" aria-label="Sahneler">
+    ${SCENES.map((s, i) => `<button class="hero__chapter${i === 0 ? ' is-active' : ''}" type="button" data-goto="${i}" aria-pressed="${i === 0}">
+      <span class="hero__chapter-bar"><i></i></span>
+      <span class="hero__chapter-no">${s.no}</span>
+      <span class="hero__chapter-text"><strong>${esc(s.title)}</strong><small>${esc(s.where)}</small></span>
+    </button>`).join('')}
   </div>
 </section>`;
 }
@@ -218,7 +241,7 @@ export function home(catalog) {
     path: '/',
     title: 'Fuar Çiçekçim | TÜYAP ve İFM Fuar Çiçekçisi, Standa Teslim',
     description: `TÜYAP ve İFM fuar standlarına açılış çelengi, kuşaklı VIP orkide, stant aranjmanı ve saksı bitkisi. ${DELIVERY.promise}, fotoğraflı teslim onayı ve kurumsal e-Fatura.`,
-    preload: `<link rel="preload" as="image" href="/assets/hero/tuyap-orkide-768.webp" imagesrcset="/assets/hero/tuyap-orkide-768.webp 768w, /assets/hero/tuyap-orkide.webp 1536w" imagesizes="(min-width: 1024px) 40vw, 100vw" fetchpriority="high">`,
+    preload: `<link rel="preload" as="image" href="/assets/hero/tuyap-orkide-768.webp" imagesrcset="/assets/hero/tuyap-orkide-768.webp 768w, /assets/hero/tuyap-orkide.webp 1536w" imagesizes="100vw" fetchpriority="high">`,
     jsonld: schema(),
     body: hero() + trust() + packages(catalog) + products(catalog) + corporate() + steps() + faq() + closing(),
   });
