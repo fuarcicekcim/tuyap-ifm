@@ -141,10 +141,10 @@ function footer() {
 <footer class="footer" data-footer>
   <div class="footer__scene">
     <figure class="footer__venue footer__venue--tuyap">
-      <img data-depth="-70" src="/assets/footer/tuyap-1600.webp" srcset="/assets/footer/tuyap-900.webp 900w, /assets/footer/tuyap-1600.webp 1600w" sizes="(min-width: 768px) 62vw, 70vw" width="1600" height="800" alt="TÜYAP Fuar ve Kongre Merkezi binası, Büyükçekmece" loading="lazy" decoding="async">
+      <img data-depth="-70" src="/assets/footer/tuyap-1600.webp" srcset="/assets/footer/tuyap-900.webp 900w, /assets/footer/tuyap-1600.webp 1600w" sizes="50vw" width="1600" height="800" alt="TÜYAP Fuar ve Kongre Merkezi binası, Büyükçekmece" loading="lazy" decoding="async">
     </figure>
     <figure class="footer__venue footer__venue--ifm">
-      <img data-depth="-70" src="/assets/footer/ifm-1280.webp" srcset="/assets/footer/ifm-800.webp 800w, /assets/footer/ifm-1280.webp 1280w" sizes="(min-width: 768px) 62vw, 70vw" width="1280" height="720" alt="İstanbul Fuar Merkezi (İFM) girişi, Yeşilköy" loading="lazy" decoding="async">
+      <img data-depth="-70" src="/assets/footer/ifm-1280.webp" srcset="/assets/footer/ifm-800.webp 800w, /assets/footer/ifm-1280.webp 1280w" sizes="50vw" width="1280" height="720" alt="İstanbul Fuar Merkezi (İFM) girişi, Yeşilköy" loading="lazy" decoding="async">
     </figure>
     <div class="wrap footer__tags">
       <a class="footer__tag-venue" href="${tuyap.page}">${icon('map-pin')}<span><strong>${esc(tuyap.short)}</strong>${esc(tuyap.district)}</span></a>

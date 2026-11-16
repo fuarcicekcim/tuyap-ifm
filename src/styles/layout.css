@@ -274,13 +274,14 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   background: var(--forest); color: rgba(247, 245, 240, .72); font-size: .9rem;
 }
 .footer__scene { position: relative; height: var(--sh); overflow: hidden; }
-.footer__venue { position: absolute; top: 0; bottom: 0; width: 62%; margin: 0; overflow: hidden; }
+.footer__venue { position: absolute; top: 0; bottom: 0; width: 50%; margin: 0; overflow: hidden; }
 .footer__venue img { width: 100%; height: 112%; margin-top: -6%; object-fit: cover; transform: translate3d(0, var(--py, 0px), 0); }
-/* Ortadaki geçiş: iki fotoğraf %38–%62 aralığında birbirine erir. */
-.footer__venue--tuyap { left: 0; -webkit-mask-image: linear-gradient(90deg, #000 60%, transparent 100%); mask-image: linear-gradient(90deg, #000 60%, transparent 100%); }
-.footer__venue--tuyap img { object-position: 62% 42%; }
-.footer__venue--ifm { right: 0; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 40%); mask-image: linear-gradient(90deg, transparent 0%, #000 40%); }
-.footer__venue--ifm img { object-position: 46% 30%; }
+/* Ortada iki fotoğraf üst üste binmez; her biri orman yeşiline kararır, aradaki ince altın çizgi ayırır. */
+.footer__venue--tuyap { left: 0; -webkit-mask-image: linear-gradient(90deg, #000 72%, transparent 100%); mask-image: linear-gradient(90deg, #000 72%, transparent 100%); }
+.footer__venue--tuyap img { object-position: 58% 48%; }
+.footer__venue--ifm { right: 0; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 28%); mask-image: linear-gradient(90deg, transparent 0%, #000 28%); }
+.footer__scene::before { content: ''; position: absolute; left: 50%; top: 14%; bottom: 22%; z-index: 1; width: 1px; background: linear-gradient(180deg, rgba(197, 160, 89, 0), rgba(197, 160, 89, .75) 40%, rgba(197, 160, 89, .75) 60%, rgba(197, 160, 89, 0)); pointer-events: none; }
+.footer__venue--ifm img { object-position: 50% 34%; }
 /* Üst ve alt kenarlar orman yeşiline erir; önceki bölümle ve panelle dikiş görünmez. */
 .footer__scene::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
@@ -341,10 +342,10 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 /* Mobil: sahne daha yüksek oranlı, iki fotoğraf yine yan yana; etiketler küçülür. */
 @media (max-width: 767px) {
   .footer { --sh: 78vw; }
-  .footer__venue { width: 70%; }
-  .footer__venue--tuyap { -webkit-mask-image: linear-gradient(90deg, #000 50%, transparent 100%); mask-image: linear-gradient(90deg, #000 50%, transparent 100%); }
+  .footer__venue { width: 50%; }
+  .footer__venue--tuyap { -webkit-mask-image: linear-gradient(90deg, #000 70%, transparent 100%); mask-image: linear-gradient(90deg, #000 70%, transparent 100%); }
   .footer__venue--tuyap img { object-position: 56% 45%; }
-  .footer__venue--ifm { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 50%); mask-image: linear-gradient(90deg, transparent 0%, #000 50%); }
+  .footer__venue--ifm { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 30%); mask-image: linear-gradient(90deg, transparent 0%, #000 30%); }
   .footer__venue--ifm img { object-position: 48% 30%; }
   .footer__tags { top: 15%; }
   .footer__tag-venue { padding: .4rem .7rem .4rem .55rem; font-size: .7rem; }

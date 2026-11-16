@@ -187,21 +187,6 @@ function faq() {
 </section>`;
 }
 
-function closing() {
-  return `
-<section class="closing" aria-labelledby="kapanis-baslik">
-  <div class="wrap closing__inner">
-    <p class="eyebrow">${esc(FAIR_DAYS.activeFairName)} · ${trRange(FAIR_DAYS.days)} · ${esc(VENUES.find((v) => v.id === FAIR_DAYS.activeFairVenue).short)}</p>
-    <h2 id="kapanis-baslik" data-split>Fuar sabahı standınız <em>hazır olsun.</em></h2>
-    <p class="closing__lead">Siparişinizi şimdi oluşturun; ${esc(DELIVERY.promise)}, fotoğraflı onayla.</p>
-    <div class="closing__ctas">
-      <button class="btn btn--gold" type="button" data-drawer-open data-track-location="closing" data-magnetic>${icon('shopping-bag')}Sipariş Oluştur</button>
-      <a class="btn btn--ghost-light" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="closing" data-magnetic>${icon('phone')}${esc(CONTACT.phoneDisplay)}</a>
-    </div>
-  </div>
-</section>`;
-}
-
 function schema() {
   return graph(
     businessNode(),
@@ -217,6 +202,6 @@ export function home(catalog) {
     description: `TÜYAP ve İFM fuar standlarına açılış çelengi, kuşaklı VIP orkide, stant aranjmanı ve saksı bitkisi. ${DELIVERY.promise}, fotoğraflı teslim onayı ve kurumsal e-Fatura.`,
     preload: `<link rel="preload" as="image" href="/assets/hero/tuyap-orkide-768.webp" imagesrcset="/assets/hero/tuyap-orkide-768.webp 768w, /assets/hero/tuyap-orkide.webp 1536w" imagesizes="100vw" fetchpriority="high">`,
     jsonld: schema(),
-    body: hero() + fairBand() + products(catalog) + trust() + corporate() + steps() + faq() + closing(),
+    body: hero() + fairBand() + products(catalog) + trust() + corporate() + steps() + faq(),
   });
 }
