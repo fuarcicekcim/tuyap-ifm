@@ -392,3 +392,77 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   .hero__fair-logos { display: none; }
 }
 .hero + .section { padding-top: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); }
+
+/* ---------- Parlayan kenarlı buton (shiny) ----------
+   Orman yeşili dolgu, kenarında sürekli dönen altın ışık; üzerine gelince ışık genişler,
+   altın tonla içten parlar. Saf CSS (React yok). Hareket azaltma tercihinde durağan. */
+@property --sh-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+@property --sh-offset { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+@property --sh-percent { syntax: '<percentage>'; initial-value: 5%; inherits: false; }
+@property --sh-shine { syntax: '<color>'; initial-value: #F7F5F0; inherits: false; }
+.shiny {
+  --sh-base: var(--forest);
+  --sh-accent: var(--gold);
+  --sh-accent-soft: var(--gold-soft);
+  --sh-dur: 3s;
+  --sh-ease: .8s cubic-bezier(.25, 1, .5, 1);
+  isolation: isolate; position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: .6rem 1.35rem; border: 1px solid transparent; border-radius: 999px;
+  font-family: var(--font-ui); font-size: .92rem; font-weight: 600; line-height: 1.2;
+  color: var(--cream) !important; text-decoration: none; cursor: pointer; outline-offset: 4px;
+  background:
+    linear-gradient(var(--sh-base), var(--sh-base)) padding-box,
+    conic-gradient(from calc(var(--sh-angle) - var(--sh-offset)),
+      transparent,
+      var(--sh-accent) var(--sh-percent),
+      var(--sh-shine) calc(var(--sh-percent) * 2),
+      var(--sh-accent) calc(var(--sh-percent) * 3),
+      transparent calc(var(--sh-percent) * 4)) border-box;
+  box-shadow: inset 0 0 0 1px rgba(197, 160, 89, .18), 0 6px 18px -10px rgba(23, 54, 40, .6);
+  transition: var(--sh-ease);
+  transition-property: --sh-offset, --sh-percent, --sh-shine;
+}
+.shiny > span { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: .5rem; }
+.shiny .icon { width: 17px; height: 17px; color: var(--gold-soft); }
+.shiny::before, .shiny::after, .shiny > span::before {
+  content: ''; pointer-events: none; position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: -1;
+}
+/* Noktalı altın parıltı, ışıkla birlikte döner. */
+.shiny::before {
+  width: calc(100% - 6px); height: calc(100% - 6px); border-radius: inherit;
+  background: radial-gradient(circle at 2px 2px, var(--gold-soft) .5px, transparent 0) padding-box;
+  background-size: 4px 4px; background-repeat: space;
+  -webkit-mask-image: conic-gradient(from calc(var(--sh-angle) + 45deg), #000, transparent 10% 90%, #000);
+  mask-image: conic-gradient(from calc(var(--sh-angle) + 45deg), #000, transparent 10% 90%, #000);
+  opacity: .35;
+}
+/* Yumuşak altın parlama (sheen). */
+.shiny::after {
+  width: 100%; aspect-ratio: 1;
+  background: linear-gradient(-50deg, transparent, var(--sh-accent), transparent);
+  -webkit-mask-image: radial-gradient(circle at bottom, transparent 40%, #000);
+  mask-image: radial-gradient(circle at bottom, transparent 40%, #000);
+  opacity: .35;
+}
+/* Üzerine gelince içten altın ışıma. */
+.shiny > span::before {
+  width: calc(100% + 2.6rem); height: calc(100% + 1.4rem);
+  box-shadow: inset 0 -1ex 2rem 4px var(--sh-accent);
+  opacity: 0; transition: opacity var(--sh-ease);
+  animation: shiny-breathe calc(var(--sh-dur) * 1.5) linear infinite;
+}
+.shiny { animation: shiny-angle var(--sh-dur) linear infinite; }
+.shiny::before { animation: shiny-angle var(--sh-dur) linear infinite; }
+.shiny::after { animation: shiny-spin calc(var(--sh-dur) / .4) linear infinite paused; }
+.shiny:active { translate: 0 1px; }
+.shiny:is(:hover, :focus-visible) { --sh-percent: 20%; --sh-offset: 95deg; --sh-shine: var(--sh-accent-soft); }
+.shiny:is(:hover, :focus-visible)::after { animation-play-state: running; }
+.shiny:is(:hover, :focus-visible) > span::before { opacity: .4; }
+@keyframes shiny-angle { to { --sh-angle: 360deg; } }
+@keyframes shiny-spin { to { rotate: 360deg; } }
+@keyframes shiny-breathe { 0%, 100% { scale: 1; } 50% { scale: 1.2; } }
+@media (prefers-reduced-motion: reduce) {
+  .shiny, .shiny::before, .shiny::after, .shiny > span::before { animation: none !important; }
+  .shiny { transition: none; }
+}

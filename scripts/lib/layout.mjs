@@ -39,7 +39,7 @@ function header() {
       <ul>${NAV.map(([href, label]) => `<li><a href="${href}">${esc(label)}</a></li>`).join('')}</ul>
     </nav>
     <div class="header__actions">
-      <a class="btn btn--ghost header__wa" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="header" data-magnetic>${icon('message-circle')}WhatsApp</a>
+      <a class="shiny header__wa" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="header" data-magnetic><span>${icon('message-circle')}WhatsApp</span></a>
       <button class="cart-btn" type="button" data-drawer-open aria-label="Sipariş sepetini aç">${icon('shopping-bag')}<span class="cart-btn__count" data-cart-count data-count="0">0</span></button>
     </div>
   </div>
