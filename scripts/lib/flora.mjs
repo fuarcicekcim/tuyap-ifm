@@ -11,16 +11,16 @@ const SVG = {
 
 const ITEMS = [
   // tür,   x%,  y%,  boyut, açı, derinlik, öne, süre, yalnızMasaüstü
-  ['orchid', 5,   78,  96,  -14, 90,  true,  9,  false],
-  ['leaf',   15,  70,  64,   38, 150, false, 11, true],
-  ['petal',  27,  56,  40,   24, 60,  true,  7,  true],
-  ['euca',   36,  74,  70,  -18, 120, false, 12, true],
-  ['orchid', 50,  78,  124,   9, 130, true,  10, false],
-  ['petal',  64,  52,  34,  -32, 50,  false, 8,  true],
-  ['sprig',  70,  72,  56,   20, 100, true,  10, true],
-  ['leaf',   86,  80,  86,  -42, 160, true,  12, false],
-  ['petal',  91,  84,  44,   60, 70,  true,  8,  false],
-  ['orchid', 93,  42,  70,   18, 80,  false, 11, true],
+  ['orchid', 6,   70,  96,  -14, 90,  true,  9,  false],
+  ['leaf',   16,  48,  64,   38, 150, true,  11, true],
+  ['petal',  28,  30,  40,   24, 60,  true,  7,  true],
+  ['euca',   34,  66,  70,  -18, 120, true,  12, true],
+  ['orchid', 63,  74,  124,   9, 130, true,  10, false],
+  ['petal',  70,  26,  34,  -32, 50,  true,  8,  true],
+  ['sprig',  78,  58,  56,   20, 100, true,  10, true],
+  ['leaf',   89,  68,  86,  -42, 160, true,  12, false],
+  ['petal',  95,  84,  44,   60, 70,  true,  8,  false],
+  ['orchid', 94,  30,  70,   18, 80,  true,  11, true],
 ];
 
 export function flora() {

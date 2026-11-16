@@ -138,7 +138,6 @@ function footer() {
   const col = (title, links) => `<div class="footer__col"><h2>${title}</h2><ul>${links.map(([href, text]) => `<li><a href="${href}">${text}</a></li>`).join('')}</ul></div>`;
   return `
 <footer class="footer" data-footer>
-  <div class="footer__flora" aria-hidden="true">${flora()}</div>
   <div class="wrap footer__top">
     <p class="footer__tag">TÜYAP ve İstanbul Fuar Merkezi’ndeki standlara çelenk, orkide, aranjman ve saksı bitkisi. ${esc(DELIVERY.promise)}.</p>
     <nav class="footer__cols" aria-label="Alt menü">
@@ -157,7 +156,11 @@ function footer() {
     <span>© ${year} ${esc(SITE.name)} · ${esc(SITE.address.district)}, ${esc(SITE.address.city)}</span>
     <span class="footer__legal-links"><a href="/kvkk.html">KVKK aydınlatma metni</a><a href="/teslimat-sureci.html">Teslimat koşulları</a></span>
   </div>
-  <p class="footer__mark" aria-hidden="true">Fuar <em>Çiçekçim</em></p>
+  <div class="footer__scene">
+    <img class="footer__photo" data-depth="-80" src="/assets/footer/tuyap-1600.webp" srcset="/assets/footer/tuyap-900.webp 900w, /assets/footer/tuyap-1600.webp 1600w" sizes="100vw" width="1600" height="800" alt="TÜYAP Fuar ve Kongre Merkezi binası, Büyükçekmece" loading="lazy" decoding="async">
+    <div class="footer__flora" aria-hidden="true">${flora()}</div>
+    <p class="footer__mark" aria-hidden="true">Fuar <em>Çiçekçim</em></p>
+  </div>
 </footer>`;
 }
 
