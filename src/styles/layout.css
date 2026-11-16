@@ -266,44 +266,35 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* ---------- Alt bilgi ---------- */
-/* Krem → gül kurusu → adaçayı geçişi; en altta dev marka yazısı, önünde/arkasında süzülen çiçekler. */
+/* TÜYAP fotoğrafı tüm alt bilginin zemini: üst kenar orman yeşilinden açılır, alta doğru yeniden koyulaşır. */
 .footer {
   position: relative; overflow: hidden; isolation: isolate;
-  padding-top: var(--space-l);
-  background: linear-gradient(180deg, var(--cream) 0%, #f3ebe4 60%, #eee3dc 100%);
-  color: var(--muted); font-size: .9rem;
+  --ph: min(50vw, 860px);
+  padding-top: calc(var(--ph) * .7); padding-bottom: 1.6rem;
+  background: var(--forest); color: rgba(247, 245, 240, .72); font-size: .9rem;
 }
-.footer a { color: var(--ink); text-decoration: none; transition: color .25s var(--ease); }
-@media (hover: hover) { .footer a:hover { color: var(--gold); } }
+.footer__photo {
+  position: absolute; left: 0; right: 0; top: 0; z-index: -2;
+  width: 100%; height: calc(var(--ph) * 1.08); object-fit: cover; object-position: 50% 40%;
+  transform: translate3d(0, var(--py, 0px), 0);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%); mask-image: linear-gradient(180deg, transparent 0%, #000 16%);
+}
+.footer::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(10, 31, 23, .2) 0, rgba(10, 31, 23, 0) calc(var(--ph) * .14), rgba(10, 31, 23, 0) calc(var(--ph) * .5), rgba(10, 31, 23, .8) calc(var(--ph) * .74), var(--forest) calc(var(--ph) * 1.02), var(--forest) 100%);
+}
+.footer a { color: var(--cream); text-decoration: none; transition: color .25s var(--ease); }
+@media (hover: hover) { .footer a:hover { color: var(--gold-soft); } }
 .footer__top { position: relative; z-index: 3; display: grid; gap: 2.2rem; }
-.footer__tag { max-width: 30rem; margin: 0; font-family: var(--font-display); font-size: var(--step-1); line-height: 1.35; color: var(--forest); }
+.footer__tag { max-width: 30rem; margin: 0; font-family: var(--font-display); font-size: var(--step-1); line-height: 1.35; color: var(--cream); }
 .footer__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1.5rem; }
-.footer h2 { margin: 0 0 .9rem; font-family: var(--font-ui); font-size: .7rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: rgba(20, 20, 20, .45); }
+.footer h2 { margin: 0 0 .9rem; font-family: var(--font-ui); font-size: .7rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
 .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
 .footer__col a { font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
 .footer__social { display: flex; flex-wrap: wrap; gap: .8rem 1.6rem; }
 .footer__social a { font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
-.footer__legal { position: relative; z-index: 3; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .8rem 2rem; margin-top: var(--space-l); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(20, 20, 20, .5); }
+.footer__legal { position: relative; z-index: 3; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .8rem 2rem; margin-top: var(--space-l); padding-top: 1.2rem; border-top: 1px solid var(--line-on-dark); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(247, 245, 240, .55); }
 .footer__legal-links { display: flex; flex-wrap: wrap; gap: .8rem 2rem; }
-.footer__legal a { color: var(--ink); }
-
-/* Alt sahne: TÜYAP fotoğrafı üst kenarından kreme erir; üzerinde dev marka yazısı ve çiçekler. */
-.footer__scene { position: relative; margin-top: var(--space-s); height: clamp(300px, 47vw, 760px); display: flex; align-items: flex-end; overflow: hidden; }
-.footer__photo {
-  position: absolute; inset: -8% 0 0; width: 100%; height: 108%; object-fit: cover; object-position: 50% 30%;
-  transform: translate3d(0, var(--py, 0px), 0);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 34%); mask-image: linear-gradient(180deg, transparent 0%, #000 34%);
-}
-.footer__scene::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(0deg, rgba(10, 31, 23, .92) 0%, rgba(10, 31, 23, .55) 26%, rgba(10, 31, 23, 0) 55%); }
-.footer__mark {
-  position: relative; z-index: 2; width: 100%;
-  margin: 0; padding: 0 var(--gutter) .06em;
-  font-family: var(--font-display); font-weight: 500; line-height: .86;
-  font-size: calc((100vw - 2 * var(--gutter)) / 5.15);
-  letter-spacing: -.02em; white-space: nowrap; text-align: center;
-  color: var(--cream); text-shadow: 0 6px 30px rgba(10, 31, 23, .35);
-}
-.footer__mark em { font-style: italic; font-weight: 400; color: var(--gold-soft); }
 
 /* Süzülen botanik öğeler */
 .footer__flora { position: absolute; inset: 0; pointer-events: none; }
@@ -343,10 +334,11 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   .fairband__ctas { grid-column: 2 / 3; }
 }
 
-/* Mobil alt bilgi: sahnede yalnızca iki küçük çiçek. */
+/* Mobil alt bilgi: fotoğraf bandı daha yüksek oranlı, iki küçük çiçek. */
 @media (max-width: 767px) {
-  .footer__scene { height: clamp(220px, 62vw, 320px); }
+  .footer { --ph: 82vw; }
+  .footer__photo { object-position: 46% 45%; }
   .flora { display: none; }
-  .flora:nth-child(1) { display: block; --x: 12%; --y: 38%; --k: .5; }
-  .flora:nth-child(5) { display: block; --x: 86%; --y: 30%; --k: .45; }
+  .flora:nth-child(1) { display: block; left: 9%; top: 9vw; --k: .45; }
+  .flora:nth-child(5) { display: block; left: 90%; top: 12vw; --k: .4; }
 }
