@@ -424,7 +424,7 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   transition-property: --sh-offset, --sh-percent, --sh-shine;
 }
 .shiny > span { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: .5rem; }
-.shiny .icon { width: 17px; height: 17px; color: var(--gold-soft); }
+.shiny .icon { width: 18px; height: 18px; color: var(--gold-soft); flex: none; }
 .shiny::before, .shiny::after, .shiny > span::before {
   content: ''; pointer-events: none; position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: -1;
 }
