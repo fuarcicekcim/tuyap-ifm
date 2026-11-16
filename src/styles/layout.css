@@ -118,17 +118,11 @@
 .hero__lead { max-width: 36rem; margin-top: 1.25rem; color: rgba(247, 245, 240, .82); font-size: var(--step-1); line-height: 1.5; }
 .hero__ctas { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; }
 .btn--lg { min-height: 54px; padding-inline: 1.6rem; }
-.hero__note { margin-top: 1rem; font-size: var(--step--1); color: var(--muted-on-dark); max-width: 36rem; }
 
-/* Canlı teslim saati: butonların altında tek satır, görselin üzerinde değil. */
-.hero__eta {
-  display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .6rem;
-  margin: 1.4rem 0 0; padding-top: 1.1rem; max-width: 36rem;
-  border-top: 1px solid var(--line-on-dark);
-  font-size: .92rem; color: rgba(247, 245, 240, .82);
-}
-.hero__eta .hero__live { margin-right: .15rem; }
-.hero__eta strong { font-family: var(--font-display); font-size: 1.7rem; font-weight: 500; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+/* Butonların altında sade güvence satırı. */
+.hero__facts { display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; margin: 1.4rem 0 0; padding: 0; list-style: none; font-size: .86rem; color: rgba(247, 245, 240, .78); }
+.hero__facts li { display: inline-flex; align-items: center; gap: .45rem; white-space: nowrap; }
+.hero__facts .icon { width: 15px; height: 15px; color: var(--gold); flex: none; }
 
 /* Sahne şeridi */
 .hero__rail { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; padding-block: var(--space-m) clamp(1.25rem, 3vw, 2.25rem); }
@@ -168,7 +162,7 @@
 }
 @media (max-width: 419px) {
   .hero__wa-more { display: none; }
-  .hero__note { font-size: .74rem; }
+  .hero__facts { gap: .45rem 1rem; font-size: .8rem; margin-top: 1.1rem; }
 }
 
 @media (min-width: 1024px) {
@@ -177,8 +171,6 @@
   .hero h1 { font-size: clamp(2.6rem, 1rem + 2.5vw, 4rem); max-width: 16ch; }
   .hero__lead { font-size: var(--step-0); margin-top: 1rem; }
   .hero__ctas { margin-top: 1.4rem; }
-  .hero__eta { margin-top: 1.1rem; padding-top: .9rem; }
-  .hero__note { margin-top: .6rem; font-size: .76rem; }
   /* Sahne şeridi görselin alt kenarına biner; hero kısa kalır. */
   .hero__rail { position: absolute; left: calc(40% + 2rem); right: max(var(--gutter), calc((100vw - var(--max)) / 2)); bottom: 1.1rem; width: auto; max-width: none; padding: 0; margin: 0; }
   .hero__veil {

@@ -32,14 +32,13 @@ function hero() {
       <p class="hero__lead">Müşterinize, iş ortağınıza ya da kendi standınıza: kuşaklı VIP orkide, açılış çelengi ve stant bitkileri firmanızın adıyla hazırlanır, salon ve stant numarasına teslim edilir, fotoğrafla onaylanır.</p>
       <div class="hero__ctas">
         <button class="btn btn--gold btn--lg" type="button" data-drawer-open data-track-location="hero" data-magnetic>${icon('shopping-bag')}Sipariş Oluştur</button>
-        <a class="btn btn--ghost-light btn--lg" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero" data-magnetic>${icon('message-circle')}WhatsApp<span class="hero__wa-more">’tan Yazın</span></a>
+        <a class="btn btn--ghost-light btn--lg" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero" data-magnetic>${icon('message-circle')}<span>WhatsApp<span class="hero__wa-more">’tan Yazın</span></span></a>
       </div>
-      <p class="hero__eta" aria-live="off">
-        <span class="hero__live" aria-hidden="true"></span>
-        <span>Şimdi onaylarsanız standda</span>
-        <strong>≈ <time data-eta>--:--</time></strong>
-      </p>
-      <p class="hero__note">${esc(DELIVERY.condition)} ${esc(PRICING.deliveryIncluded)}</p>
+      <ul class="hero__facts">
+        <li>${icon('timer')}Süre sipariş onayından başlar</li>
+        <li>${icon('truck')}Standa teslimat fiyata dahil</li>
+        <li>${icon('camera')}Fotoğraflı teslim onayı</li>
+      </ul>
     </div>
   </div>
 
