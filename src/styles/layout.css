@@ -91,7 +91,6 @@
   --scene: 7s;
   position: relative;
   display: flex; flex-direction: column; justify-content: flex-end;
-  min-height: min(calc(100svh - var(--header-h) - 38px), 960px);
   background: var(--forest);
   color: var(--cream);
   overflow: hidden;
@@ -109,7 +108,7 @@
   background:
     linear-gradient(0deg, rgba(10, 31, 23, .96) 0%, rgba(10, 31, 23, .78) 38%, rgba(10, 31, 23, .2) 70%, rgba(10, 31, 23, .35) 100%);
 }
-.hero__inner { display: grid; gap: var(--space-m); padding-top: clamp(8rem, 26vh, 13rem); }
+.hero__inner { display: grid; gap: var(--space-m); padding-top: clamp(8rem, 26vh, 13rem); padding-bottom: 1.5rem; }
 .hero__eyebrow { display: flex; align-items: center; gap: .6rem; margin-bottom: 1.25rem; color: var(--gold-soft); }
 .hero__live { position: relative; width: 8px; height: 8px; border-radius: 50%; background: #7bd389; flex: none; }
 .hero__live::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid #7bd389; animation: hero-pulse 2s var(--ease) infinite; }
@@ -130,7 +129,6 @@
 }
 .hero__eta .hero__live { margin-right: .15rem; }
 .hero__eta strong { font-family: var(--font-display); font-size: 1.7rem; font-weight: 500; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
-.hero__eta-fair { color: var(--muted-on-dark); font-size: .82rem; }
 
 /* Sahne şeridi */
 .hero__rail { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; padding-block: var(--space-m) clamp(1.25rem, 3vw, 2.25rem); }
@@ -153,27 +151,42 @@
 
 /* Mobil/tablet: fotoğraf üst bantta, alt kenarı orman yeşiline erir; yazı düz zemin üzerinde okunur. */
 @media (max-width: 1023px) {
-  .hero__stage, .hero__veil { bottom: auto; height: 42svh; }
+  .hero__stage, .hero__veil { bottom: auto; height: 30svh; }
   .hero__veil { background: linear-gradient(0deg, var(--forest) 0%, rgba(10, 31, 23, .75) 22%, rgba(10, 31, 23, .1) 55%, rgba(10, 31, 23, .2) 100%); }
-  .hero__inner { padding-top: calc(42svh - 3.6rem); }
+  .hero__inner { padding-top: calc(30svh - 2.5rem); }
+  .hero h1 { font-size: clamp(2.1rem, 1.5rem + 3vw, 3rem); }
   .hero__lead { font-size: 1rem; margin-top: 1rem; }
   .hero__ctas { margin-top: 1.25rem; }
 }
 @media (max-width: 767px) {
   .hero__chapter-text small { display: none; }
   .hero__chapter-text strong { font-size: .76rem; line-height: 1.25; }
-  .hero__eta-fair { display: none; }
+  .hero__rail { display: none; }
+  .hero__ctas { flex-wrap: nowrap; gap: .5rem; }
+  .hero__ctas .btn { flex: 1 1 0; min-width: 0; min-height: 48px; padding-inline: .6rem; font-size: .88rem; white-space: nowrap; }
+  .hero__lead { font-size: .95rem; }
+}
+@media (max-width: 419px) {
+  .hero__wa-more { display: none; }
+  .hero__note { font-size: .74rem; }
 }
 
 @media (min-width: 1024px) {
   .hero__stage { left: 40%; }
-  .hero h1 { font-size: clamp(3rem, 1.2rem + 3.6vw, 5.6rem); max-width: 16ch; }
+  .hero { height: clamp(500px, 62svh, 600px); justify-content: center; }
+  .hero h1 { font-size: clamp(2.6rem, 1rem + 2.5vw, 4rem); max-width: 16ch; }
+  .hero__lead { font-size: var(--step-0); margin-top: 1rem; }
+  .hero__ctas { margin-top: 1.4rem; }
+  .hero__eta { margin-top: 1.1rem; padding-top: .9rem; }
+  .hero__note { margin-top: .6rem; font-size: .76rem; }
+  /* Sahne şeridi görselin alt kenarına biner; hero kısa kalır. */
+  .hero__rail { position: absolute; left: calc(40% + 2rem); right: max(var(--gutter), calc((100vw - var(--max)) / 2)); bottom: 1.1rem; width: auto; max-width: none; padding: 0; margin: 0; }
   .hero__veil {
     background:
       linear-gradient(90deg, var(--forest) 0%, var(--forest) 40%, rgba(10, 31, 23, .7) 47%, rgba(10, 31, 23, .12) 60%, rgba(10, 31, 23, 0) 70%),
       linear-gradient(0deg, rgba(10, 31, 23, .9) 0%, rgba(10, 31, 23, 0) 30%);
   }
-  .hero__inner { grid-template-columns: minmax(0, 1fr) auto; align-items: end; padding-top: clamp(4rem, 10vh, 7rem); }
+  .hero__inner { grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding-block: 2rem; }
   .hero__scene img { object-position: 50% 42% !important; }
   /* Masaüstünde sahne geçişi perde gibi açılır (yalnızca masaüstü; mobilde opaklık). */
   .hero__scene { transition: none; clip-path: inset(0 0 0 100%); opacity: 1; }
@@ -184,6 +197,33 @@
   .hero__scene, .hero__scene img, .hero__scene.is-active img { transition: none !important; transform: none; }
   .hero__live::after, .hero__chapter.is-active .hero__chapter-bar i { animation: none; }
   .hero__chapter.is-active .hero__chapter-bar i { transform: scaleX(1); }
+}
+
+/* ---------- Aktif fuar şeridi ---------- */
+.fairband { background: var(--paper); border-bottom: 1px solid var(--line); }
+.fairband__inner { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.1rem 1.25rem; align-items: center; padding-block: 1.4rem; }
+.fairband__logo { display: grid; place-items: center; width: 120px; padding: .6rem .75rem; background: #fff; border: 1px solid var(--line); }
+.fairband__logo img { width: 100%; height: auto; }
+.fairband__body .eyebrow { margin-bottom: .35rem; }
+.fairband h2 { font-size: var(--step-1); font-weight: 600; line-height: 1.15; }
+.fairband__meta { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; margin-top: .45rem; font-size: .86rem; color: var(--muted); }
+.fairband__meta span { display: inline-flex; align-items: center; gap: .35rem; }
+.fairband__meta .icon { width: 14px; height: 14px; color: var(--gold); flex: none; }
+.fairband__days { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; padding: 0; list-style: none; border: 1px solid var(--line); background: #fff; }
+.fairband__days li { display: grid; justify-items: center; padding: .45rem .6rem; }
+.fairband__days li + li { border-left: 1px solid var(--line); }
+.fairband__days small { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.fairband__days strong { font-family: var(--font-display); font-size: 1.7rem; font-weight: 500; line-height: 1.05; color: var(--forest); }
+.fairband__ctas { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.25rem; }
+.fairband__link { display: inline-flex; align-items: center; gap: .3rem; font-weight: 600; font-size: .9rem; color: var(--forest); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
+.fairband__link .icon { width: 14px; height: 14px; }
+@media (min-width: 1024px) {
+  .fairband__inner { grid-template-columns: 190px minmax(0, 1fr) auto auto; gap: 2.2rem; padding-block: 1.6rem; }
+  .fairband__logo { width: 190px; }
+  .fairband__days, .fairband__ctas { grid-column: auto; }
+  .fairband__days li { padding: .5rem 1rem; }
+  .fairband__ctas { flex-direction: column; align-items: stretch; text-align: center; gap: .6rem; }
+  .fairband__link { justify-content: center; }
 }
 
 /* ---------- Güven şeridi ---------- */

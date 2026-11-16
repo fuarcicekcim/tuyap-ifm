@@ -16,7 +16,6 @@ const SCENES = [
 ];
 
 function hero() {
-  const venue = VENUES.find((v) => v.id === FAIR_DAYS.activeFairVenue);
   return `
 <section class="hero" aria-labelledby="hero-baslik" data-hero>
   <div class="hero__stage">
@@ -33,13 +32,12 @@ function hero() {
       <p class="hero__lead">Müşterinize, iş ortağınıza ya da kendi standınıza: kuşaklı VIP orkide, açılış çelengi ve stant bitkileri firmanızın adıyla hazırlanır, salon ve stant numarasına teslim edilir, fotoğrafla onaylanır.</p>
       <div class="hero__ctas">
         <button class="btn btn--gold btn--lg" type="button" data-drawer-open data-track-location="hero" data-magnetic>${icon('shopping-bag')}Sipariş Oluştur</button>
-        <a class="btn btn--ghost-light btn--lg" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero" data-magnetic>${icon('message-circle')}WhatsApp’tan Yazın</a>
+        <a class="btn btn--ghost-light btn--lg" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero" data-magnetic>${icon('message-circle')}WhatsApp<span class="hero__wa-more">’tan Yazın</span></a>
       </div>
       <p class="hero__eta" aria-live="off">
         <span class="hero__live" aria-hidden="true"></span>
         <span>Şimdi onaylarsanız standda</span>
         <strong>≈ <time data-eta>--:--</time></strong>
-        <span class="hero__eta-fair">· ${esc(FAIR_DAYS.activeFairName)}, ${trRange(FAIR_DAYS.days)} · ${esc(venue.short)}</span>
       </p>
       <p class="hero__note">${esc(DELIVERY.condition)} ${esc(PRICING.deliveryIncluded)}</p>
     </div>
@@ -51,6 +49,33 @@ function hero() {
       <span class="hero__chapter-no">${s.no}</span>
       <span class="hero__chapter-text"><strong>${esc(s.title)}</strong><small>${esc(s.where)}</small></span>
     </button>`).join('')}
+  </div>
+</section>`;
+}
+
+// Hero altındaki aktif fuar şeridi: resmi logo, gün gün tarih, fuara özel sipariş.
+function fairBand() {
+  const venue = VENUES.find((v) => v.id === FAIR_DAYS.activeFairVenue);
+  const wd = new Intl.DateTimeFormat('tr-TR', { weekday: 'short', timeZone: 'Europe/Istanbul' });
+  const year = FAIR_DAYS.days[0].slice(0, 4);
+  return `
+<section class="fairband" aria-labelledby="fuar-baslik">
+  <div class="wrap fairband__inner">
+    <a class="fairband__logo" href="${FAIR_DAYS.activeFairPage}" aria-label="${esc(FAIR_DAYS.activeFairName)} sayfası">
+      <img src="/assets/fuar/avrasya-pencere-kapi-logo.webp" width="440" height="174" alt="Avrasya Pencere &amp; Kapı Fuarı logosu" loading="lazy" decoding="async">
+    </a>
+    <div class="fairband__body">
+      <p class="eyebrow">Sıradaki fuar · ${esc(venue.short)}</p>
+      <h2 id="fuar-baslik">${esc(FAIR_DAYS.activeFairName)}</h2>
+      <p class="fairband__meta"><span>${icon('calendar')}${trRange(FAIR_DAYS.days)} ${year}</span><span>${icon('map-pin')}${esc(venue.name)}, ${esc(venue.district)}</span></p>
+    </div>
+    <ol class="fairband__days" aria-label="Fuar günleri">
+      ${FAIR_DAYS.days.map((d) => `<li><small>${wd.format(new Date(`${d}T12:00:00+03:00`))}</small><strong>${d.slice(8)}</strong></li>`).join('')}
+    </ol>
+    <div class="fairband__ctas">
+      <button class="btn btn--gold" type="button" data-drawer-open data-fair="${esc(FAIR_DAYS.activeFairName)}" data-venue="${esc(venue.name)}" data-track-location="fair-band">${icon('shopping-bag')}Bu fuar için sipariş</button>
+      <a class="fairband__link" href="${FAIR_DAYS.activeFairPage}">Fuar sayfası ${icon('arrow-up-right')}</a>
+    </div>
   </div>
 </section>`;
 }
@@ -192,6 +217,6 @@ export function home(catalog) {
     description: `TÜYAP ve İFM fuar standlarına açılış çelengi, kuşaklı VIP orkide, stant aranjmanı ve saksı bitkisi. ${DELIVERY.promise}, fotoğraflı teslim onayı ve kurumsal e-Fatura.`,
     preload: `<link rel="preload" as="image" href="/assets/hero/tuyap-orkide-768.webp" imagesrcset="/assets/hero/tuyap-orkide-768.webp 768w, /assets/hero/tuyap-orkide.webp 1536w" imagesizes="100vw" fetchpriority="high">`,
     jsonld: schema(),
-    body: hero() + trust() + products(catalog) + corporate() + steps() + faq() + closing(),
+    body: hero() + fairBand() + products(catalog) + trust() + corporate() + steps() + faq() + closing(),
   });
 }

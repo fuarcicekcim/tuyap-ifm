@@ -47,6 +47,7 @@ export const VENUES = [
 export const FAIR_DAYS = {
   activeFairName: 'Avrasya Pencere, Kapı ve Cam Fuarları',
   activeFairVenue: 'tuyap',
+  activeFairPage: '/tuyap-avrasya-pencere-kapi-cam-2026.html',
   days: ['2026-11-21', '2026-11-22', '2026-11-23', '2026-11-24'],
   timeSlots: ['08:00–10:00', '10:00–12:00', '12:00–14:00', '14:00–16:00', '16:00–18:00'],
 };
