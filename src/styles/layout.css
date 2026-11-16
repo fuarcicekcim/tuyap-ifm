@@ -466,3 +466,5 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   .shiny, .shiny::before, .shiny::after, .shiny > span::before { animation: none !important; }
   .shiny { transition: none; }
 }
+/* 3B WhatsApp logosu: butonda yazının solunda, hafif gölgeli. */
+.wa3d { width: 24px; height: 24px; margin-left: -.5rem; flex: none; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .35)); }
