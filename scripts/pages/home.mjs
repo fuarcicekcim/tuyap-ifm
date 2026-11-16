@@ -7,7 +7,7 @@ import { CATEGORIES } from '../lib/catalog.mjs';
 
 // Hero sahneleri: tam ekran, sırayla değişen stant görselleri. İlk sahne LCP görselidir.
 const SCENES = [
-  { img: '/assets/hero/tuyap-orkide', pos: '58% 40%', no: '01', title: 'Kuşaklı VIP orkide', where: 'Karşılama bankosu · TÜYAP',
+  { img: '/assets/hero/tuyap-orkide', pos: '58% 40%', no: '01', title: 'Çift dallı orkide', where: 'Karşılama bankosu · TÜYAP',
     alt: 'TÜYAP’ta bir fuar standının karşılama bankosunda firma adlı kuşaklı beyaz orkide ve pastel aranjman' },
   { img: '/assets/hero/ifm-ferforje', pos: '56% 35%', no: '02', title: 'Ayaklı ferforje', where: 'Açılış tebriği · İFM',
     alt: 'İFM’de bir standın girişinde firma adlı kuşaklı ayaklı ferforje çiçek aranjmanı' },
