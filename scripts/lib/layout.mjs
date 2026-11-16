@@ -141,11 +141,13 @@ function footer() {
       </div>
       <div>
         <h2>Fuar Merkezleri</h2>
-        <ul>${VENUES.map((v) => `<li><a href="${v.page}">${esc(v.short)} fuar çiçekçisi</a></li>`).join('')}<li><a href="/fuar-takvimi.html">Fuar takvimi</a></li></ul>
+        <ul>${VENUES.map((v) => `<li><a href="${v.page}">${esc(v.short)} fuar çiçekçisi</a></li>`).join('')}<li><a href="/fuar-cicekcisi.html">Fuar çiçekçisi</a></li><li><a href="/fuar-takvimi.html">Fuar takvimi</a></li><li><a href="/teslimat-sureci.html">Teslimat süreci</a></li></ul>
+        <h2 class="footer__h2-gap">Koleksiyon</h2>
+        <ul><li><a href="/kategori/acilis-fuar-celengi.html">Açılış &amp; fuar çelengi</a></li><li><a href="/kategori/vip-orkide.html">VIP orkide</a></li><li><a href="/kategori/stant-aranjmani.html">Stant aranjmanı</a></li><li><a href="/kategori/saksi-bitkisi.html">Saksı bitkisi</a></li></ul>
       </div>
       <div>
         <h2>Kurumsal</h2>
-        <ul><li><a href="/hakkimizda.html">Hakkımızda</a></li><li><a href="/teklif.html">Kurumsal teklif</a></li><li><a href="/blog/">Rehberler</a></li><li><a href="/kvkk.html">KVKK aydınlatma metni</a></li></ul>
+        <ul><li><a href="/hizmetler.html">Hizmetler</a></li><li><a href="/teklif.html">Kurumsal teklif</a></li><li><a href="/hakkimizda.html">Hakkımızda</a></li><li><a href="/sss.html">Sık sorulan sorular</a></li><li><a href="/blog/">Rehberler</a></li><li><a href="/blog/fuar-cicegi-fiyatlari-2026.html">Fiyat rehberi</a></li><li><a href="/iletisim.html">İletişim</a></li><li><a href="/kvkk.html">KVKK aydınlatma metni</a></li></ul>
       </div>
       <div>
         <h2>İletişim</h2>
@@ -163,6 +165,11 @@ function footer() {
     </div>
   </div>
 </footer>`;
+}
+
+let catalogJson = '[]';
+export function setCatalogData(products) {
+  catalogJson = JSON.stringify(products.map(({ id, name, price, image, categoryName }) => ({ id, name, price, image, cat: categoryName }))).replace(/</g, '\\u003c');
 }
 
 export function page({ path, title, description, body, jsonld = '', preload = '', robots = 'index, follow', ogImage = '/assets/og/fuar-cicekcim-og.jpg' }) {
@@ -202,6 +209,7 @@ ${body}
 ${footer()}
 ${dock()}
 ${drawer()}
+<script type="application/json" id="catalog-data">${catalogJson}</script>
 </body>
 </html>
 `;

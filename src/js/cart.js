@@ -31,6 +31,10 @@ export const cart = {
     items = qty > 0 ? items.map((i) => (i.id === id ? { ...i, qty: Math.min(qty, 99) } : i)) : items.filter((i) => i.id !== id);
     save();
   },
+  setPrice(id, price) {
+    items = items.map((i) => (i.id === id ? { ...i, price } : i));
+    save();
+  },
   clear() { items = []; save(); },
   totals() {
     const net = items.reduce((s, i) => s + i.price * i.qty, 0);

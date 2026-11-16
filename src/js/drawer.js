@@ -195,7 +195,14 @@ export function initDrawer() {
 
   document.addEventListener('click', (e) => {
     const opener = e.target.closest('[data-drawer-open]');
-    if (opener) { e.preventDefault(); openDrawer(opener.dataset.trackLocation || ''); return; }
+    if (opener) {
+      e.preventDefault();
+      if (opener.dataset.fair) form.elements.fuar_adi.value = opener.dataset.fair;
+      const venue = [...form.elements.merkez].find((r) => opener.dataset.venue?.startsWith(r.value));
+      if (venue) venue.checked = true;
+      openDrawer(opener.dataset.trackLocation || '');
+      return;
+    }
     if (e.target.closest('[data-drawer-close]')) {
       const link = e.target.closest('a[href]');
       closeDrawer();

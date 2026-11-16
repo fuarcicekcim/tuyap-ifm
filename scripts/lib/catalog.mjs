@@ -15,6 +15,14 @@ export const CATEGORIES = [
 
 export const categoryOf = (id) => CATEGORIES.find((c) => c.id === id);
 
+export function loadFairs(today = new Date().toISOString().slice(0, 10)) {
+  const ctx = { window: {} };
+  vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'fairs-data.js'), 'utf8'), ctx);
+  const data = ctx.window.FUAR_TAKVIMI;
+  const fairs = data.fairs.filter((f) => f.end >= today).sort((a, b) => a.start.localeCompare(b.start));
+  return { updatedAt: data.updatedAt, venues: data.venues, fairs };
+}
+
 export function loadCatalog() {
   const ctx = { window: {} };
   vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'products-data.js'), 'utf8'), ctx);

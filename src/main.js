@@ -5,11 +5,15 @@ import { track } from './js/analytics.js';
 import { initReveal } from './js/reveal.js';
 import { initDrawer } from './js/drawer.js';
 import { initCatalog } from './js/catalog.js';
+import { refreshPrices } from './js/prices.js';
+import { initQuote } from './js/quote.js';
+import './styles/content.css';
 import './styles/sections.css';
 import './styles/drawer.css';
 
 initDrawer();
-initCatalog();
+refreshPrices(initCatalog());
+initQuote();
 
 const DESKTOP = '(min-width: 1024px) and (pointer: fine) and (prefers-reduced-motion: no-preference)';
 

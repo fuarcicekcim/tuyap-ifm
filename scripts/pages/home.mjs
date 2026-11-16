@@ -1,5 +1,7 @@
-import { DELIVERY, PRICING, FAIR_DAYS, CONTACT, VENUES } from '../../src/config/site-settings.js';
-import { esc, icon, tlPrice, jsonLd, trRange } from '../lib/html.mjs';
+import { SITE, DELIVERY, PRICING, FAIR_DAYS, CONTACT, VENUES } from '../../src/config/site-settings.js';
+import { esc, icon, trRange } from '../lib/html.mjs';
+import { card } from './products.mjs';
+import { graph, businessNode, faqNode } from '../lib/seo.mjs';
 import { page, waLink } from '../lib/layout.mjs';
 import { CATEGORIES } from '../lib/catalog.mjs';
 
@@ -49,22 +51,6 @@ function trust() {
 </section>`;
 }
 
-function card(p, i) {
-  return `
-<article class="card${i === 0 ? ' card--feature' : ''}" data-cat="${p.category}">
-  <a class="card__media" href="${p.page}" tabindex="-1" aria-hidden="true">
-    <img src="${p.image}" width="800" height="1200" alt="${esc(p.alt)}" loading="${i < 4 ? 'eager' : 'lazy'}" decoding="async">
-    ${p.badge ? `<span class="card__badge">${esc(p.badge)}</span>` : ''}
-  </a>
-  <div class="card__body">
-    <p class="card__cat">${esc(p.categoryName)}</p>
-    <h3 class="card__title"><a href="${p.page}">${esc(p.name)}</a></h3>
-    <p class="card__price"><strong>${tlPrice(p.price)}</strong><span>+ %${PRICING.vatRate} KDV</span></p>
-    <p class="card__meta">${icon('truck')}Standa teslimat dahil</p>
-    <button class="card__add" type="button" data-add="${p.id}" aria-label="${esc(p.name)} ürününü siparişe ekle">${icon('plus')}<span>Siparişe ekle</span></button>
-  </div>
-</article>`;
-}
 
 function products(catalog) {
   const counts = Object.fromEntries(CATEGORIES.map((c) => [c.id, catalog.products.filter((p) => p.category === c.id).length]));
@@ -85,7 +71,6 @@ function products(catalog) {
     </div>
     <div class="grid-more"><button class="btn btn--ghost" type="button" data-more hidden>Daha fazla göster</button></div>
   </div>
-  <script type="application/json" id="catalog-data">${JSON.stringify(catalog.products.map(({ id, name, price, image, categoryName }) => ({ id, name, price, image, cat: categoryName }))).replace(/</g, '\\u003c')}</script>
 </section>`;
 }
 
@@ -172,17 +157,17 @@ function closing() {
 }
 
 function schema() {
-  return jsonLd({
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: FAQ.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
-  });
+  return graph(
+    businessNode(),
+    { '@type': 'WebSite', '@id': `${SITE.url}/#site`, url: `${SITE.url}/`, name: SITE.name, inLanguage: 'tr-TR', publisher: { '@id': `${SITE.url}/#isletme` } },
+    faqNode(FAQ),
+  );
 }
 
 export function home(catalog) {
   return page({
     path: '/',
-    title: 'Fuar Çiçekçim | TÜYAP ve İFM Fuar Çiçekçisi – Standa Çelenk, Orkide, Aranjman',
+    title: 'Fuar Çiçekçim | TÜYAP ve İFM Fuar Çiçekçisi, Standa Teslim',
     description: `TÜYAP ve İFM fuar standlarına açılış çelengi, kuşaklı VIP orkide, stant aranjmanı ve saksı bitkisi. ${DELIVERY.promise}, fotoğraflı teslim onayı ve kurumsal e-Fatura.`,
     preload: `<link rel="preload" as="image" href="/assets/hero/tuyap-orkide-768.webp" imagesrcset="/assets/hero/tuyap-orkide-768.webp 768w, /assets/hero/tuyap-orkide.webp 1536w" imagesizes="(min-width: 1024px) 40vw, 100vw" fetchpriority="high">`,
     jsonld: schema(),

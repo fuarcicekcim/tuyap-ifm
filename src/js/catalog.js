@@ -4,11 +4,13 @@ import { track } from './analytics.js';
 
 const PAGE = 8;
 
-export function initCatalog() {
+function readProducts() {
+  try { return new Map(JSON.parse(document.getElementById('catalog-data')?.textContent || '[]').map((p) => [p.id, p])); } catch { return new Map(); }
+}
+
+function initFilters() {
   const grid = document.querySelector('[data-grid]');
-  const dataEl = document.getElementById('catalog-data');
-  if (!grid || !dataEl) return;
-  const products = new Map(JSON.parse(dataEl.textContent).map((p) => [p.id, p]));
+  if (!grid) return;
   const cards = [...grid.querySelectorAll('.card')];
   const more = document.querySelector('[data-more]');
   let filter = 'all';
@@ -33,8 +35,14 @@ export function initCatalog() {
     });
   });
   more.addEventListener('click', () => { limit += PAGE * 2; apply(); });
+  if (grid.dataset.grid !== 'static') apply();
+}
 
-  grid.addEventListener('click', (e) => {
+export function initCatalog() {
+  const products = readProducts();
+  initFilters();
+
+  document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-add]');
     if (!btn) return;
     const product = products.get(btn.dataset.add);
@@ -42,11 +50,12 @@ export function initCatalog() {
     const firstAdd = cart.count === 0;
     cart.add(product);
     track('add_to_cart', { item_id: product.id, item_name: product.name, value: product.price, currency: 'TRY' });
+    const label = btn.querySelector('span');
     btn.classList.add('is-added');
-    btn.querySelector('span').textContent = 'Eklendi';
-    setTimeout(() => { btn.classList.remove('is-added'); btn.querySelector('span').textContent = 'Siparişe ekle'; }, 1600);
-    if (firstAdd) openDrawer('add_to_cart');
+    if (label) label.textContent = 'Eklendi';
+    setTimeout(() => { btn.classList.remove('is-added'); if (label) label.textContent = 'Siparişe ekle'; }, 1600);
+    if (firstAdd || btn.dataset.openDrawer !== undefined) openDrawer('add_to_cart');
   });
 
-  apply();
+  return products;
 }
