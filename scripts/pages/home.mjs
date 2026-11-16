@@ -29,15 +29,15 @@ function hero() {
 
   <div class="wrap hero__inner">
     <div class="hero__copy">
-      <h1 id="hero-baslik" data-split>TÜYAP ve İFM’de standınıza <em>${DELIVERY.minutes} dakikada</em> çiçek.</h1>
-      <p class="hero__lead">Kuşaklı VIP orkide, açılış çelengi ve stant bitkileri; firmanızın adıyla hazırlanır, salon ve stant numaranıza teslim edilir, fotoğrafla onaylanır.</p>
+      <h1 id="hero-baslik" data-split>TÜYAP ve İFM’de dilediğiniz standa <em>${DELIVERY.minutes} dakikada</em> çiçek.</h1>
+      <p class="hero__lead">Müşterinize, iş ortağınıza ya da kendi standınıza: kuşaklı VIP orkide, açılış çelengi ve stant bitkileri firmanızın adıyla hazırlanır, salon ve stant numarasına teslim edilir, fotoğrafla onaylanır.</p>
       <div class="hero__ctas">
         <button class="btn btn--gold btn--lg" type="button" data-drawer-open data-track-location="hero" data-magnetic>${icon('shopping-bag')}Sipariş Oluştur</button>
         <a class="btn btn--ghost-light btn--lg" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero" data-magnetic>${icon('message-circle')}WhatsApp’tan Yazın</a>
       </div>
       <p class="hero__eta" aria-live="off">
         <span class="hero__live" aria-hidden="true"></span>
-        <span>Şimdi onaylarsanız standınızda</span>
+        <span>Şimdi onaylarsanız standda</span>
         <strong>≈ <time data-eta>--:--</time></strong>
         <span class="hero__eta-fair">· ${esc(FAIR_DAYS.activeFairName)}, ${trRange(FAIR_DAYS.days)} · ${esc(venue.short)}</span>
       </p>
