@@ -18,7 +18,7 @@
 .topbar__wa-icon .topbar__live { position: absolute; right: -2px; top: -2px; width: 7px; height: 7px; border: 1.5px solid var(--forest); }
 .topbar__live { position: relative; width: 7px; height: 7px; border-radius: 50%; background: #7bd389; flex: none; }
 .topbar__live::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid #7bd389; animation: hero-pulse 2s var(--ease) infinite; }
-.topbar__zap { width: 14px; height: 14px; color: var(--gold); fill: var(--gold); }
+.topbar__bolt { display: block; width: 11px; height: 20px; flex: none; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35)); }
 .topbar__long { display: none; }
 .topbar__extra { display: none; align-items: center; gap: 1.5rem; }
 .topbar__extra a { display: inline-flex; align-items: center; gap: .4rem; font-weight: 600; }
