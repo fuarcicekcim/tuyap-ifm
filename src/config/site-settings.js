@@ -26,9 +26,9 @@ export const CONTACT = {
 };
 
 export const DELIVERY = {
-  minutes: 90,
-  promise: '90 dakikada standa teslim',
-  promiseLong: 'TÜYAP ve İFM’de sipariş onayından itibaren 90 dakikada standa teslim',
+  minutes: 60,
+  promise: '60 dakikada standa teslim',
+  promiseLong: 'TÜYAP ve İFM’de sipariş onayından itibaren 60 dakikada standa teslim',
   condition: 'Süre sipariş onayından başlar; ürünün stokta ve fuar girişinin uygun olması gerekir.',
 };
 
