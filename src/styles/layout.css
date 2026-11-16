@@ -10,13 +10,20 @@
 .topbar a { color: var(--cream); text-decoration: none; }
 .topbar__msgs { display: flex; align-items: center; gap: .5rem 1.6rem; margin: 0; color: var(--cream); font-weight: 600; }
 .topbar__msg { display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap; }
-.topbar__live { position: relative; margin: 0 .2rem 0 .3rem; width: 7px; height: 7px; border-radius: 50%; background: #7bd389; flex: none; }
+.topbar__wa { color: var(--cream) !important; }
+.topbar__wa u { text-decoration: none; border-bottom: 1px solid rgba(197, 160, 89, .7); padding-bottom: 1px; transition: border-color .25s var(--ease), color .25s var(--ease); }
+@media (hover: hover) { .topbar__wa:hover u { color: var(--gold-soft); border-color: var(--gold-soft); } }
+.topbar__wa-icon { position: relative; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #25d366; color: #fff; flex: none; }
+.topbar__wa-svg { width: 14px; height: 14px; }
+.topbar__wa-icon .topbar__live { position: absolute; right: -2px; top: -2px; width: 7px; height: 7px; border: 1.5px solid var(--forest); }
+.topbar__live { position: relative; width: 7px; height: 7px; border-radius: 50%; background: #7bd389; flex: none; }
 .topbar__live::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid #7bd389; animation: hero-pulse 2s var(--ease) infinite; }
 .topbar__zap { width: 14px; height: 14px; color: var(--gold); fill: var(--gold); }
 .topbar__long { display: none; }
 .topbar__extra { display: none; align-items: center; gap: 1.5rem; }
 .topbar__extra a { display: inline-flex; align-items: center; gap: .4rem; font-weight: 600; }
 .topbar__extra .icon { width: 14px; height: 14px; color: var(--gold); }
+@media (max-width: 419px) { .topbar__msgs { gap: .5rem .9rem; font-size: .74rem; letter-spacing: 0; } .topbar__msg { gap: .35rem; } }
 @media (min-width: 640px) { .topbar__long { display: inline; } .topbar__short { display: none; } }
 @media (prefers-reduced-motion: reduce) { .topbar__live::after { animation: none; } }
 
