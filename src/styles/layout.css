@@ -269,13 +269,13 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 /* TÜYAP fotoğrafı tüm alt bilginin zemini: üst kenar orman yeşilinden açılır, alta doğru yeniden koyulaşır. */
 .footer {
   position: relative; overflow: hidden; isolation: isolate;
-  --ph: min(50vw, 860px);
+  --ph: min(36vw, 600px);
   padding-top: calc(var(--ph) * .7); padding-bottom: 1.6rem;
   background: var(--forest); color: rgba(247, 245, 240, .72); font-size: .9rem;
 }
 .footer__photo {
   position: absolute; left: 0; right: 0; top: 0; z-index: -2;
-  width: 100%; height: calc(var(--ph) * 1.08); object-fit: cover; object-position: 50% 40%;
+  width: 100%; height: calc(var(--ph) * 1.08); object-fit: cover; object-position: 50% 52%;
   transform: translate3d(0, var(--py, 0px), 0);
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%); mask-image: linear-gradient(180deg, transparent 0%, #000 16%);
 }
@@ -293,20 +293,8 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 .footer__col a { font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
 .footer__social { display: flex; flex-wrap: wrap; gap: .8rem 1.6rem; }
 .footer__social a { font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
-.footer__legal { position: relative; z-index: 3; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .8rem 2rem; margin-top: var(--space-l); padding-top: 1.2rem; border-top: 1px solid var(--line-on-dark); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(247, 245, 240, .55); }
+.footer__legal { position: relative; z-index: 3; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .8rem 2rem; margin-top: var(--space-m); padding-top: 1.2rem; border-top: 1px solid var(--line-on-dark); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(247, 245, 240, .55); }
 .footer__legal-links { display: flex; flex-wrap: wrap; gap: .8rem 2rem; }
-
-/* Süzülen botanik öğeler */
-.footer__flora { position: absolute; inset: 0; pointer-events: none; }
-.flora { --k: 1; position: absolute; left: var(--x); top: var(--y); width: calc(var(--s) * var(--k)); z-index: 0; transform: translate3d(-50%, calc(-50% + var(--py, 0px)), 0) rotate(var(--r)); will-change: transform; }
-.flora.is-front { z-index: 4; }
-.flora svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 10px 14px rgba(10, 31, 23, .18)); animation: flora-float var(--d) ease-in-out infinite alternate; }
-.flora:nth-child(even) svg { animation-direction: alternate-reverse; }
-@keyframes flora-float { from { transform: translateY(-8px) rotate(-5deg); } to { transform: translateY(8px) rotate(5deg); } }
-.footer__flora { z-index: auto; }
-.flora { z-index: 1; }
-.flora.is-front { z-index: 3; }
-.flora.is-desk { display: none; }
 
 @media (min-width: 768px) {
   .footer__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -314,17 +302,6 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 @media (min-width: 1024px) {
   .footer__top { grid-template-columns: minmax(0, 1.1fr) minmax(0, 2.4fr) minmax(0, 1.4fr); align-items: start; gap: 3rem; }
   .footer__social { flex-direction: column; align-items: flex-end; gap: .7rem; }
-  .flora.is-desk { display: block; }
-  .flora { --k: 1.15; }
-}
-@media (min-width: 1440px) {
-  .flora { --k: 1.4; }
-}
-@media (max-width: 767px) {
-  .flora { --k: .62; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .flora svg { animation: none; }
 }
 
 /* Tablet / küçük masaüstü: fuar şeridi iki sütun (logo + bilgi), günler ve butonlar alt satırda yan yana. */
@@ -334,11 +311,8 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   .fairband__ctas { grid-column: 2 / 3; }
 }
 
-/* Mobil alt bilgi: fotoğraf bandı daha yüksek oranlı, iki küçük çiçek. */
+/* Mobil alt bilgi: fotoğraf bandı daha yüksek oranlı. */
 @media (max-width: 767px) {
-  .footer { --ph: 82vw; }
+  .footer { --ph: 64vw; }
   .footer__photo { object-position: 46% 45%; }
-  .flora { display: none; }
-  .flora:nth-child(1) { display: block; left: 9%; top: 9vw; --k: .45; }
-  .flora:nth-child(5) { display: block; left: 90%; top: 12vw; --k: .4; }
 }

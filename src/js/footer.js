@@ -1,4 +1,4 @@
-// Alt bilgideki çiçekler sayfa kaydırıldıkça farklı derinliklerde süzülür (paralaks).
+// Alt bilgideki TÜYAP fotoğrafı sayfa kaydırıldıkça hafifçe kayar (paralaks).
 // Yalnızca alt bilgi görünürken çalışır; hareket azaltma tercihinde kapalıdır.
 export function initFooter() {
   const root = document.querySelector('[data-footer]');
