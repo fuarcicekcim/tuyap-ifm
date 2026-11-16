@@ -29,10 +29,6 @@ function hero() {
   <div class="wrap hero__inner">
     <div class="hero__copy">
       <h1 id="hero-baslik" data-split>TÜYAP ve İFM’ye <em>çiçek teslimatı.</em></h1>
-      <div class="hero__ctas">
-        <button class="btn btn--gold btn--lg" type="button" data-drawer-open data-track-location="hero" data-magnetic>${icon('shopping-bag')}Sipariş Oluştur</button>
-        <a class="btn btn--ghost-light btn--lg" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero" data-magnetic>${icon('message-circle')}<span>WhatsApp<span class="hero__wa-more">’tan Yazın</span></span></a>
-      </div>
       <ul class="hero__facts">
         <li>${icon('timer')}<span>Onaydan sonra <strong>${DELIVERY.minutes} dakikada</strong> standa teslim</span></li>
         <li>${icon('truck')}Teslimat fiyata dahil</li>

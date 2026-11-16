@@ -125,7 +125,7 @@
 .btn--lg { min-height: 54px; padding-inline: 1.6rem; }
 
 /* Butonların altında sade güvence satırı. */
-.hero__facts { display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; margin: 1.4rem 0 0; padding: 0; list-style: none; font-size: .86rem; color: rgba(247, 245, 240, .78); }
+.hero__facts { display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; margin: 1.6rem 0 0; padding: 0; list-style: none; font-size: .86rem; color: rgba(247, 245, 240, .78); }
 .hero__facts li { display: inline-flex; align-items: center; gap: .45rem; white-space: nowrap; }
 .hero__facts .icon { width: 15px; height: 15px; color: var(--gold); flex: none; }
 .hero__facts strong { color: var(--gold-soft); font-weight: 700; }
@@ -382,7 +382,7 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   .hero__fair-logos img + img { padding: .35rem 0 0; border-left: 0; border-top: 1px solid var(--line); }
 }
 @media (min-width: 1024px) {
-  .hero { --hero-h: clamp(520px, 62svh, 600px); }
+  .hero { --hero-h: clamp(460px, 56svh, 540px); }
   .hero__fair { max-width: min(36rem, calc(100vw - var(--stage-w) - 3rem)); }
   .hero__fair-logos img { height: 30px; }
 }
