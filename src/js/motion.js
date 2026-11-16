@@ -70,24 +70,6 @@ function initMagnetic() {
   return () => cleanups.forEach((c) => c());
 }
 
-function initCursor() {
-  const dot = document.createElement('div');
-  dot.className = 'cursor';
-  dot.setAttribute('aria-hidden', 'true');
-  document.body.append(dot);
-  const xTo = gsap.quickTo(dot, 'x', { duration: 0.25, ease: 'power3' });
-  const yTo = gsap.quickTo(dot, 'y', { duration: 0.25, ease: 'power3' });
-  const move = (e) => { xTo(e.clientX); yTo(e.clientY); dot.classList.add('is-active'); };
-  const over = (e) => dot.classList.toggle('is-hover', !!e.target.closest('a, button, [data-cursor]'));
-  window.addEventListener('pointermove', move);
-  window.addEventListener('pointerover', over);
-  return () => {
-    window.removeEventListener('pointermove', move);
-    window.removeEventListener('pointerover', over);
-    dot.remove();
-  };
-}
-
 function initReveals(distance) {
   gsap.utils.toArray('[data-reveal]').forEach((el) => {
     gsap.from(el, {
@@ -105,11 +87,10 @@ export function initMotion() {
     const offLenis = initLenis();
     const offSplit = initSplitHeadings();
     const offMagnetic = initMagnetic();
-    const offCursor = initCursor();
     initParallax();
     initReveals(40);
     return () => {
-      offLenis(); offSplit(); offMagnetic(); offCursor();
+      offLenis(); offSplit(); offMagnetic();
       document.documentElement.classList.remove('has-motion');
     };
   });
