@@ -54,8 +54,11 @@ function renderCart(items) {
   root.querySelector('[data-total-vat]').textContent = tl(t.vat);
   root.querySelector('[data-total-gross]').textContent = tl(t.gross);
   document.querySelectorAll('[data-cart-count]').forEach((el) => {
+    const grew = cart.count > Number(el.dataset.count || 0);
     el.textContent = cart.count;
     el.dataset.count = cart.count;
+    // Ürün eklenince rozet kısa bir 'zıplama' yapar (hareket azaltmada yok).
+    if (grew && !matchMedia('(prefers-reduced-motion: reduce)').matches) el.animate?.([{ transform: 'scale(1)' }, { transform: 'scale(1.35)' }, { transform: 'scale(1)' }], { duration: 420, easing: 'cubic-bezier(.3,1.6,.5,1)' });
   });
 }
 

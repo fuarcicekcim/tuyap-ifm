@@ -72,14 +72,22 @@
 .header__actions .btn { min-height: 44px; padding: 0 1.1rem; font-size: .9rem; }
 .header__wa { display: none; }
 
+/* Sepet butonu: WhatsApp'ın koyu yeşil hapının yanında altın dolgulu hap; adet rozeti koyu yeşil. */
 .cart-btn {
-  position: relative; display: inline-grid; place-items: center;
-  width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; background: transparent;
+  position: relative; display: inline-flex; align-items: center; gap: .45rem;
+  min-height: 44px; padding: 0 1.05rem 0 .9rem; border: 1px solid rgba(154, 117, 53, .45); border-radius: 999px;
+  background: linear-gradient(180deg, #d4b26e 0%, var(--gold) 100%); color: var(--forest);
+  font-family: var(--font-ui); font-size: .92rem; font-weight: 700; cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45), 0 6px 18px -10px rgba(154, 117, 53, .9);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), filter .25s var(--ease);
 }
+.cart-btn .icon { width: 19px; height: 19px; stroke-width: 2.1; }
+@media (hover: hover) { .cart-btn:hover { transform: translateY(-1px); filter: brightness(1.05); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 10px 22px -10px rgba(154, 117, 53, 1); } }
+.cart-btn:active { transform: translateY(0); }
 .cart-btn__count {
-  position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; padding: 0 5px;
-  border-radius: 10px; background: var(--gold); color: var(--ink);
-  font-size: .7rem; font-weight: 700; display: grid; place-items: center;
+  position: absolute; top: -6px; right: -6px; min-width: 21px; height: 21px; padding: 0 6px;
+  border-radius: 11px; background: var(--forest); color: var(--cream); border: 2px solid var(--cream);
+  font-size: .68rem; font-weight: 700; display: grid; place-items: center; line-height: 1;
 }
 .cart-btn__count[data-count="0"] { display: none; }
 

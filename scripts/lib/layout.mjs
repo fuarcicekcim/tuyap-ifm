@@ -41,7 +41,7 @@ function header() {
     </nav>
     <div class="header__actions">
       <a class="shiny header__wa" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="header" data-magnetic><span><img class="wa3d" src="/assets/icons/whatsapp-3d.webp" width="96" height="96" alt="" decoding="async">WhatsApp</span></a>
-      <button class="cart-btn" type="button" data-drawer-open aria-label="Sipariş sepetini aç">${icon('shopping-bag')}<span class="cart-btn__count" data-cart-count data-count="0">0</span></button>
+      <button class="cart-btn" type="button" data-drawer-open aria-label="Sipariş sepetini aç">${icon('shopping-bag')}<span class="cart-btn__label">Sepet</span><span class="cart-btn__count" data-cart-count data-count="0">0</span></button>
     </div>
   </div>
 </header>`;
