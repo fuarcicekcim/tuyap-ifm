@@ -170,20 +170,18 @@
 }
 
 @media (min-width: 1024px) {
-  .hero__stage { left: 40%; }
-  .hero { height: clamp(480px, 58svh, 580px); justify-content: center; }
-  .hero h1 { font-size: clamp(3rem, 1rem + 3.4vw, 5.4rem); max-width: none; white-space: nowrap; }
+  /* Görsel alanı fotoğrafın oranına yakın tutulur (en fazla ~1.9:1), böylece kısa hero'da fotoğraf az kesilir. */
+  .hero { --hero-h: clamp(420px, 50svh, 500px); --stage-w: min(60%, calc(var(--hero-h) * 1.9)); height: var(--hero-h); justify-content: center; }
+  .hero__stage { left: auto; width: var(--stage-w); }
+  .hero__stage::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(90deg, var(--forest) 0%, rgba(10, 31, 23, .55) 12%, rgba(10, 31, 23, 0) 30%), linear-gradient(0deg, rgba(10, 31, 23, .85) 0%, rgba(10, 31, 23, 0) 32%); }
+  .hero h1 { font-size: clamp(2.8rem, 1rem + 3vw, 4.8rem); max-width: none; white-space: nowrap; }
   .hero__lead { font-size: var(--step-0); margin-top: 1rem; }
   .hero__ctas { margin-top: 1.4rem; }
   /* Sahne şeridi görselin alt kenarına biner; hero kısa kalır. */
-  .hero__rail { position: absolute; left: calc(40% + 2rem); right: max(var(--gutter), calc((100vw - var(--max)) / 2)); bottom: 1.1rem; width: auto; max-width: none; padding: 0; margin: 0; }
-  .hero__veil {
-    background:
-      linear-gradient(90deg, var(--forest) 0%, var(--forest) 40%, rgba(10, 31, 23, .7) 47%, rgba(10, 31, 23, .12) 60%, rgba(10, 31, 23, 0) 70%),
-      linear-gradient(0deg, rgba(10, 31, 23, .9) 0%, rgba(10, 31, 23, 0) 30%);
-  }
+  .hero__rail { position: absolute; z-index: 3; left: auto; right: 1.5rem; bottom: 1rem; width: calc(var(--stage-w) - 6rem); max-width: none; padding: 0; margin: 0; }
+  .hero__veil { display: none; }
   .hero__inner { grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding-block: 2rem; }
-  .hero__scene img { object-position: 50% 42% !important; }
+  .hero__scene img { object-position: 50% 45% !important; }
   /* Masaüstünde sahne geçişi perde gibi açılır (yalnızca masaüstü; mobilde opaklık). */
   .hero__scene { transition: none; clip-path: inset(0 0 0 100%); opacity: 1; }
   .hero__scene.is-active { clip-path: inset(0 0 0 0); transition: clip-path 1.3s var(--ease); }
