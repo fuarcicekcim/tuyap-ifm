@@ -23,6 +23,17 @@ const DESKTOP = '(min-width: 1024px) and (pointer: fine) and (prefers-reduced-mo
 document.addEventListener('click', (e) => {
   const el = e.target.closest('[data-track]');
   if (el) track(el.dataset.track, { location: el.dataset.trackLocation || '' });
+
+  // Ana sayfadayken logo sayfayı yeniden yüklemez; yumuşakça en üste kaydırır.
+  const brand = e.target.closest('a.brand');
+  if (brand && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button === 0
+      && /^\/(index\.html)?$/.test(location.pathname)) {
+    e.preventDefault();
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (window.__lenis) window.__lenis.scrollTo(0, { duration: 1.1 });
+    else window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    if (location.hash) history.replaceState(null, '', location.pathname);
+  }
 });
 
 // GSAP + Lenis yalnızca masaüstünde indirilir; mobilde hafif IntersectionObserver kullanılır.
