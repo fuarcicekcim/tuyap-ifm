@@ -7,7 +7,7 @@ export const waLink = (text = 'Merhaba, fuar standına çiçek siparişi vermek 
   `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(text)}`;
 
 const NAV = [
-  ['/#paketler', 'Fuar Paketleri'],
+  ['/fuar-paketleri.html', 'Fuar Paketleri'],
   ['/#urunler', 'Ürünler'],
   ['/#kurumsal', 'Kurumsal'],
   [VENUES[0].page, 'TÜYAP'],
@@ -32,8 +32,7 @@ function header() {
 <header class="header">
   <div class="wrap">
     <a class="brand" href="/" aria-label="${esc(SITE.name)} ana sayfa">
-      <img src="/assets/brand/crest-80.webp" width="40" height="36" alt="" decoding="async">
-      <span class="brand__name">Fuar <em>Çiçekçim</em></span>
+      <img class="brand__logo" src="/assets/brand/logo-yatay-360.webp" srcset="/assets/brand/logo-yatay-360.webp 360w, /assets/brand/logo-yatay-540.webp 540w" sizes="(min-width: 1024px) 270px, 192px" width="720" height="240" alt="${esc(SITE.name)}" decoding="async" fetchpriority="high">
     </a>
     <nav class="nav" aria-label="Ana menü">
       <ul>${NAV.map(([href, label]) => `<li><a href="${href}">${esc(label)}</a></li>`).join('')}</ul>
@@ -148,7 +147,7 @@ function footer() {
       </div>
       <div>
         <h2>Kurumsal</h2>
-        <ul><li><a href="/hizmetler.html">Hizmetler</a></li><li><a href="/teklif.html">Kurumsal teklif</a></li><li><a href="/hakkimizda.html">Hakkımızda</a></li><li><a href="/sss.html">Sık sorulan sorular</a></li><li><a href="/blog/">Rehberler</a></li><li><a href="/blog/fuar-cicegi-fiyatlari-2026.html">Fiyat rehberi</a></li><li><a href="/iletisim.html">İletişim</a></li><li><a href="/kvkk.html">KVKK aydınlatma metni</a></li></ul>
+        <ul><li><a href="/fuar-paketleri.html">Fuar paketleri</a></li><li><a href="/hizmetler.html">Hizmetler</a></li><li><a href="/teklif.html">Kurumsal teklif</a></li><li><a href="/hakkimizda.html">Hakkımızda</a></li><li><a href="/sss.html">Sık sorulan sorular</a></li><li><a href="/blog/">Rehberler</a></li><li><a href="/blog/fuar-cicegi-fiyatlari-2026.html">Fiyat rehberi</a></li><li><a href="/iletisim.html">İletişim</a></li><li><a href="/kvkk.html">KVKK aydınlatma metni</a></li></ul>
       </div>
       <div>
         <h2>İletişim</h2>

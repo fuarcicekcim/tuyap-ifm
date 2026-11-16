@@ -1,7 +1,6 @@
 import { SITE, DELIVERY, PRICING, FAIR_DAYS, CONTACT, VENUES } from '../../src/config/site-settings.js';
-import { PACKAGES } from '../../src/config/packages.js';
-import { esc, icon, trRange, tlPrice } from '../lib/html.mjs';
-import { card, thumb } from './products.mjs';
+import { esc, icon, trRange } from '../lib/html.mjs';
+import { card } from './products.mjs';
 import { graph, businessNode, faqNode } from '../lib/seo.mjs';
 import { page, waLink } from '../lib/layout.mjs';
 import { CATEGORIES } from '../lib/catalog.mjs';
@@ -30,22 +29,21 @@ function hero() {
 
   <div class="wrap hero__inner">
     <div class="hero__copy">
-      <p class="eyebrow hero__eyebrow"><span class="hero__live" aria-hidden="true"></span>7/24 sipariş · TÜYAP &amp; İFM fuar çiçekçisi</p>
+      <p class="eyebrow hero__eyebrow">7/24 sipariş · TÜYAP &amp; İFM fuar çiçekçisi</p>
       <h1 id="hero-baslik" data-split>TÜYAP ve İFM’de standınıza <em>${DELIVERY.minutes} dakikada</em> çiçek.</h1>
       <p class="hero__lead">Kuşaklı VIP orkide, açılış çelengi ve stant bitkileri; firmanızın adıyla hazırlanır, salon ve stant numaranıza teslim edilir, fotoğrafla onaylanır.</p>
       <div class="hero__ctas">
         <button class="btn btn--gold btn--lg" type="button" data-drawer-open data-track-location="hero" data-magnetic>${icon('shopping-bag')}Sipariş Oluştur</button>
         <a class="btn btn--ghost-light btn--lg" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero" data-magnetic>${icon('message-circle')}WhatsApp’tan Yazın</a>
       </div>
+      <p class="hero__eta" aria-live="off">
+        <span class="hero__live" aria-hidden="true"></span>
+        <span>Şimdi onaylarsanız standınızda</span>
+        <strong>≈ <time data-eta>--:--</time></strong>
+        <span class="hero__eta-fair">· ${esc(FAIR_DAYS.activeFairName)}, ${trRange(FAIR_DAYS.days)} · ${esc(venue.short)}</span>
+      </p>
       <p class="hero__note">${esc(DELIVERY.condition)} ${esc(PRICING.deliveryIncluded)}</p>
     </div>
-
-    <aside class="hero__eta" aria-label="Tahmini teslim saati">
-      <p class="hero__eta-label">Şimdi onaylarsanız standınızda</p>
-      <p class="hero__eta-time"><span class="hero__eta-approx">≈</span><time data-eta>--:--</time></p>
-      <p class="hero__eta-meta">${esc(FAIR_DAYS.activeFairName)}<br>${trRange(FAIR_DAYS.days)} · ${esc(venue.short)}</p>
-      <button class="hero__eta-cta" type="button" data-drawer-open data-track-location="hero-eta">Siparişi başlat ${icon('arrow-right')}</button>
-    </aside>
   </div>
 
   <div class="wrap hero__rail" role="group" aria-label="Sahneler">
@@ -75,54 +73,6 @@ function trust() {
 </section>`;
 }
 
-
-function packages(catalog) {
-  const byId = new Map(catalog.products.map((p) => [p.id, p]));
-  const cards = PACKAGES.map((pkg) => {
-    const items = pkg.items.map(([id, qty]) => {
-      const p = byId.get(id);
-      if (!p) throw new Error(`Paket "${pkg.id}": "${id}" ürünü products-data.js'te yok veya pasif.`);
-      return { p, qty };
-    });
-    const net = items.reduce((s, { p, qty }) => s + p.price * qty, 0);
-    const gross = Math.round(net * (100 + PRICING.vatRate)) / 100;
-    const count = items.reduce((n, { qty }) => n + qty, 0);
-    const ids = items.map(({ p, qty }) => `${p.id}:${qty}`).join(',');
-    return `
-<article class="pkg${pkg.recommended ? ' pkg--rec' : ''}" data-reveal>
-  ${pkg.recommended ? '<p class="pkg__flag">Önerimiz</p>' : ''}
-  <div class="pkg__media" aria-hidden="true">
-    ${items.slice(0, 3).map(({ p }) => `<img src="${thumb(p.image)}" width="400" height="600" alt="" loading="lazy" decoding="async">`).join('')}
-  </div>
-  <div class="pkg__body">
-    <p class="pkg__count">${count} ürün · tek kurulum</p>
-    <h3 class="pkg__title">${esc(pkg.name)}</h3>
-    <p class="pkg__fit">${esc(pkg.fit)}</p>
-    <p class="pkg__lead">${esc(pkg.lead)}</p>
-    <ul class="pkg__items">
-      ${items.map(({ p, qty }) => `<li><a href="${p.page}">${qty > 1 ? `${qty} × ` : ''}${esc(p.name)}</a><span data-price-id="${p.id}">${tlPrice(p.price)}</span></li>`).join('')}
-    </ul>
-    <div class="pkg__price">
-      <p><strong data-pkg-sum="${ids}">${tlPrice(net)}</strong><span>+ %${PRICING.vatRate} KDV</span></p>
-      <p class="pkg__gross">KDV dahil <span data-pkg-gross="${ids}">${tlPrice(gross)}</span> · standa teslimat dahil</p>
-    </div>
-    <button class="btn${pkg.recommended ? ' btn--gold' : ''} pkg__add" type="button" data-pkg="${ids}" data-pkg-name="${esc(pkg.name)}" data-track-location="packages">${icon('shopping-bag')}<span>Paketi ekle</span></button>
-  </div>
-</article>`;
-  });
-  return `
-<section class="section packages" id="paketler" aria-labelledby="paket-baslik">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Fuar paketleri</p>
-      <h2 id="paket-baslik" data-split>Standınız için <em>hazır düzenler.</em></h2>
-      <p class="section-head__lead">Her paket, katalogdaki ürünlerin bir araya getirilmiş hâlidir; paket fiyatı içindeki ürünlerin toplamıdır. Ürünler standınıza bir kez kurulur. Paketi ekledikten sonra sipariş çekmecesinde ürün çıkarabilir veya adet değiştirebilirsiniz.</p>
-    </div>
-    <div class="pkg-grid">${cards.join('')}</div>
-    <p class="packages__note">Size özel bir düzen mi gerekiyor? <a href="/teklif.html" data-track="corporate_quote_click" data-track-location="packages">Kurumsal teklif isteyin</a> veya ürünleri tek tek seçin.</p>
-  </div>
-</section>`;
-}
 
 function products(catalog) {
   const counts = Object.fromEntries(CATEGORIES.map((c) => [c.id, catalog.products.filter((p) => p.category === c.id).length]));
@@ -243,6 +193,6 @@ export function home(catalog) {
     description: `TÜYAP ve İFM fuar standlarına açılış çelengi, kuşaklı VIP orkide, stant aranjmanı ve saksı bitkisi. ${DELIVERY.promise}, fotoğraflı teslim onayı ve kurumsal e-Fatura.`,
     preload: `<link rel="preload" as="image" href="/assets/hero/tuyap-orkide-768.webp" imagesrcset="/assets/hero/tuyap-orkide-768.webp 768w, /assets/hero/tuyap-orkide.webp 1536w" imagesizes="100vw" fetchpriority="high">`,
     jsonld: schema(),
-    body: hero() + trust() + packages(catalog) + products(catalog) + corporate() + steps() + faq() + closing(),
+    body: hero() + trust() + products(catalog) + corporate() + steps() + faq() + closing(),
   });
 }

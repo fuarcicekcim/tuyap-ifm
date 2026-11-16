@@ -32,6 +32,8 @@
   --max: 1320px;
   --radius: 2px;
   --ease: cubic-bezier(.22, 1, .36, 1);
-  --header-h: 72px;
+  --header-h: 100px;
   --dock-h: 64px;
 }
+
+@media (max-width: 1023px) { :root { --header-h: 76px; } }

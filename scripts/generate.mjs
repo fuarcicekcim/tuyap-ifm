@@ -13,6 +13,7 @@ import { productPage, categoryPage } from './pages/products.mjs';
 import { tuyap, ifm, fuarCicekcisi, avrasya, takvim, hizmetler, hakkimizda, iletisim, sss, teslimat, notFound } from './pages/content.mjs';
 import { POSTS, blogPost, blogIndex } from './pages/blog.mjs';
 import { teklif } from './pages/teklif.mjs';
+import { paketler } from './pages/paketler.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, '.build');
@@ -62,6 +63,11 @@ async function copyStatic(catalog) {
   fs.mkdirSync(path.join(PUB, 'assets/brand'), { recursive: true });
   await sharp(path.join(ROOT, 'assets/brand-plant-crest.png')).resize({ width: 80 }).webp({ quality: 85 })
     .toFile(path.join(PUB, 'assets/brand/crest-80.webp'));
+  // Yatay logo (kullanıcının mevcut logosu, www.fuarcicekcim.com ile aynı): başlık için WebP.
+  for (const w of [360, 540]) {
+    await sharp(path.join(ROOT, 'assets/fuar-cicekcim-logo-yatay.png')).resize({ width: w }).webp({ quality: 90, alphaQuality: 100 })
+      .toFile(path.join(PUB, `assets/brand/logo-yatay-${w}.webp`));
+  }
   await Promise.all(catalog.products.flatMap((p) => {
     const img = p.image.slice(1);
     const jobs = [resized(img, 400)];
@@ -189,6 +195,7 @@ const pages = {
   'hakkimizda.html': hakkimizda(),
   'iletisim.html': iletisim(),
   'teklif.html': teklif(),
+  'fuar-paketleri.html': paketler(catalog),
   'sss.html': sss(),
   'teslimat-sureci.html': teslimat(),
   'kvkk.html': kvkk(),
