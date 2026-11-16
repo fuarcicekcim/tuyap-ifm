@@ -100,6 +100,36 @@ function products(catalog) {
 </section>`;
 }
 
+// Müşteri logoları: sürekli kayan şerit (kullanıcının verdiği gerçek müşteri logoları).
+const CLIENTS = [
+  ['aker-asansor', 'Aker Asansör', 171, 160],
+  ['saha-asansor', 'Saha Asansör', 422, 160],
+  ['arsanmak-makina', 'Arsanmak Makina', 480, 134],
+  ['akko-makina', 'AKKO Makina', 480, 99],
+  ['alucorex', 'Alucorex', 262, 160],
+];
+
+function clients() {
+  // Kare ve geniş logolar göz kararı eşit büyüklükte görünsün: yükseklik en-boy oranına göre ayarlanır.
+  const logo = ([file, name, w, h], hidden) => `<li style="--k:${Math.min(1, 1.6 * Math.pow(w / h, -0.45)).toFixed(2)}"><img src="/assets/musteriler/${file}.webp" width="${w}" height="${h}" alt="${hidden ? '' : esc(name)}" loading="lazy" decoding="async"></li>`;
+  // Şerit kesintisiz dönsün diye liste iki kez yazılır; ikinci kopya ekran okuyuculardan gizlenir.
+  const set = [...CLIENTS, ...CLIENTS];
+  return `
+<section class="clients" aria-labelledby="musteri-baslik">
+  <div class="wrap clients__head">
+    <p class="eyebrow" id="musteri-baslik">Fuarlarda çiçeklerini bize emanet eden firmalar</p>
+  </div>
+  <div class="clients__marquee">
+    <ul class="clients__track">
+      ${set.map((c) => logo(c, false)).join('')}
+    </ul>
+    <ul class="clients__track" aria-hidden="true">
+      ${set.map((c) => logo(c, true)).join('')}
+    </ul>
+  </div>
+</section>`;
+}
+
 function corporate() {
   return `
 <section class="corporate" id="kurumsal" aria-labelledby="kurumsal-baslik">
@@ -182,6 +212,6 @@ export function home(catalog) {
     description: `TÜYAP ve İFM fuar standlarına açılış çelengi, kuşaklı VIP orkide, stant aranjmanı ve saksı bitkisi. ${DELIVERY.promise}, fotoğraflı teslim onayı ve kurumsal e-Fatura.`,
     preload: `<link rel="preload" as="image" href="/assets/hero/tuyap-orkide-768.webp" imagesrcset="/assets/hero/tuyap-orkide-768.webp 768w, /assets/hero/tuyap-orkide.webp 1536w" imagesizes="100vw" fetchpriority="high">`,
     jsonld: schema(),
-    body: hero() + trust() + products(catalog) + corporate() + steps() + faq(),
+    body: hero() + trust() + products(catalog) + clients() + corporate() + steps() + faq(),
   });
 }

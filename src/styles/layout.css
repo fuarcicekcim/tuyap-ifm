@@ -507,3 +507,39 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   .trust__item + .trust__item { padding-left: 1.5rem; border-left: 1px solid var(--line); }
 }
 @media (max-width: 1023px) { .shiny.header__wa { display: none; } }
+
+/* ---------- Müşteri logoları: sürekli kayan şerit ---------- */
+.clients { padding-block: clamp(2rem, 1.4rem + 2vw, 3.25rem); background: var(--paper); border-top: 1px solid var(--line); }
+.clients__head { margin-bottom: clamp(1.1rem, 2vw, 1.6rem); text-align: center; }
+.clients__head .eyebrow { margin: 0; }
+.clients__marquee {
+  --gap: clamp(2.5rem, 5vw, 5rem);
+  display: flex; gap: var(--gap); overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.clients__track {
+  flex: none; display: flex; align-items: center; gap: var(--gap);
+  margin: 0; padding: 0; list-style: none;
+  animation: clients-scroll 38s linear infinite;
+}
+.clients__track li { flex: none; display: grid; place-items: center; height: 72px; }
+.clients__track img {
+  width: auto; height: calc(var(--k, 1) * 64px); max-width: 190px; object-fit: contain;
+  filter: grayscale(1) contrast(1.1); opacity: .6;
+  transition: filter .4s var(--ease), opacity .4s var(--ease);
+}
+@media (hover: hover) {
+  .clients__marquee:hover .clients__track { animation-play-state: paused; }
+  .clients__track li:hover img { filter: none; opacity: 1; }
+}
+@keyframes clients-scroll { to { transform: translateX(calc(-100% - var(--gap))); } }
+@media (max-width: 767px) {
+  .clients__track li { height: 54px; }
+  .clients__track img { height: calc(var(--k, 1) * 48px); max-width: 140px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .clients__track { animation: none; flex-wrap: wrap; justify-content: center; }
+  .clients__track[aria-hidden="true"] { display: none; }
+  .clients__marquee { justify-content: center; -webkit-mask-image: none; mask-image: none; }
+}
