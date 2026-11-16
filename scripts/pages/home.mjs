@@ -63,6 +63,8 @@ function fairBand() {
   <div class="wrap fairband__inner">
     <a class="fairband__logo" href="${FAIR_DAYS.activeFairPage}" aria-label="${esc(FAIR_DAYS.activeFairName)} sayfası">
       <img src="/assets/fuar/avrasya-pencere-kapi-logo.webp" width="440" height="174" alt="Avrasya Pencere &amp; Kapı Fuarı logosu" loading="lazy" decoding="async">
+      <span class="fairband__logo-sep" aria-hidden="true"></span>
+      <img src="/assets/fuar/avrasya-cam-logo.webp" width="366" height="174" alt="Avrasya Cam Fuarı logosu" loading="lazy" decoding="async">
     </a>
     <div class="fairband__body">
       <p class="eyebrow">Sıradaki fuar · ${esc(venue.short)}</p>

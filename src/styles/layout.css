@@ -202,8 +202,9 @@
 /* ---------- Aktif fuar şeridi ---------- */
 .fairband { background: var(--paper); border-bottom: 1px solid var(--line); }
 .fairband__inner { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.1rem 1.25rem; align-items: center; padding-block: 1.4rem; }
-.fairband__logo { display: grid; place-items: center; width: 120px; padding: .6rem .75rem; background: #fff; border: 1px solid var(--line); }
-.fairband__logo img { width: 100%; height: auto; }
+.fairband__logo { grid-column: 1 / -1; justify-self: start; display: flex; align-items: center; gap: .9rem; padding: .6rem .9rem; background: #fff; border: 1px solid var(--line); }
+.fairband__logo-sep { width: 1px; align-self: stretch; background: var(--line); }
+.fairband__logo img { width: auto; height: 46px; }
 .fairband__body .eyebrow { margin-bottom: .35rem; }
 .fairband h2 { font-size: var(--step-1); font-weight: 600; line-height: 1.15; }
 .fairband__meta { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; margin-top: .45rem; font-size: .86rem; color: var(--muted); }
@@ -218,8 +219,9 @@
 .fairband__link { display: inline-flex; align-items: center; gap: .3rem; font-weight: 600; font-size: .9rem; color: var(--forest); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
 .fairband__link .icon { width: 14px; height: 14px; }
 @media (min-width: 1024px) {
-  .fairband__inner { grid-template-columns: 190px minmax(0, 1fr) auto auto; gap: 2.2rem; padding-block: 1.6rem; }
-  .fairband__logo { width: 190px; }
+  .fairband__inner { grid-template-columns: auto minmax(0, 1fr) auto auto; gap: 2.2rem; padding-block: 1.6rem; }
+  .fairband__logo { grid-column: auto; }
+  .fairband__logo img { height: 56px; }
   .fairband__days, .fairband__ctas { grid-column: auto; }
   .fairband__days li { padding: .5rem 1rem; }
   .fairband__ctas { flex-direction: column; align-items: stretch; text-align: center; gap: .6rem; }
