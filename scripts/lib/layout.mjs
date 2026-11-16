@@ -26,7 +26,7 @@ function header() {
       <span class="topbar__msg"><img class="topbar__bolt" src="/assets/icons/simsek-3d.webp" width="36" height="64" alt="" decoding="async"><span class="topbar__long">TÜYAP ve İFM’ye <strong>${DELIVERY.minutes} Dakikada</strong> Standa Teslimat</span><span class="topbar__short">TÜYAP &amp; İFM’ye <strong>${DELIVERY.minutes} dk’da</strong> teslimat</span></span>
     </p>
     <span class="topbar__extra">
-      <span>Kurumsal e-Fatura</span>
+      <span>${icon('receipt-text')}Kurumsal e-Fatura</span>
       <a href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="topbar">${icon('phone')}${esc(CONTACT.phoneDisplay)}</a>
     </span>
   </div>

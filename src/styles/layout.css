@@ -8,11 +8,11 @@
 .topbar .wrap { display: flex; justify-content: center; align-items: center; gap: 1rem; min-height: 38px; }
 .topbar strong { color: var(--gold-soft); font-weight: 700; }
 .topbar a { color: var(--cream); text-decoration: none; }
-.topbar__msgs { display: flex; align-items: center; gap: .5rem 1.6rem; margin: 0; color: var(--cream); font-weight: 600; }
-.topbar__msg { display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap; }
+.topbar__msgs { display: flex; align-items: center; gap: .5rem 1.6rem; margin: 0; color: var(--cream); font-weight: 600; line-height: 1; }
+.topbar__msg { display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap; line-height: 1; }
 .topbar__wa { color: var(--cream) !important; }
-.topbar__wa u { text-decoration: none; border-bottom: 1px solid rgba(197, 160, 89, .7); padding-bottom: 1px; transition: border-color .25s var(--ease), color .25s var(--ease); }
-@media (hover: hover) { .topbar__wa:hover u { color: var(--gold-soft); border-color: var(--gold-soft); } }
+.topbar__wa u { text-decoration: underline; text-decoration-color: rgba(197, 160, 89, .7); text-decoration-thickness: 1px; text-underline-offset: 4px; transition: text-decoration-color .25s var(--ease), color .25s var(--ease); }
+@media (hover: hover) { .topbar__wa:hover u { color: var(--gold-soft); text-decoration-color: var(--gold-soft); } }
 .topbar__wa-icon { position: relative; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #25d366; color: #fff; flex: none; }
 .topbar__wa-svg { width: 14px; height: 14px; }
 .topbar__wa-icon .topbar__live { position: absolute; right: -2px; top: -2px; width: 7px; height: 7px; border: 1.5px solid var(--forest); }
@@ -31,9 +31,9 @@
 }
 
 .topbar__long { display: none; }
-.topbar__extra { display: none; align-items: center; gap: 1.5rem; }
-.topbar__extra a { display: inline-flex; align-items: center; gap: .4rem; font-weight: 600; }
-.topbar__extra .icon { width: 14px; height: 14px; color: var(--gold); }
+.topbar__extra { display: none; align-items: center; gap: 1.6rem; color: var(--cream); font-weight: 600; line-height: 1; }
+.topbar__extra > * { display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap; }
+.topbar__extra .icon { width: 15px; height: 15px; color: var(--gold); flex: none; }
 @media (max-width: 419px) { .topbar__msgs { gap: .5rem .9rem; font-size: .74rem; letter-spacing: 0; } .topbar__msg { gap: .35rem; } }
 @media (min-width: 640px) { .topbar__long { display: inline; } .topbar__short { display: none; } }
 @media (prefers-reduced-motion: reduce) { .topbar__live::after, .topbar__bolt { animation: none; } }
