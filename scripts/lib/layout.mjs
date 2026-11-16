@@ -21,11 +21,13 @@ function header() {
 <a class="skip-link" href="#icerik">İçeriğe geç</a>
 <div class="topbar">
   <div class="wrap">
-    <span><strong>${esc(DELIVERY.promise)}</strong> · TÜYAP &amp; İFM</span>
+    <p class="topbar__msgs">
+      <span class="topbar__msg"><span class="topbar__live" aria-hidden="true"></span><span class="topbar__long">7/24 Fuar Acil Teslimat Hattı Aktif</span><span class="topbar__short">7/24 hat aktif</span></span>
+      <span class="topbar__msg">${icon('zap', 'icon topbar__zap')}<span class="topbar__long">TÜYAP ve İFM’ye <strong>${DELIVERY.minutes} Dakikada</strong> Standa Teslimat</span><span class="topbar__short">TÜYAP &amp; İFM’ye <strong>${DELIVERY.minutes} dk</strong></span></span>
+    </p>
     <span class="topbar__extra">
-      <span>7/24 WhatsApp sipariş</span>
       <span>Kurumsal e-Fatura</span>
-      <a href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="topbar">${esc(CONTACT.phoneDisplay)}</a>
+      <a href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="topbar">${icon('phone')}${esc(CONTACT.phoneDisplay)}</a>
     </span>
   </div>
 </div>
