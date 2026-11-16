@@ -72,16 +72,17 @@ function heroFair() {
 
 function trust() {
   const items = [
-    ['truck', 'Standa doğrudan teslimat', 'TÜYAP ve İFM’de salon ve stant numarasına'],
-    ['camera', 'Fotoğraflı teslim onayı', 'Teslimat fotoğrafı WhatsApp’tan iletilir'],
-    ['receipt-text', 'Kurumsal e-Fatura', 'Firma ünvanınıza düzenlenir'],
-    ['message-circle', '7/24 WhatsApp hattı', 'Sipariş ve ödeme tek yazışmada netleşir'],
+    ['zap', `${DELIVERY.minutes} dakikada standa teslimat`, 'TÜYAP ve İFM · Sipariş onayıyla'],
+    ['camera', 'Teslimatta fotoğraf onayı', 'WhatsApp üzerinden'],
+    ['receipt-text', 'Kurumsal e-Fatura', 'Şirket bilgilerinize düzenlenir'],
+    ['leaf', 'Doğrudan seradan', 'Taze ve bakımlı bitkiler'],
   ];
   return `
-<section class="trust" aria-label="Neden Fuar Çiçekçim">
-  <div class="wrap">
+<section class="trust" aria-labelledby="neden-baslik">
+  <div class="wrap trust__inner">
+    <h2 class="trust__title" id="neden-baslik">Neden Fuar <em>Çiçekçim?</em></h2>
     <ul class="trust__list">
-      ${items.map(([ic, t, s]) => `<li class="trust__item" data-reveal>${icon(ic)}<strong>${esc(t)}</strong><span>${esc(s)}</span></li>`).join('')}
+      ${items.map(([ic, t, s]) => `<li class="trust__item"><span class="trust__icon">${icon(ic)}</span><span class="trust__text"><strong>${esc(t)}</strong><small>${esc(s)}</small></span></li>`).join('')}
     </ul>
   </div>
 </section>`;
@@ -190,6 +191,6 @@ export function home(catalog) {
     description: `TÜYAP ve İFM fuar standlarına açılış çelengi, kuşaklı VIP orkide, stant aranjmanı ve saksı bitkisi. ${DELIVERY.promise}, fotoğraflı teslim onayı ve kurumsal e-Fatura.`,
     preload: `<link rel="preload" as="image" href="/assets/hero/tuyap-orkide-768.webp" imagesrcset="/assets/hero/tuyap-orkide-768.webp 768w, /assets/hero/tuyap-orkide.webp 1536w" imagesizes="100vw" fetchpriority="high">`,
     jsonld: schema(),
-    body: hero() + products(catalog) + trust() + corporate() + steps() + faq(),
+    body: hero() + trust() + products(catalog) + corporate() + steps() + faq(),
   });
 }

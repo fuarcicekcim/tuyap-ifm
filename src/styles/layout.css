@@ -198,25 +198,6 @@
 
 
 
-/* ---------- Güven şeridi ---------- */
-.trust { border-bottom: 1px solid var(--line); background: var(--paper); }
-.trust__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; }
-.trust__item {
-  display: flex; flex-direction: column; gap: .5rem;
-  padding: 1.25rem 1rem; border-left: 1px solid var(--line);
-}
-.trust__item:nth-child(odd) { border-left: 0; }
-.trust__item:nth-child(n+3) { border-top: 1px solid var(--line); }
-.trust__item .icon { color: var(--gold); width: 22px; height: 22px; }
-.trust__item strong { font-size: .95rem; font-weight: 600; line-height: 1.3; }
-.trust__item span { font-size: var(--step--1); color: var(--muted); line-height: 1.4; }
-@media (min-width: 1024px) {
-  .trust__list { grid-template-columns: repeat(4, 1fr); }
-  .trust__item { padding: 2rem 1.75rem; }
-  .trust__item:nth-child(odd) { border-left: 1px solid var(--line); }
-  .trust__item:first-child { border-left: 0; }
-  .trust__item:nth-child(n+3) { border-top: 0; }
-}
 
 /* ---------- Mobil sabit sipariş çubuğu ---------- */
 .dock {
@@ -391,7 +372,7 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   .hero__fair { grid-template-columns: auto minmax(0, 1fr); }
   .hero__fair-logos { display: none; }
 }
-.hero + .section { padding-top: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); }
+.hero + .section, .trust + .section { padding-top: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); }
 
 /* ---------- Parlayan kenarlı buton (shiny) ----------
    Orman yeşili dolgu, kenarında sürekli dönen altın ışık; üzerine gelince ışık genişler,
@@ -467,5 +448,62 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   .shiny { transition: none; }
 }
 /* 3B WhatsApp logosu: butonda yazının solunda, hafif gölgeli. */
-.wa3d { width: 24px; height: 24px; margin-left: -.5rem; flex: none; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .35)); }
-.wa3d--dock { width: 26px; height: 26px; margin-left: 0; border-radius: 50%; box-shadow: 0 0 0 2px rgba(255, 255, 255, .9), 0 2px 6px rgba(0, 0, 0, .3); filter: none; }
+.wa3d { width: 26px; height: 26px; margin-left: -.55rem; flex: none; border-radius: 50%; filter: saturate(1.45) brightness(1.18) contrast(1.05); box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .85), 0 0 12px 1px rgba(37, 211, 102, .55); }
+.wa3d--dock { width: 26px; height: 26px; margin-left: 0; box-shadow: 0 0 0 2px rgba(255, 255, 255, .9), 0 2px 6px rgba(0, 0, 0, .3); }
+
+/* ---------- Krem hero (eski sitenin tipografisiyle) ----------
+   Solda krem zemin, koyu yeşil Playfair Display başlık ve koyu altın italik vurgu;
+   fotoğraf sağda kreme yumuşakça erir. Tam genişlik, kart çerçevesi yok. */
+.hero {
+  --hero-ink: var(--forest);
+  --gold-deep: #9A7535;
+  margin: 0; border-radius: 0; box-shadow: none;
+  background: var(--cream); color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+.hero h1 {
+  font-family: 'Playfair Display', var(--font-display); font-weight: 500;
+  letter-spacing: -.035em; line-height: 1.05; color: var(--hero-ink);
+}
+.hero h1 em { color: var(--gold-deep); font-style: italic; font-weight: 500; }
+.hero__facts { color: var(--muted); }
+.hero__facts .icon { color: var(--gold-deep); }
+.hero__facts strong { color: var(--forest); }
+/* Fuar kartı: krem zeminde beyaz kart, koyu yeşil tarih bloğu. */
+.hero__fair { background: #fff; border-color: var(--line); box-shadow: 0 14px 34px -26px rgba(23, 54, 40, .5); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.hero__fair-date { background: var(--forest); border-color: var(--forest); }
+.hero__fair-date strong { color: var(--cream); }
+.hero__fair-body small { color: var(--gold-deep); }
+.hero__fair-body h2 { font-family: 'Playfair Display', var(--font-display); letter-spacing: -.015em; color: var(--forest); }
+.hero__fair-links button { color: var(--forest); }
+.hero__fair-links a { color: var(--muted); text-decoration-color: var(--line); }
+@media (hover: hover) { .hero__fair-links a:hover { color: var(--forest); } }
+.hero__fair-logos { border: 1px solid var(--line); }
+/* Mobil: fotoğraf üstte, alt kenarı kreme erir. */
+.hero__veil { background: linear-gradient(0deg, var(--cream) 0%, rgba(247, 245, 240, .7) 22%, rgba(247, 245, 240, 0) 55%); }
+@media (min-width: 1024px) {
+  /* Fotoğraf soldan kreme erir; alttaki sahne şeridi okunsun diye alt kenar koyulaşır. */
+  .hero__stage::after { background: linear-gradient(90deg, var(--cream) 0%, rgba(247, 245, 240, .6) 10%, rgba(247, 245, 240, 0) 28%), linear-gradient(0deg, rgba(20, 20, 20, .62) 0%, rgba(20, 20, 20, 0) 30%); }
+  .hero h1 { font-size: clamp(3rem, 1rem + 3.4vw, 5.2rem); }
+}
+
+/* ---------- Neden Fuar Çiçekçim şeridi (hero altı) ---------- */
+.trust { background: var(--paper); border-bottom: 1px solid var(--line); }
+.trust__inner { display: grid; gap: 1rem; padding-block: 1.25rem; }
+.trust__title { margin: 0; font-family: 'Playfair Display', var(--font-display); font-size: 1.45rem; font-weight: 500; letter-spacing: -.02em; line-height: 1.1; color: var(--forest); }
+.trust__title em { color: var(--gold-deep, #9A7535); font-style: italic; }
+.trust__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem .9rem; }
+.trust__item { display: flex; align-items: center; gap: .7rem; min-width: 0; }
+.trust__icon { display: grid; place-items: center; flex: none; width: 42px; height: 42px; border-radius: 50%; background: rgba(197, 160, 89, .14); border: 1px solid rgba(197, 160, 89, .35); transition: background .3s var(--ease), transform .3s var(--ease); }
+.trust__icon .icon { width: 18px; height: 18px; color: #9A7535; }
+.trust__text { display: grid; gap: .1rem; min-width: 0; }
+.trust__text strong { font-size: .86rem; font-weight: 600; line-height: 1.25; color: var(--ink); }
+.trust__text small { font-size: .74rem; line-height: 1.3; color: var(--muted); }
+@media (hover: hover) { .trust__item:hover .trust__icon { background: rgba(197, 160, 89, .26); transform: translateY(-2px); } }
+@media (min-width: 1024px) {
+  .trust__inner { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: clamp(2rem, 4vw, 4rem); padding-block: 1.4rem; }
+  .trust__title { font-size: 1.6rem; max-width: 7.5em; }
+  .trust__list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; }
+  .trust__item + .trust__item { padding-left: 1.5rem; border-left: 1px solid var(--line); }
+}
+@media (max-width: 1023px) { .shiny.header__wa { display: none; } }

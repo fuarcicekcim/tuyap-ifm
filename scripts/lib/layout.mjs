@@ -1,7 +1,7 @@
 import { SITE, CONTACT, DELIVERY, VENUES, FAIR_DAYS, PRICING, RIBBON } from '../../src/config/site-settings.js';
 import { esc, icon, trDay } from './html.mjs';
 
-const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap';
+const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,500;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap';
 
 export const waLink = (text = 'Merhaba, fuar standına çiçek siparişi vermek istiyorum.') =>
   `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(text)}`;
