@@ -6,11 +6,13 @@ export const SITE = {
   url: 'https://www.fuarcicekcim.com',
   locale: 'tr_TR',
   // Bu alanlar Google İşletme Profili ile birebir aynı olmalı (NAP tutarlılığı).
-  // Adres, Google Haritalar'daki yazımdır: "Gökevler, 564. Sk. Bahçeşehir Sitesi, 34500 Esenyurt/İstanbul".
-  // Kullanıcı kararıyla (2026-11-17) sitede görünür: altbilgi, iletişim sayfası, KVKK ve JSON-LD.
-  // Kapı/bina numarası Google'da yok, eklenmedi. Çalışma saatleri henüz alınmadı (openingHours boş).
+  // Adres: "Gökevler, 564. Sk. Bahçeşehir Sitesi No:10/A, 34500 Esenyurt/İstanbul". Yazım Google Haritalar kaydından alındı;
+  // kapı numarasını (Bahçeşehir Sitesi içinde No:10/A) kullanıcı 2026-11-17'de bildirdi. Google Haritalar kaydında numara yok,
+  // bu yüzden Google İşletme Profili'ndeki adres de aynı yazıma getirilmeli (NAP tutarlılığı).
+  // Adres sitede görünür (kullanıcı kararı, 2026-11-17): altbilgi, iletişim sayfası, KVKK ve JSON-LD.
+  // Çalışma saatleri: 7/24 (kullanıcı doğruladı, 2026-11-17); JSON-LD'de her gün 00:00–23:59 olarak yazılır (scripts/lib/seo.mjs).
   address: {
-    street: 'Gökevler, 564. Sk. Bahçeşehir Sitesi',
+    street: 'Gökevler, 564. Sk. Bahçeşehir Sitesi No:10/A',
     district: 'Esenyurt',
     city: 'İstanbul',
     postalCode: '34500',
@@ -21,7 +23,6 @@ export const SITE = {
     const a = this.address;
     return a.street ? `${a.street}, ${a.postalCode} ${a.district}/${a.city}` : `${a.district}, ${a.city}`;
   },
-  openingHours: null,
 };
 
 export const CONTACT = {
