@@ -56,7 +56,7 @@ export const PACKAGE_FAQ = [
   ['Ürünler fuar boyunca yenileniyor mu?', 'Hayır. Paketteki ürünler standa bir kez kurulur. Fuar süresince solan çiçek değişimi istiyorsanız WhatsApp’tan yazın.'],
   ['Fiyata KDV ve teslimat dahil mi?', `Fiyatlar KDV hariçtir; %${PRICING.vatRate} KDV eklenir. TÜYAP ve İFM’de standa teslimat fiyata dahildir. Her kartta KDV dahil tutarı da görürsünüz.`],
   ['Şeride firma adımız yazılıyor mu?', 'Evet. Şerit yazısını sipariş sırasında yazarsınız; çekmecede anında önizlemesini görürsünüz.'],
-  ['Birden fazla stand için paket alabilir miyim?', 'Evet. Aynı paketi birden fazla kez ekleyip her teslimatın salon ve stant bilgisini WhatsApp’ta netleştirebilir veya kurumsal teklif isteyebilirsiniz.'],
+  ['Birden fazla stand için paket alabilir miyim?', 'Evet. Aynı paketi birden fazla kez ekleyin; sepette her ürünün altına ayrı salon, stant ve şerit yazısı girebilir veya kurumsal teklif isteyebilirsiniz.'],
 ];
 
 export function paketler(catalog) {

@@ -109,7 +109,8 @@
   isolation: isolate;
 }
 .hero__stage { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
-.hero__scene { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s var(--ease); }
+/* Yumuşak çapraz geçiş: yeni foto eskisinin üzerinde yavaşça belirir. */
+.hero__scene { position: absolute; inset: 0; opacity: 0; transition: opacity 2.2s cubic-bezier(.45, 0, .25, 1); }
 .hero__scene.is-active { opacity: 1; z-index: 1; }
 .hero__scene.is-leaving { opacity: 1; z-index: 0; }
 .hero__scene img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transform-origin: 60% 45%; }
@@ -191,10 +192,6 @@
   .hero__veil { display: none; }
   .hero__inner { grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding-block: 2rem; }
   .hero__scene img { object-position: 50% 45% !important; }
-  /* Masaüstünde sahne geçişi perde gibi açılır (yalnızca masaüstü; mobilde opaklık). */
-  .hero__scene { transition: none; clip-path: inset(0 0 0 100%); opacity: 1; }
-  .hero__scene.is-active { clip-path: inset(0 0 0 0); transition: clip-path 1.3s var(--ease); }
-  .hero__scene.is-leaving { clip-path: inset(0 0 0 0); }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero__scene, .hero__scene img, .hero__scene.is-active img { transition: none !important; transform: none; }

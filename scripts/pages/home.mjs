@@ -143,7 +143,7 @@ function corporate() {
       <h2 id="kurumsal-baslik" data-split>Birden fazla stand, birden fazla gün, <em>tek sipariş.</em></h2>
     </div>
     <div class="corporate__copy" data-reveal>
-      <p>Bayilerinize, iş ortaklarınıza veya kendi standlarınıza aynı anda çiçek gönderecekseniz ürünleri sepete ekleyin; her teslimatın salon, stant ve şerit yazısını WhatsApp yazışmasında birlikte netleştirelim. Tüm siparişler için tek kurumsal e-Fatura düzenlenir.</p>
+      <p>Bayilerinize, iş ortaklarınıza veya kendi standlarınıza aynı anda çiçek gönderecekseniz ürünleri sepete ekleyin; sepette her ürünün altına ayrı salon, stant, teslim alacak firma ve şerit yazısı girin. Tüm siparişler için tek kurumsal e-Fatura düzenlenir.</p>
       <div class="corporate__ctas">
         <button class="btn" type="button" data-drawer-open data-track-location="corporate">${icon('shopping-bag')}Siparişi Başlat</button>
         <a class="btn btn--ghost" href="/teklif.html" data-track="corporate_quote_click" data-track-location="corporate">${icon('file-text')}Kurumsal Teklif Al</a>

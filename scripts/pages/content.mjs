@@ -109,7 +109,7 @@ export function ifm(catalog, fairData) {
       { title: 'Uluslararası fuarlar için şerit ve kart', html: `
         <p>İFM’deki fuarlarda yabancı katılımcı oranı yüksektir. Şerit yazısını İngilizce (“Wishing you a successful fair”) veya iki dilli (“İyi fuarlar · Have a great fair”) hazırlayabilir, firma logonuzu şeride bastırabiliriz. Daha fazla örnek: <a href="/blog/fuar-acilis-celengi-serit-yazisi-ornekleri.html">şerit yazısı örnekleri</a>.</p>` },
       { title: 'Bayi ve iş ortağı tebrikleri', html: `
-        <p>Fuar boyunca birden fazla iş ortağınızın standına tebrik göndermek istiyorsanız ürünleri tek siparişte toplayın; her teslimatın salon, stant ve şerit yazısını WhatsApp’ta birlikte netleştirelim. Tümü için tek kurumsal e-Fatura düzenlenir. Kalabalık siparişler için <a href="/teklif.html">kurumsal teklif</a> formunu da kullanabilirsiniz.</p>` },
+        <p>Fuar boyunca birden fazla iş ortağınızın standına tebrik göndermek istiyorsanız ürünleri tek siparişte toplayın; sepette her ürünün altına ayrı salon, stant, teslim alacak firma ve şerit yazısı girebilirsiniz. Tümü için tek kurumsal e-Fatura düzenlenir. Kalabalık siparişler için <a href="/teklif.html">kurumsal teklif</a> formunu da kullanabilirsiniz.</p>` },
       { title: 'Fiyat, ödeme ve fatura', html: `
         <p>Fiyatlar KDV hariçtir; %${PRICING.vatRate} KDV eklenir. İFM’ye standa teslimat fiyata dahildir. Ödeme havale/EFT, kredi kartı veya teslimatta nakit olarak yapılabilir. Güncel fiyatlar için <a href="/blog/fuar-cicegi-fiyatlari-2026.html">fiyat rehberine</a> bakın.</p>` },
     ],
@@ -338,7 +338,7 @@ export const SSS = [
   ['Fuar boyunca çiçekler solarsa?', 'Fuar süresince solan çiçekleri değiştiriyoruz; WhatsApp’tan yazmanız yeterli.'],
   ['Bitki kiralama var mı?', 'Evet. Saksı bitkilerini fuar süresince kiralayabilirsiniz; fiyat için WhatsApp’tan veya kurumsal teklif formundan yazın.'],
   ['Teslim edildiğini nasıl bileceğim?', 'Teslimattan sonra ürünün standdaki fotoğrafını WhatsApp’tan gönderiyoruz.'],
-  ['Birden fazla standa sipariş verebilir miyim?', 'Evet. Ürünleri tek siparişte toplayın; her teslimatın salon, stant ve şerit yazısını WhatsApp’ta netleştirelim. Tümü için tek fatura düzenlenir.'],
+  ['Birden fazla standa sipariş verebilir miyim?', 'Evet. Ürünleri tek siparişte toplayın; sepette her ürünün altına ayrı salon, stant, teslim alacak firma ve şerit yazısı girebilirsiniz. Aynı üründen birden fazla adet farklı standlara da gönderilebilir. Tümü için tek fatura düzenlenir.'],
   ['Gece veya hafta sonu sipariş verebilir miyim?', 'Evet. Sipariş hattımız 7/24 açıktır.'],
 ];
 
