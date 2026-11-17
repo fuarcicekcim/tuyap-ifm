@@ -202,3 +202,22 @@
   .pdp__ctas .btn { min-height: 50px; padding: 0 .6rem; font-size: .92rem; gap: .45rem; }
   .pdp__lead, .pdp__values, .pdp__note, .pdp__about { order: 1; }
 }
+
+/* ---------- Tablet ürün sayfası (640–1023px): fotoğraflar solda, ad/fiyat/butonlar sağda ---------- */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .pdp { padding-top: 1.25rem; }
+  .pdp__grid { grid-template-columns: 5fr 6fr; column-gap: clamp(1.25rem, 3vw, 2rem); align-items: start; }
+  .pdp__gallery {
+    position: sticky; top: calc(var(--header-h) + 1rem);
+    display: flex; gap: .75rem; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scrollbar-width: none;
+  }
+  .pdp__gallery::-webkit-scrollbar { display: none; }
+  .pdp__gallery figure { flex: 0 0 88%; scroll-snap-align: start; }
+  .pdp__info { display: flex; flex-direction: column; }
+  .pdp__info .crumbs ol { margin-bottom: .75rem; }
+  .pdp__info h1 { font-size: var(--step-3); margin: .4rem 0 .75rem; }
+  .pdp__vat { margin-bottom: 1rem; }
+  .pdp__ctas { display: grid; grid-template-columns: 1fr; gap: .6rem; margin: 0 0 1.5rem; }
+  .pdp__lead, .pdp__values, .pdp__note, .pdp__about { order: 1; }
+}
