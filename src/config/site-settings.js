@@ -6,13 +6,14 @@ export const SITE = {
   url: 'https://www.fuarcicekcim.com',
   locale: 'tr_TR',
   // Bu alanlar Google İşletme Profili ile birebir aynı olmalı (NAP tutarlılığı).
-  // Adres: "Gökevler, 564. Sk. Bahçeşehir Sitesi No:10/A, 34500 Esenyurt/İstanbul". Yazım Google Haritalar kaydından alındı;
-  // kapı numarasını (Bahçeşehir Sitesi içinde No:10/A) kullanıcı 2026-11-17'de bildirdi. Google Haritalar kaydında numara yok,
-  // bu yüzden Google İşletme Profili'ndeki adres de aynı yazıma getirilmeli (NAP tutarlılığı).
+  // Adres (Türkçe posta biçimi): "Gökevler Mah. 564. Sk. Bahçeşehir Sitesi No:10/A, 34500 Esenyurt/İstanbul".
+  // Mahalle, sokak ve kapı numarasını (Bahçeşehir Sitesi içinde No:10/A) kullanıcı bildirdi (2026-11-17/18). Posta kodu
+  // Google Haritalar kaydından alındı; PTT'den doğrulanmadı (Esenyurt'ta başka kodlar da kullanılıyor, kullanıcıya soruldu).
+  // Google İşletme Profili'ndeki adres de aynı yazıma getirilmeli (NAP tutarlılığı); Google görüntülerken kendi biçimine çevirebilir.
   // Adres sitede görünür (kullanıcı kararı, 2026-11-17): altbilgi, iletişim sayfası, KVKK ve JSON-LD.
   // Çalışma saatleri: 7/24 (kullanıcı doğruladı, 2026-11-17); JSON-LD'de her gün 00:00–23:59 olarak yazılır (scripts/lib/seo.mjs).
   address: {
-    street: 'Gökevler, 564. Sk. Bahçeşehir Sitesi No:10/A',
+    street: 'Gökevler Mah. 564. Sk. Bahçeşehir Sitesi No:10/A',
     district: 'Esenyurt',
     city: 'İstanbul',
     postalCode: '34500',

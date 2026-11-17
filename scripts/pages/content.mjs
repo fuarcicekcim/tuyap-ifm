@@ -307,7 +307,7 @@ export function iletisim() {
   return page({
     path,
     title: 'İletişim ve Adres | Fuar Çiçekçim – 7/24 Sipariş, Esenyurt',
-    description: `Fuar Çiçekçim iletişim: ${CONTACT.phoneDisplay}, WhatsApp. Adres: ${SITE.addressLine}. TÜYAP ve İFM’ye 7/24 teslimat.`,
+    description: `İletişim: ${CONTACT.phoneDisplay}, WhatsApp. Adres: ${SITE.addressLine}. TÜYAP ve İFM’ye 7/24 teslimat.`,
     jsonld: graph(businessNode(), { '@type': 'ContactPage', url: abs(path), name: 'İletişim', about: { '@id': `${SITE.url}/#isletme` } }, breadcrumbNode([['Ana sayfa', '/'], ['İletişim', path]])),
     body: pageHero({
       crumbs: [['Ana sayfa', '/'], ['İletişim', path]],
