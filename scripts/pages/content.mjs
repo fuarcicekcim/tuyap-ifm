@@ -315,8 +315,8 @@ export function iletisim() {
       title: 'Bize her saatte <em>ulaşabilirsiniz.</em>',
       lead: 'Telefon, WhatsApp ya da sipariş çekmecesi — size hangisi kolaysa. Sipariş hattımız 7/24 açıktır.',
     }) + facts([
-      ['Telefon / WhatsApp', `<a href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="contact">${esc(CONTACT.phoneDisplay)}</a>`],
-      ['E-posta', `<a href="mailto:${CONTACT.email}">${esc(CONTACT.email)}</a>`],
+      ['Telefon / WhatsApp', `<a href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="contact">${esc(CONTACT.phoneDisplay)}</a>`, 'wide'],
+      ['E-posta', `<a href="mailto:${CONTACT.email}">${esc(CONTACT.email)}</a>`, 'wide'],
       [SITE.address.street ? 'Adres' : 'Konum', `<address>${esc(SITE.addressLine)}</address>${CONTACT.maps ? `<a class="facts__link" href="${esc(CONTACT.maps)}" target="_blank" rel="noopener" data-track="maps_click" data-track-location="contact">${icon('map-pin')}Haritalar’da aç</a>` : ''}`, 'wide'],
       ['Çalışma saatleri', '7/24 sipariş ve teslimat', 'wide'],
     ]) + prose([

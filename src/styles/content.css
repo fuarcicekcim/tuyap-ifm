@@ -28,10 +28,11 @@
 .facts dt { font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-text); margin-bottom: .35rem; }
 .facts dd { margin: 0; font-weight: 600; font-size: .95rem; line-height: 1.35; }
 .facts dd a { text-decoration: none; }
-/* Adres gibi uzun içerik: iki sütunlu düzende (1024 px altı) tüm satırı kaplar, dar hücrede 5-6 satıra sarılmaz. */
-@media (max-width: 1023.98px) {
+/* Uzun içerik (adres, e-posta): telefonda (600 px altı) tüm satırı kaplar; dar yarım hücrede 5-6 satıra sarılmaz, 320 px'te taşmaz. */
+@media (max-width: 599.98px) {
   .facts__item--wide, .facts__item--wide + .facts__item { border-left: 0; }
   .facts__item--wide { grid-column: 1 / -1; }
+  .facts__item--wide ~ .facts__item { border-top: 1px solid var(--line); }
 }
 /* Eylem bağlantısı (Haritalar'da aç): altı çizili altın renk, dokunma alanı en az 44 px. */
 .facts dd a.facts__link { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; font-size: .82rem; font-weight: 700; letter-spacing: .04em; color: var(--gold-text); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; }
@@ -45,7 +46,9 @@
 }
 
 /* ---------- Uzun metin ---------- */
-.prose-grid { display: grid; gap: var(--space-l); }
+/* Tek sütunlu düzende de sütun içeriğe göre genişlememeli (minmax(0, 1fr)): geniş bir tablo (fiyat rehberi) sütunu ve sayfayı
+   telefon genişliğinin dışına taşırıyordu; şimdi tablo kendi kutusunda (.table-wrap) yatay kayıyor. */
+.prose-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-l); }
 .prose { max-width: 44rem; font-size: 1.04rem; line-height: 1.75; color: #2b2f2a; }
 .prose h2 { font-size: var(--step-2); margin: 2.5rem 0 1rem; color: var(--ink); }
 .prose section:first-child h2, .prose > h2:first-child { margin-top: 0; }
