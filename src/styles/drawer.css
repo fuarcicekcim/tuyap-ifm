@@ -132,3 +132,28 @@ html { scrollbar-gutter: stable; }
 .drawer__submit[disabled] { opacity: .6; cursor: progress; }
 .drawer__note { display: flex; align-items: center; justify-content: center; gap: .4rem; margin: .6rem 0 0; font-size: .75rem; color: var(--muted); text-align: center; }
 .drawer__note .icon { width: 14px; height: 14px; color: var(--forest); }
+
+/* Ürün başına teslimat kutusu: her ürün kendi standına, kendi kuşak yazısıyla gider. */
+.cart-item .ship { grid-column: 1 / -1; }
+.ship {
+  margin-top: .25rem; padding: .9rem .9rem .15rem;
+  background: var(--paper); border: 1px solid var(--line); border-left: 2px solid var(--gold);
+}
+.ship__title { margin: 0 0 .75rem; font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.ship__same { display: grid; grid-template-columns: 20px 1fr; gap: .55rem; align-items: start; margin: 0 0 .9rem; font-size: .85rem; font-weight: 600; cursor: pointer; }
+.ship__same input { width: 18px; height: 18px; margin: .1rem 0 0; accent-color: var(--forest); }
+.ship__same small { display: block; font-weight: 400; color: var(--muted); font-size: .76rem; }
+.ship__stand[hidden] { display: none; }
+.ship__split {
+  display: block; width: 100%; margin: 0 0 .85rem; padding: .6rem .75rem;
+  border: 1px dashed rgba(20, 20, 20, .3); background: transparent;
+  font-size: .8rem; text-align: left; color: var(--ink); cursor: pointer;
+}
+.ship__split u { text-decoration-color: var(--gold); text-underline-offset: 3px; font-weight: 600; }
+.ship__split:hover { border-color: var(--forest); }
+.ribbon--sm { margin: .1rem 0 .75rem; }
+.ribbon--sm .ribbon__band { min-height: 44px; padding: .4rem .8rem; }
+.ribbon--sm .ribbon__text { font-size: clamp(.95rem, 3.6vw, 1.15rem); }
+.ribbon--sm .ribbon__tail { width: 16px; }
+[data-general-ship] .ship { margin-top: 1rem; }
+.order__lead { margin: -.4rem 0 1rem; }

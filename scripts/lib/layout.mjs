@@ -72,17 +72,15 @@ function drawer() {
       <section class="drawer__cart" aria-label="Sepetteki ürünler">
         <ul class="cart-list" data-cart-list></ul>
         <p class="cart-empty" data-cart-empty>Henüz ürün eklemediniz. <a href="/#urunler" data-drawer-close>Koleksiyona göz atın</a> ya da istediğiniz ürünü aşağıdaki not alanına yazın.</p>
+        <div data-general-ship></div>
       </section>
 
       <form class="order" id="siparis-formu" data-order-form novalidate>
         <fieldset class="order__set">
-          <legend>Teslimat</legend>
+          <legend>Fuar ve teslim zamanı</legend>
+          <p class="field__hint order__lead">Tüm ürünler için geçerlidir. Stant, teslim alacak firma ve kuşak yazısını yukarıda her ürünün altına yazın.</p>
           <div class="choices">${venueOpts}</div>
           <label class="field"><span>Fuar adı</span><input name="fuar_adi" autocomplete="off" value="${esc(FAIR_DAYS.activeFairName)}" maxlength="200"></label>
-          <div class="field-row">
-            <label class="field"><span>Salon no</span><input name="salon" inputmode="text" autocomplete="off" maxlength="20" placeholder="Örn. 5"></label>
-            <label class="field"><span>Stant no <b aria-hidden="true">*</b></span><input name="stant" required autocomplete="off" maxlength="40" placeholder="Örn. B12"></label>
-          </div>
           <div class="field-row">
             <label class="field"><span>Teslim günü</span><select name="tarih">${dayOpts}<option value="Diğer (nota yazıldı)">Diğer gün (nota yazın)</option></select></label>
             <label class="field"><span>Saat aralığı</span><select name="saat"><option value="En kısa sürede">En kısa sürede (${DELIVERY.minutes} dk)</option>${slotOpts}</select></label>
@@ -90,15 +88,8 @@ function drawer() {
         </fieldset>
 
         <fieldset class="order__set">
-          <legend>Kuşak yazısı</legend>
-          <div class="ribbon" aria-hidden="true"><span class="ribbon__tail"></span><span class="ribbon__band"><span class="ribbon__text" data-ribbon-preview>İyi Fuarlar</span></span><span class="ribbon__tail ribbon__tail--end"></span></div>
-          <label class="field"><span>Kuşakta yazacak metin</span><input name="kart" maxlength="${RIBBON.maxChars}" autocomplete="off" placeholder="Örn. ATLAS TASARIM · İyi Fuarlar" data-ribbon-input aria-describedby="kusak-sayac"></label>
-          <p class="field__hint" id="kusak-sayac"><span data-ribbon-count>0</span>/${RIBBON.maxChars} karakter · Türkçe karakterler doğru basılır</p>
-        </fieldset>
-
-        <fieldset class="order__set">
-          <legend>İletişim</legend>
-          <label class="field"><span>Teslim alacak firma <b aria-hidden="true">*</b></span><input name="firma" required autocomplete="organization" maxlength="120"></label>
+          <legend>Sipariş veren</legend>
+          <label class="field"><span>Firma adı <b aria-hidden="true">*</b></span><input name="firma" required autocomplete="organization" maxlength="120"></label>
           <label class="field"><span>Yetkili ad soyad <b aria-hidden="true">*</b></span><input name="adsoyad" required autocomplete="name" maxlength="120"></label>
           <label class="field"><span>Telefon <b aria-hidden="true">*</b></span><input name="telefon" type="tel" required inputmode="tel" autocomplete="tel" maxlength="20" placeholder="05XX XXX XX XX"></label>
           <label class="field"><span>E-posta</span><input name="eposta" type="email" inputmode="email" autocomplete="email" maxlength="120"></label>

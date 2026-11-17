@@ -47,7 +47,7 @@ $tel     = $clean('telefon', 40);
 $eposta  = filter_var($clean('eposta', 120), FILTER_VALIDATE_EMAIL) ?: '';
 $fuar    = $clean('fuar_adi', 200) ?: $clean('fuar_diger', 200) ?: 'Belirtilmedi';
 $merkez  = $clean('merkez', 40);
-$stant   = $clean('stant', 120);
+$stant   = $clean('stant', 300);
 $tarih   = $clean('tarih', 40);
 $saat    = $clean('saat', 60);
 $adet    = $clean('adet', 60);
@@ -55,7 +55,7 @@ $butce   = $clean('butce', 60);
 $kart    = $clean('kart', 500);
 $not     = $clean('not', 800);
 $urunNotu= $clean('urun_notu', 200);
-$urunler = array_map(fn($u) => mb_substr(strip_tags((string) $u), 0, 120), (array) ($data['urunler'] ?? []));
+$urunler = array_map(fn($u) => mb_substr(strip_tags((string) $u), 0, 300), (array) ($data['urunler'] ?? []));
 $sayfa   = $clean('sayfa', 300);
 $siparis = $clean('tur', 20) === 'siparis';
 $sipNo   = preg_replace('/[^A-Z0-9\-]/', '', $clean('siparis_no', 30));
@@ -80,7 +80,7 @@ $satirlar = [
   "Yetkili         : $ad",
   "Telefon         : $tel",
   "E-posta         : " . ($eposta ?: '-'),
-  "Ürünler         : " . ($urunler ? implode(', ', $urunler) : '-'),
+  "Ürünler         : " . ($urunler ? implode("\n                  ", $urunler) : '-'),
   "Katalog dışı    : " . ($urunNotu ?: '-'),
   "Adet / bütçe    : " . ($adet ?: '-') . " / " . ($butce ?: '-'),
   "Şerit / kart    : " . ($kart ?: '-'),
