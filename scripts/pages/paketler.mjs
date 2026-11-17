@@ -55,7 +55,7 @@ export const PACKAGE_FAQ = [
   ['Paketteki ürünleri değiştirebilir miyim?', 'Evet. Paketi ekledikten sonra sipariş çekmecesinde ürün çıkarabilir, adet değiştirebilir veya koleksiyondan başka ürün ekleyebilirsiniz.'],
   ['Ürünler fuar boyunca yenileniyor mu?', 'Hayır. Paketteki ürünler standa bir kez kurulur. Fuar süresince solan çiçek değişimi istiyorsanız WhatsApp’tan yazın.'],
   ['Fiyata KDV ve teslimat dahil mi?', `Fiyatlar KDV hariçtir; %${PRICING.vatRate} KDV eklenir. TÜYAP ve İFM’de standa teslimat fiyata dahildir. Her kartta KDV dahil tutarı da görürsünüz.`],
-  ['Kuşağa firma adımız yazılıyor mu?', 'Evet. Kuşak yazısını sipariş sırasında yazarsınız; çekmecede anında önizlemesini görürsünüz.'],
+  ['Şeride firma adımız yazılıyor mu?', 'Evet. Şerit yazısını sipariş sırasında yazarsınız; çekmecede anında önizlemesini görürsünüz.'],
   ['Birden fazla stand için paket alabilir miyim?', 'Evet. Aynı paketi birden fazla kez ekleyip her teslimatın salon ve stant bilgisini WhatsApp’ta netleştirebilir veya kurumsal teklif isteyebilirsiniz.'],
 ];
 
@@ -68,7 +68,7 @@ export function paketler(catalog) {
     lead: `Karşılama bankosundan ada standa, iş ortağı tebriğinden VIP alana kadar ${PACKAGES.length} hazır paket. Paket fiyatı içindeki ürünlerin toplamıdır; ürünler kendi standınıza ya da gönderdiğiniz standa bir kez kurulur ve ${DELIVERY.minutes} dakikada standa teslim edilir.`,
     crumbs,
     image: '/assets/hero/tuyap-saksi',
-    imageAlt: 'TÜYAP’ta bir standda firma adlı kuşakla hediye paketlenmiş kauçuk ve kırmızı antoryum',
+    imageAlt: 'TÜYAP’ta bir standda firma adlı şeritle hediye paketlenmiş kauçuk ve kırmızı antoryum',
   }) + `
 <section class="section packages" aria-label="Paketler">
   <div class="wrap">

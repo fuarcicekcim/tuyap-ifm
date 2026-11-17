@@ -83,7 +83,7 @@ html { scrollbar-gutter: stable; }
 .choice input:checked + span { border-color: var(--forest); box-shadow: inset 0 0 0 1px var(--forest); }
 .choice input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
 
-/* Canlı kuşak önizlemesi */
+/* Canlı şerit önizlemesi */
 .ribbon { display: flex; align-items: stretch; margin: .25rem 0 1rem; filter: drop-shadow(0 6px 10px rgba(23, 54, 40, .18)); }
 .ribbon__band {
   flex: 1; min-width: 0; display: grid; place-items: center; min-height: 64px; padding: .6rem 1rem;
@@ -133,7 +133,7 @@ html { scrollbar-gutter: stable; }
 .drawer__note { display: flex; align-items: center; justify-content: center; gap: .4rem; margin: .6rem 0 0; font-size: .75rem; color: var(--muted); text-align: center; }
 .drawer__note .icon { width: 14px; height: 14px; color: var(--forest); }
 
-/* Ürün başına teslimat kutusu: her ürün kendi standına, kendi kuşak yazısıyla gider. */
+/* Ürün başına teslimat kutusu: her ürün kendi standına, kendi şerit yazısıyla gider. */
 .cart-item .ship { grid-column: 1 / -1; }
 .ship {
   margin-top: .25rem; padding: .9rem .9rem .15rem;

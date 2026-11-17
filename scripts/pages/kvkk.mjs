@@ -13,7 +13,7 @@ export function kvkk() {
     <h2>Veri sorumlusu</h2>
     <p>${esc(SITE.name)} · ${esc(SITE.address.district)}, ${esc(SITE.address.city)} · ${esc(CONTACT.email)} · ${esc(CONTACT.phoneDisplay)}</p>
     <h2>İşlenen kişisel veriler</h2>
-    <p>Ad soyad, firma adı, telefon numarası, e-posta adresi, teslimat bilgileri (fuar, salon, stant, tarih ve saat), kuşak/kart yazısı, fatura bilgileri (ünvan, vergi dairesi, vergi veya T.C. kimlik numarası) ve sipariş notları.</p>
+    <p>Ad soyad, firma adı, telefon numarası, e-posta adresi, teslimat bilgileri (fuar, salon, stant, tarih ve saat), şerit/kart yazısı, fatura bilgileri (ünvan, vergi dairesi, vergi veya T.C. kimlik numarası) ve sipariş notları.</p>
     <h2>İşleme amaçları</h2>
     <p>Siparişin alınması, teyit edilmesi ve teslim edilmesi; sizinle WhatsApp, telefon veya e-posta üzerinden iletişim kurulması; fatura düzenlenmesi ve yasal yükümlülüklerin yerine getirilmesi.</p>
     <h2>Hukuki sebep ve toplama yöntemi</h2>

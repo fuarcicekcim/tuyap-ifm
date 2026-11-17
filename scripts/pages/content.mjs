@@ -25,7 +25,7 @@ function landing({ path, title, description, crumbs, hero, factsList, sections, 
 /* ---------------- TÜYAP ---------------- */
 export function tuyap(catalog, fairData) {
   const faq = [
-    ['TÜYAP’a çiçek göndermek için hangi bilgiler gerekir?', 'Fuar adı, salon ve stant numarası, teslim alacak firma ve bir telefon numarası yeterlidir. Kuşak yazısını da siparişte belirtirsiniz.'],
+    ['TÜYAP’a çiçek göndermek için hangi bilgiler gerekir?', 'Fuar adı, salon ve stant numarası, teslim alacak firma ve bir telefon numarası yeterlidir. Şerit yazısını da siparişte belirtirsiniz.'],
     ['TÜYAP’a çiçek ne kadar sürede ulaşır?', `Sipariş onayından itibaren ${M} dakikada standa teslim ederiz. Süre onaydan başlar; ürünün stokta ve fuar girişinin uygun olması gerekir. Esenyurt’tan TÜYAP’a yol süremiz yaklaşık 5 dakikadır.`],
     ['Kurulum gününde teslimat yapıyor musunuz?', 'Evet. Fuar açılışından önceki kurulum gününde veya açılış sabahı standa teslim edebiliriz; saat aralığını siparişte seçersiniz.'],
     ['TÜYAP teslimatı için ayrıca ücret ödüyor muyum?', `Hayır. TÜYAP’a standa teslimat ürün fiyatına dahildir; fiyatlara yalnızca %${PRICING.vatRate} KDV eklenir.`],
@@ -36,14 +36,14 @@ export function tuyap(catalog, fairData) {
   return landing({
     path: TUYAP.page,
     title: 'TÜYAP Çiçekçi | TÜYAP Fuarına Çiçek Gönder – Fuar Çiçekçim',
-    description: `TÜYAP’taki dilediğiniz standa açılış çelengi, kuşaklı orkide ve stant aranjmanı. Esenyurt’tan TÜYAP’a 5 dakika; ${DELIVERY.promise}, fotoğraflı onay.`,
+    description: `TÜYAP’taki dilediğiniz standa açılış çelengi, şeritli orkide ve stant aranjmanı. Esenyurt’tan TÜYAP’a 5 dakika; ${DELIVERY.promise}, fotoğraflı onay.`,
     crumbs: [['Ana sayfa', '/'], ['TÜYAP fuar çiçekçisi', TUYAP.page]],
     hero: {
       eyebrow: 'TÜYAP çiçekçi · Büyükçekmece',
       title: 'TÜYAP’taki her standa, <em>beş dakika ötede.</em>',
-      lead: `Esenyurt’tan çalışıyoruz; TÜYAP Fuar ve Kongre Merkezi’ne yol süremiz yaklaşık 5 dakika. Açılış çelengini, kuşaklı orkideyi ve stant aranjmanını sipariş onayından itibaren ${M} dakikada salon ve stant numarasına teslim ediyoruz.`,
+      lead: `Esenyurt’tan çalışıyoruz; TÜYAP Fuar ve Kongre Merkezi’ne yol süremiz yaklaşık 5 dakika. Açılış çelengini, şeritli orkideyi ve stant aranjmanını sipariş onayından itibaren ${M} dakikada salon ve stant numarasına teslim ediyoruz.`,
       image: '/assets/hero/tuyap-saksi-resmi-logo',
-      imageAlt: 'TÜYAP’ta bir fuar standının önünde firma adlı kuşaklı saksı bitkisi',
+      imageAlt: 'TÜYAP’ta bir fuar standının önünde firma adlı şeritli saksı bitkisi',
     },
     factsList: [
       ['Yol süresi', 'Esenyurt → TÜYAP yaklaşık 5 dk'],
@@ -54,15 +54,15 @@ export function tuyap(catalog, fairData) {
     sections: [
       { title: 'TÜYAP’a çiçek nasıl gönderilir?', html: `
         <p>TÜYAP’ta aynı günlerde birden fazla fuar ve onlarca salon olabilir. Siparişin doğru standa, doğru saatte ulaşması için bize dört bilgi yeter:</p>
-        <ol><li><strong>Fuar adı</strong> — örneğin ${esc(FAIR_DAYS.activeFairName)}.</li><li><strong>Salon ve stant numarası</strong> — davetiyede veya katılımcı bilgilerinde yazar.</li><li><strong>Teslim alacak firma ve telefon</strong> — stantta ürünü teslim alacak kişi.</li><li><strong>Kuşak yazısı</strong> — firma adınız ve kısa bir mesaj.</li></ol>
+        <ol><li><strong>Fuar adı</strong> — örneğin ${esc(FAIR_DAYS.activeFairName)}.</li><li><strong>Salon ve stant numarası</strong> — davetiyede veya katılımcı bilgilerinde yazar.</li><li><strong>Teslim alacak firma ve telefon</strong> — stantta ürünü teslim alacak kişi.</li><li><strong>Şerit yazısı</strong> — firma adınız ve kısa bir mesaj.</li></ol>
         <p>Bu bilgileri sipariş çekmecesine yazdığınızda, özetiniz WhatsApp’a düzenli bir mesaj olarak düşer; stok, saat ve ödemeyi aynı yazışmada netleştiririz.</p>` },
       { title: 'Ne zaman teslim edelim?', html: `
         <p><strong>Kurulum günü:</strong> Fuar açılışından önceki gün; çelenk ve büyük aranjmanlar standa yerleşmiş olur.</p>
-        <p><strong>Açılış sabahı:</strong> İlk ziyaretçiler gelmeden önce; kuşaklı orkideler için en uygun an.</p>
+        <p><strong>Açılış sabahı:</strong> İlk ziyaretçiler gelmeden önce; şeritli orkideler için en uygun an.</p>
         <p><strong>Fuar sırasında:</strong> İş ortağınızın standına tebrik veya kendi standınıza ek ürün; onaydan itibaren ${M} dakikada.</p>` },
       { title: 'TÜYAP standları için ne seçmeli?', html: `
         <p>Stant girişinde dikkat çekmek için <a href="/kategori/acilis-fuar-celengi.html">açılış ve fuar çelengi</a>, karşılama bankosu ve iş ortaklarına tebrik için <a href="/kategori/vip-orkide.html">VIP orkide</a>, toplantı masaları için <a href="/kategori/stant-aranjmani.html">stant aranjmanı</a>, boş köşeleri yeşillendirmek için <a href="/kategori/saksi-bitkisi.html">saksı bitkisi</a> öneriyoruz. Saksı bitkileri fuar süresince kiralanabilir.</p>
-        <p>Kuşağa firma logonuzu bastırabilir, yazıyı Türkçe, İngilizce veya iki dilli hazırlatabilirsiniz. Örnekler için <a href="/blog/fuar-acilis-celengi-serit-yazisi-ornekleri.html">kuşak yazısı örnekleri</a> rehberimize bakın.</p>` },
+        <p>Şeride firma logonuzu bastırabilir, yazıyı Türkçe, İngilizce veya iki dilli hazırlatabilirsiniz. Örnekler için <a href="/blog/fuar-acilis-celengi-serit-yazisi-ornekleri.html">şerit yazısı örnekleri</a> rehberimize bakın.</p>` },
       { title: 'Fiyat, ödeme ve fatura', html: `
         <p>Katalog fiyatları KDV hariçtir; %${PRICING.vatRate} KDV eklenir ve TÜYAP’a standa teslimat fiyata dahildir. Ödemeyi havale/EFT, kredi kartı veya teslimatta nakit olarak yapabilirsiniz; yöntem WhatsApp’ta netleşir. Firma bilgilerinize kurumsal e-Fatura düzenleriz. Ayrıntılı liste: <a href="/blog/fuar-cicegi-fiyatlari-2026.html">fuar çiçeği fiyat rehberi</a>.</p>` },
     ],
@@ -78,7 +78,7 @@ export function ifm(catalog, fairData) {
   const faq = [
     ['İFM’ye çiçek teslimatı ne kadar sürer?', `Sipariş onayından itibaren ${M} dakikada standa teslim ederiz. Süre onaydan başlar; ürünün stokta ve fuar girişinin uygun olması gerekir. Yoğun açılış günleri için bir gün önceden sipariş vermenizi öneririz.`],
     ['İFM’de teslimat için ne bilmem gerekiyor?', 'Fuar adı, salon ve stant kodunuz, teslim alacak firma ve telefon numarası yeterlidir.'],
-    ['Yabancı katılımcılar için İngilizce kuşak yazabilir misiniz?', 'Evet. Kuşak yazısını Türkçe, İngilizce veya iki dilli hazırlıyoruz; firma logonuzu da kuşağa bastırabiliriz.'],
+    ['Yabancı katılımcılar için İngilizce şerit yazabilir misiniz?', 'Evet. Şerit yazısını Türkçe, İngilizce veya iki dilli hazırlıyoruz; firma logonuzu da şeride bastırabiliriz.'],
     ['İFM teslimatı ücretli mi?', `Hayır. İFM’ye standa teslimat ürün fiyatına dahildir; fiyatlara %${PRICING.vatRate} KDV eklenir ve kurumsal e-Fatura düzenlenir.`],
     ['Misafirimizin oteline çiçek gönderebilir misiniz?', 'Evet. Fuar katılımcılarının konakladığı otellere karşılama çiçeği ve orkide gönderebiliyoruz.'],
     ['Birden fazla standa aynı gün gönderim yapabilir misiniz?', 'Evet. Bayi ve iş ortaklarınızın standlarına aynı gün birden fazla ürün gönderebilir, tümü için tek kurumsal e-Fatura alabilirsiniz.'],
@@ -87,18 +87,18 @@ export function ifm(catalog, fairData) {
   return landing({
     path: IFM.page,
     title: 'İFM Çiçekçi | İstanbul Fuar Merkezi’ne Çiçek – Fuar Çiçekçim',
-    description: `İstanbul Fuar Merkezi (İFM) standlarına kuşaklı orkide, açılış çelengi ve stant aranjmanı. ${DELIVERY.promise}, İngilizce kuşak, e-Fatura.`,
+    description: `İstanbul Fuar Merkezi (İFM) standlarına şeritli orkide, açılış çelengi ve stant aranjmanı. ${DELIVERY.promise}, İngilizce şerit, e-Fatura.`,
     crumbs: [['Ana sayfa', '/'], ['İFM fuar çiçekçisi', IFM.page]],
     hero: {
       eyebrow: 'İFM çiçekçi · Yeşilköy',
       title: 'İstanbul Fuar Merkezi’nde <em>dilediğiniz standa.</em>',
-      lead: `İFM’de dilediğiniz standa, salon ve stant numarasına kuşaklı orkide, açılış çelengi ve stant aranjmanını sipariş onayından itibaren ${M} dakikada teslim ediyoruz. Uluslararası katılımcılar için kuşak yazısı İngilizce veya iki dilli hazırlanır.`,
+      lead: `İFM’de dilediğiniz standa, salon ve stant numarasına şeritli orkide, açılış çelengi ve stant aranjmanını sipariş onayından itibaren ${M} dakikada teslim ediyoruz. Uluslararası katılımcılar için şerit yazısı İngilizce veya iki dilli hazırlanır.`,
       image: '/assets/hero/ifm-ferforje',
       imageAlt: 'İstanbul Fuar Merkezi’nde bir standın önünde beyaz çiçekli ayaklı ferforje aranjman',
     },
     factsList: [
       ['Teslimat', `Onaydan itibaren ${M} dk`],
-      ['Kuşak dili', 'Türkçe · İngilizce · iki dilli'],
+      ['Şerit dili', 'Türkçe · İngilizce · iki dilli'],
       ['Teslim noktası', 'Salon ve stant kodunuz'],
       ['Fatura', 'Kurumsal e-Fatura'],
     ],
@@ -106,10 +106,10 @@ export function ifm(catalog, fairData) {
       { title: 'İFM’ye çiçek göndermenin kolay yolu', html: `
         <p>İstanbul Fuar Merkezi, Yeşilköy’de çok salonlu bir fuar alanıdır; aynı anda birden fazla uluslararası fuar düzenlenebilir. Siparişin doğru standa ulaşması için <strong>fuar adı, salon ve stant kodu</strong>, <strong>teslim alacak firma</strong> ve <strong>telefon</strong> bilgisini paylaşmanız yeterli.</p>
         <p>Ürün hazırlandığında ve standa yerleştirildiğinde fotoğrafını WhatsApp’tan gönderiyoruz; böylece teslimatı uzaktan da takip edebilirsiniz.</p>` },
-      { title: 'Uluslararası fuarlar için kuşak ve kart', html: `
-        <p>İFM’deki fuarlarda yabancı katılımcı oranı yüksektir. Kuşak yazısını İngilizce (“Wishing you a successful fair”) veya iki dilli (“İyi fuarlar · Have a great fair”) hazırlayabilir, firma logonuzu kuşağa bastırabiliriz. Daha fazla örnek: <a href="/blog/fuar-acilis-celengi-serit-yazisi-ornekleri.html">kuşak yazısı örnekleri</a>.</p>` },
+      { title: 'Uluslararası fuarlar için şerit ve kart', html: `
+        <p>İFM’deki fuarlarda yabancı katılımcı oranı yüksektir. Şerit yazısını İngilizce (“Wishing you a successful fair”) veya iki dilli (“İyi fuarlar · Have a great fair”) hazırlayabilir, firma logonuzu şeride bastırabiliriz. Daha fazla örnek: <a href="/blog/fuar-acilis-celengi-serit-yazisi-ornekleri.html">şerit yazısı örnekleri</a>.</p>` },
       { title: 'Bayi ve iş ortağı tebrikleri', html: `
-        <p>Fuar boyunca birden fazla iş ortağınızın standına tebrik göndermek istiyorsanız ürünleri tek siparişte toplayın; her teslimatın salon, stant ve kuşak yazısını WhatsApp’ta birlikte netleştirelim. Tümü için tek kurumsal e-Fatura düzenlenir. Kalabalık siparişler için <a href="/teklif.html">kurumsal teklif</a> formunu da kullanabilirsiniz.</p>` },
+        <p>Fuar boyunca birden fazla iş ortağınızın standına tebrik göndermek istiyorsanız ürünleri tek siparişte toplayın; her teslimatın salon, stant ve şerit yazısını WhatsApp’ta birlikte netleştirelim. Tümü için tek kurumsal e-Fatura düzenlenir. Kalabalık siparişler için <a href="/teklif.html">kurumsal teklif</a> formunu da kullanabilirsiniz.</p>` },
       { title: 'Fiyat, ödeme ve fatura', html: `
         <p>Fiyatlar KDV hariçtir; %${PRICING.vatRate} KDV eklenir. İFM’ye standa teslimat fiyata dahildir. Ödeme havale/EFT, kredi kartı veya teslimatta nakit olarak yapılabilir. Güncel fiyatlar için <a href="/blog/fuar-cicegi-fiyatlari-2026.html">fiyat rehberine</a> bakın.</p>` },
     ],
@@ -125,7 +125,7 @@ export function fuarCicekcisi(catalog, fairData) {
   const path = '/fuar-cicekcisi.html';
   const faq = [
     ['Size en yakın fuar merkezi hangisi?', 'Esenyurt’tan çalışıyoruz; TÜYAP Fuar ve Kongre Merkezi’ne yol süremiz yaklaşık 5 dakikadır. İstanbul Fuar Merkezi’ne (İFM) de standa teslimat yapıyoruz.'],
-    ['Fuar çiçekçisi sıradan bir çiçekçiden neden farklı?', 'Fuar teslimatında stant numarası, kurulum günü, açılış saati ve kuşak yazısı gibi ayrıntılar önemlidir. Sipariş sürecimiz bu bilgiler üzerine kurulu: salon ve stant numarasına teslim, fotoğraflı onay ve kurumsal e-Fatura.'],
+    ['Fuar çiçekçisi sıradan bir çiçekçiden neden farklı?', 'Fuar teslimatında stant numarası, kurulum günü, açılış saati ve şerit yazısı gibi ayrıntılar önemlidir. Sipariş sürecimiz bu bilgiler üzerine kurulu: salon ve stant numarasına teslim, fotoğraflı onay ve kurumsal e-Fatura.'],
     ['Gece veya hafta sonu sipariş verebilir miyim?', 'Evet. Sipariş hattımız 7/24 açıktır; WhatsApp’tan veya sitedeki sipariş çekmecesinden her saatte yazabilirsiniz.'],
     ['Hangi ödeme yöntemlerini kabul ediyorsunuz?', 'Havale/EFT, kredi kartı ve teslimatta nakit. Sitede online ödeme alınmaz; ödeme WhatsApp’ta netleşir.'],
     ['Fuar dışında lansman veya etkinlik süslemesi yapıyor musunuz?', 'Evet. Fuar içi lansman, kokteyl ve sahne çiçeklendirmesi için WhatsApp’tan veya kurumsal teklif formundan bilgi isteyebilirsiniz.'],
@@ -153,7 +153,7 @@ export function fuarCicekcisi(catalog, fairData) {
       { title: 'TÜYAP ve İFM’de hizmet', html: `
         <p><a href="${TUYAP.page}">TÜYAP fuar çiçekçisi</a> sayfamızda Büyükçekmece’deki fuarlar için teslimat ayrıntılarını, <a href="${IFM.page}">İFM fuar çiçekçisi</a> sayfamızda Yeşilköy’deki İstanbul Fuar Merkezi için bilgileri bulabilirsiniz. Her iki fuar merkezinde de standa teslimat fiyata dahildir.</p>` },
       { title: 'Fuar boyunca yanınızdayız', html: `
-        <ul><li>Kurulum gününde veya açılış sabahı teslimat</li><li>Fuar süresince solan çiçek değişimi</li><li>Saksı bitkilerinde fuar süresince kiralama seçeneği</li><li>Katılımcıların konakladığı otellere karşılama çiçeği</li><li>Kuşağa firma logosu; Türkçe, İngilizce veya iki dilli yazı</li></ul>` },
+        <ul><li>Kurulum gününde veya açılış sabahı teslimat</li><li>Fuar süresince solan çiçek değişimi</li><li>Saksı bitkilerinde fuar süresince kiralama seçeneği</li><li>Katılımcıların konakladığı otellere karşılama çiçeği</li><li>Şeride firma logosu; Türkçe, İngilizce veya iki dilli yazı</li></ul>` },
     ],
     strip: productStrip(picks(catalog), { title: 'Fuarda en çok <em>yakışanlar.</em>' }),
     fairs: fairList(fairData.fairs, fairData.venues, { limit: 6 }),
@@ -187,7 +187,7 @@ export function avrasya(catalog, fairData) {
       title: `${esc(fair.name)} için <em>standınız hazır olsun.</em>`,
       lead: `Avrasya fuarlarında iş ortaklarınıza iyi fuarlar dileyin, kendi standınızı çiçeklerle karşılamaya hazırlayın. Siparişinizi salon ve stant numarasına göre ${M} dakikada teslim ediyoruz.`,
       image: '/assets/hero/tuyap-orkide',
-      imageAlt: 'TÜYAP’ta stant bankosunda firma adlı kuşaklı beyaz orkide',
+      imageAlt: 'TÜYAP’ta stant bankosunda firma adlı şeritli beyaz orkide',
     })
       + facts([['Fuar tarihi', range], ['Fuar merkezi', esc(TUYAP.name)], ['Teslimat', `Onaydan itibaren ${M} dk`], ['Esenyurt → TÜYAP', 'Yaklaşık 5 dakika']])
       + productStrip(catalog.products.filter((p) => ['ferforje', 'wreaths', 'orchids'].includes(p.category)).slice(0, 8), { title: 'Avrasya standları için <em>seçimler.</em>' })
@@ -240,11 +240,11 @@ export function takvim(fairData) {
 export function hizmetler(catalog) {
   const path = '/hizmetler.html';
   const services = [
-    ['flower-2', 'Açılış ve fuar çelengi', 'Stant önünde ve açılışta en görünür tebrik. Tek ve çift katlı çelenkler, ferforje ayaklı aranjmanlar; firma adınız kuşakta.', '/kategori/acilis-fuar-celengi.html'],
-    ['sparkles', 'VIP orkide ve kuşaklı tebrik', 'Karşılama bankosu ve iş ortağı tebrikleri için çok dallı orkideler. Kuşağa firma logosu basılabilir.', '/kategori/vip-orkide.html'],
+    ['flower-2', 'Açılış ve fuar çelengi', 'Stant önünde ve açılışta en görünür tebrik. Tek ve çift katlı çelenkler, ferforje ayaklı aranjmanlar; firma adınız şeritte.', '/kategori/acilis-fuar-celengi.html'],
+    ['sparkles', 'VIP orkide ve şeritli tebrik', 'Karşılama bankosu ve iş ortağı tebrikleri için çok dallı orkideler. Şeride firma logosu basılabilir.', '/kategori/vip-orkide.html'],
     ['flower', 'Stant aranjmanı', 'Toplantı masaları ve karşılama alanı için orkide, lilyum ve gül aranjmanları.', '/kategori/stant-aranjmani.html'],
     ['sprout', 'Stant yeşillendirme ve kiralama', 'Saksı bitkileriyle boş köşeler ve geçişler; fuar süresince kiralama seçeneğiyle.', '/kategori/saksi-bitkisi.html'],
-    ['languages', 'Logolu ve çok dilli kuşak', 'Kuşakta firma logonuz; yazı Türkçe, İngilizce veya iki dilli.', '/blog/fuar-acilis-celengi-serit-yazisi-ornekleri.html'],
+    ['languages', 'Logolu ve çok dilli şerit', 'Şeritte firma logonuz; yazı Türkçe, İngilizce veya iki dilli.', '/blog/fuar-acilis-celengi-serit-yazisi-ornekleri.html'],
     ['party-popper', 'Lansman ve etkinlik çiçeklendirmesi', 'Fuar içi lansman, kokteyl, sahne ve masa çiçeklendirmesi; konseptinize göre.', '/teklif.html'],
     ['hotel', 'Otellere teslimat', 'Fuar katılımcılarının konakladığı otellere karşılama çiçeği ve orkide.', '/iletisim.html'],
     ['refresh-ccw', 'Fuar boyu bakım', 'Kurulum gününde teslimat ve fuar süresince solan çiçek değişimi.', '/teslimat-sureci.html'],
@@ -253,7 +253,7 @@ export function hizmetler(catalog) {
     crumbs: [['Ana sayfa', '/'], ['Hizmetler', path]],
     eyebrow: 'Hizmetlerimiz',
     title: 'Fuar standınız için <em>uçtan uca çiçek.</em>',
-    lead: `Açılış çelenginden stant yeşillendirmeye, kuşaklı orkideden lansman çiçeklendirmesine. Tüm hizmetlerde fotoğraflı teslim onayı, kurumsal e-Fatura ve TÜYAP–İFM’de ${DELIVERY.promise} standarttır.`,
+    lead: `Açılış çelenginden stant yeşillendirmeye, şeritli orkideden lansman çiçeklendirmesine. Tüm hizmetlerde fotoğraflı teslim onayı, kurumsal e-Fatura ve TÜYAP–İFM’de ${DELIVERY.promise} standarttır.`,
   }) + `
 <section class="section services">
   <div class="wrap">
@@ -272,7 +272,7 @@ export function hizmetler(catalog) {
   return page({
     path,
     title: 'Fuar Çiçekçiliği Hizmetleri | Fuar Çiçekçim',
-    description: 'TÜYAP ve İFM fuarları için açılış çelengi, logolu kuşaklı orkide, stant aranjmanı, bitki kiralama, lansman çiçeklendirmesi ve otellere teslimat.',
+    description: 'TÜYAP ve İFM fuarları için açılış çelengi, logolu şeritli orkide, stant aranjmanı, bitki kiralama, lansman çiçeklendirmesi ve otellere teslimat.',
     jsonld: graph(businessNode(), breadcrumbNode([['Ana sayfa', '/'], ['Hizmetler', path]]),
       { '@type': 'ItemList', name: 'Fuar çiçekçiliği hizmetleri', itemListElement: services.map(([, t, d], i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Service', name: t, description: d, provider: { '@id': `${SITE.url}/#isletme` }, areaServed: VENUES.map((v) => v.name) } })) }),
     body,
@@ -285,7 +285,7 @@ export function hakkimizda() {
   return page({
     path,
     title: 'Hakkımızda | Fuar Çiçekçim – TÜYAP ve İFM Fuar Çiçekçisi',
-    description: 'Fuar Çiçekçim, TÜYAP ve İFM fuarlarına odaklanan kurumsal bir çiçekçidir. Esenyurt’tan 7/24 standa teslimat, logolu kuşak, fotoğraflı onay ve e-Fatura.',
+    description: 'Fuar Çiçekçim, TÜYAP ve İFM fuarlarına odaklanan kurumsal bir çiçekçidir. Esenyurt’tan 7/24 standa teslimat, logolu şerit, fotoğraflı onay ve e-Fatura.',
     jsonld: graph(businessNode(), { '@type': 'AboutPage', url: abs(path), name: 'Hakkımızda', about: { '@id': `${SITE.url}/#isletme` } }, breadcrumbNode([['Ana sayfa', '/'], ['Hakkımızda', path]])),
     body: pageHero({
       crumbs: [['Ana sayfa', '/'], ['Hakkımızda', path]],
@@ -296,7 +296,7 @@ export function hakkimizda() {
     }) + prose([
       { title: 'Fuar çiçekçiliği ayrı bir iştir', html: '<p>Fuar standı; klimalı salon havası, suni ışık ve birkaç günlük yoğun ziyaretçi trafiğiyle bir ofisten çok farklıdır. Ürünlerimizi bu koşullara göre seçiyor, teslimatı fuarın ritmine göre planlıyoruz: kurulum günü, açılış sabahı ya da fuar sırasında.</p>' },
       { title: 'Satın alma ekiplerinin sevdiği düzen', html: `<p>Siparişler WhatsApp’ta yazılı olarak teyit edilir. Ürün standa yerleştirildiğinde fotoğrafını gönderir, firmanıza kurumsal e-Fatura düzenleriz. Ödeme havale/EFT, kredi kartı veya teslimatta nakit yapılabilir.</p>` },
-      { title: 'Kuşakta markanız', html: '<p>Kuşağa firma logonuzu basabilir, mesajınızı Türkçe, İngilizce veya iki dilli yazdırabilirsiniz. Sipariş sırasında kuşak yazısını canlı önizlemede görürsünüz.</p>' },
+      { title: 'Şeritte markanız', html: '<p>Şeride firma logonuzu basabilir, mesajınızı Türkçe, İngilizce veya iki dilli yazdırabilirsiniz. Sipariş sırasında şerit yazısını canlı önizlemede görürsünüz.</p>' },
     ]) + ctaBand(),
   });
 }
@@ -333,12 +333,12 @@ export const SSS = [
   ['Fiyatlara KDV ve teslimat dahil mi?', `Fiyatlar KDV hariçtir; %${PRICING.vatRate} KDV eklenir. TÜYAP ve İFM’ye standa teslimat fiyata dahildir.`],
   ['Ödemeyi nasıl yapıyorum?', 'Havale/EFT, kredi kartı veya teslimatta nakit. Sitede online ödeme alınmaz; sipariş özetiniz WhatsApp’a iletilir ve ödeme aynı yazışmada netleşir.'],
   ['Kurumsal fatura kesiyor musunuz?', 'Evet. Firma ünvanı, vergi dairesi ve vergi numaranızı paylaştığınızda kurumsal e-Fatura düzenleriz.'],
-  ['Kuşağa logo basılabiliyor mu?', 'Evet. Logonuzu WhatsApp’tan gönderin; kuşağa firma logonuz ve mesajınız basılır. Yazı Türkçe, İngilizce veya iki dilli olabilir.'],
+  ['Şeride logo basılabiliyor mu?', 'Evet. Logonuzu WhatsApp’tan gönderin; şeride firma logonuz ve mesajınız basılır. Yazı Türkçe, İngilizce veya iki dilli olabilir.'],
   ['Kurulum gününde teslim ediyor musunuz?', 'Evet. Fuar açılışından önceki kurulum gününde veya açılış sabahı teslim edebiliriz.'],
   ['Fuar boyunca çiçekler solarsa?', 'Fuar süresince solan çiçekleri değiştiriyoruz; WhatsApp’tan yazmanız yeterli.'],
   ['Bitki kiralama var mı?', 'Evet. Saksı bitkilerini fuar süresince kiralayabilirsiniz; fiyat için WhatsApp’tan veya kurumsal teklif formundan yazın.'],
   ['Teslim edildiğini nasıl bileceğim?', 'Teslimattan sonra ürünün standdaki fotoğrafını WhatsApp’tan gönderiyoruz.'],
-  ['Birden fazla standa sipariş verebilir miyim?', 'Evet. Ürünleri tek siparişte toplayın; her teslimatın salon, stant ve kuşak yazısını WhatsApp’ta netleştirelim. Tümü için tek fatura düzenlenir.'],
+  ['Birden fazla standa sipariş verebilir miyim?', 'Evet. Ürünleri tek siparişte toplayın; her teslimatın salon, stant ve şerit yazısını WhatsApp’ta netleştirelim. Tümü için tek fatura düzenlenir.'],
   ['Gece veya hafta sonu sipariş verebilir miyim?', 'Evet. Sipariş hattımız 7/24 açıktır.'],
 ];
 
@@ -347,7 +347,7 @@ export function sss() {
   return page({
     path,
     title: 'Sık Sorulan Sorular | Fuar Çiçeği Siparişi, Teslimat, Ödeme – Fuar Çiçekçim',
-    description: `Fuar çiçeği siparişi hakkında merak edilenler: ${DELIVERY.promise}, KDV ve teslimat, ödeme yöntemleri, kurumsal fatura, logolu kuşak, bitki kiralama.`,
+    description: `Fuar çiçeği siparişi hakkında merak edilenler: ${DELIVERY.promise}, KDV ve teslimat, ödeme yöntemleri, kurumsal fatura, logolu şerit, bitki kiralama.`,
     jsonld: graph(businessNode(), breadcrumbNode([['Ana sayfa', '/'], ['Sık sorulan sorular', path]]), faqNode(SSS)),
     body: pageHero({ crumbs: [['Ana sayfa', '/'], ['SSS', path]], eyebrow: 'Sık sorulan sorular', title: 'Sipariş vermeden önce <em>bilmeniz gerekenler.</em>', ctas: false }) + faqBlock(SSS, 'Tüm <em>sorular.</em>') + ctaBand(),
   });
@@ -357,9 +357,9 @@ export function sss() {
 export function teslimat() {
   const path = '/teslimat-sureci.html';
   const steps = [
-    ['Siparişi oluşturun', 'Ürünleri sepete ekleyin; fuar merkezi, salon ve stant numarası, teslim günü ve saat aralığını seçin. Kuşak yazısını canlı önizlemede görün.'],
+    ['Siparişi oluşturun', 'Ürünleri sepete ekleyin; fuar merkezi, salon ve stant numarası, teslim günü ve saat aralığını seçin. Şerit yazısını canlı önizlemede görün.'],
     ['WhatsApp’ta onaylayın', 'Sipariş özetiniz numarasıyla birlikte WhatsApp’a düşer. Stok, teslim saati ve ödeme yöntemini (havale/EFT, kredi kartı veya teslimatta nakit) yazılı olarak netleştiririz.'],
-    ['Hazırlık ve kuşak', 'Ürün hazırlanır, kuşağa firma adınız veya logonuz basılır. Yazı Türkçe, İngilizce veya iki dilli olabilir.'],
+    ['Hazırlık ve şerit', 'Ürün hazırlanır, şeride firma adınız veya logonuz basılır. Yazı Türkçe, İngilizce veya iki dilli olabilir.'],
     [`${M} dakikada standa teslim`, `Onaydan itibaren ${M} dakika içinde salon ve stant numarasına teslim ederiz. Kurulum günü veya açılış sabahı için önceden planlama da yapılabilir.`],
     ['Fotoğraflı onay ve fatura', 'Teslimattan sonra standdaki fotoğrafı WhatsApp’tan gönderir, kurumsal e-Faturanızı düzenleriz.'],
     ['Fuar boyunca destek', 'Fuar süresince solan çiçekleri değiştirir, ek siparişleri aynı hattan alırız.'],
@@ -367,7 +367,7 @@ export function teslimat() {
   return page({
     path,
     title: `Teslimat Süreci | ${DELIVERY.promise.charAt(0).toUpperCase() + DELIVERY.promise.slice(1)} – Fuar Çiçekçim`,
-    description: `Fuar çiçeği teslimat süreci adım adım: sipariş, WhatsApp onayı, kuşak hazırlığı, ${DELIVERY.promise}, fotoğraflı onay ve kurumsal e-Fatura.`,
+    description: `Fuar çiçeği teslimat süreci adım adım: sipariş, WhatsApp onayı, şerit hazırlığı, ${DELIVERY.promise}, fotoğraflı onay ve kurumsal e-Fatura.`,
     jsonld: graph(businessNode(), breadcrumbNode([['Ana sayfa', '/'], ['Teslimat süreci', path]])),
     body: pageHero({
       crumbs: [['Ana sayfa', '/'], ['Teslimat süreci', path]],

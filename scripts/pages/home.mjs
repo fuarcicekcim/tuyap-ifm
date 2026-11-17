@@ -8,11 +8,11 @@ import { CATEGORIES } from '../lib/catalog.mjs';
 // Hero sahneleri: tam ekran, sırayla değişen stant görselleri. İlk sahne LCP görselidir.
 const SCENES = [
   { img: '/assets/hero/tuyap-orkide', pos: '58% 40%', no: '01', title: 'Çift dallı orkide', where: 'Karşılama bankosu · TÜYAP',
-    alt: 'TÜYAP’ta bir fuar standının karşılama bankosunda firma adlı kuşaklı beyaz orkide ve pastel aranjman' },
+    alt: 'TÜYAP’ta bir fuar standının karşılama bankosunda firma adlı şeritli beyaz orkide ve pastel aranjman' },
   { img: '/assets/hero/ifm-ferforje', pos: '56% 35%', no: '02', title: 'Ayaklı ferforje', where: 'Açılış tebriği · İFM',
-    alt: 'İFM’de bir standın girişinde firma adlı kuşaklı ayaklı ferforje çiçek aranjmanı' },
+    alt: 'İFM’de bir standın girişinde firma adlı şeritli ayaklı ferforje çiçek aranjmanı' },
   { img: '/assets/hero/tuyap-saksi', pos: '48% 45%', no: '03', title: 'Hediye paketli bitkiler', where: 'Stant yeşillendirme · TÜYAP',
-    alt: 'TÜYAP’ta bir standda firma adlı kuşakla hediye paketlenmiş kauçuk ve kırmızı antoryum' },
+    alt: 'TÜYAP’ta bir standda firma adlı şeritle hediye paketlenmiş kauçuk ve kırmızı antoryum' },
 ];
 
 function hero() {
@@ -143,7 +143,7 @@ function corporate() {
       <h2 id="kurumsal-baslik" data-split>Birden fazla stand, birden fazla gün, <em>tek sipariş.</em></h2>
     </div>
     <div class="corporate__copy" data-reveal>
-      <p>Bayilerinize, iş ortaklarınıza veya kendi standlarınıza aynı anda çiçek gönderecekseniz ürünleri sepete ekleyin; her teslimatın salon, stant ve kuşak yazısını WhatsApp yazışmasında birlikte netleştirelim. Tüm siparişler için tek kurumsal e-Fatura düzenlenir.</p>
+      <p>Bayilerinize, iş ortaklarınıza veya kendi standlarınıza aynı anda çiçek gönderecekseniz ürünleri sepete ekleyin; her teslimatın salon, stant ve şerit yazısını WhatsApp yazışmasında birlikte netleştirelim. Tüm siparişler için tek kurumsal e-Fatura düzenlenir.</p>
       <div class="corporate__ctas">
         <button class="btn" type="button" data-drawer-open data-track-location="corporate">${icon('shopping-bag')}Siparişi Başlat</button>
         <a class="btn btn--ghost" href="/teklif.html" data-track="corporate_quote_click" data-track-location="corporate">${icon('file-text')}Kurumsal Teklif Al</a>
@@ -155,7 +155,7 @@ function corporate() {
 
 function steps() {
   const list = [
-    ['Ürünü ve kuşak yazısını seçin', 'Çelenk, orkide veya aranjmanı sepete ekleyin. Firma adınızı ve mesajınızı yazın; kuşak önizlemesini anında görün.'],
+    ['Ürünü ve şerit yazısını seçin', 'Çelenk, orkide veya aranjmanı sepete ekleyin. Firma adınızı ve mesajınızı yazın; şerit önizlemesini anında görün.'],
     ['WhatsApp’ta onaylayın', `Sipariş özetiniz WhatsApp’a düzenli bir mesaj olarak düşer. Stok ve teslim saatini teyit eder, ödemeyi aynı yazışmada netleştiririz.`],
     ['Standa teslim edelim', `Onaydan itibaren ${DELIVERY.minutes} dakikada salon ve stant numarasına teslim ederiz. Teslimat fotoğrafı WhatsApp’tan size iletilir.`],
   ];
@@ -180,7 +180,7 @@ export const FAQ = [
   ['Fiyatlara KDV ve teslimat dahil mi?', `Ürün fiyatları KDV hariçtir; %${PRICING.vatRate} KDV eklenir. TÜYAP ve İFM’ye standa teslimat fiyata dahildir. Sipariş çekmecesinde KDV hariç ve KDV dahil toplamı birlikte görürsünüz.`],
   ['Ödemeyi nasıl yapıyorum?', 'Sitede online ödeme alınmaz. Sipariş özetiniz WhatsApp’a iletilir; ödeme yöntemi ve onay aynı yazışmada netleşir.'],
   ['Kurumsal fatura kesiyor musunuz?', 'Evet. Firma ünvanı, vergi dairesi ve vergi numaranızı sipariş sırasında veya WhatsApp’tan paylaştığınızda kurumsal e-Fatura düzenleriz.'],
-  ['Kuşağa ne yazabilirim?', 'Firma adınızı ve kısa bir mesajı (ör. “İyi Fuarlar”, “Hayırlı Olsun”) yazabilirsiniz. Türkçe karakterler doğru basılır; yazıyı sipariş sırasında kuşak önizlemesinde görürsünüz.'],
+  ['Şeride ne yazabilirim?', 'Firma adınızı ve kısa bir mesajı (ör. “İyi Fuarlar”, “Hayırlı Olsun”) yazabilirsiniz. Türkçe karakterler doğru basılır; yazıyı sipariş sırasında şerit önizlemesinde görürsünüz.'],
   ['Teslim edildiğini nasıl bileceğim?', 'Teslimattan sonra ürünün standdaki fotoğrafını WhatsApp’tan gönderiyoruz.'],
 ];
 
@@ -213,7 +213,7 @@ export function home(catalog) {
   return page({
     path: '/',
     title: 'Fuar Çiçekçim | TÜYAP ve İFM Fuar Çiçekçisi, Standa Teslim',
-    description: `TÜYAP ve İFM fuar standlarına açılış çelengi, kuşaklı VIP orkide, stant aranjmanı ve saksı bitkisi. ${DELIVERY.promise}, fotoğraflı teslim onayı ve kurumsal e-Fatura.`,
+    description: `TÜYAP ve İFM fuar standlarına açılış çelengi, şeritli VIP orkide, stant aranjmanı ve saksı bitkisi. ${DELIVERY.promise}, fotoğraflı teslim onayı ve kurumsal e-Fatura.`,
     preload: `<link rel="preload" as="image" href="/assets/hero/tuyap-orkide-768.webp" imagesrcset="/assets/hero/tuyap-orkide-768.webp 768w, /assets/hero/tuyap-orkide.webp 1536w" imagesizes="100vw" fetchpriority="high">`,
     jsonld: schema(),
     body: hero() + trust() + products(catalog) + clients() + corporate() + steps() + faq(),

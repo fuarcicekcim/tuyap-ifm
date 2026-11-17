@@ -11,31 +11,31 @@ const M = DELIVERY.minutes;
 export const CATEGORY_COPY = {
   wreaths: {
     title: 'Fuar <em>çelengi.</em>',
-    lead: 'Stant önünde ilk bakışta görülen tebrik. Tek ve çift katlı çelenkler; firma adınız ve mesajınız kuşakta.',
+    lead: 'Stant önünde ilk bakışta görülen tebrik. Tek ve çift katlı çelenkler; firma adınız ve mesajınız şeritte.',
     use: 'Açılış günü stant girişine, iş ortaklarınızın standına tebrik veya lansman alanına',
-    body: '<p>Fuar çelengi, standın önünde ziyaretçinin ilk gördüğü tebriktir. Bu yüzden kuşak yazısı kısa, firma adı net olmalıdır. Kuşağa firma logonuzu bastırabilir, mesajı Türkçe, İngilizce veya iki dilli yazdırabilirsiniz.</p><p>Çelenkleri kurulum gününde ya da açılış sabahı standa yerleştiriyoruz; fuar sırasında verilen siparişlerde süre onaydan itibaren ' + M + ' dakikadır.</p>',
+    body: '<p>Fuar çelengi, standın önünde ziyaretçinin ilk gördüğü tebriktir. Bu yüzden şerit yazısı kısa, firma adı net olmalıdır. Şeride firma logonuzu bastırabilir, mesajı Türkçe, İngilizce veya iki dilli yazdırabilirsiniz.</p><p>Çelenkleri kurulum gününde ya da açılış sabahı standa yerleştiriyoruz; fuar sırasında verilen siparişlerde süre onaydan itibaren ' + M + ' dakikadır.</p>',
     faq: [
-      ['Çelenk kuşağına ne yazılır?', 'En yaygın kullanım “Başarılı bir fuar dileriz — Firma Adı” biçimindedir. Kuşağa firma logonuz da basılabilir.'],
+      ['Çelenk şeridine ne yazılır?', 'En yaygın kullanım “Başarılı bir fuar dileriz — Firma Adı” biçimindedir. Şeride firma logonuz da basılabilir.'],
       ['Çelengi ne zaman teslim etmelisiniz?', 'Açılış kurdelesine yetişmesi için kurulum günü veya açılış sabahı teslimatı öneririz.'],
     ],
   },
   orchids: {
     title: '<em>Orkideler.</em>',
-    lead: 'Karşılama bankosu ve iş ortağı tebrikleri için çok dallı orkideler. Kuşaklı, kartlı, firma adınızla.',
+    lead: 'Karşılama bankosu ve iş ortağı tebrikleri için çok dallı orkideler. Şeritli, kartlı, firma adınızla.',
     use: 'Karşılama bankosuna, yönetici tebriklerine ve VIP alanlara',
-    body: '<p>Orkide, fuar salonunun kuru havasında ve suni ışığında birkaç gün boyunca formunu koruyan en uygun tebrik çiçeklerindendir. Dal sayısı arttıkça görünürlük de artar: iki dallı orkide standart bir tebrik, altı ve sekiz dallı orkideler ise yönetim düzeyinde veya ada standlarda tercih edilir.</p><p>Kuşağa logonuzu bastırabilir, yazıyı Türkçe, İngilizce veya iki dilli hazırlatabilirsiniz.</p>',
+    body: '<p>Orkide, fuar salonunun kuru havasında ve suni ışığında birkaç gün boyunca formunu koruyan en uygun tebrik çiçeklerindendir. Dal sayısı arttıkça görünürlük de artar: iki dallı orkide standart bir tebrik, altı ve sekiz dallı orkideler ise yönetim düzeyinde veya ada standlarda tercih edilir.</p><p>Şeride logonuzu bastırabilir, yazıyı Türkçe, İngilizce veya iki dilli hazırlatabilirsiniz.</p>',
     faq: [
       ['Orkide fuar boyunca dayanır mı?', 'Orkideler fuar koşullarında birkaç gün formunu korur. Fuar süresince solan çiçek olursa değiştiriyoruz.'],
-      ['Orkideye logo basılabilir mi?', 'Evet. Logonuzu WhatsApp’tan gönderin; saten kuşağa logonuz ve mesajınız basılır.'],
+      ['Orkideye logo basılabilir mi?', 'Evet. Logonuzu WhatsApp’tan gönderin; saten şeride logonuz ve mesajınız basılır.'],
     ],
   },
   ferforje: {
     title: 'Ferforje <em>aranjman.</em>',
-    lead: 'Stant girişinde uzaktan görülen ayaklı ferforje aranjmanlar; firma adınız ve mesajınız kuşakta.',
+    lead: 'Stant girişinde uzaktan görülen ayaklı ferforje aranjmanlar; firma adınız ve mesajınız şeritte.',
     use: 'Açılış günü stant girişine, iş ortaklarınızın standına tebrik veya lansman alanına',
-    body: '<p>Ayaklı ferforje aranjmanlar, standın girişinde göz hizasında durduğu için kalabalık fuar koridorlarında bile fark edilir. Kuşağa firma logonuzu bastırabilir, mesajı Türkçe, İngilizce veya iki dilli yazdırabilirsiniz.</p><p>Ferforjeleri kurulum gününde ya da açılış sabahı standa yerleştiriyoruz; fuar sırasında verilen siparişlerde süre onaydan itibaren ' + M + ' dakikadır.</p>',
+    body: '<p>Ayaklı ferforje aranjmanlar, standın girişinde göz hizasında durduğu için kalabalık fuar koridorlarında bile fark edilir. Şeride firma logonuzu bastırabilir, mesajı Türkçe, İngilizce veya iki dilli yazdırabilirsiniz.</p><p>Ferforjeleri kurulum gününde ya da açılış sabahı standa yerleştiriyoruz; fuar sırasında verilen siparişlerde süre onaydan itibaren ' + M + ' dakikadır.</p>',
     faq: [
-      ['Ferforje kuşağına ne yazılır?', 'En yaygın kullanım “Başarılı bir fuar dileriz — Firma Adı” biçimindedir. Kuşağa firma logonuz da basılabilir.'],
+      ['Ferforje şeridine ne yazılır?', 'En yaygın kullanım “Başarılı bir fuar dileriz — Firma Adı” biçimindedir. Şeride firma logonuz da basılabilir.'],
       ['Ferforje ne zaman teslim edilmeli?', 'Açılış kurdelesine yetişmesi için kurulum günü veya açılış sabahı teslimatı öneririz.'],
     ],
   },
@@ -53,10 +53,10 @@ export const CATEGORY_COPY = {
     title: 'Saksı <em>bitkileri.</em>',
     lead: 'Boş köşeleri, görüşme alanlarını ve geçişleri yeşillendiren hediye paketli saksı bitkileri. Fuar süresince kiralama seçeneğiyle.',
     use: 'Stant köşelerine, görüşme alanlarına ve geçişlere',
-    body: '<p>Saksı bitkileri standa hacim ve yeşillik katar; klimalı salon koşullarına iyi uyum sağlayan türleri seçiyoruz. Bitkileri satın alabilir veya fuar süresince kiralayabilirsiniz; kiralama fiyatı için WhatsApp’tan yazın.</p><p>Hediye paketli saksı bitkileri iş ortaklarına tebrik olarak da gönderilebilir; kuşağa firma adınız yazılır.</p>',
+    body: '<p>Saksı bitkileri standa hacim ve yeşillik katar; klimalı salon koşullarına iyi uyum sağlayan türleri seçiyoruz. Bitkileri satın alabilir veya fuar süresince kiralayabilirsiniz; kiralama fiyatı için WhatsApp’tan yazın.</p><p>Hediye paketli saksı bitkileri iş ortaklarına tebrik olarak da gönderilebilir; şeride firma adınız yazılır.</p>',
     faq: [
       ['Saksı bitkisi kiralayabilir miyim?', 'Evet. Fuar süresince kiralama seçeneğimiz var; adet ve fuar tarihlerini yazın, fiyat verelim.'],
-      ['Bitkiler hediye paketli mi geliyor?', 'Evet. Saksı bitkileri hediye paketli ve kuşaklı hazırlanır.'],
+      ['Bitkiler hediye paketli mi geliyor?', 'Evet. Saksı bitkileri hediye paketli ve şeritli hazırlanır.'],
     ],
   },
 };
@@ -95,7 +95,7 @@ export function productPage(p, catalog) {
   const crumbs = [['Ana sayfa', '/'], [cat.name, `/kategori/${cat.slug}.html`], [p.name, p.page]];
   const long = `${p.name} | ${cat.name} | Fuar Çiçekçim`;
   const title = long.length <= 62 ? long : `${p.name} | Fuar Çiçekçim`;
-  const description = `${p.name}: ${tlPrice(p.price)} + KDV. TÜYAP ve İFM’de standa teslimat dahil, ${DELIVERY.promise}. Kuşakta firma adı ve logo, e-Fatura.`;
+  const description = `${p.name}: ${tlPrice(p.price)} + KDV. TÜYAP ve İFM’de standa teslimat dahil, ${DELIVERY.promise}. Şeritte firma adı ve logo, e-Fatura.`;
   const shareImg = `/assets/share/${p.id}.jpg`;
   const productNode = {
     '@type': 'Product',
@@ -123,7 +123,7 @@ export function productPage(p, catalog) {
   <div class="wrap pdp__grid">
     <div class="pdp__gallery">
       <figure class="pdp__main"><img src="${p.image}" width="800" height="1200" alt="${esc(p.alt)}" fetchpriority="high" decoding="async"></figure>
-      <figure class="pdp__alt"><img src="${thumb(fuarImg(p), 600)}" srcset="${thumb(fuarImg(p), 600)} 600w, ${fuarImg(p)} 1000w" sizes="(min-width: 1024px) 25vw, 50vw" width="1000" height="1500" alt="${esc(p.name)} bir fuar standına teslim edilmiş hâlde, kuşakta gönderen firma adıyla" loading="lazy" decoding="async"><figcaption>Standa teslim örneği · kuşaktaki firma adı örnektir</figcaption></figure>
+      <figure class="pdp__alt"><img src="${thumb(fuarImg(p), 600)}" srcset="${thumb(fuarImg(p), 600)} 600w, ${fuarImg(p)} 1000w" sizes="(min-width: 1024px) 25vw, 50vw" width="1000" height="1500" alt="${esc(p.name)} bir fuar standına teslim edilmiş hâlde, şeritte gönderen firma adıyla" loading="lazy" decoding="async"><figcaption>Standa teslim örneği · şeritteki firma adı örnektir</figcaption></figure>
     </div>
     <div class="pdp__info">
       ${breadcrumbs(crumbs)}
@@ -138,7 +138,7 @@ export function productPage(p, catalog) {
       </div>
       <ul class="pdp__values">
         <li>${icon('truck')}<span><strong>${esc(DELIVERY.promise)}</strong> TÜYAP ve İFM’de salon ve stant numarasına</span></li>
-        <li>${icon('type')}<span><strong>Kuşakta firma adınız</strong> logo baskısı; Türkçe, İngilizce veya iki dilli</span></li>
+        <li>${icon('type')}<span><strong>Şeritte firma adınız</strong> logo baskısı; Türkçe, İngilizce veya iki dilli</span></li>
         <li>${icon('camera')}<span><strong>Fotoğraflı teslim onayı</strong> WhatsApp’tan iletilir</span></li>
         <li>${icon('receipt-text')}<span><strong>Kurumsal e-Fatura</strong> havale/EFT, kredi kartı veya teslimatta nakit</span></li>
       </ul>
@@ -176,7 +176,7 @@ export function categoryPage(cat, catalog) {
   return page({
     path,
     title: `${cat.name} Fiyatları | TÜYAP & İFM | Fuar Çiçekçim`,
-    description: `${cat.name}: ${items.length} model, ${tlPrice(min)}’den başlayan fiyatlar (+KDV). TÜYAP ve İFM’de standa teslimat dahil, ${DELIVERY.promise}, kuşağa firma adı ve logo.`,
+    description: `${cat.name}: ${items.length} model, ${tlPrice(min)}’den başlayan fiyatlar (+KDV). TÜYAP ve İFM’de standa teslimat dahil, ${DELIVERY.promise}, şeride firma adı ve logo.`,
     jsonld: graph(
       businessNode(),
       breadcrumbNode(crumbs),

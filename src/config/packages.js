@@ -9,7 +9,7 @@ export const PACKAGES = [
     id: 'karsilama',
     name: 'Karşılama Paketi',
     fit: 'Kompakt standlar ve tek karşılama bankosu için',
-    lead: 'Bankoya kuşaklı orkide, masaya taze aranjman, köşeye az bakım isteyen bir bitki.',
+    lead: 'Bankoya şeritli orkide, masaya taze aranjman, köşeye az bakım isteyen bir bitki.',
     items: [
       ['iki-dalli-beyaz-orkide', 1],
       ['kirmizi-gul-beyaz-gerbera', 1],
@@ -46,7 +46,7 @@ export const PACKAGES = [
     id: 'tebrik',
     name: 'Açılış Tebrik Paketi',
     fit: 'Bayilerinizin ve iş ortaklarınızın standına tebrik göndermek için',
-    lead: 'Fuarın ilk sabahı göz önünde duran ayaklı ferforje ve bankoya kuşaklı orkide; ikisinde de firmanızın adı.',
+    lead: 'Fuarın ilk sabahı göz önünde duran ayaklı ferforje ve bankoya şeritli orkide; ikisinde de firmanızın adı.',
     items: [
       ['beyaz-lilyum-prestij-ferforje', 1],
       ['dort-dalli-beyaz-orkide', 1],
