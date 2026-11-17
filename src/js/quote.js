@@ -45,6 +45,7 @@ export function initQuote() {
 
     sending = true;
     btn.disabled = true;
+    btn.setAttribute('aria-busy', 'true');
     status.textContent = 'Talebiniz gönderiliyor…';
     const data = Object.fromEntries(new FormData(form));
     const lines = ['*Kurumsal teklif talebi · Fuar Çiçekçim*', '', `Firma: ${data.firma}`, `Yetkili: ${data.adsoyad}`, `Telefon: ${data.telefon}`];
@@ -62,6 +63,7 @@ export function initQuote() {
     status.innerHTML = `Talebiniz iletildi. WhatsApp açılmadıysa <a href="${esc(waUrl)}" target="_blank" rel="noopener">buraya dokunun</a>.`;
     form.reset();
     btn.disabled = false;
+    btn.removeAttribute('aria-busy');
     sending = false;
   });
 }

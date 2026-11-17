@@ -89,6 +89,21 @@ em { font-style: italic; }
   .btn--ghost-light:hover { background: var(--cream); color: var(--ink); border-color: var(--cream); }
 }
 
+/* Yükleme durumu: işlem sürerken (aria-busy="true") düğmenin baştaki simgesi dönen bir halkayla yer değiştirir.
+   Halka simgenin kendi kutusunu kullanır, düğme boyutu değişmez. Geçiş ~0,15 sn gecikmeyle olur: hızlı biten işlemde
+   hiçbir şey görünmez. Hareket azaltmada halka yoktur; düğme soluklaşır, durum metni canlı bölgede okunur. */
+.btn[aria-busy="true"] { cursor: progress; opacity: .8; }
+@media (prefers-reduced-motion: no-preference) {
+  .btn[aria-busy="true"] > .icon {
+    box-sizing: border-box; border-style: solid; border-color: currentColor; border-top-color: transparent; border-radius: 50%;
+    animation: btn-ring-in .01s linear .15s both, btn-spin .8s linear .15s infinite;
+  }
+  .btn[aria-busy="true"] > .icon > * { animation: btn-glyph-off .01s linear .15s both; }
+}
+@keyframes btn-ring-in { from { border-width: 0; } to { border-width: 2px; } }
+@keyframes btn-glyph-off { to { opacity: 0; } }
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+
 .reveal-pending { opacity: 0; transform: translateY(16px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
 .reveal-pending.is-in { opacity: 1; transform: none; }
 
