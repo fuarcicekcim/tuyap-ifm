@@ -34,6 +34,10 @@ function hero() {
         <li>${icon('truck')}Teslimat fiyata dahil</li>
         <li>${icon('camera')}Fotoğraflı teslim onayı</li>
       </ul>
+      <div class="hero__cta">
+        <a class="btn" href="#urunler" data-track-location="hero-cta">${icon('shopping-bag')}Kataloğa bak</a>
+        <a class="btn btn--wa" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero-cta">${icon('message-circle')}WhatsApp’la sipariş</a>
+      </div>
       ${heroFair()}
     </div>
   </div>

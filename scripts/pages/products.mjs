@@ -167,6 +167,7 @@ export function categoryPage(cat, catalog) {
     + `
 <section class="section products">
   <div class="wrap">
+    <h2 class="sr-only">${esc(cat.name)} modelleri ve fiyatları</h2>
     <div class="grid" data-grid="static">${items.map((p, i) => card(p, i + 1)).join('')}</div>
     <div class="prose cat-prose">${copy.body}<p>Fiyatlar KDV hariçtir; %${PRICING.vatRate} KDV eklenir. ${esc(PRICING.deliveryIncluded)}</p></div>
   </div>

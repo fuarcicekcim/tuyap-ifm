@@ -331,5 +331,17 @@ export function initDrawer() {
   form.addEventListener('submit', submit);
   form.addEventListener('input', (e) => { if (e.target.getAttribute('aria-invalid') === 'true') setError(e.target, ''); });
   root.querySelector('.drawer__note')?.setAttribute('title', DELIVERY.condition);
+
+  // Mobilde form doldurulurken (aşağı kaydırma veya klavye açık) alt alan tek satır toplam + butona küçülür.
+  const scroller = root.querySelector('.drawer__scroll');
+  const foot = root.querySelector('.drawer__foot');
+  if (scroller && foot) {
+    let focused = false;
+    const update = () => foot.classList.toggle('is-compact', focused || scroller.scrollTop > 48);
+    scroller.addEventListener('scroll', update, { passive: true });
+    form.addEventListener('focusin', (e) => { focused = e.target.matches('input:not([type=checkbox]):not([type=radio]), textarea, select'); update(); });
+    form.addEventListener('focusout', () => { focused = false; requestAnimationFrame(update); });
+  }
+
   if (location.hash === '#siparis') openDrawer('link');
 }

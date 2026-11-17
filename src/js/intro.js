@@ -33,12 +33,12 @@ export function runIntro() {
     i = (i + 1) % imgs.length;
     imgs[i].style.opacity = '1';
     imgs[i].classList.add('is-on');
-  }, 190);
+  }, 140);
 
-  // 2) Sayaç 0 → 100 (yumuşak hızlanma/yavaşlama); sayfa yüklenmediyse 99'da en fazla 2,5 sn bekler.
+  // 2) Sayaç 0 → 100 (yumuşak hızlanma/yavaşlama); sayfa yüklenmediyse 99'da en fazla ~1,6 sn bekler.
   const loaded = document.readyState === 'complete' ? Promise.resolve()
-    : Promise.race([new Promise((r) => window.addEventListener('load', r, { once: true })), wait(4800)]);
-  const DUR = 2300;
+    : Promise.race([new Promise((r) => window.addEventListener('load', r, { once: true })), wait(2500)]);
+  const DUR = 900;
   const start = performance.now();
   const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
   const counted = new Promise((resolve) => {
@@ -52,32 +52,32 @@ export function runIntro() {
 
   Promise.all([counted, loaded]).then(async () => {
     countEl.textContent = '100';
-    await wait(260);
+    await wait(100);
     clearInterval(flip);
 
     // 3) Kart yukarı doğru kırpılır, üst yazılar maskeye geri kayar.
-    meta.forEach((el) => anim(el, [{ transform: 'none' }, { transform: 'translateY(-110%)' }], { duration: 600, easing: EASE_IO }));
-    await anim(frame, [{ clipPath: 'inset(0 0 0 0)' }, { clipPath: 'inset(0 0 100% 0)' }], { duration: 850, easing: EASE_IO });
+    meta.forEach((el) => anim(el, [{ transform: 'none' }, { transform: 'translateY(-110%)' }], { duration: 450, easing: EASE_IO }));
+    await anim(frame, [{ clipPath: 'inset(0 0 0 0)' }, { clipPath: 'inset(0 0 100% 0)' }], { duration: 500, easing: EASE_IO });
 
     // 4) Monogram ve dev marka yazısı maskeden yükselir.
-    anim(mono, [{ opacity: 0 }, { opacity: 1 }], { duration: 600, easing: EASE_OUT });
-    anim(mono?.querySelector('i'), [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 900, easing: EASE_IO });
-    await Promise.all(lines.map((el, n) => anim(el, [{ transform: 'translateY(110%)' }, { transform: 'none' }], { duration: 1100, delay: n * 110, easing: EASE_OUT })));
-    await wait(450);
+    anim(mono, [{ opacity: 0 }, { opacity: 1 }], { duration: 450, easing: EASE_OUT });
+    anim(mono?.querySelector('i'), [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 600, easing: EASE_IO });
+    await Promise.all(lines.map((el, n) => anim(el, [{ transform: 'translateY(110%)' }, { transform: 'none' }], { duration: 650, delay: n * 60, easing: EASE_OUT })));
+    await wait(150);
 
     // 5) Yazı yukarı çıkarken perde kalkar; altta sayfa (hero) açılır.
     html.classList.add('intro-leaving');
-    lines.forEach((el, n) => anim(el, [{ transform: 'none' }, { transform: 'translateY(-110%)' }], { duration: 750, delay: n * 70, easing: EASE_IO }));
-    anim(mono, [{ opacity: 1 }, { opacity: 0 }], { duration: 400 });
+    lines.forEach((el, n) => anim(el, [{ transform: 'none' }, { transform: 'translateY(-110%)' }], { duration: 550, delay: n * 50, easing: EASE_IO }));
+    anim(mono, [{ opacity: 1 }, { opacity: 0 }], { duration: 300 });
     // Perde kalkmaya başlarken hero animasyonları başlar (aynı anda hissedilsin).
     setTimeout(() => {
       html.classList.remove('intro-on');
       html.classList.add('intro-after');
       window.dispatchEvent(new Event('fc:intro-reveal'));
-    }, 350);
-    await anim(root, [{ clipPath: 'inset(0 0 0 0)' }, { clipPath: 'inset(0 0 100% 0)' }], { duration: 1150, delay: 250, easing: EASE_IO });
+    }, 200);
+    await anim(root, [{ clipPath: 'inset(0 0 0 0)' }, { clipPath: 'inset(0 0 100% 0)' }], { duration: 750, delay: 100, easing: EASE_IO });
     html.classList.remove('intro-leaving');
-    setTimeout(() => html.classList.remove('intro-after'), 1600);
+    setTimeout(() => html.classList.remove('intro-after'), 1200);
     done();
   });
 }

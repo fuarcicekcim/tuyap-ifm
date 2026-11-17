@@ -42,12 +42,13 @@ em { font-style: italic; }
   font-weight: 600;
   letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-text);
 }
 
 .wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
 .section { padding-block: var(--space-xl); }
 .section--dark { background: var(--forest); color: var(--cream); }
+.section--dark, .phero, .article__head, .closing, .topbar, .footer, .dock, .intro { --gold-text: var(--gold); }
 .rule { border: 0; border-top: 1px solid var(--line); margin: 0; }
 
 .sr-only {

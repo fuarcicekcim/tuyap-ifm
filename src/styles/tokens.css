@@ -6,11 +6,13 @@
   --ink: #141414;
   --gold: #C5A059;
   --gold-soft: #d9bf8a;
+  /* Açık zeminde altın yazı (krem üzerinde 4,6:1). Koyu zeminde base.css bunu --gold yapar. */
+  --gold-text: #8A6A2F;
   --muted: #5d625e;
   --muted-on-dark: rgba(247, 245, 240, .66);
   --line: rgba(20, 20, 20, .12);
   --line-on-dark: rgba(247, 245, 240, .16);
-  --wa: #1f8f4e;
+  --wa: #1a7f45;
 
   --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-ui: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
