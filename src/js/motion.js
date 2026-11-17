@@ -12,6 +12,7 @@ export let lenis = null;
 function initLenis() {
   lenis = new Lenis({ lerp: 0.1, smoothWheel: true, prevent: (node) => !!node.closest?.('[data-drawer]') });
   window.__lenis = lenis;
+  if (document.documentElement.classList.contains('intro-on')) lenis.stop();
   lenis.on('scroll', ScrollTrigger.update);
   const tick = (time) => lenis.raf(time * 1000);
   gsap.ticker.add(tick);
@@ -27,12 +28,19 @@ function initLenis() {
 function initSplitHeadings() {
   const splits = [];
   document.querySelectorAll('[data-split]').forEach((el) => {
-    const split = SplitText.create(el, { type: 'lines', mask: 'lines', autoSplit: true, onSplit: (self) =>
-      gsap.from(self.lines, {
+    const inHero = !!el.closest('.hero');
+    const split = SplitText.create(el, { type: 'lines', mask: 'lines', autoSplit: true, onSplit: (self) => {
+      const tw = gsap.from(self.lines, {
         yPercent: 105, duration: 1.1, ease: 'expo.out', stagger: 0.08,
-        scrollTrigger: el.closest('.hero') ? undefined : { trigger: el, start: 'top 85%', once: true },
-      }),
-    });
+        scrollTrigger: inHero ? undefined : { trigger: el, start: 'top 85%', once: true },
+      });
+      // Açılış animasyonu sürüyorsa hero başlığı perde kalkınca yükselir.
+      if (inHero && document.documentElement.classList.contains('intro-on')) {
+        tw.pause(0);
+        window.addEventListener('fc:intro-reveal', () => tw.play(), { once: true });
+      }
+      return tw;
+    } });
     splits.push(split);
   });
   return () => splits.forEach((s) => s.revert());

@@ -180,12 +180,29 @@ export function setCatalogData(products) {
   catalogJson = JSON.stringify(products.map(({ id, name, price, image, categoryName }) => ({ id, name, price, image, cat: categoryName }))).replace(/</g, '\\u003c');
 }
 
+// Açılış (preloader) için renkli çiçekli ürün fotoğrafları (gerçek katalog görselleri, 400 px).
+const INTRO_IMAGES = ['mor-orkide-lilyum-kirmizi-gul', 'aycicegi-turuncu-ayakli', 'mavi-orkide-renklendirilmis', 'kirmizi-gul-beyaz-gerbera',
+  'dort-dalli-lila-orkide', 'antoryum', 'pembe-lilyum-aranjmani', 'guzmania'];
+
+function intro() {
+  return `
+<div class="intro" aria-hidden="true" data-intro>
+  <div class="intro__card">
+    <div class="intro__meta"><span class="intro__mask"><span>Fuar Çiçekçim</span></span><span class="intro__mask"><span class="intro__count" data-intro-count>0</span></span></div>
+    <div class="intro__frame">${INTRO_IMAGES.map((n, i) => `<img src="/assets/products/${n}-400.webp" width="400" height="600" alt="" decoding="async"${i ? ' loading="lazy"' : ' fetchpriority="low"'}>`).join('')}</div>
+  </div>
+  <p class="intro__mono"><span>F</span><i></i><span>Ç</span></p>
+  <p class="intro__word"><span class="intro__line"><span>Fuar</span></span><span class="intro__line intro__line--2"><span><em>Çiçekçim</em></span></span></p>
+</div>`;
+}
+
 export function page({ path, title, description, body, jsonld = '', preload = '', robots = 'index, follow', ogImage = '/assets/og/fuar-cicekcim-og.jpg' }) {
   const canonical = SITE.url + path;
   return `<!doctype html>
 <html lang="tr">
 <head>
 <meta charset="utf-8">
+<script>try{if(!sessionStorage.getItem('fc-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro-on')}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
@@ -210,6 +227,7 @@ ${jsonld}
 <script type="module" src="/src/main.js"></script>
 </head>
 <body>
+${intro()}
 ${header()}
 <main id="icerik">
 ${body}

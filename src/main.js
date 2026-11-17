@@ -1,6 +1,8 @@
 import './styles/tokens.css';
 import './styles/base.css';
 import './styles/layout.css';
+import './styles/intro.css';
+import { runIntro } from './js/intro.js';
 import { track, initAnalytics } from './js/analytics.js';
 import { initReveal } from './js/reveal.js';
 import { initHero } from './js/hero.js';
@@ -13,6 +15,7 @@ import './styles/content.css';
 import './styles/sections.css';
 import './styles/drawer.css';
 
+runIntro();
 initAnalytics();
 initHero();
 initDrawer();
