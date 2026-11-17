@@ -64,6 +64,8 @@ em { font-style: italic; }
 
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
+address { font-style: normal; }   /* <address> varsayılan olarak italik gelir; adres satırları düz yazılır */
+
 .icon { width: 1.15em; height: 1.15em; flex: none; stroke-width: 1.6; }
 
 .btn {

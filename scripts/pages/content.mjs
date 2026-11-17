@@ -306,8 +306,8 @@ export function iletisim() {
   const path = '/iletisim.html';
   return page({
     path,
-    title: 'İletişim | Fuar Çiçekçim – 7/24 Fuar Çiçek Sipariş Hattı',
-    description: `Fuar Çiçekçim iletişim: WhatsApp ve telefon ${CONTACT.phoneDisplay}, e-posta ${CONTACT.email}. Esenyurt, İstanbul; TÜYAP ve İFM standlarına 7/24 teslimat.`,
+    title: 'İletişim ve Adres | Fuar Çiçekçim – 7/24 Sipariş, Esenyurt',
+    description: `Fuar Çiçekçim iletişim: ${CONTACT.phoneDisplay}, WhatsApp. Adres: ${SITE.addressLine}. TÜYAP ve İFM’ye 7/24 teslimat.`,
     jsonld: graph(businessNode(), { '@type': 'ContactPage', url: abs(path), name: 'İletişim', about: { '@id': `${SITE.url}/#isletme` } }, breadcrumbNode([['Ana sayfa', '/'], ['İletişim', path]])),
     body: pageHero({
       crumbs: [['Ana sayfa', '/'], ['İletişim', path]],
@@ -317,8 +317,8 @@ export function iletisim() {
     }) + facts([
       ['Telefon / WhatsApp', `<a href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="contact">${esc(CONTACT.phoneDisplay)}</a>`],
       ['E-posta', `<a href="mailto:${CONTACT.email}">${esc(CONTACT.email)}</a>`],
-      ['Konum', `${esc(SITE.address.district)}, ${esc(SITE.address.city)}`],
-      ['Çalışma saatleri', '7/24 sipariş ve teslimat'],
+      [SITE.address.street ? 'Adres' : 'Konum', `<address>${esc(SITE.addressLine)}</address>${CONTACT.maps ? `<a class="facts__link" href="${esc(CONTACT.maps)}" target="_blank" rel="noopener" data-track="maps_click" data-track-location="contact">${icon('map-pin')}Haritalar’da aç</a>` : ''}`, 'wide'],
+      ['Çalışma saatleri', '7/24 sipariş ve teslimat', 'wide'],
     ]) + prose([
       { title: 'Hizmet bölgemiz', html: `<p>Standa teslimat yaptığımız fuar merkezleri: <a href="${TUYAP.page}">${esc(TUYAP.name)}</a> (Büyükçekmece) ve <a href="${IFM.page}">${esc(IFM.name)}</a> (Yeşilköy). Esenyurt’tan TÜYAP’a yol süremiz yaklaşık 5 dakikadır. Fuar katılımcılarının konakladığı otellere de karşılama çiçeği gönderiyoruz.</p>` },
       { title: 'Sosyal medya', html: `<p>Instagram: <a href="${CONTACT.instagram}" target="_blank" rel="noopener">@fuarcicekcim</a></p>` },

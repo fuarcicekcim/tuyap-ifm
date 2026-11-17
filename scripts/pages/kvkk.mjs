@@ -11,7 +11,7 @@ export function kvkk() {
     <h1>KVKK aydınlatma metni</h1>
     <p>Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında, ${esc(SITE.name)} (“İşletme”) tarafından sipariş ve teklif formları aracılığıyla toplanan kişisel verilere ilişkin olarak hazırlanmıştır.</p>
     <h2>Veri sorumlusu</h2>
-    <p>${esc(SITE.name)} · ${esc(SITE.address.district)}, ${esc(SITE.address.city)} · ${esc(CONTACT.email)} · ${esc(CONTACT.phoneDisplay)}</p>
+    <p>${esc(SITE.name)} · ${esc(SITE.addressLine)} · ${esc(CONTACT.email)} · ${esc(CONTACT.phoneDisplay)}</p>
     <h2>İşlenen kişisel veriler</h2>
     <p>Ad soyad, firma adı, telefon numarası, e-posta adresi, teslimat bilgileri (fuar, salon, stant, tarih ve saat), şerit/kart yazısı, fatura bilgileri (ünvan, vergi dairesi, vergi veya T.C. kimlik numarası) ve sipariş notları.</p>
     <h2>İşleme amaçları</h2>

@@ -6,13 +6,20 @@ export const SITE = {
   url: 'https://www.fuarcicekcim.com',
   locale: 'tr_TR',
   // Bu alanlar Google İşletme Profili ile birebir aynı olmalı (NAP tutarlılığı).
-  // Tam adres ve çalışma saatleri kullanıcıdan alınınca doldurulacak.
+  // Adres, Google Haritalar'daki yazımdır: "Gökevler, 564. Sk. Bahçeşehir Sitesi, 34500 Esenyurt/İstanbul".
+  // Kullanıcı kararıyla (2026-11-17) sitede görünür: altbilgi, iletişim sayfası, KVKK ve JSON-LD.
+  // Kapı/bina numarası Google'da yok, eklenmedi. Çalışma saatleri henüz alınmadı (openingHours boş).
   address: {
-    street: '',
+    street: 'Gökevler, 564. Sk. Bahçeşehir Sitesi',
     district: 'Esenyurt',
     city: 'İstanbul',
-    postalCode: '',
+    postalCode: '34500',
     country: 'TR',
+  },
+  // Tek satır adres, Google'daki biçimde. Şablonlar bunu kullanır (SITE.addressLine); sokak boşsa yalnızca ilçe ve şehir döner.
+  get addressLine() {
+    const a = this.address;
+    return a.street ? `${a.street}, ${a.postalCode} ${a.district}/${a.city}` : `${a.district}, ${a.city}`;
   },
   openingHours: null,
 };
@@ -26,7 +33,7 @@ export const CONTACT = {
   // Google Haritalar paylaşım bağlantısı (kullanıcı verdi, 2026-11-17): işletmenin Haritalar sayfasını açar (konum, yol tarifi).
   // Boşsa sağ alttaki yüzen kümede Haritalar düğmesi görünmez.
   // Başka bir bağlantıya geçmek için: Google Haritalar'da işletmeyi açın → Paylaş → Bağlantıyı kopyala (maps.app.goo.gl/…).
-  // Sitede sokak adresi yazılmaz (2026-11-16 kararı); yalnızca bu bağlantı konur.
+  // Adres sitede de görünür (2026-11-17 kararı); bu bağlantı altbilgide, iletişim sayfasında ve JSON-LD'de (hasMap) kullanılır.
   maps: 'https://maps.app.goo.gl/rzFAQGbV2MHwvH5s6',
 };
 

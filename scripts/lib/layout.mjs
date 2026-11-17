@@ -154,6 +154,11 @@ function footer() {
   const col = (title, links) => `<div class="footer__col"><h2>${title}</h2><ul>${links.map(([href, text]) => `<li><a href="${href}">${text}</a></li>`).join('')}</ul></div>`;
   const tuyap = VENUES.find((v) => v.id === 'tuyap');
   const ifm = VENUES.find((v) => v.id === 'ifm');
+  // Adres (NAP): Google profilindeki yazımla aynı; Haritalar bağlantısı varsa dokununca Haritalar'da açılır. Sokak boşsa hiç çizilmez.
+  const addrRow = (tag, attrs) => `<${tag} class="footer__address-row"${attrs}>${icon('map-pin')}<span>${esc(SITE.addressLine)}</span></${tag}>`;
+  const address = SITE.address.street
+    ? `<address class="footer__address">${CONTACT.maps ? addrRow('a', ` href="${esc(CONTACT.maps)}" target="_blank" rel="noopener" data-track="maps_click" data-track-location="footer"`) : addrRow('span', '')}</address>`
+    : '';
   return `
 <footer class="footer" data-footer>
   <div class="footer__scene">
@@ -184,6 +189,7 @@ function footer() {
         <div class="footer__contact">
           <h2>İletişim · 7/24</h2>
           <a class="footer__phone" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="footer">${icon('phone')}${esc(CONTACT.phoneDisplay)}</a>
+          ${address}
           <ul class="footer__social">
             <li><a href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="footer">WhatsApp</a></li>
             <li><a href="${CONTACT.instagram}" target="_blank" rel="noopener">Instagram</a></li>

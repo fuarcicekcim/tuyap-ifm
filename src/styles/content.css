@@ -28,6 +28,14 @@
 .facts dt { font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-text); margin-bottom: .35rem; }
 .facts dd { margin: 0; font-weight: 600; font-size: .95rem; line-height: 1.35; }
 .facts dd a { text-decoration: none; }
+/* Adres gibi uzun içerik: iki sütunlu düzende (1024 px altı) tüm satırı kaplar, dar hücrede 5-6 satıra sarılmaz. */
+@media (max-width: 1023.98px) {
+  .facts__item--wide, .facts__item--wide + .facts__item { border-left: 0; }
+  .facts__item--wide { grid-column: 1 / -1; }
+}
+/* Eylem bağlantısı (Haritalar'da aç): altı çizili altın renk, dokunma alanı en az 44 px. */
+.facts dd a.facts__link { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; font-size: .82rem; font-weight: 700; letter-spacing: .04em; color: var(--gold-text); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; }
+.facts__link .icon { width: 15px; height: 15px; }
 @media (min-width: 1024px) {
   .facts__list { grid-template-columns: repeat(4, 1fr); }
   .facts__item { padding: 1.75rem; }

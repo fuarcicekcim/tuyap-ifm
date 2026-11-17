@@ -22,9 +22,10 @@ export function pageHero({ eyebrow, title, lead, crumbs, image, imageAlt, ctas =
 </section>`;
 }
 
+// items: [[başlık, html, değiştirici?]] — değiştirici 'wide' ise öğe iki sütunlu düzende (telefon/tablet) tüm satırı kaplar.
 export const facts = (items) => `
 <section class="facts" aria-label="Özet bilgiler">
-  <div class="wrap"><dl class="facts__list">${items.map(([k, v]) => `<div class="facts__item" data-reveal><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join('')}</dl></div>
+  <div class="wrap"><dl class="facts__list">${items.map(([k, v, mod]) => `<div class="facts__item${mod ? ` facts__item--${mod}` : ''}" data-reveal><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join('')}</dl></div>
 </section>`;
 
 // sections: [{ id?, title, html }] — html güvenli, betik içinde yazılmış içeriktir.
