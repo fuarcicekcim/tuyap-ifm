@@ -576,3 +576,37 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
   .hero__cta .btn { min-height: 48px; padding: 0 1.3rem; font-size: .95rem; }
   .hero__cta .btn .icon { width: 18px; height: 18px; }
 }
+
+/* ---------- Hero: başlık ve "sıradaki fuar" kartı yan yana (telefon ve tablet) ----------
+   Kullanıcı isteği (2026-11-18): kart başlığın altında değil yanında olsun, gerekirse küçülsün.
+   < 768 px: başlık dar bir sütunda 4 satır olur, kart sağda kompakt durur (< 560 px'te tarih tek satır,
+   logolar küçük bir satır, "Fuar sayfası" bağlantısı gizli; logo şeridi aynı sayfaya gider).
+   768–1023 px: başlık iki satır, kart sağda. ≥ 1024 px değişmez (solda metin, sağda fotoğraf). */
+@media (max-width: 1023px) {
+  .hero__copy { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: start; column-gap: clamp(.75rem, 3vw, 1.5rem); }
+  .hero__copy > .hero__fair { width: 100%; max-width: 28rem; margin: 0; justify-self: end; }
+  /* Kart genişliği 560 px ve üstünde de dar kalır: tarih + metin üstte, logolar altta tek satır. */
+  .hero__fair { grid-template-columns: auto minmax(0, 1fr); }
+  .hero__fair-logos { grid-column: 1 / -1; flex-direction: row; gap: .8rem; padding: .45rem .8rem; }
+  .hero__fair-logos img { height: 26px; }
+  .hero__fair-logos img + img { padding: 0 0 0 .8rem; border-top: 0; border-left: 1px solid var(--line); }
+}
+@media (max-width: 767px) {
+  .hero h1 { max-width: 4.4em; font-size: clamp(1.75rem, .4rem + 7vw, 2.6rem); line-height: 1.04; }
+}
+@media (max-width: 559px) {
+  .hero__fair { grid-template-columns: minmax(0, 1fr); gap: .5rem; padding: .5rem; border-radius: 12px; }
+  .hero__fair-date { display: flex; justify-content: center; align-items: baseline; gap: .4rem; min-width: 0; padding: .45rem .5rem; border-radius: 8px; }
+  .hero__fair-date strong { font-size: 1.3rem; }
+  .hero__fair-date span { font-size: .6875rem; letter-spacing: .1em; }
+  .hero__fair-body small { font-size: .6875rem; letter-spacing: .08em; line-height: 1.3; text-wrap: balance; }
+  .hero__fair-body h2 { margin-top: .3rem; font-size: .98rem; line-height: 1.18; }
+  .hero__fair-links { margin-top: .4rem; font-size: .8rem; }
+  .hero__fair-logos { padding: .3rem .45rem; gap: .5rem; border-radius: 8px; }
+  .hero__fair-logos img { height: 20px; }
+  .hero__fair-logos img + img { padding-left: .5rem; }
+}
+/* Dar kartta iki bağlantı alt alta düşüp dokunma alanları üst üste biner: yalnızca sipariş bağlantısı kalır. */
+@media (max-width: 639px) {
+  .hero__fair-links a { display: none; }
+}
