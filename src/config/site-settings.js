@@ -23,6 +23,10 @@ export const CONTACT = {
   whatsapp: '905475670406',
   email: 'fuarcicekcim@gmail.com',
   instagram: 'https://www.instagram.com/fuarcicekcim/',
+  // Google İşletme Profili (Haritalar) paylaşım bağlantısı. Boşsa sağ alttaki yüzen kümede Haritalar düğmesi görünmez.
+  // Google Haritalar'da işletmenizi açın → Paylaş → Bağlantıyı kopyala (maps.app.goo.gl/… ile başlar).
+  // Adres gizli (hizmet bölgesi işletmesi) olduğundan sokak adresi yazılmaz; yalnızca profil bağlantısı konur.
+  maps: '',
 };
 
 export const DELIVERY = {

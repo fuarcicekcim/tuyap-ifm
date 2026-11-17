@@ -11,9 +11,11 @@ import { initCatalog } from './js/catalog.js';
 import { refreshPrices } from './js/prices.js';
 import { initQuote } from './js/quote.js';
 import { initFooter } from './js/footer.js';
+import { initFab } from './js/fab.js';
 import './styles/content.css';
 import './styles/sections.css';
 import './styles/drawer.css';
+import './styles/fab.css';
 
 // Açılış (preloader) masaüstünde hareket paketinin (GSAP) yüklenmesini de bekler; böylece perde açılınca
 // hero başlığı önce düz görünüp sonradan yeniden animasyona girmez. Söz, aşağıda loadMotion atar.
@@ -25,6 +27,7 @@ initDrawer();
 refreshPrices(initCatalog());
 initQuote();
 initFooter();
+initFab();
 
 const DESKTOP = '(min-width: 1024px) and (pointer: fine) and (prefers-reduced-motion: no-preference)';
 

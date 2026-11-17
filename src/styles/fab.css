@@ -1,0 +1,93 @@
+/* Sağ alttaki yüzen iletişim kümesi: Haritalar, Instagram ve WhatsApp, üst üste.
+
+   Tasarım: WhatsApp asıl satış kanalı olduğu için en altta (başparmağa en yakın) ve biraz büyüktür, markanın yeşiliyle
+   dolu daire; Instagram ve Haritalar ikincildir: krem daire, altın ince çerçeve, kendi renkleriyle logo.
+   Üzerine gelince (veya klavye odağında) yanda açıklama etiketi çıkar; dokunmatikte dokununca bağlantı açılır.
+   Mobilde alt çubuğun (Ara / WhatsApp'la Sipariş) üstünde boşluk bırakır; WhatsApp orada zaten alt çubukta olduğundan
+   küme yalnızca diğerlerini gösterir. Altbilgi görününce küme çekilir (orada iletişim bilgileri zaten var).
+   Davranış: src/js/fab.js. İşaretleme: scripts/lib/layout.mjs → fab(). */
+
+.fab {
+  position: fixed; z-index: 46;                /* alt çubuk 45, sipariş çekmecesi 80, açılış perdesi 1000 */
+  right: 12px;
+  bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px) + 20px);   /* alt çubuğun üstünde boşluk */
+  pointer-events: none;                        /* kutu tıklamayı yutmasın; yalnızca düğmeler tıklanır */
+  transition: opacity .35s var(--ease), transform .35s var(--ease), visibility 0s linear 0s;
+}
+@media (min-width: 1024px) {
+  .fab { right: clamp(18px, 2vw, 34px); bottom: clamp(20px, 3.4vh, 34px); }   /* masaüstünde alt çubuk yok */
+}
+.fab__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+@media (min-width: 1024px) { .fab__list { gap: 12px; } }
+.fab__item { position: relative; pointer-events: auto; }
+
+/* Düğme */
+.fab__btn {
+  position: relative; display: grid; place-items: center;
+  width: 46px; height: 46px; border-radius: 50%;
+  color: var(--forest);
+  background: radial-gradient(circle at 50% 28%, #fffdf8 0%, var(--paper) 62%, #efe9dc 100%);
+  border: 1px solid rgba(197, 160, 89, .6);
+  box-shadow: 0 14px 28px -14px rgba(23, 54, 40, .55), 0 2px 7px rgba(23, 54, 40, .16);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .3s;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (min-width: 1024px) { .fab__btn { width: 52px; height: 52px; } }
+.fab__btn:active { transform: scale(.94); }
+.fab__glyph { display: block; width: 50%; height: 50%; fill: currentColor; }
+.fab__item--ig .fab__glyph { fill: url(#fab-ig); }      /* degrade tanımı Instagram çiziminin içindedir */
+.fab__item--maps .fab__glyph { fill: #ea4335; }
+
+/* WhatsApp: dolu yeşil daire, biraz büyük */
+.fab__item--wa .fab__btn {
+  color: #fff; border-color: rgba(255, 255, 255, .5);
+  background: linear-gradient(150deg, #25a15a 0%, var(--wa) 62%);
+  box-shadow: 0 16px 30px -14px rgba(26, 127, 69, .8), 0 2px 8px rgba(23, 54, 40, .2);
+}
+@media (min-width: 1024px) { .fab__item--wa .fab__btn { width: 62px; height: 62px; } }
+@media (max-width: 1023px) { .fab__item--wa { display: none; } }   /* mobil/tablet: WhatsApp alt çubukta */
+
+/* Yan etiket (ipucu): süstür, erişilebilir ad aria-label'dadır. Klavye odağında da görünür. */
+.fab__tip {
+  position: absolute; right: calc(100% + 14px); top: 50%;
+  padding: .55rem .9rem; border-radius: 999px; white-space: nowrap; pointer-events: none;
+  font: 600 .8125rem/1 var(--font-ui); letter-spacing: .02em; color: var(--cream); background: var(--forest);
+  box-shadow: 0 10px 24px -12px rgba(23, 54, 40, .6);
+  opacity: 0; visibility: hidden; transform: translate(10px, -50%);
+  transition: opacity .25s var(--ease), transform .35s var(--ease), visibility 0s linear .25s;
+}
+.fab__btn:focus-visible .fab__tip { opacity: 1; visibility: visible; transform: translate(0, -50%); transition-delay: 0s; }
+@media (hover: hover) {
+  .fab__btn:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 20px 34px -14px rgba(23, 54, 40, .6), 0 3px 9px rgba(23, 54, 40, .18); }
+  .fab__item--wa .fab__btn:hover { border-color: rgba(255, 255, 255, .8); box-shadow: 0 22px 36px -14px rgba(26, 127, 69, .85), 0 3px 10px rgba(23, 54, 40, .22); }
+  .fab__btn:hover .fab__tip { opacity: 1; visibility: visible; transform: translate(0, -50%); transition-delay: 0s; }
+}
+/* Odak halkası: çift halka (koyu + açık) her zeminde en az 3:1 görünürlük verir. */
+.fab__btn:focus-visible {
+  outline: 2px solid var(--forest); outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(247, 245, 240, .92), 0 14px 28px -14px rgba(23, 54, 40, .55);
+}
+
+/* WhatsApp'a ince, seyrek bir "nefes" halkası (yalnızca masaüstü; hareket azaltmada yok). */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .fab__item--wa .fab__btn::before {
+    content: ''; position: absolute; inset: -1px; border-radius: 50%; pointer-events: none;
+    border: 2px solid rgba(26, 127, 69, .5);
+    animation: fab-pulse 3.8s var(--ease) 2.5s infinite;
+  }
+}
+@keyframes fab-pulse { 0% { transform: scale(1); opacity: .8; } 65%, 100% { transform: scale(1.6); opacity: 0; } }
+
+/* Belirme: JS varsa gizli başlar (açılış perdesi bitince alttan yukarı sırayla gelir). JS yoksa düğmeler görünür kalır. */
+.fab.is-armed:not(.is-in) .fab__item { opacity: 0; }
+.fab.is-in .fab__item { animation: fab-in .8s var(--ease) both; animation-delay: calc(var(--i, 0) * 90ms); }
+@keyframes fab-in { from { opacity: 0; transform: translateY(18px) scale(.88); } }
+
+/* Altbilgi görünürken küme çekilir. */
+.fab.is-away { opacity: 0; transform: translateY(14px); visibility: hidden; transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s linear .3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fab.is-in .fab__item { animation: none; }
+  .fab, .fab__btn, .fab__tip { transition: none; }
+}
+@media print { .fab { display: none; } }

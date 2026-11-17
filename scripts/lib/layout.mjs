@@ -1,6 +1,7 @@
 import { SITE, CONTACT, DELIVERY, VENUES, FAIR_DAYS, PRICING, RIBBON } from '../../src/config/site-settings.js';
 import { esc, icon, trDay } from './html.mjs';
 import { INTRO_BOOT, INTRO_CRITICAL_CSS } from './intro-boot.mjs';
+import { BRAND_PATHS } from './brand-icons.mjs';
 
 const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,500;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap';
 
@@ -54,6 +55,29 @@ function dock() {
   <a class="btn btn--ghost-light" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="dock">${icon('phone')}Ara</a>
   <a class="btn btn--wa" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="dock"><img class="wa3d wa3d--dock" src="/assets/icons/whatsapp-3d.webp" width="96" height="96" alt="" decoding="async">WhatsApp’la Sipariş</a>
 </div>`;
+}
+
+// Sağ alttaki yüzen iletişim kümesi: WhatsApp (asıl kanal, en altta ve biraz büyük), Instagram, Haritalar.
+// Haritalar bağlantısı (CONTACT.maps) boşsa o düğme hiç çizilmez; uydurma adres/bağlantı konmaz.
+// Mobilde WhatsApp zaten alt çubukta ("WhatsApp'la Sipariş") olduğundan küme yalnızca diğerlerini gösterir (CSS).
+// Düğmeler yalnızca simgedir: erişilebilir ad aria-label'dadır, yandaki etiket süs ve ipucudur (aria-hidden).
+function fab() {
+  const glyph = (path, extra = '') => `<svg class="fab__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${extra}<path d="${path}"/></svg>`;
+  const igGradient = '<defs><linearGradient id="fab-ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#833ab4"/><stop offset=".55" stop-color="#e1306c"/><stop offset="1" stop-color="#f56040"/></linearGradient></defs>';
+  // Yukarıdan aşağıya sıra: Haritalar, Instagram, WhatsApp. i = beliriş sırası (alttan yukarı).
+  const items = [
+    CONTACT.maps && { id: 'maps', href: CONTACT.maps, label: 'Haritalar’da bulun', track: 'maps_click', svg: glyph(BRAND_PATHS.googlemaps) },
+    CONTACT.instagram && { id: 'ig', href: CONTACT.instagram, label: 'Instagram’da takip edin', track: 'instagram_click', svg: glyph(BRAND_PATHS.instagram, igGradient) },
+    { id: 'wa', href: waLink(), label: 'WhatsApp’tan yazın', track: 'whatsapp_click', svg: glyph(BRAND_PATHS.whatsapp) },
+  ].filter(Boolean);
+  return `
+<nav class="fab" data-fab aria-label="Hızlı iletişim">
+  <ul class="fab__list">${items.map((it, n) => `
+    <li class="fab__item fab__item--${it.id}" style="--i:${items.length - 1 - n}">
+      <a class="fab__btn" href="${esc(it.href)}" target="_blank" rel="noopener" aria-label="${esc(it.label)}" data-track="${it.track}" data-track-location="fab">${it.svg}<span class="fab__tip" aria-hidden="true">${esc(it.label)}</span></a>
+    </li>`).join('')}
+  </ul>
+</nav>`;
 }
 
 function drawer() {
@@ -252,6 +276,7 @@ ${body}
 </main>
 ${footer()}
 ${dock()}
+${fab()}
 ${drawer()}
 <script type="application/json" id="catalog-data">${catalogJson}</script>
 </body>
