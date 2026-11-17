@@ -177,3 +177,28 @@
   .quote__intro { position: sticky; top: calc(var(--header-h) + 2rem); }
   .quote__form { padding: 0 2rem 2rem; }
 }
+
+/* ---------- Mobil ürün sayfası: ad, fiyat ve "Siparişe ekle" ilk ekranda ----------
+   Görseller yana kaydırılan şerit olur (kırpılmadan, 2:3), açıklama blokları butonların altına iner. */
+@media (max-width: 639px) {
+  .pdp { padding-top: 1rem; }
+  .pdp__grid { gap: 1.1rem; }
+  .pdp__gallery {
+    display: flex; gap: .75rem; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
+  }
+  .pdp__gallery::-webkit-scrollbar { display: none; }
+  /* Fotoğraf yüksekliği ekrana göre: kısa telefonlarda küçülür ki fiyat ilk ekranda kalsın. */
+  .pdp__gallery figure { flex: 0 0 auto; width: min(62%, calc(clamp(240px, 100svh - 480px, 340px) / 1.5)); scroll-snap-align: start; }
+  .pdp__info > .eyebrow { display: none; } /* kategori zaten yol bağlantısında yazıyor */
+  .pdp__info { display: flex; flex-direction: column; }
+  .pdp__info .crumbs ol { margin-bottom: .6rem; }
+  .pdp__info .crumbs li:last-child { display: none; }
+  .pdp__info h1 { font-size: var(--step-3); margin: .3rem 0 .6rem; }
+  .pdp__price strong { font-size: 1.7rem; }
+  .pdp__vat { margin-bottom: .9rem; }
+  .pdp__ctas { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin: 0 0 1.25rem; }
+  .pdp__ctas .btn { min-height: 50px; padding: 0 .6rem; font-size: .92rem; gap: .45rem; }
+  .pdp__lead, .pdp__values, .pdp__note, .pdp__about { order: 1; }
+}
