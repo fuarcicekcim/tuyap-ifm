@@ -64,17 +64,22 @@ a { color: inherit; }
 .lock-symbol { display: grid; place-items: center; width: 46px; height: 46px; background: #e4ecdf; color: #28553e; border: 1px solid #d5dfce; border-radius: 14px; margin: 0 auto 17px; }
 .lock-card h1 { font: 500 34px/1.25 "Playfair Display", Georgia, serif; letter-spacing: -.04em; }
 .lock-description { margin: 11px 0 22px; color: #727e71; font-size: 13px; line-height: 1.65; }
-.pin-input { display: block; width: 100%; height: 66px; padding: 6px 14px 6px 29px; background: #fffefa; border: 1px solid #d4ddcd; border-radius: 12px; color: #28553e; font-size: 30px; text-align: center; letter-spacing: 20px; }
-.pin-input:focus { border-color: #789373; outline: 2px solid #dbe7d7; }
-.pin-error { min-height: 23px; margin: 9px 0 8px; }
+.login-input { display: block; width: 100%; height: 56px; padding: 6px 18px; background: #fffefa; border: 1px solid #d4ddcd; border-radius: 12px; color: #28553e; font-size: 18px; letter-spacing: .12em; }
+.login-input:focus { border-color: #789373; outline: 2px solid #dbe7d7; }
+.login-error { min-height: 23px; margin: 9px 0 8px; }
 .lock-submit { width: 100%; justify-content: center; }
+.lock-local { width: 100%; justify-content: center; margin-top: 10px; }
+/* .admin-button (aşağıda, aynı özgüllükte) bu değerleri ezmesin diye iki sınıfla yazıldı. */
+.admin-button.lock-submit, .admin-button.lock-local { min-height: 44px; }
+.admin-button.lock-local { background: transparent; border-color: #c9d6c3; color: #28553e; }
+.admin-button.lock-local:hover { background: #eef3ea; border-color: #789373; }
 .lock-back { display: inline-flex; align-items: center; gap: 6px; color: #697965; margin-top: 23px; text-decoration: none; font-size: 12px; }
 .lock-back svg { width: 14px; height: 14px; }
 .lock-note { color: #85907f; font-size: 10px; margin-top: 27px; }
-.lock-card.is-shaking, .lock-card.shake, .pin-input.shake, #pin-form.is-shaking { animation: pin-shake .35s ease-in-out; }
+.lock-card.is-shaking, .lock-card.shake, .login-input.shake, #login-form.is-shaking { animation: login-shake .35s ease-in-out; }
 .lock-screen.is-unlocking { animation: unlock .35s ease both; }
 .dashboard.is-entering { animation: panel-enter .3s ease both; }
-@keyframes pin-shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+@keyframes login-shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
 @keyframes unlock { to { opacity: 0; transform: translateY(-8px); } }
 
 .dashboard { display: flex; min-height: 100svh; background: var(--admin-bg); }

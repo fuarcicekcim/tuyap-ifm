@@ -4,6 +4,10 @@
   const store = window.FuarStore;
   const get = (id) => document.getElementById(id);
   const sessionKey = 'fuar-admin-session';
+  // Giriş şifresi kodda tutulmaz: sunucudaki config.php şifresiyle api/katalog-kaydet.php üzerinden doğrulanır.
+  const loginUrl = 'api/katalog-kaydet.php';
+  const isLocalHost = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname) || location.hostname.endsWith('.localhost');
+  let adminPassword = ''; // Yalnızca bellekte tutulur; çıkışta veya sayfa yenilenince silinir (yayın penceresini doldurmak için).
   const themeKey = 'fuar-admin-theme';
   const sidebarKey = 'fuar-admin-sidebar';
   const mobileSidebar = window.matchMedia('(max-width: 600px)');
@@ -289,11 +293,40 @@
     catch { /* Clearing the visible panel still locks this page. */ }
     for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
     setMobileMenu(false);
+    adminPassword = '';
+    get('publish-password').value = '';
     get('dashboard').hidden = true;
     get('lock-screen').hidden = false;
-    get('pin-input').value = '';
-    get('pin-error').textContent = '';
-    get('pin-input').focus();
+    get('login-input').value = '';
+    get('login-error').textContent = '';
+    get('local-preview-button').hidden = true;
+    get('login-input').focus();
+  }
+
+  function unlock() {
+    try { sessionStorage.setItem(sessionKey, 'unlocked'); }
+    catch { notify('Oturum depolaması kapalı. Sayfa yenilendiğinde yeniden giriş gerekecek.'); }
+    showDashboard();
+  }
+
+  // Şifreyi sunucuya doğrulatır. ok: şifre doğru; denied: sunucu reddetti (hatalı şifre, çok deneme, ayar eksik);
+  // unreachable/unavailable: sunucuya ulaşılamadı veya bu ortamda PHP yok (yerel önizleme gibi).
+  async function verifyPassword(password) {
+    let response;
+    try {
+      response = await fetch(loginUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ eylem: 'giris', sifre: password })
+      });
+    } catch {
+      return { status: 'unreachable', message: 'Sunucuya ulaşılamadı. İnternet bağlantınızı kontrol edin.' };
+    }
+    const result = await response.json().catch(() => null);
+    if (result && typeof result.ok === 'boolean') {
+      return result.ok ? { status: 'ok' } : { status: 'denied', message: result.error || 'Giriş reddedildi.' };
+    }
+    return { status: 'unavailable', message: `Bu ortamda giriş doğrulanamıyor. Sunucuda PHP ve config.php gerekir. (Sunucu yanıtı: ${response.status})` };
   }
 
   function previewImage(src) {
@@ -374,34 +407,57 @@
   function exportData() {
     data = store.read();
     get('export-code').value = store.exportSource(data);
+    if (adminPassword && !get('publish-password').value) get('publish-password').value = adminPassword;
     openDialog(get('export-dialog'));
   }
 
   if (!store) {
-    get('pin-error').textContent = 'Ürün verisi yüklenemedi. İnternet bağlantınızı kontrol edip sayfayı yenileyin.';
+    get('login-error').textContent = 'Ürün verisi yüklenemedi. İnternet bağlantınızı kontrol edip sayfayı yenileyin.';
     return;
   }
 
-  get('pin-input').addEventListener('input', (event) => {
-    event.target.value = event.target.value.replace(/\D/g, '').slice(0, 4);
-    get('pin-error').textContent = '';
+  get('login-input').addEventListener('input', (event) => {
+    get('login-error').textContent = '';
     event.target.removeAttribute('aria-invalid');
   });
 
-  get('pin-form').addEventListener('submit', (event) => {
+  get('login-form').addEventListener('submit', async (event) => {
     event.preventDefault();
-    if (get('pin-input').value !== '0406') {
-      get('pin-error').textContent = 'Hatalı PIN Kodu!';
-      get('pin-input').setAttribute('aria-invalid', 'true');
-      get('pin-form').classList.remove('is-shaking');
-      void get('pin-form').offsetWidth;
-      get('pin-form').classList.add('is-shaking');
-      get('pin-input').select();
+    const input = get('login-input');
+    const submit = get('login-submit');
+    const password = input.value;
+    if (!password || submit.disabled) return;
+    submit.disabled = true;
+    submit.setAttribute('aria-busy', 'true');
+    get('login-error').textContent = '';
+    const result = await verifyPassword(password);
+    submit.disabled = false;
+    submit.removeAttribute('aria-busy');
+    if (result.status !== 'ok') {
+      get('login-error').textContent = result.message;
+      // Yalnızca bu bilgisayardaki (localhost) önizlemede, sunucu hiç yanıt vermiyorsa yerel açılış sunulur.
+      get('local-preview-button').hidden = !(isLocalHost && result.status !== 'denied');
+      if (result.status === 'denied') {
+        input.setAttribute('aria-invalid', 'true');
+        get('login-form').classList.remove('is-shaking');
+        void get('login-form').offsetWidth;
+        get('login-form').classList.add('is-shaking');
+        input.select();
+      }
       return;
     }
-    try { sessionStorage.setItem(sessionKey, 'unlocked'); }
-    catch { notify('Oturum depolaması kapalı. Sayfa yenilendiğinde yeniden giriş gerekecek.'); }
-    showDashboard();
+    adminPassword = password;
+    input.value = '';
+    unlock();
+  });
+
+  // Yerel önizleme (localhost, PHP yok): giriş doğrulanamaz ve yayınlama da çalışmaz; düzenleme ve dışa aktarma kullanılabilir.
+  get('local-preview-button').addEventListener('click', () => {
+    get('login-input').value = '';
+    get('login-error').textContent = '';
+    get('local-preview-button').hidden = true;
+    unlock();
+    notify('Yerel önizleme: sunucu doğrulaması ve yayınlama kapalı.');
   });
 
   get('logout-button').addEventListener('click', lock);
@@ -638,8 +694,8 @@
   get('sidebar-toggle').setAttribute('aria-expanded', String(!collapsed));
   let remembered = false;
   try { remembered = sessionStorage.getItem(sessionKey) === 'unlocked'; }
-  catch { /* A PIN entry still works with session storage unavailable. */ }
+  catch { /* Giriş yine çalışır; yalnızca sayfa yenilenince yeniden giriş gerekir. */ }
   if (remembered) showDashboard();
-  else get('pin-input').focus();
+  else get('login-input').focus();
   refreshIcons();
 })();

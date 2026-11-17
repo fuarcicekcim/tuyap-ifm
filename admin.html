@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:wght@500;600&amp;display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com/3.4.17" defer></script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
-  <link rel="stylesheet" href="admin.css?v=1">
+  <link rel="stylesheet" href="admin.css?v=2">
   <script src="products-data.js" defer></script>
   <script src="catalog-store.js" defer></script>
   <script src="admin.js" defer></script>
@@ -23,15 +23,16 @@
       <a class="lock-brand" href="./" aria-label="Fuar Çiçekçim ana sayfa"><img src="assets/fuar-cicekcim-logo-yatay.png" alt="Fuar Çiçekçim" width="720" height="240"></a>
       <span class="lock-symbol"><i data-lucide="lock-keyhole" aria-hidden="true"></i></span>
       <h1 id="login-title">Yönetici girişi</h1>
-      <p class="lock-description">Vitrininizi yönetmek için dört haneli PIN kodunuzu girin.</p>
-      <form id="pin-form">
-        <label class="visually-hidden" for="pin-input">Dört haneli PIN kodu</label>
-        <input class="pin-input" id="pin-input" name="pin" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" minlength="4" autocomplete="current-password" required aria-describedby="pin-error" autofocus>
-        <p class="field-error pin-error" id="pin-error" aria-live="polite"></p>
-        <button class="admin-button admin-button--primary lock-submit" type="submit">Panele giriş yap <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+      <p class="lock-description">Vitrininizi yönetmek için yönetici şifrenizi girin. Bu, yayın şifrenizle aynıdır.</p>
+      <form id="login-form">
+        <label class="visually-hidden" for="login-input">Yönetici şifresi</label>
+        <input class="login-input" id="login-input" name="password" type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" required aria-describedby="login-error" autofocus>
+        <p class="field-error login-error" id="login-error" aria-live="polite"></p>
+        <button class="admin-button admin-button--primary lock-submit" id="login-submit" type="submit">Panele giriş yap <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+        <button class="admin-button admin-button--quiet lock-local" id="local-preview-button" type="button" hidden>Yerel önizleme olarak aç</button>
       </form>
       <a class="lock-back" href="./"><i data-lucide="arrow-up-left" aria-hidden="true"></i> Vitrine dön</a>
-      <p class="lock-note">PIN yalnızca bu tarayıcıdaki panel erişimini sınırlar.</p>
+      <p class="lock-note">Şifre sunucuda doğrulanır ve bu tarayıcıda saklanmaz.</p>
     </div>
   </section>
 
@@ -163,7 +164,7 @@
 
   <dialog class="admin-dialog export-dialog" id="export-dialog" aria-labelledby="export-title">
     <div class="dialog-heading"><div><span class="dialog-eyebrow">FUARCICEKCIM.COM</span><h2 id="export-title">Güncel veriyi sunucuya yayınlayın</h2></div><button class="icon-button" type="button" data-close-dialog="export-dialog" aria-label="Dışa aktarma penceresini kapat"><i data-lucide="x" aria-hidden="true"></i></button></div>
-    <p class="dialog-description">Yayın şifrenizi girip <strong>Sunucuya yayınla</strong>’ya basın; <code>products-data.js</code> doğrudan sitede güncellenir ve tüm ziyaretçilere yansır. (Şifre: cPanel’deki <code>config.php</code> → <code>admin_sifre</code>.) Alternatif olarak dosyayı indirip File Manager ile yükleyebilirsiniz.</p>
+    <p class="dialog-description">Yayın şifrenizi girip <strong>Sunucuya yayınla</strong>’ya basın; <code>products-data.js</code> doğrudan sitede güncellenir ve tüm ziyaretçilere yansır. (Şifre, panele girişte kullandığınızla aynıdır; sunucudaki <code>config.php</code> → <code>admin_sifre</code>. Bu sayfa açıkken giriş şifreniz otomatik doldurulur.) Alternatif olarak dosyayı indirip File Manager ile yükleyebilirsiniz.</p>
     <label class="form-field"><span>Yayın şifresi</span><input id="publish-password" type="password" autocomplete="current-password" placeholder="config.php içindeki admin_sifre"></label>
     <label class="form-field export-code-label"><span>Veri dosyasının içeriği</span><textarea id="export-code" rows="10" readonly spellcheck="false"></textarea></label>
     <div class="dialog-actions"><button class="admin-button admin-button--quiet" id="copy-data-button" type="button"><i data-lucide="copy" aria-hidden="true"></i> Kodu kopyala</button><button class="admin-button admin-button--quiet" id="download-data-button" type="button"><i data-lucide="download" aria-hidden="true"></i> products-data.js indir</button><button class="admin-button admin-button--primary" id="publish-server-button" type="button"><i data-lucide="cloud-upload" aria-hidden="true"></i> Sunucuya yayınla</button></div>

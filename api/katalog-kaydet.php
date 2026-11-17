@@ -1,5 +1,6 @@
 <?php
-/* Admin panelinden gelen products-data.js içeriğini doğrulayıp site köküne yazar. */
+/* Admin panelinden gelen products-data.js içeriğini doğrulayıp site köküne yazar.
+   Ayrıca panelin giriş ekranı şifreyi buradan doğrulatır (eylem = giris); şifre sayfa koduna yazılmaz. */
 declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 $cfg = require dirname(__DIR__) . '/config.php';
@@ -17,6 +18,8 @@ if (!hash_equals((string) $cfg['admin_sifre'], (string) ($in['sifre'] ?? '')) ||
   $tries[] = time(); @file_put_contents($f, json_encode($tries));
   fail($cfg['admin_sifre'] === 'DEGISTIR-BENI-0406' ? 'Önce config.php içindeki admin_sifre değerini değiştirin.' : 'Şifre hatalı.', 403);
 }
+// Yalnızca giriş denetimi: şifre doğruysa burada biter. Yanlış şifreler yukarıdaki deneme sınırına sayılır.
+if (($in['eylem'] ?? '') === 'giris') { echo json_encode(['ok' => true], JSON_UNESCAPED_UNICODE); exit; }
 $src = (string) ($in['kaynak'] ?? '');
 if (strlen($src) > 3_000_000) fail('Veri çok büyük.');
 if (!preg_match('/^\s*window\.FUAR_CATALOG\s*=\s*(\{.*\});?\s*$/s', $src, $m)) fail('Beklenen biçimde değil (window.FUAR_CATALOG = {...};).');
