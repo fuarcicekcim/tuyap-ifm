@@ -10,9 +10,11 @@ function readProducts() {
 
 function initFilters() {
   const grid = document.querySelector('[data-grid]');
-  if (!grid) return;
-  const cards = [...grid.querySelectorAll('.card')];
   const more = document.querySelector('[data-more]');
+  // Kategori sayfalarındaki statik ızgarada filtre sekmeleri ve "Daha fazla göster" düğmesi yoktur; yapılacak bir şey kalmaz.
+  // (Eskiden burada `more` boşken addEventListener çağrılıyor, hata bu sayfalarda "Siparişe ekle"yi ve sonraki kodu durduruyordu.)
+  if (!grid || !more) return;
+  const cards = [...grid.querySelectorAll('.card')];
   let filter = 'all';
   let limit = PAGE;
 
