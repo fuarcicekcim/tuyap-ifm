@@ -23,10 +23,11 @@ export const CONTACT = {
   whatsapp: '905475670406',
   email: 'fuarcicekcim@gmail.com',
   instagram: 'https://www.instagram.com/fuarcicekcim/',
-  // Google İşletme Profili (Haritalar) paylaşım bağlantısı. Boşsa sağ alttaki yüzen kümede Haritalar düğmesi görünmez.
-  // Google Haritalar'da işletmenizi açın → Paylaş → Bağlantıyı kopyala (maps.app.goo.gl/… ile başlar).
+  // Google İşletme Profili paylaşım bağlantısı (kullanıcı verdi, 2026-11-17): "Fuar Çiçekçim" profil kartını açar
+  // (haritada konum, yol tarifi). Boşsa sağ alttaki yüzen kümede Haritalar düğmesi görünmez.
+  // Başka bir bağlantıya geçmek için: Google Haritalar'da işletmeyi açın → Paylaş → Bağlantıyı kopyala.
   // Adres gizli (hizmet bölgesi işletmesi) olduğundan sokak adresi yazılmaz; yalnızca profil bağlantısı konur.
-  maps: '',
+  maps: 'https://share.google/vNIds6xncCeRpxJdX',
 };
 
 export const DELIVERY = {
