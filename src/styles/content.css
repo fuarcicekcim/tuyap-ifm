@@ -193,7 +193,8 @@
    Görseller yana kaydırılan şerit olur (kırpılmadan, 2:3), açıklama blokları butonların altına iner. */
 @media (max-width: 639px) {
   .pdp { padding-top: 1rem; }
-  .pdp__grid { gap: 1.1rem; }
+  /* minmax(0, 1fr): içerik (ör. yan yana iki düğme) en küçük genişliğiyle tek sütunu taşırmasın. */
+  .pdp__grid { grid-template-columns: minmax(0, 1fr); gap: 1.1rem; }
   .pdp__gallery {
     display: flex; gap: .75rem; overflow-x: auto; overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory; scrollbar-width: none;
@@ -213,6 +214,8 @@
   .pdp__ctas .btn { min-height: 50px; padding: 0 .6rem; font-size: .92rem; gap: .45rem; }
   .pdp__lead, .pdp__values, .pdp__note, .pdp__about { order: 1; }
 }
+/* 360 px altındaki telefonlarda iki düğme yan yana sığmaz ("WhatsApp'tan sor" ~176 px ister): alt alta. */
+@media (max-width: 359px) { .pdp__ctas { grid-template-columns: 1fr; } }
 
 /* ---------- Tablet ürün sayfası (640–1023px): fotoğraflar solda, ad/fiyat/butonlar sağda ---------- */
 @media (min-width: 640px) and (max-width: 1023px) {
