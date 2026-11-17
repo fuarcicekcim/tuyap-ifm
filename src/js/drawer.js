@@ -67,7 +67,7 @@ function shipBlock(l, n) {
         <label class="field"><span>Teslim alacak firma <b aria-hidden="true">*</b></span><input name="firma-${id}" data-line-field="firma" value="${esc(d.firma || '')}" autocomplete="off" maxlength="120" placeholder="Standın sahibi firma"></label>
       </div>
       <div class="ribbon ribbon--sm" aria-hidden="true"><span class="ribbon__tail"></span><span class="ribbon__band"><span class="ribbon__text" data-ribbon-preview>${esc(ribbonText(d.kart))}</span></span><span class="ribbon__tail ribbon__tail--end"></span></div>
-      <label class="field"><span>Kuşak yazısı</span><input name="kart-${id}" data-line-field="kart" value="${esc(d.kart || '')}" maxlength="${RIBBON.maxChars}" autocomplete="off" placeholder="Örn. ATLAS TASARIM · İyi Fuarlar"></label>
+      <label class="field"><span>Şerit yazısı</span><input name="kart-${id}" data-line-field="kart" value="${esc(d.kart || '')}" maxlength="${RIBBON.maxChars}" autocomplete="off" placeholder="Örn. ATLAS TASARIM · İyi Fuarlar"></label>
       <p class="field__hint"><span data-ribbon-count>${(d.kart || '').length}</span>/${RIBBON.maxChars} karakter · Türkçe karakterler doğru basılır</p>
       ${l.qty > 1 ? `<button type="button" class="ship__split" data-line-split="${esc(l.key)}">${l.qty} adet aynı standa gidiyor · <u>1 adedini başka standa gönder</u></button>` : ''}
     </div>`;
@@ -186,7 +186,7 @@ function buildMessage(no, data, totals, res) {
   res.forEach((r, n) => {
     const i = r.line;
     if (i.name) lines.push(`*${n + 1}) ${i.qty} × ${i.name}*${i.pkg ? ` (${i.pkg})` : ''} — ${tl(i.price * i.qty)}`);
-    lines.push(`   Stant: ${standLabel(r) || '-'}`, `   Teslim alacak: ${r.firma || '-'}`, `   Kuşak: ${(i.d.kart || '').trim() || '-'}`);
+    lines.push(`   Stant: ${standLabel(r) || '-'}`, `   Teslim alacak: ${r.firma || '-'}`, `   Şerit: ${(i.d.kart || '').trim() || '-'}`);
   });
   if (cart.items.length) lines.push('', `Ara toplam (KDV hariç): ${tl(totals.net)}`, `KDV %${PRICING.vatRate}: ${tl(totals.vat)}`, `*Toplam (KDV dahil): ${tl(totals.gross)}*`);
   lines.push('', '*Fuar*',

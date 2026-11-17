@@ -78,7 +78,7 @@ function drawer() {
       <form class="order" id="siparis-formu" data-order-form novalidate>
         <fieldset class="order__set">
           <legend>Fuar ve teslim zamanı</legend>
-          <p class="field__hint order__lead">Tüm ürünler için geçerlidir. Stant, teslim alacak firma ve kuşak yazısını yukarıda her ürünün altına yazın.</p>
+          <p class="field__hint order__lead">Tüm ürünler için geçerlidir. Stant, teslim alacak firma ve şerit yazısını yukarıda her ürünün altına yazın.</p>
           <div class="choices">${venueOpts}</div>
           <label class="field"><span>Fuar adı</span><input name="fuar_adi" autocomplete="off" value="${esc(FAIR_DAYS.activeFairName)}" maxlength="200"></label>
           <div class="field-row">
