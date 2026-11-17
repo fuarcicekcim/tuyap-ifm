@@ -6,17 +6,17 @@ export const SITE = {
   url: 'https://www.fuarcicekcim.com',
   locale: 'tr_TR',
   // Bu alanlar Google İşletme Profili ile birebir aynı olmalı (NAP tutarlılığı).
-  // Adres (Türkçe posta biçimi): "Gökevler Mah. 564. Sk. Bahçeşehir Sitesi No:10/A, 34500 Esenyurt/İstanbul".
-  // Mahalle, sokak ve kapı numarasını (Bahçeşehir Sitesi içinde No:10/A) kullanıcı bildirdi (2026-11-17/18). Posta kodu
-  // Google Haritalar kaydından alındı; PTT'den doğrulanmadı (Esenyurt'ta başka kodlar da kullanılıyor, kullanıcıya soruldu).
-  // Google İşletme Profili'ndeki adres de aynı yazıma getirilmeli (NAP tutarlılığı); Google görüntülerken kendi biçimine çevirebilir.
+  // Adres (Türkçe posta biçimi): "Gökevler Mah. 564. Sk. Bahçeşehir Sitesi No:10/A, 34522 Esenyurt/İstanbul".
+  // Mahalle, sokak, kapı numarası (Bahçeşehir Sitesi içinde No:10/A) ve posta kodunu (34522) kullanıcı bildirdi (2026-11-17/18);
+  // önceki 34500, Google Haritalar kaydından alınmıştı ve yanlıştı. Kullanıcı Google İşletme Profili'ne aynı adresi girdi (2026-11-18).
+  // Google adresi görüntülerken kendi biçimine çevirebilir; profilde farklı görünürse site yazımı birebir eşitlenmeli (NAP tutarlılığı).
   // Adres sitede görünür (kullanıcı kararı, 2026-11-17): altbilgi, iletişim sayfası, KVKK ve JSON-LD.
   // Çalışma saatleri: 7/24 (kullanıcı doğruladı, 2026-11-17); JSON-LD'de her gün 00:00–23:59 olarak yazılır (scripts/lib/seo.mjs).
   address: {
     street: 'Gökevler Mah. 564. Sk. Bahçeşehir Sitesi No:10/A',
     district: 'Esenyurt',
     city: 'İstanbul',
-    postalCode: '34500',
+    postalCode: '34522',
     country: 'TR',
   },
   // Tek satır adres, Google'daki biçimde. Şablonlar bunu kullanır (SITE.addressLine); sokak boşsa yalnızca ilçe ve şehir döner.
