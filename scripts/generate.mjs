@@ -63,6 +63,9 @@ async function copyStatic(catalog) {
   fs.mkdirSync(path.join(PUB, 'assets/brand'), { recursive: true });
   await sharp(path.join(ROOT, 'assets/brand-plant-crest.png')).resize({ width: 80 }).webp({ quality: 85 })
     .toFile(path.join(PUB, 'assets/brand/crest-80.webp'));
+  // Açılış (preloader) amblemi: kaynak PNG 320 px olduğundan büyütülmez (bulanıklaşmasın).
+  await sharp(path.join(ROOT, 'assets/brand-plant-crest.png')).webp({ quality: 80, alphaQuality: 90, effort: 6 })
+    .toFile(path.join(PUB, 'assets/brand/crest-320.webp'));
   // Yatay logo (kullanıcının mevcut logosu, www.fuarcicekcim.com ile aynı): başlık için WebP.
   for (const w of [360, 540]) {
     await sharp(path.join(ROOT, 'assets/fuar-cicekcim-logo-yatay.png')).resize({ width: w }).webp({ quality: 90, alphaQuality: 100 })

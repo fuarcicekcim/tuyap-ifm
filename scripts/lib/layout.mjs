@@ -1,5 +1,6 @@
 import { SITE, CONTACT, DELIVERY, VENUES, FAIR_DAYS, PRICING, RIBBON } from '../../src/config/site-settings.js';
 import { esc, icon, trDay } from './html.mjs';
+import { INTRO_BOOT, INTRO_CRITICAL_CSS } from './intro-boot.mjs';
 
 const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,500;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap';
 
@@ -180,19 +181,35 @@ export function setCatalogData(products) {
   catalogJson = JSON.stringify(products.map(({ id, name, price, image, categoryName }) => ({ id, name, price, image, cat: categoryName }))).replace(/</g, '\\u003c');
 }
 
-// Açılış (preloader) için renkli çiçekli ürün fotoğrafları (gerçek katalog görselleri, 400 px).
-const INTRO_IMAGES = ['mor-orkide-lilyum-kirmizi-gul', 'aycicegi-turuncu-ayakli', 'mavi-orkide-renklendirilmis', 'kirmizi-gul-beyaz-gerbera',
-  'dort-dalli-lila-orkide', 'antoryum', 'pembe-lilyum-aranjmani', 'guzmania'];
+// Açılış (preloader): "Çift kapı". Görünüm: src/styles/intro.css, davranış: src/js/intro.js,
+// karar ve ilk boyama CSS'i: scripts/lib/intro-boot.mjs.
+// Aynı sahne iki kapının her birinde yarım görünür (kapılar açılırken amblem ve yazı ikiye bölünür);
+// bu yüzden sahne iki kez yazılır ve JS ikisini birlikte günceller. Ekran okuyucu için yalnızca
+// canlı bölge ve "Atla" düğmesi açıktır; süs olan kapılar aria-hidden'dır.
+function introStage() {
+  return `
+    <div class="intro__stage">
+      <div class="intro__medal">
+        <svg class="intro__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle class="intro__track" cx="50" cy="50" r="49.5"/><circle class="intro__arc" cx="50" cy="50" r="49.5" pathLength="100"/><circle class="intro__spin" cx="50" cy="50" r="49.5" pathLength="100"/></svg>
+        <span class="intro__plate"><img class="intro__crest intro__crest--ghost" src="/assets/brand/crest-320.webp" width="320" height="289" alt="" decoding="async" loading="lazy"><img class="intro__crest" src="/assets/brand/crest-320.webp" width="320" height="289" alt="" decoding="async" loading="lazy"></span>
+      </div>
+      <p class="intro__word"><span class="intro__line"><span>Fuar <em>Çiçekçim</em></span></span></p>
+      <p class="intro__count"><span data-intro-count>0</span><i>%</i></p>
+    </div>`;
+}
 
 function intro() {
+  const venues = VENUES.map((v) => v.short).join(' · ');
   return `
-<div class="intro" aria-hidden="true" data-intro>
-  <div class="intro__card">
-    <div class="intro__meta"><span class="intro__mask"><span>Fuar Çiçekçim</span></span><span class="intro__mask"><span class="intro__count" data-intro-count>0</span></span></div>
-    <div class="intro__frame">${INTRO_IMAGES.map((n, i) => `<img src="/assets/products/${n}-400.webp" width="400" height="600" alt="" decoding="async"${i ? ' loading="lazy"' : ' fetchpriority="low"'}>`).join('')}</div>
+<div class="intro" data-intro>
+  <p class="sr-only" role="status" data-intro-live></p>
+  <div class="intro__panel intro__panel--l" aria-hidden="true">${introStage()}
+    <p class="intro__foot intro__foot--l">${esc(venues)}</p>
   </div>
-  <p class="intro__mono"><span>F</span><i></i><span>Ç</span></p>
-  <p class="intro__word"><span class="intro__line"><span>Fuar</span></span><span class="intro__line intro__line--2"><span><em>Çiçekçim</em></span></span></p>
+  <div class="intro__panel intro__panel--r" aria-hidden="true">${introStage()}
+    <p class="intro__foot intro__foot--r">${esc(DELIVERY.promise)}</p>
+  </div>
+  <button class="intro__skip" type="button" data-intro-skip hidden aria-label="Açılış animasyonunu atla">Atla</button>
 </div>`;
 }
 
@@ -202,7 +219,8 @@ export function page({ path, title, description, body, jsonld = '', preload = ''
 <html lang="tr">
 <head>
 <meta charset="utf-8">
-<script>try{if(!sessionStorage.getItem('fc-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro-on')}catch(e){}</script>
+<script>${INTRO_BOOT}</script>
+<style>${INTRO_CRITICAL_CSS}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">

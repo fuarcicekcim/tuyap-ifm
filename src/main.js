@@ -15,7 +15,10 @@ import './styles/content.css';
 import './styles/sections.css';
 import './styles/drawer.css';
 
-runIntro();
+// Açılış (preloader) masaüstünde hareket paketinin (GSAP) yüklenmesini de bekler; böylece perde açılınca
+// hero başlığı önce düz görünüp sonradan yeniden animasyona girmez. Söz, aşağıda loadMotion atar.
+let motionReady = Promise.resolve();
+runIntro({ motion: () => motionReady });
 initAnalytics();
 initHero();
 initDrawer();
@@ -47,7 +50,7 @@ let motionLoaded = false;
 const loadMotion = () => {
   if (motionLoaded || !desktop.matches) return;
   motionLoaded = true;
-  import('./js/motion.js').then((m) => m.initMotion());
+  motionReady = import('./js/motion.js').then((m) => m.initMotion());
 };
 loadMotion();
 desktop.addEventListener('change', loadMotion);

@@ -1,67 +1,162 @@
-/* Açılış (preloader): ortada hızla değişen çiçek kartı + 0→100 sayaç → kart yukarı kırpılır →
-   dev "Fuar Çiçekçim" yazısı maskeden yükselir → perde yukarı kalkar, sayfa açılır.
-   Oturum başına bir kez; hareket azaltmada hiç gösterilmez (karar <head> içindeki küçük betikte). */
+/* Açılış (preloader) — "Çift kapı".
+
+   İki orman yeşili kapı kapalıyken ortada, krem bir madalyonun içinde marka amblemi alttan yukarı "büyür".
+   Madalyonun çevresindeki altın halka ve sayaç GERÇEK yükleme durumunu gösterir (yazı tipleri, amblem, ilk büyük
+   görsel, sayfa, masaüstünde hareket paketi); süreye göre sahte sayılmaz. Yükleme bitince kapılar ortadan açılır,
+   amblem ve marka adı ikiye bölünür, altta hero görünür.
+
+   Gösterim kuralı <head> içindeki küçük betikte (scripts/lib/intro-boot.mjs): ilk ziyaret + ana sayfa → tam sürüm;
+   dönen ziyaretçi ve iç sayfalar → kısa sürüm; aynı oturumda ikinci kez → hiç; hareket azaltmada → hiç.
+   Perde, sayfa içeriğinin üstünde durur; içerik gizlenmez (LCP ölçümü gecikmez). Davranış: src/js/intro.js.
+
+   Sahne iki kapının her birinde yarım görünür: her kapı, sahnenin tam genişlikli kopyasını kendi yarısına kırpar. */
+
 .intro { display: none; }
-.intro-on .intro, .intro-leaving .intro {
-  position: fixed; inset: 0; z-index: 200;
-  display: grid; place-items: center;
-  background: var(--cream); color: var(--forest);
-  clip-path: inset(0 0 0 0);
-  /* Güvenlik: betik çalışmazsa perde 8 sn sonra kendiliğinden kalkar. */
-  animation: intro-failsafe 0s linear 5s forwards;
+
+html.intro-on .intro,
+html.intro-leaving .intro {
+  display: block; position: fixed; inset: 0; z-index: 1000;
+  --p: 0;                                  /* gerçek ilerleme, 0–1 (JS yazar) */
+  --gap: clamp(10px, 1.6vw, 16px);         /* madalyon ile halka arası */
+  --d: clamp(156px, min(46vw, 36svh), 248px);
+  --pace: 1; --slow: 1; --k: calc(var(--pace) * var(--slow));   /* giriş animasyonlarının hız çarpanı */
+  color: var(--cream);
+  overscroll-behavior: contain; touch-action: none;
+  /* Güvenlik: betik hiç çalışmazsa perde 8 sn sonra kendiliğinden kalkar ve kaydırma açılır. */
+  animation: intro-failsafe 0s linear 8s forwards;
 }
-.intro-on, .intro-on body { overflow: hidden; }
-/* Kaydırma çubuğu boşluğu da krem görünsün (kenarda yeşil şerit kalmasın). */
-.intro-on, .intro-leaving { background: var(--cream); }
+html.intro-on, html.intro-leaving { scrollbar-gutter: stable; }   /* çubuk açılıp kapanınca sayfa kaymasın */
+html.intro-on, html.intro-on body { overflow: hidden; }
+html.intro-on, html.intro-on body { animation: intro-unlock 0s linear 8s forwards; }
+html[data-intro-mode='short'] .intro { --pace: .6; }
+html[data-intro-flags*='slow'] .intro { --slow: 4; }
+/* İnceleme kipleri (?intro=slow / hold) güvenlik süresiyle kesilmesin. */
+html[data-intro-flags] .intro, html[data-intro-flags].intro-on, html[data-intro-flags].intro-on body { animation: none; }
 @keyframes intro-failsafe { to { visibility: hidden; pointer-events: none; } }
+@keyframes intro-unlock { to { overflow: auto; } }
 
-.intro__card { width: clamp(150px, 14vw, 220px); }
-.intro__meta {
-  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
-  margin-bottom: .5rem; font-family: var(--font-ui); font-size: .75rem; font-weight: 600;
-  letter-spacing: .12em; text-transform: uppercase; color: var(--ink);
+/* ---------- Kapılar ---------- */
+.intro__panel {
+  position: absolute; top: 0; bottom: 0; width: calc(50% + 1px);   /* 1px bindirme: ortada ince çizgi kalmaz */
+  overflow: hidden; background: var(--forest);
 }
-.intro__count { font-variant-numeric: tabular-nums; letter-spacing: 0; }
-.intro__mask { display: block; overflow: hidden; }
-.intro__mask > span { display: block; animation: intro-up .55s cubic-bezier(.22, 1, .36, 1) .1s both; }
-.intro__frame {
-  position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: var(--paper);
-  clip-path: inset(100% 0 0 0);
-  animation: intro-clip-in .6s cubic-bezier(.76, 0, .24, 1) .05s forwards;
-}
-.intro__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); }
-.intro__frame img.is-on { opacity: 1; transform: none; transition: transform .6s cubic-bezier(.22, 1, .36, 1); }
-.intro__frame img:first-child { opacity: 1; }
-@keyframes intro-clip-in { to { clip-path: inset(0 0 0 0); } }
-@keyframes intro-up { from { transform: translateY(105%); } to { transform: none; } }
+.intro__panel--l { left: 0; }
+.intro__panel--r { right: 0; }
+/* <head> içindeki en küçük CSS içeriği gizli tutar (stilsiz yanıp sönmesin); bu dosya yüklenince hemen açılır. JS gerekmez. */
+.intro .intro__panel > *, html.intro-on .intro .intro__panel > * { opacity: 1; }
 
-/* Monogram (sol üst) ve dev marka yazısı */
-.intro__mono {
-  position: absolute; top: calc(1.4rem + env(safe-area-inset-top, 0px)); left: var(--gutter, 1.5rem); margin: 0;
-  display: flex; align-items: center; gap: .45rem;
-  font-family: 'Playfair Display', var(--font-display); font-size: 1.5rem; line-height: 1; opacity: 0;
+/* ---------- Sahne (tam genişlikli, kapı yarım gösterir) ---------- */
+.intro__stage {
+  position: absolute; top: 0; bottom: 0; width: calc(200% - 2px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding-bottom: clamp(28px, 8svh, 72px);
 }
-.intro__mono i { display: block; width: 2rem; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; }
+.intro__panel--l .intro__stage { left: 0; }
+.intro__panel--r .intro__stage { right: 0; }
+
+/* Madalyon: krem tabak + amblem; çevresinde ilerleme halkası */
+.intro__medal { position: relative; flex: none; width: var(--d); aspect-ratio: 1; animation: intro-in calc(900ms * var(--k)) var(--ease) calc(60ms * var(--k)) both; }
+/* Madalyonun arkasında çok hafif altın ışıma (derinlik); iki kapıda yarım görünür. */
+.intro__medal::before {
+  content: ''; position: absolute; inset: -70%; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(197, 160, 89, .14), rgba(197, 160, 89, .04) 55%, transparent 74%);
+}
+.intro__plate {
+  position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; border-radius: 50%;
+  background: radial-gradient(circle at 50% 36%, #fffdf8 0%, var(--cream) 60%, #ece6d6 100%);
+  box-shadow: 0 0 0 1px rgba(197, 160, 89, .6), 0 30px 70px -32px rgba(0, 0, 0, .65);
+}
+/* Amblem ilerlemeyle alttan yukarı belirir (yumuşak kenarlı maske). Altında aynı görselin çok soluk bir gölgesi
+   durur: yükleme başlamadan önce de "ne geliyor" belli olur, boş disk gibi görünmez (aynı dosya, ek indirme yok). */
+.intro__crest {
+  grid-area: 1 / 1;
+  display: block; width: 86%; height: auto; margin-top: 3%;
+  -webkit-mask-image: linear-gradient(to top, #000 calc(var(--p) * 118% - 18%), transparent calc(var(--p) * 118%));
+          mask-image: linear-gradient(to top, #000 calc(var(--p) * 118% - 18%), transparent calc(var(--p) * 118%));
+}
+.intro__crest--ghost { opacity: .1; -webkit-mask-image: none; mask-image: none; }
+.intro__ring {
+  position: absolute; left: calc(-1 * var(--gap)); top: calc(-1 * var(--gap));
+  width: calc(100% + 2 * var(--gap)); height: calc(100% + 2 * var(--gap));
+  max-width: none; /* genel kural svg { max-width: 100% } halkanın genişliğini kırpıyordu */
+  transform: rotate(-90deg); overflow: visible; pointer-events: none;
+}
+.intro__track { fill: none; stroke: rgba(247, 245, 240, .16); stroke-width: .45; }
+.intro__arc {
+  fill: none; stroke: var(--gold); stroke-width: .75; stroke-linecap: round;
+  stroke-dasharray: 100; stroke-dashoffset: calc(100 * (1 - var(--p)));
+}
+/* Belirsiz bekleme: JS henüz başlamadıysa (yavaş ağ) halkada dönen kısa bir yay "çalışıyor" der. */
+.intro__spin {
+  fill: none; stroke: var(--gold); stroke-width: .75; stroke-linecap: round; stroke-dasharray: 14 86; opacity: 0;
+  transform-origin: 50% 50%; transform-box: view-box;
+  animation: intro-spin 1.8s linear infinite, intro-fade-in .4s ease .6s both;
+}
+.intro.is-live .intro__spin { animation: none; }
+@keyframes intro-spin { to { transform: rotate(360deg); } }
+@keyframes intro-fade-in { to { opacity: .9; } }
+.intro.is-complete .intro__arc { stroke: #ead6a6; transition: stroke .35s; }
+.intro.is-complete .intro__ring { animation: intro-pulse .7s var(--ease) both; }
+@keyframes intro-pulse { 40% { transform: rotate(-90deg) scale(1.05); } }
+
+@keyframes intro-in { from { opacity: 0; transform: scale(.9); } }
+@keyframes intro-rise { from { transform: translateY(112%); } }
+@keyframes intro-fade { from { opacity: 0; } }
+@keyframes intro-fade-up { from { opacity: 0; transform: translateY(10px); } }
+
+/* Marka adı (maskeden yükselir) */
 .intro__word {
-  position: absolute; left: var(--gutter, 1.5rem); right: var(--gutter, 1.5rem); bottom: 8vh; margin: 0;
-  font-family: 'Playfair Display', var(--font-display); font-weight: 500; line-height: .92; letter-spacing: -.02em;
-  font-size: clamp(4.2rem, 16.5vw, 17rem); pointer-events: none;
+  margin: clamp(22px, 4.2svh, 40px) 0 0; text-align: center; white-space: nowrap;
+  font-family: 'Playfair Display', var(--font-display); font-weight: 500; line-height: 1.12; letter-spacing: -.02em;
+  font-size: clamp(1.8rem, 1.2rem + 2.3vw, 3.25rem);
 }
-.intro__line { display: block; overflow: hidden; padding-bottom: .06em; }
-.intro__line > span { display: block; transform: translateY(110%); }
-.intro__line--2 { text-align: right; }
-.intro__word em { font-style: italic; color: #9A7535; }
+.intro__line { display: block; overflow: hidden; padding: .04em .12em .14em; }
+.intro__line > span { display: block; animation: intro-rise calc(950ms * var(--k)) var(--ease) calc(340ms * var(--k)) both; }
+.intro__word em { font-style: italic; font-weight: 500; color: var(--gold); }
 
-@media (max-width: 640px) {
-  .intro__word { bottom: 16vh; font-size: 23vw; line-height: .95; }
-  .intro__card { width: 46vw; }
+/* Sayaç: sabit genişlikli rakam alanı; yüzde işareti sağda, rakam sayısı değişince oynamaz. */
+.intro__count {
+  display: flex; align-items: baseline; justify-content: center; gap: .1em;
+  animation: intro-fade calc(600ms * var(--k)) var(--ease) calc(460ms * var(--k)) both;
+  margin: clamp(10px, 2svh, 18px) 0 0;
+  font-family: var(--font-ui); font-size: .875rem; font-weight: 600; letter-spacing: .1em;
+  font-variant-numeric: lining-nums tabular-nums; color: var(--muted-on-dark);
 }
+.intro__count > span { min-width: 3ch; text-align: right; color: var(--cream); }
+.intro__count > i { font-style: normal; letter-spacing: 0; color: var(--gold); }
+
+/* Alt satır: iki kapıda ayrı ayrı durur, kapılar açılırken birlikte ayrılır. */
+.intro__foot {
+  position: absolute; margin: 0;
+  animation: intro-fade-up calc(750ms * var(--k)) var(--ease) calc(600ms * var(--k)) both;
+  bottom: calc(clamp(18px, 3.2svh, 32px) + env(safe-area-inset-bottom, 0px));
+  max-width: calc(100% - var(--gutter) - 12px);
+  font-family: var(--font-ui); font-size: .75rem; font-weight: 600; line-height: 1.55; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted-on-dark);
+}
+.intro__foot--l { left: var(--gutter); }
+.intro__foot--r { right: var(--gutter); text-align: right; }
+
+/* "Atla": ilk saniyeden sonra belirir; klavye ve ekran okuyucu ile erişilebilir. */
+.intro__skip {
+  position: absolute; z-index: 2; opacity: 0;
+  top: calc(clamp(14px, 2.6svh, 28px) + env(safe-area-inset-top, 0px)); right: var(--gutter);
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 1.15rem;
+  border: 1px solid rgba(247, 245, 240, .3); border-radius: 999px; background: transparent; color: var(--cream);
+  font: 600 .75rem/1 var(--font-ui); letter-spacing: .16em; text-transform: uppercase; cursor: pointer;
+  transition: border-color .25s, background-color .25s;
+}
+.intro__skip[hidden] { display: none; }
+.intro__skip:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+@media (hover: hover) { .intro__skip:hover { border-color: var(--gold); background: rgba(197, 160, 89, .14); } }
+
+/* Hareket azaltma: <head> betiği perdeyi zaten açmaz; tercih sayfa açıkken değişirse de gösterme. */
 @media (prefers-reduced-motion: reduce) {
-  .intro-on .intro { display: none; }
-  .intro-on, .intro-on body { overflow: auto; }
+  html.intro-on .intro, html.intro-leaving .intro { display: none; }
+  html.intro-on, html.intro-on body { overflow: auto; animation: none; }
 }
 
-/* Açılış sürerken hero animasyonları bekler; perde kalkınca başlar ve fotoğraf hafifçe yerine oturur. */
+/* Açılış sürerken hero animasyonları bekler; kapılar açılırken başlar ve fotoğraf hafifçe yerine oturur. */
 .intro-on .hero__copy > *, .intro-on .hero__rail { animation-play-state: paused; }
 .intro-after .hero__stage { animation: intro-settle 1.2s cubic-bezier(.22, 1, .36, 1) both; }
 @keyframes intro-settle { from { transform: scale(1.08); } to { transform: none; } }
