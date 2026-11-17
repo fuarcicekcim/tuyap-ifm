@@ -44,6 +44,21 @@
 }
 .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease); }
 @media (hover: hover) { .card:hover .card__media img { transform: scale(1.04); } }
+/* Yükleme yer tutucusu (ürün kartı ve benzer ürün görselleri). Fotoğraf gelene kadar kutu, sayfa renginden ayrışan sıcak bir
+   tonla görünür; 2/3 oranı baştan ayrıldığı için içerik kaymaz. Fotoğraf opak olduğundan gelince yer tutucuyu örter (JS gerekmez).
+   Işık süpürmesi ~0,3 sn gecikmeyle başlar (hızlı yüklemede hiç görünmez), 5 turdan sonra durur; hareket azaltmada yalnızca sabit ton. */
+.card__media, .mini__media { background: var(--placeholder); }
+.mini__media { position: relative; }
+.card__media img, .mini__media img { position: relative; }
+@media (prefers-reduced-motion: no-preference) {
+  .card__media::before, .mini__media::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(100deg, transparent 25%, var(--placeholder-sheen) 50%, transparent 75%);
+    transform: translateX(-100%);
+    animation: ph-sheen 1.8s ease-in-out .3s 5;
+  }
+}
+@keyframes ph-sheen { to { transform: translateX(100%); } }
 .card__badge {
   position: absolute; left: .75rem; top: .75rem; padding: .3rem .6rem;
   background: var(--ink); color: var(--gold-soft); font-size: .75rem; font-weight: 600; letter-spacing: .04em;

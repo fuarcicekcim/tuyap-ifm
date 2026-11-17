@@ -13,6 +13,9 @@
   --line: rgba(20, 20, 20, .12);
   --line-on-dark: rgba(247, 245, 240, .16);
   --wa: #1a7f45;
+  /* Yükleme yer tutucusu: fotoğraf gelene kadar kutuyu sayfa renginden ayıran sıcak kum tonu ve üzerinden geçen ışık. */
+  --placeholder: linear-gradient(160deg, #f0eadc 0%, #e6dfcd 100%);
+  --placeholder-sheen: rgba(255, 255, 255, .5);
 
   --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-ui: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
