@@ -1,4 +1,4 @@
-import { SITE, CONTACT, DELIVERY, PRICING, VENUES, FAIR_DAYS } from '../../src/config/site-settings.js';
+import { SITE, CONTACT, DELIVERY, PRICING, VENUES } from '../../src/config/site-settings.js';
 import { esc, icon, trRange } from '../lib/html.mjs';
 import { page, waLink } from '../lib/layout.mjs';
 import { graph, businessNode, breadcrumbNode, faqNode, abs } from '../lib/seo.mjs';
@@ -201,7 +201,8 @@ export function fuarCicekcisi(catalog, fairData) {
 /* ---------------- Avrasya 2026 (fuara özel) ---------------- */
 export function avrasya(catalog, fairData) {
   const path = '/tuyap-avrasya-pencere-kapi-cam-2026.html';
-  const fair = fairData.fairs.find((f) => f.page === path) || { name: FAIR_DAYS.activeFairName, start: FAIR_DAYS.days[0], end: FAIR_DAYS.days.at(-1) };
+  // Fuar bittiğinde yaklaşan listeden düşer; sayfa kendi tarihlerini tüm takvimden alır (FAIR_DAYS artık başka fuarı gösterebilir).
+  const fair = fairData.allFairs.find((f) => f.page === path) || { name: 'Avrasya Pencere, Kapı ve Cam Fuarları', start: '2026-11-21', end: '2026-11-24' };
   const range = `${trRange([fair.start, fair.end])} 2026`;
   const faq = [
     [`${fair.name} için hangi günlerde teslimat yapıyorsunuz?`, `Fuar günleri olan ${range} boyunca her gün teslimat yapıyoruz; fuar öncesi kurulum gününde de teslim edebiliriz.`],

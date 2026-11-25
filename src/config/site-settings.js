@@ -60,11 +60,18 @@ export const VENUES = [
   { id: 'ifm', name: 'İstanbul Fuar Merkezi (İFM)', short: 'İFM', district: 'Yeşilköy', page: '/ifm-fuar-cicekcisi.html' },
 ];
 
+// Öne çıkan fuar: ana sayfadaki "Sıradaki fuar" kartı ve fuar kampanya kartı bunu gösterir (bilgiler fairs-data.js'ten).
+// Fuar bitince sıradakini yazın; bitmiş fuarın kartı tarayıcıda kendiliğinden gizlenir. Sipariş çekmecesi bu fuarın adını
+// yalnızca kurulum günü (ilk günden bir gün önce) ile son gün arasında önceden doldurur.
+// Teslim günü listesi buradan gelmez: tarayıcı bugünden itibaren 7 gün listeler; fuar sayfaları kendi günlerini verir.
+// logos: fuarın resmî logoları (assets/fuar/). Logo yoksa boş bırakın; kartta "Fuar sayfası" bağlantısı görünür.
+// Örnek (Avrasya, 21–24 Kasım 2026): { src: '/assets/fuar/avrasya-pencere-kapi-logo.webp', width: 440, height: 174, alt: 'Avrasya Pencere & Kapı Fuarı logosu' }
 export const FAIR_DAYS = {
-  activeFairName: 'Avrasya Pencere, Kapı ve Cam Fuarları',
+  activeFairName: 'Plast Eurasia İstanbul',
   activeFairVenue: 'tuyap',
-  activeFairPage: '/tuyap-avrasya-pencere-kapi-cam-2026.html',
-  days: ['2026-11-21', '2026-11-22', '2026-11-23', '2026-11-24'],
+  activeFairPage: '/plast-eurasia-2026.html',
+  days: ['2026-12-02', '2026-12-03', '2026-12-04', '2026-12-05'],
+  logos: [],
   timeSlots: ['08:00–10:00', '10:00–12:00', '12:00–14:00', '14:00–16:00', '16:00–18:00'],
 };
 

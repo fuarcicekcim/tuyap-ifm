@@ -54,11 +54,19 @@ function nextFair(titleId) {
           <h2 id="${titleId}">${esc(FAIR_DAYS.activeFairName)}</h2>
           <p class="hero__fair-links"><button type="button" data-drawer-open data-fair="${esc(FAIR_DAYS.activeFairName)}" data-venue="${esc(venue.name)}" data-track-location="home-fair" aria-label="${esc(FAIR_DAYS.activeFairName)} için sipariş ver" title="Bu fuar için sipariş"><span class="hero__fair-action-label">Bu fuar için sipariş</span><span class="hero__fair-action-compact" aria-hidden="true">Sipariş ver</span>${icon('arrow-right', 'icon hero__fair-arrow')}${icon('shopping-bag', 'icon hero__fair-bag')}</button><a href="${FAIR_DAYS.activeFairPage}">Fuar sayfası</a></p>
         </div>
-        <a class="hero__fair-logos" href="${FAIR_DAYS.activeFairPage}" aria-label="${esc(FAIR_DAYS.activeFairName)} sayfası">
-          <img src="/assets/fuar/avrasya-pencere-kapi-logo.webp" width="440" height="174" alt="Avrasya Pencere &amp; Kapı Fuarı logosu" decoding="async">
-          <img src="/assets/fuar/avrasya-cam-logo.webp" width="366" height="174" alt="Avrasya Cam Fuarı logosu" decoding="async">
-        </a>
+        ${fairBadge()}
       </div>`;
+}
+
+// Fuarın resmî logoları varsa onlar, yoksa (telefonda gizlenen "Fuar sayfası" bağlantısının yerine) aynı yerde metin bağlantı.
+function fairBadge() {
+  const logos = FAIR_DAYS.logos || [];
+  if (!logos.length) {
+    return `<a class="hero__fair-logos hero__fair-logos--link" href="${FAIR_DAYS.activeFairPage}" aria-label="${esc(FAIR_DAYS.activeFairName)} sayfası">Fuar sayfası${icon('arrow-up-right')}</a>`;
+  }
+  return `<a class="hero__fair-logos" href="${FAIR_DAYS.activeFairPage}" aria-label="${esc(FAIR_DAYS.activeFairName)} sayfası">
+          ${logos.map((l) => `<img src="${esc(l.src)}" width="${l.width}" height="${l.height}" alt="${esc(l.alt)}" decoding="async">`).join('\n          ')}
+        </a>`;
 }
 
 
@@ -241,7 +249,7 @@ export function home(catalog) {
     jsonld: schema(),
     body: hero()
       + trust() + products(catalog)
-      + `<div class="home-fair"><div class="wrap">${nextFair('fuar-baslik')}</div></div>`
+      + `<div class="home-fair" data-fair-until="${FAIR_DAYS.days.at(-1)}"><div class="wrap">${nextFair('fuar-baslik')}</div></div>`
       + clients() + corporate() + steps() + faq(),
   });
 }

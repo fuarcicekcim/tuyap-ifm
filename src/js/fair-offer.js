@@ -1,4 +1,11 @@
 import { FAIR_DAYS } from '../config/site-settings.js';
+import { istanbulToday } from '../shared/delivery-days.js';
+
+// Ana sayfadaki "Sıradaki fuar" kartı derlemede yazılır; fuar bittikten sonra yeni yayın yapılmadıysa eski fuarı göstermesin.
+export function hideEndedFair() {
+  const section = document.querySelector('[data-fair-until]');
+  if (section && section.dataset.fairUntil < istanbulToday()) section.remove();
+}
 
 export function initFairOffer(products) {
   const offer = document.querySelector('[data-fair-offer]');

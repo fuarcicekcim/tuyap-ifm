@@ -2,7 +2,7 @@ import { runIntro } from './js/intro.js';
 import { track } from './js/analytics.js';
 import { initReveal } from './js/reveal.js';
 import { initHero } from './js/hero.js';
-import { initFairOffer } from './js/fair-offer.js';
+import { initFairOffer, hideEndedFair } from './js/fair-offer.js';
 import { initHeader } from './js/header.js';
 import { initDrawer } from './js/drawer.js';
 import { initMobileMenu } from './js/mobile-menu.js';
@@ -28,6 +28,7 @@ refreshPrices(products);
 if (document.getElementById('live-catalog-config')) {
   import('./js/live-catalog.js').then((module) => module.initLiveCatalog(products)).catch(() => { /* statik katalogla devam */ });
 }
+hideEndedFair();
 initFairOffer(products);
 initQuote();
 initFooter();

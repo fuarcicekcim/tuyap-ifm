@@ -463,6 +463,10 @@ body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px)); }
 .hero__fair-logos { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: .8rem; padding: .45rem .8rem; border-radius: 9px; background: #fff; }
 .hero__fair-logos img { width: auto; height: 30px; }
 .hero__fair-logos img + img { padding-left: .8rem; border-left: 1px solid var(--line); }
+/* Fuarın logosu yoksa aynı yerde "Fuar sayfası" bağlantısı; masaüstünde metin bağlantısı zaten göründüğü için gizlenir. */
+.hero__fair-logos--link { gap: .35rem; font-size: .83rem; font-weight: 700; color: var(--forest); text-decoration: none; white-space: nowrap; }
+.hero__fair-logos--link .icon { width: 15px; height: 15px; }
+@media (min-width: 1024px) { .hero__fair-logos--link { display: none; } }
 @media (min-width: 560px) {
   .hero__fair { grid-template-columns: auto minmax(0, 1fr) auto; }
   .hero__fair-logos { grid-column: auto; flex-direction: column; gap: .35rem; padding: .5rem .7rem; }

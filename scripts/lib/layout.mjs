@@ -1,5 +1,6 @@
 import { SITE, CONTACT, DELIVERY, VENUES, FAIR_DAYS, PRICING, ANALYTICS, PARTICIPANT_LISTS } from '../../src/config/site-settings.js';
 import { esc, icon, trDay } from './html.mjs';
+import { ROLLING_DELIVERY_DAYS, addDays, deliveryDays, istanbulToday } from '../../src/shared/delivery-days.js';
 import { INTRO_BOOT, INTRO_CRITICAL_CSS } from './intro-boot.mjs';
 import { BRAND_PATHS } from './brand-icons.mjs';
 
@@ -126,12 +127,17 @@ function cartNotice() {
   return `<p class="cart-notice" role="status" aria-live="polite" aria-atomic="true" data-cart-notice></p>`;
 }
 
-function drawer({ venue = FAIR_DAYS.activeFairVenue, fairName = FAIR_DAYS.activeFairName, days = FAIR_DAYS.days, catalogAnchor } = {}) {
+// Teslim günü: fuar sayfası kendi günlerini (days) verir; diğer sayfalarda bugünden itibaren 7 gün listelenir.
+// Derlemedeki liste tarayıcıda her açılışta bugüne göre yeniden kurulur (src/js/drawer.js), böylece geçmiş gün kalmaz.
+// Fuar adı boşsa öne çıkan fuarın (FAIR_DAYS) adı tarayıcıda yalnızca kurulum günü ile son gün arasında doldurulur.
+function drawer({ venue = FAIR_DAYS.activeFairVenue, fairName = '', days, catalogAnchor } = {}) {
   const venueOpts = VENUES.map((v) => `
       <label class="choice"><input type="radio" name="merkez" value="${esc(v.short)}" required${v.id === venue ? ' checked' : ''}><span><strong>${esc(v.short)}</strong><small>${esc(v.name.replace(/ \(İFM\)$/, ''))}</small></span></label>`).join('');
-  const deliveryDate = days?.length
-    ? `<select name="tarih">${days.map((day) => `<option value="${esc(day)}">${esc(trDay(day))}</option>`).join('')}<option value="Diğer (nota yazıldı)">Diğer gün (nota yazın)</option></select>`
-    : '<input type="date" name="tarih" required>';
+  const fairDays = days?.length ? days : [];
+  const dayAttr = fairDays.length ? ` data-fair-days="${esc(fairDays.join(','))}"` : ` data-rolling-days="${ROLLING_DELIVERY_DAYS}"`;
+  const dayOpts = deliveryDays(istanbulToday(), fairDays).map((day) => `<option value="${esc(day)}">${esc(trDay(day))}</option>`).join('');
+  const deliveryDate = `<select name="tarih"${dayAttr}>${dayOpts}<option value="Diğer (nota yazıldı)">Diğer gün (nota yazın)</option></select>`;
+  const activeFair = fairName ? '' : ` data-active-fair="${esc(FAIR_DAYS.activeFairName)}" data-active-from="${addDays(FAIR_DAYS.days[0], -1)}" data-active-to="${FAIR_DAYS.days.at(-1)}"`;
   const slotOpts = FAIR_DAYS.timeSlots.map((s) => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
   return `
 <div class="drawer-root" data-drawer inert>
@@ -156,7 +162,7 @@ function drawer({ venue = FAIR_DAYS.activeFairVenue, fairName = FAIR_DAYS.active
             <fieldset class="order__set">
               <legend>Fuar ve teslim zamanı</legend>
               <div class="choices">${venueOpts}</div>
-              <label class="field"><span>Fuar adı</span><input name="fuar_adi" autocomplete="off" value="${esc(fairName)}" maxlength="200"></label>
+              <label class="field"><span>Fuar adı</span><input name="fuar_adi" autocomplete="off" value="${esc(fairName)}" placeholder="Katıldığınız fuarın adı" maxlength="200"${activeFair}></label>
               <div class="field-row">
                 <label class="field"><span>Teslim günü</span>${deliveryDate}</label>
                 <label class="field"><span>Saat aralığı</span><select name="saat"><option value="En kısa sürede">En kısa sürede (${DELIVERY.minutes} dk)</option>${slotOpts}</select></label>

@@ -1,4 +1,4 @@
-import { CONTACT, DELIVERY, PRICING, VENUES, FAIR_DAYS } from '../../src/config/site-settings.js';
+import { CONTACT, DELIVERY, PRICING, VENUES } from '../../src/config/site-settings.js';
 import { esc, icon } from '../lib/html.mjs';
 import { page } from '../lib/layout.mjs';
 import { graph, businessNode, breadcrumbNode, breadcrumbs } from '../lib/seo.mjs';
@@ -37,7 +37,7 @@ export function teklif() {
       <fieldset class="order__set">
         <legend>Fuar ve teslimat</legend>
         <div class="field-row">
-          <div data-quote-fair-field><label class="field"><span>Fuar adı</span><input name="fuar_adi" maxlength="200" value="${esc(FAIR_DAYS.activeFairName)}"></label></div>
+          <div data-quote-fair-field><label class="field"><span>Fuar adı</span><input name="fuar_adi" maxlength="200" placeholder="Katıldığınız fuarın adı"></label></div>
           <label class="field"><span>Teslimat yeri</span><select name="merkez">${VENUES.map((v) => `<option value="${esc(v.short)}">${esc(v.short)}</option>`).join('')}<option value="Her ikisi">Her ikisi</option><option value="Diğer">Diğer fuarlar</option><option value="Açık adres">Otel / ofis / açık adres</option></select></label>
         </div>
         <div data-address-autocomplete hidden>

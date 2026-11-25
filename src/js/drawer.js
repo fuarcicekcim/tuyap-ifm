@@ -5,6 +5,7 @@ import { track } from './analytics.js';
 import { saveRibbonLogo, getRibbonLogo, deleteRibbonLogo, RIBBON_LOGO_ACCEPT } from './ribbon-logo.js';
 import { submitRequest, openWhatsAppWindow, navigateWhatsAppWindow, showSubmissionStatus } from './submission.js';
 import { orderIntake, requestIdentity, forgetRequestIdentity, deliveryDayLabel } from './request-intake.js';
+import { ROLLING_DELIVERY_DAYS, addDays, deliveryDays, isIsoDay, istanbulToday } from '../shared/delivery-days.js';
 
 const root = document.querySelector('[data-drawer]');
 const panel = root?.querySelector('.drawer');
@@ -38,8 +39,38 @@ const setLogoAddText = (box, text) => { box.querySelector('[data-logo-add-label]
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+// Teslim günü listesi derlemede bir kez yazılır; sayfa günler sonra açılsa da geçmiş gün kalmasın diye bugüne göre yeniden kurulur.
+// Fuar sayfasında fuarın kalan günleri, diğer sayfalarda bugünden itibaren 7 gün; seçili gün hâlâ listedeyse korunur.
+function refreshDeliveryDays() {
+  const select = form?.elements.tarih;
+  if (!select || select.tagName !== 'SELECT') return;
+  const today = istanbulToday();
+  if (select.dataset.today === today) return;
+  select.dataset.today = today;
+  const fairDays = (select.dataset.fairDays || '').split(',').filter(isIsoDay);
+  const days = deliveryDays(today, fairDays, Number(select.dataset.rollingDays) || ROLLING_DELIVERY_DAYS);
+  const previous = select.value;
+  const other = [...select.options].find((option) => !isIsoDay(option.value));
+  const relative = { [today]: 'Bugün', [addDays(today, 1)]: 'Yarın' };
+  select.replaceChildren(...days.map((day) => {
+    const label = deliveryDayLabel(day);
+    return new Option(relative[day] ? `${relative[day]} · ${label}` : label, day);
+  }), ...(other ? [other] : []));
+  if ([...select.options].some((option) => option.value === previous)) select.value = previous;
+}
+
+// Fuar adı boş bırakıldıysa öne çıkan fuarın adı yalnızca fuar dönemi (kurulum günü dahil) içinde önceden doldurulur.
+function prefillActiveFair() {
+  const input = form?.elements.fuar_adi;
+  const { activeFair, activeFrom, activeTo } = input?.dataset || {};
+  if (!activeFair || input.value.trim() || input.dataset.touched) return;
+  const today = istanbulToday();
+  if (activeFrom <= today && today <= activeTo) input.value = activeFair;
+}
+
 function showDrawer(source) {
   if (!root || isDrawerOpen()) return;
+  refreshDeliveryDays();
   syncPrices();
   lastFocus = document.activeElement;
   root.inert = false;
@@ -537,6 +568,8 @@ async function submit(e) {
       general.d = {};
       cart.clear();
       form.reset();
+      delete form.elements.fuar_adi.dataset.touched;
+      prefillActiveFair();
       refreshTax();
     }
     showSubmissionStatus(statusEl, result, waUrl, { orderNo: no, location: 'order_result' });
@@ -558,8 +591,14 @@ async function submit(e) {
 
 export function initDrawer() {
   if (!root) return;
+  refreshDeliveryDays();
+  prefillActiveFair();
   cart.subscribe(renderCart);
-  form.addEventListener('input', (e) => { if (e.target.name === 'fuar_adi') refreshStandHelp(); });
+  form.addEventListener('input', (e) => {
+    if (e.target.name !== 'fuar_adi') return;
+    e.target.dataset.touched = '1';
+    refreshStandHelp();
+  });
   form.addEventListener('change', (e) => { if (e.target.name === 'merkez') refreshStandHelp(); });
 
   document.addEventListener('click', (e) => {
