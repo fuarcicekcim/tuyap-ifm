@@ -1,6 +1,6 @@
 window.FUAR_CATALOG = {
   "schema": 1,
-  "revision": "catalog-2026-11-21-bitki-fiyatlari",
+  "revision": "catalog-2026-11-26-kampanya-yil-sonu",
   "categories": [
     {
       "id": "plants",
@@ -66,8 +66,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2635,
         "previousPrice": 3100,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -86,8 +86,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2762.5,
         "previousPrice": 3250,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -106,8 +106,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 3867.5,
         "previousPrice": 4550,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -125,8 +125,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 6375,
         "previousPrice": 7500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -144,8 +144,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 4037.5,
         "previousPrice": 4750,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -163,8 +163,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 5185,
         "previousPrice": 6100,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -182,8 +182,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2932.5,
         "previousPrice": 3450,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -201,8 +201,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 4250,
         "previousPrice": 5000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -220,8 +220,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2975,
         "previousPrice": 3500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -239,8 +239,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2040,
         "previousPrice": 2400,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -258,8 +258,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2762.5,
         "previousPrice": 3250,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -277,8 +277,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2125,
         "previousPrice": 2500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -296,8 +296,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 7225,
         "previousPrice": 8500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -315,8 +315,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 3187.5,
         "previousPrice": 3750,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -334,8 +334,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 5100,
         "previousPrice": 6000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -354,8 +354,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2656.25,
         "previousPrice": 3125,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       },
       "sortOrder": 0
     },
@@ -374,8 +374,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2550,
         "previousPrice": 3000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       },
       "sortOrder": 1
     },
@@ -394,8 +394,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 4887.5,
         "previousPrice": 5750,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -413,8 +413,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2550,
         "previousPrice": 3000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -432,8 +432,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 4675,
         "previousPrice": 5500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -451,8 +451,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 1700,
         "previousPrice": 2000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       },
       "inStock": false
     },
@@ -471,8 +471,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2847.5,
         "previousPrice": 3350,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -490,8 +490,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 1827.5,
         "previousPrice": 2150,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       },
       "inStock": false
     },
@@ -510,8 +510,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 3825,
         "previousPrice": 4500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -529,8 +529,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 15300,
         "previousPrice": 18000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -548,8 +548,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 3400,
         "previousPrice": 4000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -567,8 +567,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 3612.5,
         "previousPrice": 4250,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -586,8 +586,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 5525,
         "previousPrice": 6500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -605,8 +605,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2762.5,
         "previousPrice": 3250,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -624,8 +624,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 6375,
         "previousPrice": 7500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -644,8 +644,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 3272.5,
         "previousPrice": 3850,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -663,8 +663,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2975,
         "previousPrice": 3500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -682,8 +682,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 6800,
         "previousPrice": 8000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -701,8 +701,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 7012.5,
         "previousPrice": 8250,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -720,8 +720,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 11050,
         "previousPrice": 13000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -739,8 +739,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 14875,
         "previousPrice": 17500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -758,8 +758,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2337.5,
         "previousPrice": 2750,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       },
       "inStock": false
     },
@@ -778,8 +778,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 3825,
         "previousPrice": 4500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       },
       "sortOrder": 2
     },
@@ -798,8 +798,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 8500,
         "previousPrice": 10000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -817,8 +817,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 7225,
         "previousPrice": 8500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -836,8 +836,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 8500,
         "previousPrice": 10000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -855,8 +855,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 14450,
         "previousPrice": 17000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -874,8 +874,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 5610,
         "previousPrice": 6600,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -893,8 +893,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 2550,
         "previousPrice": 3000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -912,8 +912,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 7650,
         "previousPrice": 9000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -931,8 +931,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 8500,
         "previousPrice": 10000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -950,8 +950,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 4250,
         "previousPrice": 5000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -970,8 +970,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 10625,
         "previousPrice": 12500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -989,8 +989,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 17000,
         "previousPrice": 20000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -1008,8 +1008,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 7225,
         "previousPrice": 8500,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -1028,8 +1028,8 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 4250,
         "previousPrice": 5000,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     },
     {
@@ -1048,14 +1048,14 @@ window.FUAR_CATALOG = {
       "discount": {
         "price": 7437.5,
         "previousPrice": 8750,
-        "startsOn": "2026-11-20",
-        "endsOn": "2026-11-24"
+        "startsOn": "2026-11-26",
+        "endsOn": "2026-12-31"
       }
     }
   ],
-  "updatedAt": "2026-11-21T00:00:06.235Z",
+  "updatedAt": "2026-11-25T23:26:02.158Z",
   "cartDiscount": {
-    "startsOn": "2026-11-20",
-    "endsOn": "2026-11-24"
+    "startsOn": "2026-11-26",
+    "endsOn": "2026-12-31"
   }
 };
