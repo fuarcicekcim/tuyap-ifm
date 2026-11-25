@@ -10,19 +10,66 @@ require_once __DIR__ . '/catalog-pricing.php';
 
   Model: bir satır, o ürünün TAM canlı durumudur. Satır varsa ürünün fiyat, stok, aktif ve indirim bilgisi satırdan gelir;
   satırı olmayan ürün statik katalogdaki değerinde kalır. Bozuk satır tümüyle yok sayılır (tarayıcıyla aynı doğrulama).
-  Katalogda olmayan ürün kimliği yok sayılır. Varsayılan KAPALI: LIVE_CATALOG_ENABLED=true olmadıkça hiçbir şey değişmez.
+  Katalogda olmayan ürün kimliği yok sayılır.
+
+  Açık/kapalı (26 Kasım 2026): server.env'de LIVE_CATALOG_ENABLED yazılıysa o geçerlidir (true/1 açık, başka her değer kapalı).
+  Yazılı değilse sunucu, vitrinin kullandığı herkese açık supabase-config.js'teki window.FUAR_LIVE değerini izler; böylece vitrin
+  ve sunucu hep aynı durumdadır ve anahtarın ikinci bir yere elle yazılması gerekmez. Publishable anahtar zaten herkese açıktır
+  (tarayıcıya gider); secret anahtar burada hiç kullanılmaz. Herkese açık dosya yoksa ya da bayrak kapalıysa katman KAPALI kalır.
 */
 
 const FC_LIVE_SELECT = 'product_id,price,in_stock,active,sort_order,bestseller_rank,badge,discount_price,discount_previous,discount_starts_on,discount_ends_on';
 
-function fc_live_catalog_enabled(): bool {
+// Herkese açık yapılandırma dosyasının yolu değiştirilebilir (yalnız testlerde); üretimde httpdocs/supabase-config.js'tir.
+function fc_live_public_config_path(?string $replace = null): string {
+  static $path = null;
+  if ($replace !== null) $path = $replace;
+  return $path ?? dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'supabase-config.js';
+}
+
+// window.FUAR_LIVE = {"enabled":true,"url":"https://…supabase.co","publishableKey":"sb_publishable_…"}; satırını okur.
+// Açık ve geçerliyse ['url','public'] döner; dosya yoksa, bayrak kapalıysa ya da değerler beklenen biçimde değilse null.
+function fc_live_public_config(): ?array {
+  $source = @file_get_contents(fc_live_public_config_path());
+  if (!is_string($source) || !preg_match('/^window\.FUAR_LIVE\s*=\s*(\{[^\r\n]*\})\s*;\s*$/m', $source, $match)) return null;
+  $data = json_decode($match[1], true);
+  if (!is_array($data) || ($data['enabled'] ?? null) !== true) return null;
+  $url = rtrim((string) ($data['url'] ?? ''), '/');
+  $public = (string) ($data['publishableKey'] ?? '');
+  if (!preg_match('~^https://[a-z0-9-]+\.supabase\.co$~i', $url) || !preg_match('/^sb_publishable_[a-z0-9_-]{10,}$/i', $public)) return null;
+  return ['url'=>$url,'public'=>$public];
+}
+
+// Dönüş: ['enabled'=>bool,'source'=>'server.env'|'public'|null]. Kaynak, durumu neyin belirlediğini gösterir (izleme için).
+function fc_live_catalog_state(): array {
   try {
-    return in_array(strtolower(trim((string) fc_env('LIVE_CATALOG_ENABLED'))), ['true','1'], true);
+    $flag = fc_env('LIVE_CATALOG_ENABLED');
   } catch (FcSupabaseError) {
     // Özel yapılandırma okunamıyorsa (ör. bozuk server.env) canlı katman kapalı sayılır; site statik katalogla çalışır.
     error_log('fuarcicekcim canlı katalog yapılandırması okunamadı; statik katalog kullanılıyor.');
-    return false;
+    return ['enabled'=>false,'source'=>null];
   }
+  if ($flag !== false && trim((string) $flag) !== '') {
+    return ['enabled'=>in_array(strtolower(trim((string) $flag)), ['true','1'], true),'source'=>'server.env'];
+  }
+  $public = fc_live_public_config() !== null;
+  return ['enabled'=>$public,'source'=>$public ? 'public' : null];
+}
+
+function fc_live_catalog_enabled(): bool {
+  return fc_live_catalog_state()['enabled'];
+}
+
+// Okuma adresi ve publishable anahtar: server.env'de ikisi de yazılıysa onlar (eski kurulum), yoksa herkese açık yapılandırma.
+function fc_live_catalog_connection(): array {
+  try {
+    if ((string) fc_env('SUPABASE_URL') !== '' && (string) fc_env('SUPABASE_PUBLISHABLE_KEY') !== '') return fc_supabase_config(false);
+  } catch (FcSupabaseError) {
+    // server.env okunamıyor ya da değerleri geçersiz: herkese açık yapılandırmaya düşülür.
+  }
+  $public = fc_live_public_config();
+  if ($public === null) throw new FcSupabaseError('Canlı katalog bağlantı bilgisi bulunamadı.');
+  return $public;
 }
 
 // JavaScript'teki Number.isInteger ile aynı: 5 ve 5.0 tamsayıdır; 1.5, metin, mantıksal değer ve null değildir (null döner).
@@ -112,7 +159,7 @@ function fc_live_catalog_fetch(): array {
 
 // Satırları Supabase'ten okur: herkese açık sütunlar, yalnız publishable anahtar (secret anahtar gerekmez).
 function fc_live_catalog_http_fetch(): array {
-  $config = fc_supabase_config(false);
+  $config = fc_live_catalog_connection();
   if (!function_exists('curl_init')) throw new FcSupabaseError('Sunucu bağlantı bileşeni hazır değil.');
   $headers = ['Accept: application/json', 'apikey: ' . $config['public']];
   if (!str_starts_with($config['public'], 'sb_publishable_')) $headers[] = 'Authorization: Bearer ' . $config['public'];

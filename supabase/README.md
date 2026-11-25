@@ -27,10 +27,12 @@ SUPABASE_ENABLED=false
 SUPABASE_URL=https://PROJE.supabase.co
 SUPABASE_PUBLISHABLE_KEY=YALNIZ_PUBLISHABLE_ANAHTAR
 SUPABASE_SECRET_KEY=YALNIZ_SUNUCUDA_SAKLANAN_SECRET
-LIVE_CATALOG_ENABLED=false
 ```
 
-**Canlı katalog (`LIVE_CATALOG_ENABLED`, varsayılan kapalı).** `true` olduğunda `teklif-gonder.php` siparişi doğrularken `fc_live_products` satırlarını (fiyat, stok, aç/kapat, indirim) `products-data.js` üstüne aynı kurallarla uygular; böylece müşterinin sayfada gördüğü durum ile sunucunun doğruladığı/kaydettiği durum aynı olur. Yalnız `SUPABASE_URL` + `SUPABASE_PUBLISHABLE_KEY` gerekir (okuma herkese açıktır; secret anahtar kullanılmaz), `SUPABASE_ENABLED` ise e-posta modunda `false` kalabilir. Sıra önemlidir: önce yeni PHP dosyaları (`api/lib/live-catalog.php`, `api/lib/supabase-bridge.php`) yüklenir, sonra bayrak açılır; eski PHP bu anahtarı tanımaz ve `server.env` dosyasını geçersiz sayıp Supabase'i kapalı kabul eder.
+**Canlı katalog (sunucu doğrulaması).** Açıkken `teklif-gonder.php` siparişi doğrularken `fc_live_products` satırlarını (fiyat, stok, aç/kapat, indirim) `products-data.js` üstüne aynı kurallarla uygular; böylece müşterinin sayfada gördüğü durum ile sunucunun doğruladığı/kaydettiği durum aynı olur. Okuma herkese açıktır; secret anahtar kullanılmaz, `SUPABASE_ENABLED` e-posta modunda `false` kalabilir.
+- **Varsayılan (26 Kasım 2026'dan beri):** `server.env`'de `LIVE_CATALOG_ENABLED` **yazılı değilse** sunucu, vitrinle aynı herkese açık `supabase-config.js` dosyasındaki `window.FUAR_LIVE` değerini izler (açık/kapalı, URL, publishable anahtar). Vitrin bayrağı (`VITE_LIVE_CATALOG_ENABLED`) açık derlenip yüklendiğinde sunucu doğrulaması da kendiliğinden açılır; `server.env`'e anahtar yazmak gerekmez.
+- **Elle geçersiz kılma:** `LIVE_CATALOG_ENABLED=false` sunucu doğrulamasını kapatır, `true` açar. `SUPABASE_URL` ve `SUPABASE_PUBLISHABLE_KEY` ikisi de `server.env`'de yazılıysa okuma onlarla yapılır; yoksa herkese açık dosyadakiler kullanılır.
+- **Durum kontrolü:** `GET /api/katalog-durumu.php` → `{"liveCatalog":true,"source":"public","reachable":true,"rows":N}`. `source` durumu neyin belirlediğini gösterir (`server.env` / `public`); gizli değer döndürmez.
 - E-posta modunda okuma başarısız olursa sipariş kaybolmasın diye statik katalogla devam edilir (günlüğe kısa bir kayıt düşer).
 - Supabase kayıt modunda (fiyatı sunucu belirler) okuma başarısız olursa sipariş `503 catalog_unavailable` ile durdurulur; eski fiyatla kayıt açılmaz. İstemci bunu "gönderilemedi" sayar ve WhatsApp'ı yine açar.
 - Kayıtta `catalog_revision` değerine `+live` eklenir ve `catalog_sha256`, uygulanan canlı satırların özetini de kapsar. Böylece sipariş hangi canlı duruma göre fiyatlandığı sonradan denetlenebilir.
