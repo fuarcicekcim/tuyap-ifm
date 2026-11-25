@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Playfair+Display:wght@500;600&amp;display=swap" rel="stylesheet">
   <script src="assets/vendor/lucide.min.js" defer></script>
-  <link rel="stylesheet" href="admin.css?v=4">
+  <link rel="stylesheet" href="admin.css?v=6">
   <script src="admin-config.js" defer></script>
   <script src="supabase-config.js" defer></script>
   <script src="assets/vendor/supabase.js" defer></script>
@@ -20,6 +20,7 @@
   <script src="catalog-pricing.js" defer></script>
   <script src="catalog-store.js" defer></script>
   <script src="admin.js" defer></script>
+  <script type="module" src="admin-live.js?v=3"></script>
 </head>
 <body>
   <section class="lock-screen" id="lock-screen" aria-labelledby="login-title">
@@ -82,6 +83,20 @@
       </header>
 
       <main class="admin-content" id="admin-main-content">
+        <section class="live-bar" id="live-bar" data-state="signin" aria-labelledby="live-bar-title" hidden>
+          <div class="live-bar__copy">
+            <span class="live-bar__icon"><i data-lucide="radio" aria-hidden="true"></i></span>
+            <p><strong id="live-bar-title">Canlı yayın</strong><span id="live-bar-detail" role="status" aria-live="polite"></span></p>
+          </div>
+          <div class="live-bar__actions">
+            <button class="admin-button admin-button--quiet" id="live-signin-button" type="button"><i data-lucide="log-in" aria-hidden="true"></i><span>Canlı yayın girişi</span></button>
+            <button class="admin-button admin-button--quiet" id="live-undo-button" type="button" hidden><i data-lucide="undo-2" aria-hidden="true"></i><span>Son yayını geri al</span></button>
+            <button class="admin-button admin-button--quiet" id="live-refresh-button" type="button" hidden><i data-lucide="refresh-cw" aria-hidden="true"></i><span>Yenile</span></button>
+            <button class="admin-button admin-button--primary" id="live-publish-button" type="button" hidden><i data-lucide="zap" aria-hidden="true"></i><span id="live-publish-label">Canlıya al</span></button>
+            <button class="text-button" id="live-signout-button" type="button" hidden>Canlı oturumu kapat</button>
+          </div>
+        </section>
+
         <div class="publish-banner" data-state="local">
           <div class="publish-copy"><span class="publish-icon"><i data-lucide="save" aria-hidden="true"></i></span><p><strong id="catalog-status-text">Bu tarayıcıdaki katalog</strong><span id="catalog-status-detail">Değişikliklerinizi düzenleyin; sunucu kaydını ve vitrin durumunu ayrıca kontrol edin.</span></p></div>
           <div class="publish-actions"><button class="admin-button admin-button--quiet" id="catalog-check-button" type="button"><i data-lucide="refresh-cw" aria-hidden="true"></i><span>Durumu kontrol et</span></button><button class="admin-button admin-button--primary" id="export-button" type="button"><i data-lucide="cloud-upload" aria-hidden="true"></i><span>Kaydet &amp; dışa aktar</span></button></div>
@@ -262,6 +277,23 @@
         <button class="admin-button admin-button--primary" id="bulk-discount-submit" type="submit"><i data-lucide="check" aria-hidden="true"></i> <span id="bulk-discount-submit-label">İndirimi taslağa uygula</span></button>
       </div>
     </form>
+  </dialog>
+
+  <dialog class="admin-dialog live-dialog" id="live-dialog" aria-labelledby="live-dialog-title" aria-describedby="live-dialog-sub">
+    <div class="dialog-heading"><div><span class="dialog-eyebrow" id="live-dialog-eyebrow">CANLI YAYIN</span><h2 id="live-dialog-title">Canlı yayın</h2><p id="live-dialog-sub"></p></div><button class="icon-button" type="button" data-close-dialog="live-dialog" aria-label="Pencereyi kapat"><i data-lucide="x" aria-hidden="true"></i></button></div>
+    <form id="live-signin-form" class="live-signin" hidden>
+      <label class="form-field"><span>E-posta adresi</span><input id="live-email" type="email" name="username" autocomplete="username" autocapitalize="off" spellcheck="false" required></label>
+      <label class="form-field"><span>Şifre</span><input id="live-password" type="password" name="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" required></label>
+      <p class="field-error" id="live-signin-error" role="alert"></p>
+      <button class="admin-button admin-button--primary" id="live-signin-submit" type="submit"><i data-lucide="log-in" aria-hidden="true"></i><span>Giriş yap</span></button>
+      <p class="live-signin__note">Şifre bu tarayıcıda saklanmaz; oturum sekme kapanınca biter. Canlı değişiklik yetkisi yalnız yönetici hesaplarındadır.</p>
+    </form>
+    <div class="live-review" id="live-review" hidden>
+      <ul class="live-changes" id="live-changes"></ul>
+      <p class="field-error" id="live-review-error" role="alert"></p>
+      <p class="live-review__note" id="live-review-note"></p>
+    </div>
+    <div class="dialog-actions"><button class="admin-button admin-button--quiet" type="button" data-close-dialog="live-dialog">Vazgeç</button><button class="admin-button admin-button--primary" id="live-confirm-button" type="button" hidden><i data-lucide="zap" aria-hidden="true"></i><span>Şimdi canlıya al</span></button></div>
   </dialog>
 
   <dialog class="admin-dialog confirm-dialog" id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-description">

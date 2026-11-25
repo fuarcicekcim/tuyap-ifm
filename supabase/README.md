@@ -27,7 +27,18 @@ SUPABASE_ENABLED=false
 SUPABASE_URL=https://PROJE.supabase.co
 SUPABASE_PUBLISHABLE_KEY=YALNIZ_PUBLISHABLE_ANAHTAR
 SUPABASE_SECRET_KEY=YALNIZ_SUNUCUDA_SAKLANAN_SECRET
+LIVE_CATALOG_ENABLED=false
 ```
+
+**Canlı katalog (`LIVE_CATALOG_ENABLED`, varsayılan kapalı).** `true` olduğunda `teklif-gonder.php` siparişi doğrularken `fc_live_products` satırlarını (fiyat, stok, aç/kapat, indirim) `products-data.js` üstüne aynı kurallarla uygular; böylece müşterinin sayfada gördüğü durum ile sunucunun doğruladığı/kaydettiği durum aynı olur. Yalnız `SUPABASE_URL` + `SUPABASE_PUBLISHABLE_KEY` gerekir (okuma herkese açıktır; secret anahtar kullanılmaz), `SUPABASE_ENABLED` ise e-posta modunda `false` kalabilir. Sıra önemlidir: önce yeni PHP dosyaları (`api/lib/live-catalog.php`, `api/lib/supabase-bridge.php`) yüklenir, sonra bayrak açılır; eski PHP bu anahtarı tanımaz ve `server.env` dosyasını geçersiz sayıp Supabase'i kapalı kabul eder.
+- E-posta modunda okuma başarısız olursa sipariş kaybolmasın diye statik katalogla devam edilir (günlüğe kısa bir kayıt düşer).
+- Supabase kayıt modunda (fiyatı sunucu belirler) okuma başarısız olursa sipariş `503 catalog_unavailable` ile durdurulur; eski fiyatla kayıt açılmaz. İstemci bunu "gönderilemedi" sayar ve WhatsApp'ı yine açar.
+- Kayıtta `catalog_revision` değerine `+live` eklenir ve `catalog_sha256`, uygulanan canlı satırların özetini de kapsar. Böylece sipariş hangi canlı duruma göre fiyatlandığı sonradan denetlenebilir.
+- Bozuk satır (tür/aralık/indirim kuralı) tarayıcıdaki gibi tümüyle yok sayılır; katalogda olmayan ürün kimliği yok sayılır.
+
+**Panelden canlıya alma (derleme bayrağı `VITE_LIVE_CATALOG_ENABLED`).** Bayrak açık derlenirse admin paneli (`admin-live.js`) "Canlı yayın" çubuğunu gösterir; "Canlıya al" değişiklikleri inceletip `fc_live_products`'a yazar. Panelin mevcut şifre girişi aynen kalır; canlı yazma için çubuktan ayrı bir Supabase girişi (aktif owner/admin hesabı) yapılır, oturum yalnız sekmede tutulur ve panel kilitlenince silinir. Yetkiyi RLS verir; anahtar olarak yalnız publishable anahtar kullanılır. Bayrak kapalıyken çubuk hiç görünmez ve panel eskisi gibi çalışır. Panel dosyaları (`admin.html`, `admin.js`, `admin.css`, `admin-auth.js`, `admin-live.js`, `admin-live-core.js`, `live-rules.js`, `supabase-config.js`) birlikte yüklenmelidir. Kapsam: ürün satırı alanları; "Sepette %5" kampanyası, yeni ürün, ad/açıklama/fotoğraf yayın turu ister.
+
+**Canlı durumu kataloğa işleme (yayın turundan önce).** `npm run pull-live` canlı satırları okuyup `products-data.js` ile farkı listeler (dry-run, dosya yazmaz); `npm run pull-live -- --apply` dosyayı günceller (öncesinde `calismalar/catalog-import-backups/` altına yedek alır, yeni `revision` yazar). Böylece sonraki derleme canlıda yapılan fiyat, stok, sıra, rozet ve indirim değişikliklerini geri almaz. Yalnız publishable anahtar kullanılır (`.env.local` içindeki `VITE_SUPABASE_URL` ve `VITE_SUPABASE_PUBLISHABLE_KEY`). Önce dry-run çıktısı gözden geçirilir; sonra `npm run build` ve yükleme.
 
 7. Gerçek bağlantı testleri ve erişim kontrolleri geçtikten sonra PHP'de `SUPABASE_ENABLED=true`, istemci `.env.local` dosyasında `VITE_SUPABASE_ENABLED=true` yapılır. `npm run build` ile yeni statik dosyalar üretilir. Plesk'e yükleme ayrı yayın adımıdır. Yalnız tek bir admin dosyasını yüklemek yeterli değildir.
 

@@ -60,6 +60,6 @@
     if (client) await client.auth.signOut({ scope: 'local' });
     notify();
   }
-  window.FuarAuth = Object.freeze({ enabled: config.enabled === true, signIn, verify, token, restore, signOut,
+  window.FuarAuth = Object.freeze({ enabled: config.enabled === true, signIn, verify, token, restore, signOut, client: sdk,
     subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); } });
 })();

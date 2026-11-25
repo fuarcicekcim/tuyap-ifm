@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 require_once __DIR__ . '/catalog-pricing.php';
+require_once __DIR__ . '/live-catalog.php';
 
 final class FcSupabaseError extends RuntimeException {
   public function __construct(string $message, public readonly int $httpStatus = 503, public readonly ?string $errorCode = null) { parent::__construct($message); }
@@ -44,7 +45,7 @@ function fc_private_supabase_settings(): array {
   $contents = @file_get_contents($file, false, null, 0, 16385);
   if (!is_string($contents) || $contents === '' || strlen($contents) > 16384) throw new FcSupabaseError('Sunucu özel yapılandırması okunamadı.');
   $contents = preg_replace('/^\xEF\xBB\xBF/', '', $contents);
-  $allowed = ['SUPABASE_ENABLED','SUPABASE_URL','SUPABASE_PUBLISHABLE_KEY','SUPABASE_SECRET_KEY','SUPABASE_SERVICE_ROLE_KEY'];
+  $allowed = ['SUPABASE_ENABLED','SUPABASE_URL','SUPABASE_PUBLISHABLE_KEY','SUPABASE_SECRET_KEY','SUPABASE_SERVICE_ROLE_KEY','LIVE_CATALOG_ENABLED'];
   $seen = [];
   foreach (preg_split('/\R/', $contents) as $line) {
     if (preg_match('/^\s*\[/', $line)) throw new FcSupabaseError('Sunucu özel yapılandırması geçersiz.');
@@ -58,11 +59,13 @@ function fc_private_supabase_settings(): array {
   foreach ($parsed as $key => $value) {
     if (!in_array($key, $allowed, true) || !is_string($value) || preg_match('/[\x00-\x1f\x7f]/', $value)) throw new FcSupabaseError('Sunucu özel yapılandırması geçersiz.');
   }
-  if (isset($parsed['SUPABASE_ENABLED']) && !in_array(strtolower($parsed['SUPABASE_ENABLED']), ['true','false','1','0'], true)) throw new FcSupabaseError('Sunucu özel yapılandırması geçersiz.');
+  foreach (['SUPABASE_ENABLED','LIVE_CATALOG_ENABLED'] as $flag) {
+    if (isset($parsed[$flag]) && !in_array(strtolower($parsed[$flag]), ['true','false','1','0'], true)) throw new FcSupabaseError('Sunucu özel yapılandırması geçersiz.');
+  }
   return $settings = $parsed;
 }
 function fc_env(string $name): string|false {
-  if (!in_array($name, ['SUPABASE_ENABLED','SUPABASE_URL','SUPABASE_PUBLISHABLE_KEY','SUPABASE_SECRET_KEY','SUPABASE_SERVICE_ROLE_KEY'], true)) throw new FcSupabaseError('Sunucu yapılandırma alanı geçersiz.');
+  if (!in_array($name, ['SUPABASE_ENABLED','SUPABASE_URL','SUPABASE_PUBLISHABLE_KEY','SUPABASE_SECRET_KEY','SUPABASE_SERVICE_ROLE_KEY','LIVE_CATALOG_ENABLED'], true)) throw new FcSupabaseError('Sunucu yapılandırma alanı geçersiz.');
   $native = getenv($name);
   if ($native !== false) return $native;
   if (!fc_is_iis_host()) return false;
@@ -196,12 +199,27 @@ function fc_normalize_intake(array $input): array {
 function fc_intake_input_hash(array $normalized): string {
   return hash('sha256', json_encode($normalized, JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR));
 }
-function fc_read_order_catalog(string $catalogPath): array {
+// Dönüş: [katalog, statik kaynak metni, canlı katman özeti|null]. Canlı katman açıksa (LIVE_CATALOG_ENABLED) panelden yapılan
+// fiyat/stok/aç-kapat/indirim satırları statik kataloğun üstüne uygulanır; böylece sipariş, müşterinin gördüğü durumla doğrulanır.
+// $requireLive=true (fiyatı sunucunun belirlediği kayıt): canlı okuma başarısızsa sipariş reddedilir, eski fiyatla kayıt açılmaz.
+// $requireLive=false (yalnız satışa açıklık kontrolü): okuma başarısızsa e-posta akışı kaybolmasın diye statik katalog kullanılır.
+function fc_read_order_catalog(string $catalogPath, bool $requireLive = false): array {
   $source = @file_get_contents($catalogPath);
   if (!is_string($source) || !preg_match('/^\s*window\.FUAR_CATALOG\s*=\s*(\{.*\})\s*;?\s*$/s', $source, $match)) throw new FcSupabaseError('Ürün kataloğu okunamadı.');
   $catalog = json_decode($match[1], true);
   if (!is_array($catalog['products'] ?? null)) throw new FcSupabaseError('Ürün kataloğu doğrulanamadı.');
-  return [$catalog, $source];
+  $live = null;
+  if (fc_live_catalog_enabled()) {
+    try {
+      [$catalog, $applied] = fc_live_catalog_apply($catalog, fc_live_rows_parse(fc_live_catalog_fetch()));
+      if ($applied) $live = ['count'=>count($applied),'digest'=>fc_live_catalog_digest($applied)];
+    } catch (Throwable $error) {
+      // Beklenmeyen hata da aynı şekilde ele alınır; günlüğe yalnız hata türü yazılır (ayrıntı/gizli değer sızmaz).
+      error_log('fuarcicekcim canlı katalog okunamadı (' . get_class($error) . ').');
+      if ($requireLive) throw new FcSupabaseError('Güncel fiyatlar şu anda doğrulanamadı. Siparişinizi WhatsApp ile iletebilirsiniz.', 503, 'catalog_unavailable');
+    }
+  }
+  return [$catalog, $source, $live];
 }
 
 function fc_order_product(array $byId, string $id): array {
@@ -232,7 +250,7 @@ function fc_enrich_intake(array $normalized, string $catalogPath): array {
   if (($normalized['request_type'] ?? '') === 'order_request') {
     fc_require_order_halls($normalized['deliveries'] ?? null);
   }
-  [$catalog, $source] = fc_read_order_catalog($catalogPath);
+  [$catalog, $source, $live] = fc_read_order_catalog($catalogPath, true);
   $byId = array_column($catalog['products'], null, 'id');
   $vatBps = (int) round((float) ($catalog['settings']['vat'] ?? 20) * 100);
   $request = $normalized;
@@ -260,8 +278,9 @@ function fc_enrich_intake(array $normalized, string $catalogPath): array {
     $item['vat_rate_bps'] = $vatBps;
   }
   unset($item);
-  $request['catalog_revision'] = (string) $catalog['revision'];
-  $request['catalog_sha256'] = hash('sha256', $source);
+  // Canlı satır uygulandıysa kayıt bunu belirtir: revizyona "+live", parmak izine uygulanan satırların özeti katılır.
+  $request['catalog_revision'] = (string) $catalog['revision'] . ($live !== null ? '+live' : '');
+  $request['catalog_sha256'] = hash('sha256', $live !== null ? $source . "\n" . $live['digest'] : $source);
   return $request;
 }
 function fc_prepare_intake(array $input, string $catalogPath): array {

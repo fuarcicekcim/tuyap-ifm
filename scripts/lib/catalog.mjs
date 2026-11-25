@@ -17,8 +17,9 @@ export const CATEGORIES = [
   { id: 'wreaths', slug: 'acilis-fuar-celengi', name: 'Fuar Çelengi' },
 ];
 
-// VİP sekmesi: KDV hariç bu tutar ve üzerindeki ürünler (kullanıcı kararı 2026-11-17).
-export const VIP_MIN_PRICE = 7000;
+// VİP eşiği ile stok/kategori sıralaması tarayıcıdaki canlı katalog katmanıyla paylaşılır (tek kaynak): src/shared/product-order.js
+import { VIP_MIN_PRICE } from '../../src/shared/product-order.js';
+export { VIP_MIN_PRICE, stockLast, categoryDisplayOrder } from '../../src/shared/product-order.js';
 
 const displayCategory = (p) => (p.category === 'wreaths' && /ferforje|ayaklı/i.test(p.name) ? 'ferforje' : p.category);
 
@@ -71,17 +72,4 @@ export function loadCatalog(root = ROOT) {
     .sort((a, b) => b.price - a.price);
   const products = allProducts.filter((p) => p.active);
   return { revision: data.revision, source, sourceSha256: sourceSha256(source), vat: data.settings?.vat ?? 20, cartDiscount, products, allProducts, raw: data };
-}
-
-// Stokta olmayan ürünler her listede en sona gider; kendi aralarındaki ve diğerlerinin sırası değişmez.
-export const stockLast = (products) => [...products.filter((p) => p.inStock !== false), ...products.filter((p) => p.inStock === false)];
-
-// Kategori görünümü: stokta olanlar önce; onların başında "En çok satan" etiketliler (sıra numarasına göre),
-// sonra mevcut sıra. Stokta olmayanlar en sonda. Tarayıcıdaki kategori sekmeleri (src/js/catalog.js) aynı kuralı uygular.
-export function categoryDisplayOrder(products) {
-  const bestKey = (p) => (p.badgeId === 'best-seller' ? (p.bestsellerRank ?? 50) : 99);
-  return products
-    .map((p, index) => ({ p, index }))
-    .sort((a, b) => (a.p.inStock === false) - (b.p.inStock === false) || bestKey(a.p) - bestKey(b.p) || a.index - b.index)
-    .map(({ p }) => p);
 }

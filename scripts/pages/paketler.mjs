@@ -47,7 +47,7 @@ function pkgCard(pkg, byId) {
       <p><strong data-pkg-sum="${ids}">${tlPrice(net)}</strong></p>
       <p class="pkg__gross">Standa teslimat dahil</p>
     </div>
-    ${missing.length ? `<p class="stock-note">Stokta yok · ${esc(missing.join(', '))}</p>` : `<button class="btn${pkg.recommended ? ' btn--gold' : ''} pkg__add" type="button" data-pkg="${ids}" data-pkg-name="${esc(pkg.name)}" data-track-location="packages">${icon('shopping-bag')}<span>Paketi ekle</span></button>`}
+    <button class="btn${pkg.recommended ? ' btn--gold' : ''} pkg__add" type="button" data-pkg="${ids}" data-pkg-name="${esc(pkg.name)}" data-track-location="packages"${missing.length ? ' hidden' : ''}>${icon('shopping-bag')}<span>Paketi ekle</span></button>${missing.length ? `<p class="stock-note" data-stock-note>Stokta yok · ${esc(missing.join(', '))}</p>` : ''}
   </div>
 </article>`;
 }

@@ -8,7 +8,8 @@ const listeners = new Set();
 let items = load();
 let cartDiscountActive = false;
 const pricing = globalThis.FuarPricing;
-const canAdd = product => Boolean(product && product.inStock !== false);
+// Sepete yalnız satışa açık (aktif ve stokta) ürün eklenir; durum canlı katalog katmanıyla değişebilir.
+const canAdd = product => Boolean(product && product.active !== false && product.inStock !== false);
 
 const newKey = (id) => `${id}~${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`;
 

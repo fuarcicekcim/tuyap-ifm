@@ -8,15 +8,20 @@ export function initFairOffer(products) {
   const pricing = globalThis.FuarPricing;
   const cartCampaign = JSON.parse(document.getElementById('cart-discount-data')?.textContent || 'null');
   if (!cartCampaign) return;
-  const available = [...products.values()].filter(product => product.inStock !== false);
-  if (!available.length || !available.every(({ basePrice, discount }) =>
-    basePrice > 0 && discount?.previousPrice === basePrice
-    && discount.price === pricing.discountedPrice(basePrice, 15))) return;
+  // Ürün fiyat/stok/indirimi canlı katalog katmanıyla sonradan değişebilir; teklif her kontrolde güncel veriden değerlendirilir.
+  const eligible = () => {
+    const available = [...products.values()].filter(product => product.active !== false && product.inStock !== false);
+    return available.length > 0 && available.every(({ basePrice, discount }) =>
+      basePrice > 0 && discount?.previousPrice === basePrice
+      && discount.price === pricing.discountedPrice(basePrice, 15));
+  };
+  if (!eligible()) return;
 
   function campaignActive() {
     const date = pricing.today();
-    return FAIR_DAYS.days.includes(date) && pricing.resolveCartDiscount(cartCampaign, date)
-      && available.every(({ discount }) => discount.startsOn <= date && date <= discount.endsOn);
+    return FAIR_DAYS.days.includes(date) && pricing.resolveCartDiscount(cartCampaign, date) && eligible()
+      && [...products.values()].filter(product => product.active !== false && product.inStock !== false)
+        .every(({ discount }) => discount.startsOn <= date && date <= discount.endsOn);
   }
 
   const sessionKey = `fc-fair-offer:v2:${FAIR_DAYS.activeFairPage}:${cartCampaign.startsOn}:${cartCampaign.endsOn}`;

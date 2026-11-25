@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "generate": "node scripts/generate.mjs",
+    "pull-live": "node scripts/pull-live-catalog.mjs",
     "dev": "node scripts/generate.mjs && vite",
     "build": "node scripts/generate.mjs && vite build",
     "preview": "vite preview"

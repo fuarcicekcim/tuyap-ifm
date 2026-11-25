@@ -37,6 +37,8 @@ export const CONTACT = {
   // Başka bir bağlantıya geçmek için: Google Haritalar'da işletmeyi açın → Paylaş → Bağlantıyı kopyala (maps.app.goo.gl/…).
   // Adres sitede de görünür (2026-11-17 kararı); bu bağlantı altbilgide, iletişim sayfasında ve JSON-LD'de (hasMap) kullanılır.
   maps: 'https://maps.app.goo.gl/rzFAQGbV2MHwvH5s6',
+  // İletişim sayfasındaki yol tarifi aynı işletme kaydını hedefler.
+  mapsPlaceId: 'ChIJ95GYuxdftRQRGT7ISJzeroI',
 };
 
 export const DELIVERY = {

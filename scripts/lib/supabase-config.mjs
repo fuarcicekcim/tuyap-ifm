@@ -14,3 +14,10 @@ export function publicSupabaseConfig(root, environment = null) {
   if (!valid) throw new Error('Tarayıcıda yalnız Supabase publishable veya eski anon anahtarı kullanılabilir.');
   return { enabled: true, url, publishableKey: key };
 }
+
+// Canlı katalog katmanı (fiyat, stok, sıralama… anında) ayrı bir bayrakla açılır: VITE_LIVE_CATALOG_ENABLED=true.
+// Böylece yönetici girişi (VITE_SUPABASE_ENABLED) ile bağımsız etkinleştirilir; URL ve anahtar aynı doğrulamadan geçer.
+export function publicLiveCatalogConfig(root, environment = null) {
+  const env = environment || { ...loadEnv('production', root, ['VITE_SUPABASE_', 'VITE_LIVE_']), ...process.env };
+  return publicSupabaseConfig(root, { ...env, VITE_SUPABASE_ENABLED: env.VITE_LIVE_CATALOG_ENABLED });
+}

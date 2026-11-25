@@ -17,12 +17,14 @@ function initFilters(products) {
   // Kategori sayfalarındaki statik ızgarada filtre sekmeleri ve "Daha fazla göster" düğmesi yoktur; yapılacak bir şey kalmaz.
   // (Eskiden burada `more` boşken addEventListener çağrılıyor, hata bu sayfalarda "Siparişe ekle"yi ve sonraki kodu durduruyordu.)
   if (!grid || !more) return;
-  const cards = [...grid.querySelectorAll('.card')];
-  const ranks = new Map([...products.keys()].map((id, index) => [id, index]));
+  // Canlı katalog katmanı (live-catalog.js) kart sırasını ve durumlarını sonradan değiştirebilir; bu yüzden `let`.
+  let cards = [...grid.querySelectorAll('.card')];
+  let ranks = new Map([...products.keys()].map((id, index) => [id, index]));
   const rank = (card) => ranks.get(card.dataset.productId) ?? Number.MAX_SAFE_INTEGER;
   // Kategori sekmeleri: stokta olanlar önce, başta "En çok satan" etiketliler (sıraya göre), stokta olmayanlar en sonda.
   const bestKey = (card) => (card.dataset.best ? Number(card.dataset.best) : 99);
-  const categoryOrder = [...cards].sort((a, b) => ('oos' in a.dataset) - ('oos' in b.dataset) || bestKey(a) - bestKey(b) || rank(a) - rank(b));
+  const sortForCategory = () => [...cards].sort((a, b) => ('oos' in a.dataset) - ('oos' in b.dataset) || bestKey(a) - bestKey(b) || rank(a) - rank(b));
+  let categoryOrder = sortForCategory();
   let currentOrder = cards;
   let filter = 'all';
   let extra = 0;
@@ -44,7 +46,8 @@ function initFilters(products) {
       grid.append(fragment);
       currentOrder = ordered;
     }
-    const visible = ordered.filter((c) => filter === 'all' || (filter === 'vip' ? 'vip' in c.dataset : c.dataset.cat === filter));
+    // Satışa kapatılmış (data-inactive) ürünler hiçbir sekmede görünmez; sayfada kalır, canlıda yeniden açılabilir.
+    const visible = ordered.filter((c) => !('inactive' in c.dataset) && (filter === 'all' || (filter === 'vip' ? 'vip' in c.dataset : c.dataset.cat === filter)));
     cards.forEach((c) => { c.hidden = true; });
     const limit = fit(FIRST + extra, visible.length, filter === 'all' && wide.matches && cards.some((c) => c.classList.contains('card--feature')));
     visible.slice(0, limit).forEach((c) => { c.hidden = false; });
@@ -66,8 +69,23 @@ function initFilters(products) {
   // Pencere genişliği sütun sayısını değiştirirse boş hücre kalmaması için yeniden hesapla.
   wide.addEventListener('change', () => apply());
   window.matchMedia('(min-width: 768px)').addEventListener('change', () => apply());
+  // Canlı katalog katmanı sıra/durum değiştirdiğinde: kartları yeni sıraya diz (`home`: ana sayfa sırası, `rank`: fiyata göre
+  // kategori sırası) ve görünümü yeniden uygula. Bilinmeyen kartlar sona gider.
+  viewRefresh = ({ home, rank: byPrice }) => {
+    const byId = new Map(cards.map((card) => [card.dataset.productId, card]));
+    const known = new Set(home);
+    cards = [...home.map((id) => byId.get(id)).filter(Boolean), ...cards.filter((card) => !known.has(card.dataset.productId))];
+    ranks = new Map(byPrice.map((id, index) => [id, index]));
+    categoryOrder = sortForCategory();
+    currentOrder = null;
+    apply();
+  };
   if (grid.dataset.grid !== 'static') apply();
 }
+
+// Ana sayfadaki ızgara filtresinin dışarıdan (canlı katalog katmanından) yenilenmesi; ızgara yoksa hiçbir şey yapmaz.
+let viewRefresh = () => {};
+export const refreshCatalogView = (order) => viewRefresh(order);
 
 export function initCatalog() {
   const products = readProducts();

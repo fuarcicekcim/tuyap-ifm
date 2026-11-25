@@ -765,11 +765,11 @@ window.FUAR_CATALOG = {
     },
     {
       "id": "mavi-orkide-renklendirilmis",
-      "name": "Mavi Orkide (Renklendirilmiş)",
+      "name": "Mavi Orkide",
       "category": "orchids",
       "price": 4500,
       "image": "assets/products/mavi-orkide-renklendirilmis.webp",
-      "alt": "Mavi Orkide (Renklendirilmiş) — orkide, Fuar Çiçekçim",
+      "alt": "Mavi Orkide — orkide, Fuar Çiçekçim",
       "label": "ORKİDE",
       "badge": "",
       "active": true,

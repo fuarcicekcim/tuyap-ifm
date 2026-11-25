@@ -62,7 +62,8 @@ $tel     = $clean('telefon', 40);
 $eposta  = filter_var($clean('eposta', 120), FILTER_VALIDATE_EMAIL) ?: '';
 $fuar    = $clean('fuar_adi', 200) ?: $clean('fuar_diger', 200) ?: 'Belirtilmedi';
 $merkez  = $clean('merkez', 40);
-$stant   = $clean('stant', 300);
+$acikAdresTeklifi = $merkez === 'Açık adres' && $clean('tur', 20) === 'teklif';
+$stant   = $clean('stant', $acikAdresTeklifi ? 1150 : 300);
 $tarih   = $clean('tarih', 40);
 $saat    = $clean('saat', 60);
 $adet    = $clean('adet', 60);
@@ -113,8 +114,10 @@ if (is_array($ribbonRows)) {
 }
 
 // Sipariş çekmecesi iletişim bilgisi istemez (müşteri numarası WhatsApp mesajında görünür); teklif formu ister.
-if ($stant === '') fail('Stant bilgisi zorunludur.');
-if (!$siparis && ($firma === '' || $ad === '' || $tel === '')) fail('Firma, yetkili, telefon ve stant bilgisi zorunludur.');
+if ($stant === '') fail($acikAdresTeklifi ? 'Teslimat bilgisi zorunludur.' : 'Stant bilgisi zorunludur.');
+if (!$siparis && ($firma === '' || $ad === '' || $tel === '')) fail($acikAdresTeklifi
+  ? 'Firma, yetkili ve telefon bilgisi zorunludur.'
+  : 'Firma, yetkili, telefon ve stant bilgisi zorunludur.');
 if ($tel !== '' && !preg_match('/\d{7,}/', preg_replace('/\D/', '', $tel))) fail('Geçerli bir telefon numarası yazın.');
 
 $intakeSaved = false; $intakeId = null; $mailClaimToken = null;
@@ -174,7 +177,7 @@ if ($supabaseEnabled) {
     $tel = $intake['customer']['phone']; $eposta = $intake['customer']['email'];
     $fUnvan = $intake['customer']['billing_company']; $fVd = $intake['customer']['tax_office']; $fVno = $intake['customer']['tax_number'];
     $fuar = $intake['event']['fair_name'] ?: 'Belirtilmedi';
-    $merkez = ['tuyap'=>'TÜYAP','ifm'=>'İFM','both'=>'Her ikisi','other'=>'Diğer'][$intake['event']['venue']];
+    $merkez = $acikAdresTeklifi ? 'Açık adres' : ['tuyap'=>'TÜYAP','ifm'=>'İFM','both'=>'Her ikisi','other'=>'Diğer'][$intake['event']['venue']];
     $not = $intake['notes']; $butce = $intake['quote']['budget'];
     $siparis = $intake['request_type'] === 'order_request';
     $sipNo = preg_replace('/[^A-Z0-9\-]/', '', $intake['reference']);
@@ -204,7 +207,7 @@ $satirlar = [
   str_repeat('-', 48),
   "Fuar            : $fuar",
   "Fuar merkezi    : $merkez",
-  "Salon / stant   : $stant",
+  ($acikAdresTeklifi ? "Teslimat bilgisi: " : "Salon / stant   : ") . $stant,
   "Teslimat        : $tarih $saat",
   "Firma           : $firma",
   "Yetkili         : " . ($ad ?: '-'),
@@ -262,7 +265,9 @@ array_push($satirlar,
   ($tel !== '' ? "WhatsApp ile yanıtla: https://wa.me/" . preg_replace('/\D/', '', (strpos($tel, '0') === 0 ? '9' . $tel : $tel)) : "Müşterinin numarası, WhatsApp'tan gelen sipariş mesajında görünür.")
 );
 $govde = implode("\n", $satirlar);
-$konu  = ($siparis ? "Sipariş $sipNo: " : "Teklif: ") . "$firma — $fuar" . ($stant ? " ($stant)" : '') . ($siparis && $toplam ? " · $toplam" : '');
+$konu  = $acikAdresTeklifi
+  ? "Açık adres teslimat teklifi — $firma"
+  : ($siparis ? "Sipariş $sipNo: " : "Teklif: ") . "$firma — $fuar" . ($stant ? " ($stant)" : '') . ($siparis && $toplam ? " · $toplam" : '');
 
 // Yedek kayıt: ayarın açık olması yeterli değildir; yazılan bayt sayısı doğrulanır.
 $saved = $intakeSaved;

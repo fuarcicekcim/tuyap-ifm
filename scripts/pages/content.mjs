@@ -396,6 +396,15 @@ export function hakkimizda() {
 /* ---------------- İletişim ---------------- */
 export function iletisim() {
   const path = '/iletisim.html';
+  const hasStreetAddress = Boolean(SITE.address.street);
+  const directionsParams = new URLSearchParams({
+    api: '1',
+    destination: `${SITE.name}, ${SITE.addressLine}`,
+    destination_place_id: CONTACT.mapsPlaceId,
+  });
+  const mapUrl = hasStreetAddress ? `https://www.google.com/maps/dir/?${directionsParams}` : CONTACT.maps;
+  const mapLabel = hasStreetAddress ? 'Google Haritalar’da yol tarifi al' : 'Haritalar’da aç';
+  const mapLink = CONTACT.maps ? `<a class="facts__link" href="${esc(mapUrl)}" target="_blank" rel="noopener" data-track="maps_click" data-track-location="contact">${icon('map-pin')}${mapLabel}</a>` : '';
   return page({
     path,
     title: 'İletişim ve Adres | Fuar Çiçekçim – 7/24 Sipariş, Esenyurt',
@@ -409,7 +418,7 @@ export function iletisim() {
     }) + facts([
       ['Telefon / WhatsApp', `<a href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="contact">${esc(CONTACT.phoneDisplay)}</a>`, 'wide'],
       ['E-posta', `<a href="mailto:${CONTACT.email}">${esc(CONTACT.email)}</a>`, 'wide'],
-      [SITE.address.street ? 'Adres' : 'Konum', `<address>${esc(SITE.addressLine)}</address>${CONTACT.maps ? `<a class="facts__link" href="${esc(CONTACT.maps)}" target="_blank" rel="noopener" data-track="maps_click" data-track-location="contact">${icon('map-pin')}Haritalar’da aç</a>` : ''}`, 'wide'],
+      [hasStreetAddress ? 'Adres' : 'Konum', `<address>${esc(SITE.addressLine)}</address>${mapLink}`, 'wide'],
       ['Çalışma saatleri', '7/24 sipariş ve teslimat', 'wide'],
     ]) + prose([
       { title: 'Hizmet bölgemiz', html: `<p>Standa teslimat yaptığımız fuar merkezleri: <a href="${TUYAP.page}">${esc(TUYAP.name)}</a> (Büyükçekmece) ve <a href="${IFM.page}">${esc(IFM.name)}</a> (Yeşilköy). Esenyurt’tan TÜYAP’a yol süremiz yaklaşık 5 dakikadır. Fuar katılımcılarının konakladığı otellere de karşılama çiçeği gönderiyoruz.</p>` },

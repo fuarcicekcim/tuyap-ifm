@@ -1,0 +1,49 @@
+[data-address-autocomplete][hidden],
+[data-address-suggestions][hidden],
+[data-address-status]:empty {
+  display: none;
+}
+
+[data-address-suggestions] {
+  display: grid;
+  margin: 0 0 .75rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.address-suggestions__option {
+  min-height: 44px;
+  padding: .65rem .85rem;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--forest);
+  font: inherit;
+  font-size: .9rem;
+  text-align: left;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.address-suggestions__option:hover,
+.address-suggestions__option:focus-visible {
+  background: var(--cream);
+}
+
+.address-suggestions__option:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+}
+
+.address-suggestions__attribution {
+  justify-self: end;
+  width: auto;
+  height: 17px;
+  margin: 10px 10px 5px;
+}
+
+[data-address-status] {
+  margin: 0 0 .75rem;
+  color: var(--muted);
+  font-size: .8rem;
+}

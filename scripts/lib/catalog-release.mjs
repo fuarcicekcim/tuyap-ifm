@@ -3,7 +3,8 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 import '../../catalog-pricing.js';
 
-export const LEGACY_BESTSELLERS = ['iki-dalli-beyaz-orkide', 'yucca-iki-govde', 'seflera', 'beyaz-lilyum-prestij-ferforje', 'antoryum'];
+// Sıralama kuralları tarayıcıdaki canlı katalog katmanıyla paylaşılır (tek kaynak): src/shared/product-order.js
+export { LEGACY_BESTSELLERS, homeProductOrder } from '../../src/shared/product-order.js';
 export const sourceSha256 = (source) => createHash('sha256').update(source).digest('hex');
 
 // Yalnız JSON veya panelin ürettiği tek atama kabul edilir; JavaScript çalıştırılmaz.
@@ -30,24 +31,6 @@ export function localImagePath(value) {
 
 export function effectivePage(product) {
   return product.sharePage || `urunler/${product.id}.html`;
-}
-
-export function homeProductOrder(products) {
-  const explicit = products.some((product) => Object.hasOwn(product, 'bestsellerRank'));
-  const byId = new Map(products.map((product) => [product.id, product]));
-  const featured = explicit
-    ? products.filter((product) => Number.isInteger(product.bestsellerRank) && product.bestsellerRank > 0).sort((a, b) => a.bestsellerRank - b.bestsellerRank)
-    : LEGACY_BESTSELLERS.map((id) => byId.get(id)).filter(Boolean);
-  const selected = new Set(featured.map((product) => product.id));
-  const remaining = products.filter((product) => !selected.has(product.id)).sort((a, b) => a.price - b.price || a.id.localeCompare(b.id, 'tr'));
-  const mixed = [];
-  for (let low = 0, high = remaining.length - 1; low <= high;) {
-    mixed.push(remaining[low++]);
-    if (low <= high) mixed.push(remaining[high--]);
-  }
-  const fallback = new Map(mixed.map((product, index) => [product.id, index]));
-  mixed.sort((a, b) => (a.sortOrder ?? Infinity) - (b.sortOrder ?? Infinity) || fallback.get(a.id) - fallback.get(b.id));
-  return [...featured, ...mixed];
 }
 
 export function validateCatalog(catalog, { previous = null, packages = [], root = null, checkFiles = false, allowEmbedded = true } = {}) {

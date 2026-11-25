@@ -22,7 +22,7 @@ export function initFab() {
     new IntersectionObserver(([e]) => fab.classList.toggle('is-away', e.isIntersecting), { rootMargin: '0px 0px -28% 0px' }).observe(footer);
   }
 
-  const homeCards = document.querySelectorAll('.trust--hero, .home-fair');
+  const homeCards = document.querySelectorAll('.trust--hero, .trust--card, .home-fair');
   if (homeCards.length) {
     const visible = new Set();
     const observer = new IntersectionObserver(entries => {

@@ -138,8 +138,8 @@ export function productPage(p, catalog) {
       ${renderProductPrice(p, { detailed: true })}
       <p class="pdp__lead">${esc(tier(p.basePrice))} ${esc(copy.use)} uygundur.</p>
       <div class="pdp__ctas">
-        ${!available ? `<p class="stock-note">${p.active === false ? 'Bu ürün şu anda satışa kapalı.' : 'Stokta yok'}</p>` : `<button class="btn btn--gold" type="button" data-add="${p.id}" data-open-drawer data-magnetic>${icon('shopping-bag')}<span>Siparişe ekle</span></button>`}
-        <a class="btn btn--wa" href="${esc(whatsappUrl)}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="product"${p.discount ? ` data-price-whatsapp="${p.id}"` : ''}>${icon('message-circle')}WhatsApp’tan sor</a>
+        <button class="btn btn--gold" type="button" data-add="${p.id}" data-open-drawer data-magnetic${available ? '' : ' hidden'}>${icon('shopping-bag')}<span>Siparişe ekle</span></button>${available ? '' : `<p class="stock-note" data-stock-note>${p.active === false ? 'Bu ürün şu anda satışa kapalı.' : 'Stokta yok'}</p>`}
+        <a class="btn btn--wa" href="${esc(whatsappUrl)}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="product" data-price-whatsapp="${p.id}">${icon('message-circle')}WhatsApp’tan sor</a>
       </div>
       <ul class="pdp__values">
         <li>${icon('truck')}<span><strong>${esc(DELIVERY.promise)}</strong> TÜYAP ve İFM’de salon ve stant numarasına</span></li>
@@ -156,7 +156,7 @@ export function productPage(p, catalog) {
     + ctaBand();
   return page({
     path: p.page, title, description, ogImage: shareImg,
-    productOrder: available ? { id: p.id, whatsappUrl, hasDiscount: Boolean(p.discount) } : undefined,
+    productOrder: available ? { id: p.id, whatsappUrl } : undefined,
     preload: `<link rel="preload" as="image" href="${p.image}" fetchpriority="high">`,
     jsonld: graph(productNode, breadcrumbNode(crumbs)),
     body,

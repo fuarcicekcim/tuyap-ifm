@@ -83,6 +83,8 @@
   background: var(--paper); color: var(--gold-text); font-size: .82rem; font-weight: 700;
 }
 .card__body > .stock-note { margin-top: auto; }
+/* Stok durumu canlı katalog katmanıyla değişebilir; düğme ve not birlikte bulunur, biri `hidden` olur (display kuralları hidden'ı ezmesin). */
+[data-add][hidden], [data-pkg][hidden], [data-stock-note][hidden] { display: none !important; }
 .card__add .icon { width: 16px; height: 16px; }
 .card__add.is-added { background: var(--forest); border-color: var(--forest); color: var(--cream); }
 @media (hover: hover) { .card__add:hover { background: var(--forest); border-color: var(--forest); color: var(--cream); } }

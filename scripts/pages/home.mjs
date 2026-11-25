@@ -29,12 +29,12 @@ function hero() {
 
   <div class="wrap hero__inner">
     <div class="hero__copy">
-      <h1 id="hero-baslik" data-split>TÜYAP ve İFM’ye <em>çiçek teslimatı.</em></h1>
+      <h1 id="hero-baslik" data-split>TÜYAP ve İFM’de <em>standa çiçek gönderin.</em></h1>
       <div class="hero__cta">
-        <a class="shiny hero__catalog" href="#urunler" data-track-location="hero-cta"><span>${icon('shopping-bag')}Kataloğa bak</span></a>
+        <a class="shiny hero__catalog" href="#urunler" data-track-location="hero-cta"><span>${icon('shopping-bag')}Çiçekleri ve fiyatları gör</span></a>
         <a class="shiny hero__wa" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero-cta"><span><img class="wa3d" src="/assets/icons/whatsapp-3d.webp" width="96" height="96" alt="" decoding="async">WhatsApp’la sipariş</span></a>
       </div>
-      ${trust(true)}
+      ${trust('hero')}
     </div>
   </div>
 </section>`;
@@ -62,8 +62,11 @@ function nextFair(titleId) {
 }
 
 
-function trust(compact = false) {
-  const titleId = compact ? 'neden-baslik-mobil' : 'neden-baslik';
+// variant: 'desktop' (hero altı şerit, ≥1024 px), 'hero' (başlık yanındaki mobil kart), 'card' (ürün listesinin altındaki kart, her genişlikte).
+function trust(variant = 'desktop') {
+  const compact = variant === 'hero' || variant === true;
+  const isCard = variant === 'card';
+  const titleId = isCard ? 'neden-baslik-urunler' : compact ? 'neden-baslik-mobil' : 'neden-baslik';
   const items = [
     ['zap', `${DELIVERY.minutes} dakikada standa teslimat`, 'TÜYAP ve İFM'],
     ['camera', 'Teslimatta fotoğraf onayı', 'WhatsApp üzerinden'],
@@ -71,8 +74,8 @@ function trust(compact = false) {
     ['leaf', 'Doğrudan seradan', 'Taze ve bakımlı bitkiler'],
   ];
   return `
-<section class="trust${compact ? ' trust--hero' : ' trust--desktop'}" aria-labelledby="${titleId}">
-  <div class="${compact ? 'trust__inner' : 'wrap trust__inner'}">
+<section class="trust${isCard ? ' trust--card' : compact ? ' trust--hero' : ' trust--desktop'}" aria-labelledby="${titleId}">
+  <div class="${compact || isCard ? 'trust__inner' : 'wrap trust__inner'}">
     <h2 class="trust__title" id="${titleId}">Neden Fuar <em>Çiçekçim?</em></h2>
     <ul class="trust__list">
       ${items.map(([ic, t, s]) => `<li class="trust__item"><span class="trust__icon">${icon(ic)}</span><span class="trust__text"><strong>${esc(t)}</strong><small>${esc(s)}</small></span></li>`).join('')}
@@ -118,6 +121,7 @@ function products(catalog) {
       ${stockLast(homeProductOrder(catalog.products)).map(card).join('')}
     </div>
     <div class="grid-more"><button class="btn btn--ghost" type="button" data-more hidden>Daha fazla göster</button></div>
+    ${trust('card')}
   </div>
 </section>`;
 }

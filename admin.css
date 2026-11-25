@@ -723,3 +723,54 @@ html.dark .status-toggle.is-active { color: #c1d9b5; background: #2b4432; border
   .bestsellers__thumb { display: none; }
   .bestsellers__select { font-size: 16px; }
 }
+
+/* ---- Canlı yayın (admin-live.js): çubuk, giriş ve inceleme penceresi ---- */
+.live-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 15px 17px; margin-bottom: 14px; border: 1px solid var(--admin-line); border-left: 3px solid var(--admin-gold); border-radius: 9px; background: var(--admin-surface); }
+.live-bar[hidden] { display: none; }
+.live-bar__copy { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.live-bar__copy p { min-width: 0; }
+.live-bar__icon { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border: 1px solid #c5a05938; border-radius: 50%; color: var(--admin-gold-ink); background: #c5a0590d; }
+.live-bar__icon svg { width: 17px; height: 17px; }
+.live-bar__copy strong { display: block; color: var(--admin-ink); font-size: 13px; font-weight: 700; }
+.live-bar__copy p > span { display: block; max-width: 640px; margin-top: 4px; color: var(--admin-muted); font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
+.live-bar__actions { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 8px; flex: none; }
+.live-bar[data-state="ok"] { border-left-color: #66845c; }
+.live-bar[data-state="pending"] { border-left-color: var(--admin-gold); background: #c5a05910; }
+.live-bar[data-state="error"] { border-left-color: var(--admin-danger); }
+.live-bar[data-state="error"] .live-bar__icon { color: var(--admin-danger); border-color: #ac493c40; background: #ac493c08; }
+.live-bar[data-state="busy"] .live-bar__icon svg, .live-bar button[aria-busy="true"] > svg { animation: status-pulse 1s ease-in-out infinite alternate; }
+.live-bar button:disabled { opacity: .6; cursor: progress; }
+
+.live-dialog { width: min(680px, calc(100vw - 36px)); }
+.live-signin { display: grid; gap: 16px; padding: 24px 28px 28px; }
+.live-signin .admin-button { justify-self: start; }
+.live-signin__note, .live-review__note { color: var(--admin-muted); font-size: 12px; line-height: 1.8; }
+.live-review { padding: 6px 28px 8px; }
+.live-review > .field-error:not(:empty) { margin: 12px 0 0; padding: 10px 12px; border: 1px solid #ac493c55; border-radius: 6px; background: #ac493c07; }
+.live-review__note { margin: 12px 0 14px; }
+.live-changes { display: grid; gap: 10px; max-height: min(52svh, 460px); margin: 16px 0 0; padding: 0; overflow-y: auto; list-style: none; overscroll-behavior: contain; }
+.live-change { display: grid; gap: 8px; padding: 13px 14px; border: 1px solid var(--admin-line); border-radius: 8px; background: var(--admin-bg); }
+.live-change.is-conflict { border-color: #c5a05980; background: #c5a05912; }
+.live-change__name { font-size: 13px; font-weight: 700; overflow-wrap: anywhere; }
+.live-change__label { display: block; margin-bottom: 4px; color: var(--admin-gold-ink); font-size: 11px; font-weight: 700; letter-spacing: .06em; }
+.live-change__lines { display: grid; gap: 3px; margin: 0; padding: 0; list-style: none; }
+.live-change__lines li { font-size: 12px; line-height: 1.6; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.live-change__note { color: var(--admin-muted); font-size: 12px; line-height: 1.7; }
+.live-change__choices { display: flex; flex-wrap: wrap; gap: 8px 18px; padding-top: 4px; }
+.live-choice { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 12px; font-weight: 600; cursor: pointer; }
+.live-choice input { width: 18px; height: 18px; accent-color: #173628; }
+
+@media (max-width: 760px) {
+  .live-bar { flex-direction: column; align-items: stretch; gap: 14px; }
+  .live-bar__actions { justify-content: stretch; }
+  .live-bar__actions .admin-button { flex: 1 1 auto; }
+  /* Telefonda "Canlıya al" başparmak bölgesinde, ekranın altında sabit durur (yalnız bekleyen değişiklik varken). */
+  .live-bar[data-state="pending"] #live-publish-button { position: fixed; left: 12px; right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); z-index: 60; min-height: 52px; font-size: 14px; box-shadow: 0 8px 28px #17362840; }
+  body:has(.live-bar[data-state="pending"]) .admin-content { padding-bottom: 96px; }
+  body:has(.live-bar[data-state="pending"]) .admin-toast { bottom: 84px; }
+  .live-dialog { width: calc(100vw - 20px); }
+  .live-signin, .live-review { padding-inline: 18px; }
+  .live-signin .admin-button { justify-self: stretch; }
+  .live-signin input { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .live-bar * { animation: none !important; } }

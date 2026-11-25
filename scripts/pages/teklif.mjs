@@ -37,10 +37,17 @@ export function teklif() {
       <fieldset class="order__set">
         <legend>Fuar ve teslimat</legend>
         <div class="field-row">
-          <label class="field"><span>Fuar adı</span><input name="fuar_adi" maxlength="200" value="${esc(FAIR_DAYS.activeFairName)}"></label>
-          <label class="field"><span>Fuar merkezi</span><select name="merkez">${VENUES.map((v) => `<option value="${esc(v.short)}">${esc(v.short)}</option>`).join('')}<option value="Her ikisi">Her ikisi</option><option value="Diğer">Diğer</option></select></label>
+          <div data-quote-fair-field><label class="field"><span>Fuar adı</span><input name="fuar_adi" maxlength="200" value="${esc(FAIR_DAYS.activeFairName)}"></label></div>
+          <label class="field"><span>Teslimat yeri</span><select name="merkez">${VENUES.map((v) => `<option value="${esc(v.short)}">${esc(v.short)}</option>`).join('')}<option value="Her ikisi">Her ikisi</option><option value="Diğer">Diğer fuarlar</option><option value="Açık adres">Otel / ofis / açık adres</option></select></label>
         </div>
-        <label class="field"><span>Stantlar ve teslim günleri <b aria-hidden="true">*</b></span><textarea name="stant" required rows="4" maxlength="800" placeholder="Örn. Salon 5 / B12 – 21 Kasım sabah&#10;Salon 7 / 714 – 22 Kasım"></textarea></label>
+        <div data-address-autocomplete hidden>
+          <label class="field"><span>Teslimat adresi <b aria-hidden="true">*</b></span><input name="adres" type="text" maxlength="300" autocomplete="street-address" placeholder="Mahalle, sokak, bina numarası ve ilçe" disabled></label>
+          <label class="consent"><input type="checkbox" data-address-lookup><span>Google Maps adres önerilerini göster</span></label>
+          <p class="drawer__note">Bu seçeneği açarsanız adres alanına yazdığınız metin öneri almak için Google’a iletilir. Adresi elle de yazabilirsiniz.</p>
+          <p data-address-status role="status"></p>
+          <div data-address-suggestions hidden></div>
+        </div>
+        <label class="field"><span><span data-quote-delivery-label>Stantlar ve teslim günleri</span> <b aria-hidden="true">*</b></span><textarea name="stant" required rows="4" maxlength="800" placeholder="Örn. Salon 5 / B12 – 21 Kasım sabah&#10;Salon 7 / 714 – 22 Kasım"></textarea></label>
         <label class="field"><span>Bütçe aralığı</span><select name="butce">${BUDGETS.map((b) => `<option>${esc(b)}</option>`).join('')}</select></label>
         <label class="field"><span>Not</span><textarea name="not" rows="3" maxlength="800" placeholder="Ürün tercihleri, şerit yazıları, logo, renk, kiralama veya lansman çiçeklendirmesi…"></textarea></label>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">

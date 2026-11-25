@@ -23,6 +23,11 @@ initDrawer();
 initMobileMenu();
 const products = initCatalog();
 refreshPrices(products);
+// Canlı katalog katmanı yalnız sayfada yapılandırması varsa (VITE_LIVE_CATALOG_ENABLED ile derlendiyse) ve ayrı bir
+// parça olarak indirilir; kapalıyken ana pakete ve ilk boyamaya hiçbir maliyeti yoktur. Statik içerik her zaman yedektir.
+if (document.getElementById('live-catalog-config')) {
+  import('./js/live-catalog.js').then((module) => module.initLiveCatalog(products)).catch(() => { /* statik katalogla devam */ });
+}
 initFairOffer(products);
 initQuote();
 initFooter();

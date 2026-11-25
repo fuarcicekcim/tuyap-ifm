@@ -7,9 +7,9 @@ import sharp from 'sharp';
 import { SITE, CONTACT, PRICING, VENUES } from '../src/config/site-settings.js';
 import { PACKAGES } from '../src/config/packages.js';
 import { releaseManifest, validateCatalog, sourceSha256 } from './lib/catalog-release.mjs';
-import { publicSupabaseConfig } from './lib/supabase-config.mjs';
+import { publicSupabaseConfig, publicLiveCatalogConfig } from './lib/supabase-config.mjs';
 import { loadCatalog, loadFairs, CATEGORIES } from './lib/catalog.mjs';
-import { setCatalogData } from './lib/layout.mjs';
+import { setCatalogData, setLiveCatalogConfig } from './lib/layout.mjs';
 import { home } from './pages/home.mjs';
 import { kvkk } from './pages/kvkk.mjs';
 import { productPage, categoryPage } from './pages/products.mjs';
@@ -44,7 +44,7 @@ export const REDIRECTS = {
 
 // Katalog yönetim paneli statik taşınır; sunucuya kayıt özel taslaktır, yayın derlemeyle yapılır.
 const STATIC = ['assets', 'api', 'teklif-gonder.php', 'config.example.php', 'products-data.js', 'fairs-data.js',
-  'admin.html', 'admin.js', 'admin.css', 'admin-auth.js', 'catalog-pricing.js', 'catalog-store.js'];
+  'admin.html', 'admin.js', 'admin.css', 'admin-auth.js', 'admin-live.js', 'admin-live-core.js', 'catalog-pricing.js', 'catalog-store.js'];
 
 async function resized(srcRel, width) {
   const out = srcRel.replace(/\.(?:webp|png|jpe?g|gif|avif)$/i, `-${width}.webp`);
@@ -111,7 +111,12 @@ async function copyStatic(catalog) {
   fs.copyFileSync(path.join(ROOT, 'node_modules/lucide/dist/umd/lucide.min.js'), path.join(PUB, 'assets/vendor/lucide.min.js'));
   const publicAuth = publicSupabaseConfig(ROOT);
   // Yalnız public bilgiler yazılır. Secret anahtar bu sınırdan geçemez.
-  fs.writeFileSync(path.join(PUB, 'supabase-config.js'), `window.FUAR_SUPABASE = ${JSON.stringify(publicAuth).replace(/</g, '\\u003c')};\n`);
+  // Canlı yayın (panelden anında fiyat/stok/sıralama) ayrı bayrakla açılır: aynı public URL ve publishable anahtar.
+  // Bayrak kapalıysa panelde canlı yayın çubuğu çıkmaz.
+  const publicLive = publicLiveCatalogConfig(ROOT);
+  fs.writeFileSync(path.join(PUB, 'supabase-config.js'), `window.FUAR_SUPABASE = ${JSON.stringify(publicAuth).replace(/</g, '\\u003c')};\nwindow.FUAR_LIVE = ${JSON.stringify(publicLive).replace(/</g, '\\u003c')};\n`);
+  // Panelin canlı satır doğrulayıcısı siteyle AYNI dosyadır (tek kaynak); panel kökünden yüklenir.
+  fs.copyFileSync(path.join(ROOT, 'src/js/live-rules.js'), path.join(PUB, 'live-rules.js'));
   fs.copyFileSync(path.join(ROOT, 'node_modules/@supabase/supabase-js/dist/umd/supabase.js'), path.join(PUB, 'assets/vendor/supabase.js'));
   const adminMeta = { schema: 1, protectedProductIds: [...new Set(PACKAGES.flatMap((pkg) => pkg.items.map(([id]) => id)))], settings: { whatsapp: CONTACT.whatsapp, vat: PRICING.vatRate, announcement: catalog.raw.settings.announcement, regions: Object.fromEntries(VENUES.map(({ id }) => [id, true])) }, categoriesEditable: false };
   fs.writeFileSync(path.join(PUB, 'admin-config.js'), `window.FUAR_ADMIN_META = ${JSON.stringify(adminMeta).replace(/</g, '\\u003c')};\n`);
@@ -198,7 +203,7 @@ ErrorDocument 404 /404.html
   <If "%{REQUEST_URI} =~ m#^/static/#">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </If>
-  <FilesMatch "^(products-data|fairs-data|admin|catalog-pricing|catalog-store)\\.js$">
+  <FilesMatch "^(products-data|fairs-data|admin|admin-auth|admin-live|admin-live-core|admin-config|supabase-config|live-rules|catalog-pricing|catalog-store)\\.js$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
   <FilesMatch "\\.(html|php|xml|txt)$">
@@ -224,6 +229,11 @@ validateCatalog(catalog.raw, { packages: PACKAGES });
 const fairData = loadFairs();
 const plastFair = fairData.allFairs.find((fair) => fair.id === 'plast-eurasia-2026');
 setCatalogData(catalog.products, catalog.cartDiscount);
+// Canlı katalog katmanı kapalıysa (varsayılan) sayfalara hiçbir yapılandırma yazılmaz; site yalnız statik katalogla çalışır.
+const liveCatalog = publicLiveCatalogConfig(ROOT);
+setLiveCatalogConfig(liveCatalog.enabled
+  ? { ...liveCatalog, badges: Object.fromEntries((catalog.raw.badges || []).map((badge) => [badge.id, badge.name])) }
+  : null);
 await copyStatic(catalog);
 
 const pages = {

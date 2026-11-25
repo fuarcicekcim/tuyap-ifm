@@ -76,7 +76,7 @@ function dock(productOrder) {
     return `
 <div class="dock dock--product" role="region" aria-label="Hızlı ürün siparişi">
   <button class="btn btn--gold dock__add" type="button" data-add="${id}" data-open-drawer>${icon('shopping-bag')}Sepete ekle</button>
-  <a class="btn btn--ghost-light dock__wa" href="${esc(productOrder.whatsappUrl)}" target="_blank" rel="noopener" aria-label="Ürünü WhatsApp’tan sor" data-track="whatsapp_click" data-track-location="product-dock"${productOrder.hasDiscount ? ` data-price-whatsapp="${id}"` : ''}><img class="wa3d wa3d--dock" src="/assets/icons/whatsapp-3d.webp" width="96" height="96" alt="" decoding="async"><span class="dock__wa-label">WhatsApp</span></a>
+  <a class="btn btn--ghost-light dock__wa" href="${esc(productOrder.whatsappUrl)}" target="_blank" rel="noopener" aria-label="Ürünü WhatsApp’tan sor" data-track="whatsapp_click" data-track-location="product-dock" data-price-whatsapp="${id}"><img class="wa3d wa3d--dock" src="/assets/icons/whatsapp-3d.webp" width="96" height="96" alt="" decoding="async"><span class="dock__wa-label">WhatsApp</span></a>
   <a class="btn btn--ghost-light" href="tel:${CONTACT.phoneE164}" aria-label="Ara" data-track="phone_click" data-track-location="product-dock">${icon('phone')}</a>
 </div>`;
   }
@@ -256,11 +256,23 @@ function footer() {
 
 let catalogJson = '[]';
 let cartDiscountJson = '';
+let liveConfigJson = '';
 export function setCatalogData(products, cartDiscount = null) {
   cartDiscountJson = cartDiscount ? JSON.stringify(cartDiscount).replace(/</g, '\\u003c') : '';
-  catalogJson = JSON.stringify(products.map(({ id, name, price, basePrice, discount, image, page, category, categoryName, inStock }) => ({
+  // Sıralama alanları (sortOrder, bestsellerRank, badgeId) canlı katalog katmanının sayfadaki sırayı derlemedekiyle
+  // aynı kuralla yeniden hesaplaması içindir (src/shared/product-order.js). bestsellerRank anahtarının varlığı anlamlıdır.
+  catalogJson = JSON.stringify(products.map(({ id, name, price, basePrice, discount, image, page, category, categoryName, inStock, badgeId, sortOrder, bestsellerRank }) => ({
     id, name, price, image, ...(page ? { page } : {}), category, cat: categoryName, ...(inStock === false ? { inStock: false } : {}), ...(discount ? { basePrice, discount } : {}),
+    ...(badgeId ? { badgeId } : {}),
+    ...(sortOrder !== undefined ? { sortOrder } : {}),
+    ...(bestsellerRank !== undefined ? { bestsellerRank } : {}),
   }))).replace(/</g, '\\u003c');
+}
+
+// Canlı katalog katmanı yapılandırması (yalnız herkese açık değerler: Supabase URL'si, publishable anahtar, rozet adları).
+// Boş verilirse sayfaya hiçbir şey yazılmaz ve canlı katman çalışmaz.
+export function setLiveCatalogConfig(config = null) {
+  liveConfigJson = config?.enabled ? JSON.stringify({ url: config.url, key: config.publishableKey, badges: config.badges || {} }).replace(/</g, '\\u003c') : '';
 }
 
 // Açılış (preloader): "Çift kapı". Görünüm: src/styles/intro.css, davranış: src/js/intro.js,
@@ -371,6 +383,7 @@ ${cartNotice()}
 ${drawer(drawerDefaults)}
 <script type="application/json" id="catalog-data">${catalogJson}</script>
 ${cartDiscountJson ? `<script type="application/json" id="cart-discount-data">${cartDiscountJson}</script>` : ''}
+${liveConfigJson ? `<script type="application/json" id="live-catalog-config">${liveConfigJson}</script>` : ''}
 </body>
 </html>
 `;

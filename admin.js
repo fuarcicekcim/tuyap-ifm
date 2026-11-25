@@ -119,7 +119,7 @@
     if (checkError && !changed && !draft.stale) state = 'error';
     document.querySelector('.publish-banner').dataset.state = state;
     get('catalog-status-text').textContent = checking ? 'Katalog durumu kontrol ediliyor' : draft.stale ? 'Önceki sürümden bir taslağınız var' : changed ? saved ? 'Sunucu taslağınız kaydedildi' : 'Bu cihazda düzenlemeler var' : current ? 'Bu adresin vitrin sürümü doğrulandı' : 'Katalog bu cihazda hazır';
-    get('catalog-status-detail').textContent = draft.stale ? 'Eski düzenlemeleriniz korunuyor. Yeni bir değişiklikten önce yedeğini indirin veya taslağı kurtarın.' : changed ? saved ? 'Canlı vitrin henüz değişmedi. Yayın için aynı katalogdan derleme ve yükleme gerekir.' : 'Düzenlemeler tarayıcıda saklanıyor; henüz vitrinde yayımlanmadı.' : checkError || (localPreview ? 'Yerel önizleme. Sunucuya kayıt için PHP destekli ortam gerekir.' : current ? 'Kaynak katalog ile derlenmiş vitrin aynı sürüme ait.' : 'Yayın doğrulaması için katalog manifesti kontrol edilmeli.');
+    get('catalog-status-detail').textContent = draft.stale ? 'Eski düzenlemeleriniz korunuyor. Yeni bir değişiklikten önce yedeğini indirin veya taslağı kurtarın.' : changed ? saved ? 'Canlı vitrin henüz değişmedi. Yayın için aynı katalogdan derleme ve yükleme gerekir.' : (window.FuarLive?.catalogNote ?? 'Düzenlemeler tarayıcıda saklanıyor; henüz vitrinde yayımlanmadı.') : checkError || (localPreview ? 'Yerel önizleme. Sunucuya kayıt için PHP destekli ortam gerekir.' : current ? 'Kaynak katalog ile derlenmiş vitrin aynı sürüme ait.' : 'Yayın doğrulaması için katalog manifesti kontrol edilmeli.');
     get('catalog-revision').textContent = `${publicSource?.revision || data.revision} · ${checkedAt ? `Kontrol: ${timestamp(checkedAt)}` : 'Henüz kontrol edilmedi'}`;
     get('catalog-check-button').disabled = checking;
     get('catalog-check-button').setAttribute('aria-busy', String(checking));
@@ -508,7 +508,8 @@
     finally { writing = false; }
     record(message);
     render();
-    notify(`${message} Bu cihazdaki taslağa kaydedildi; vitrin değişmedi.`);
+    // Canlı yayın katmanı açıksa (admin-live.js) ipucu oradan gelir: "Canlıya al"a basılana kadar vitrin değişmez.
+    notify(`${message} ${window.FuarLive?.hint?.() ?? 'Bu cihazdaki taslağa kaydedildi; vitrin değişmedi.'}`);
   }
 
   function productPhoto(product, className) {
@@ -809,6 +810,7 @@
     get('page-title').setAttribute('tabindex', '-1');
     get('page-title').focus({ preventScroll: true });
     void checkCatalog();
+    window.dispatchEvent(new CustomEvent('fuar-admin', { detail: 'ready' }));
   }
 
   function lock(endSession = true) {
@@ -832,6 +834,7 @@
     get('login-error').textContent = '';
     get('local-preview-button').hidden = true;
     get('login-input').focus();
+    window.dispatchEvent(new CustomEvent('fuar-admin', { detail: 'locked' }));
   }
 
   function unlock() {
@@ -1396,8 +1399,15 @@
     },
   ));
 
+  // Canlı yayın katmanı taslağı canlı değerlerle eşitlediğinde (başka cihazdaki değişiklikler) liste yeniden çizilir.
+  window.addEventListener('fuar-live-draft-changed', () => {
+    if (get('dashboard').hidden) return;
+    data = store.read();
+    render();
+  });
+
   store.subscribe(() => {
-    if (writing || get('dashboard').hidden) return;
+    if (writing || window.__fuarLiveWriting || get('dashboard').hidden) return;
     data = store.read();
     render();
     if (get('export-dialog').open) { refreshExport(); publishStatus('Katalog başka sekmede değişti. İndirilecek veri güncellendi; sunucu kaydından önce inceleyin.'); }

@@ -55,8 +55,10 @@ export const orderAside = (title = 'Siparişi şimdi oluşturun') => `
 </div>`;
 
 export function cardAdd(p) {
-  if (p.inStock === false) return '<span class="stock-note">Stokta yok</span>';
-  return `<button class="card__add" type="button" data-add="${p.id}" aria-label="${esc(p.name)} ürününü siparişe ekle">${icon('plus')}<span>Siparişe ekle</span></button>`;
+  const out = p.inStock === false;
+  const button = `<button class="card__add" type="button" data-add="${p.id}"${out ? ' hidden' : ''} aria-label="${esc(p.name)} ürününü siparişe ekle">${icon('plus')}<span>Siparişe ekle</span></button>`;
+  // Stok durumu canlı katmanla (src/js/live-catalog.js) değişebilir: stokta olmayan üründe düğme gizli çizilir, not görünür.
+  return out ? `${button}<span class="stock-note" data-stock-note>Stokta yok</span>` : button;
 }
 
 export function productStrip(products, { id, title = 'Standa en çok yakışanlar', eyebrow = 'Koleksiyondan', link = '/#urunler', linkText = 'Tüm koleksiyon' } = {}) {
@@ -66,7 +68,7 @@ export function productStrip(products, { id, title = 'Standa en çok yakışanla
     <div class="strip__head"><div><p class="eyebrow">${esc(eyebrow)}</p><h2 data-split>${title}</h2></div><a class="strip__link" href="${link}">${esc(linkText)} ${icon('arrow-up-right')}</a></div>
     <div class="strip__list">
       ${products.map((p) => `
-      <article class="mini">
+      <article class="mini" data-product-id="${p.id}">
         <a class="mini__media" href="${p.page}">
           <img src="${p.image}" width="800" height="1200" alt="${esc(p.alt)}" loading="lazy" decoding="async">
           ${p.badgeId === 'best-seller' ? awardBadge({ rank: p.bestsellerRank }) : ''}
