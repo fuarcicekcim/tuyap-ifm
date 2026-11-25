@@ -204,15 +204,29 @@ export function avrasya(catalog, fairData) {
   // Fuar bittiğinde yaklaşan listeden düşer; sayfa kendi tarihlerini tüm takvimden alır (FAIR_DAYS artık başka fuarı gösterebilir).
   const fair = fairData.allFairs.find((f) => f.page === path) || { name: 'Avrasya Pencere, Kapı ve Cam Fuarları', start: '2026-11-21', end: '2026-11-24' };
   const range = `${trRange([fair.start, fair.end])} 2026`;
-  const faq = [
+  // Fuar bittiyse (derleme günü bitişten sonraysa) metin geçmiş zamana döner ve sıradaki TÜYAP fuarına yönlendirir.
+  // Sayfa ve adresi korunur (SEO); fuar sürerken çıktı değişmez.
+  const ended = Boolean(fairData.today) && fairData.today > fair.end;
+  const next = ended ? fairData.fairs.find((f) => f.venue === TUYAP.id || f.venue === 'both') : null;
+  const nextRange = next ? `${trRange([next.start, next.end])} ${next.start.slice(0, 4)}` : '';
+  const nextLink = next ? (next.page ? `<a href="${esc(next.page)}">${esc(next.name)}</a>` : esc(next.name)) : '';
+  const delivery = ['Teslimat ne kadar sürer?', `Sipariş onayından itibaren ${M} dakikada standa teslim ederiz. Süre onaydan başlar; ürünün stokta ve fuar girişinin uygun olması gerekir.`];
+  const standNo = ['Stant numaramı nereden öğrenebilirim?', 'Salon ve stant numarası fuar davetiyesinde veya organizatörün katılımcı bilgilerinde yer alır. Emin değilseniz siparişten önce WhatsApp’tan yazın, birlikte netleştirelim.'];
+  const faq = ended ? [
+    [`${fair.name} sona erdi; başka bir TÜYAP fuarına çiçek gönderebilir miyim?`, `Evet. TÜYAP’taki fuarlarda dilediğiniz standa sipariş onayından itibaren ${M} dakikada teslim ediyoruz.${next ? ` Sıradaki TÜYAP fuarı ${next.name} (${nextRange}).` : ''} Diğer tarihler için fuar takvimine bakabilirsiniz.`],
+    delivery,
+    standNo,
+  ] : [
     [`${fair.name} için hangi günlerde teslimat yapıyorsunuz?`, `Fuar günleri olan ${range} boyunca her gün teslimat yapıyoruz; fuar öncesi kurulum gününde de teslim edebiliriz.`],
-    ['Teslimat ne kadar sürer?', `Sipariş onayından itibaren ${M} dakikada standa teslim ederiz. Süre onaydan başlar; ürünün stokta ve fuar girişinin uygun olması gerekir.`],
-    ['Stant numaramı nereden öğrenebilirim?', 'Salon ve stant numarası fuar davetiyesinde veya organizatörün katılımcı bilgilerinde yer alır. Emin değilseniz siparişten önce WhatsApp’tan yazın, birlikte netleştirelim.'],
+    delivery,
+    standNo,
   ];
   return page({
     path,
     title: `${fair.name} 2026 · TÜYAP Çiçek`,
-    description: `${range} ${fair.name} için TÜYAP’taki dilediğiniz standa orkide, çelenk ve aranjman. ${DELIVERY.promise}, fotoğraflı onay.`,
+    description: ended
+      ? `${fair.name} ${range} tarihlerinde TÜYAP’ta düzenlendi. Sıradaki TÜYAP fuarlarında standa orkide, çelenk ve aranjman: ${DELIVERY.promise}, fotoğraflı onay.`
+      : `${range} ${fair.name} için TÜYAP’taki dilediğiniz standa orkide, çelenk ve aranjman. ${DELIVERY.promise}, fotoğraflı onay.`,
     jsonld: graph(
       businessNode(),
       { '@type': 'Event', name: fair.name, startDate: fair.start, endDate: fair.end, eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode', eventStatus: 'https://schema.org/EventScheduled', location: { '@type': 'Place', name: TUYAP.name, address: { '@type': 'PostalAddress', addressLocality: 'Büyükçekmece', addressRegion: 'İstanbul', addressCountry: 'TR' } } },
@@ -221,16 +235,23 @@ export function avrasya(catalog, fairData) {
     ),
     body: pageHero({
       crumbs: [['Ana sayfa', '/'], ['TÜYAP', TUYAP.page], [fair.name, path]],
-      eyebrow: `${range} · TÜYAP İstanbul`,
-      title: `${esc(fair.name)} için <em>standınız hazır olsun.</em>`,
-      lead: `Avrasya fuarlarında iş ortaklarınıza iyi fuarlar dileyin, kendi standınızı çiçeklerle karşılamaya hazırlayın. Siparişinizi salon ve stant numarasına göre ${M} dakikada teslim ediyoruz.`,
+      eyebrow: ended ? `${range} · TÜYAP İstanbul · Sona erdi` : `${range} · TÜYAP İstanbul`,
+      title: ended ? `${esc(fair.name)} <em>sona erdi.</em>` : `${esc(fair.name)} için <em>standınız hazır olsun.</em>`,
+      lead: ended
+        ? `Fuar ${range} tarihlerinde TÜYAP’ta düzenlendi. Sıradaki TÜYAP fuarlarında da standınıza veya iş ortaklarınıza orkide, çelenk ve aranjman gönderebilirsiniz; siparişinizi salon ve stant numarasına göre ${M} dakikada teslim ediyoruz.${next ? ` Sıradaki TÜYAP fuarı: ${nextLink} (${nextRange}).` : ''}`
+        : `Avrasya fuarlarında iş ortaklarınıza iyi fuarlar dileyin, kendi standınızı çiçeklerle karşılamaya hazırlayın. Siparişinizi salon ve stant numarasına göre ${M} dakikada teslim ediyoruz.`,
       image: '/assets/hero/tuyap-orkide',
       imageAlt: 'TÜYAP’ta stant bankosunda firma adlı şeritli beyaz orkide',
     })
-      + facts([['Fuar tarihi', range], ['Fuar merkezi', esc(TUYAP.name)], ['Teslimat', `Onaydan itibaren ${M} dk`], ['Esenyurt → TÜYAP', 'Yaklaşık 5 dakika']])
-      + productStrip(avrasyaPicks(catalog), { title: 'Avrasya standları için <em>seçimler.</em>' })
+      + facts([
+        ['Fuar tarihi', ended ? `${range} · sona erdi` : range],
+        next ? ['Sıradaki TÜYAP fuarı', `${nextLink} · ${nextRange}`] : ['Fuar merkezi', esc(TUYAP.name)],
+        ['Teslimat', `Onaydan itibaren ${M} dk`],
+        ['Esenyurt → TÜYAP', 'Yaklaşık 5 dakika'],
+      ])
+      + productStrip(avrasyaPicks(catalog), { title: ended ? 'TÜYAP standları için <em>seçimler.</em>' : 'Avrasya standları için <em>seçimler.</em>' })
       + faqBlock(faq)
-      + ctaBand('Avrasya fuarında <em>ilk izlenimi siz bırakın.</em>'),
+      + ctaBand(ended ? 'Sıradaki fuarda <em>ilk izlenimi siz bırakın.</em>' : 'Avrasya fuarında <em>ilk izlenimi siz bırakın.</em>'),
   });
 }
 
