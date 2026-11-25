@@ -3,7 +3,8 @@ import { esc, icon, trRange } from '../lib/html.mjs';
 import { card } from './products.mjs';
 import { graph, businessNode, faqNode } from '../lib/seo.mjs';
 import { page, waLink } from '../lib/layout.mjs';
-import { CATEGORIES } from '../lib/catalog.mjs';
+import { CATEGORIES, stockLast } from '../lib/catalog.mjs';
+import { homeProductOrder } from '../lib/catalog-release.mjs';
 
 // Hero sahneleri: tam ekran, sırayla değişen stant görselleri. İlk sahne LCP görselidir.
 const SCENES = [
@@ -29,34 +30,29 @@ function hero() {
   <div class="wrap hero__inner">
     <div class="hero__copy">
       <h1 id="hero-baslik" data-split>TÜYAP ve İFM’ye <em>çiçek teslimatı.</em></h1>
-      <ul class="hero__facts">
-        <li>${icon('timer')}<span>Onaydan sonra <strong>${DELIVERY.minutes} dakikada</strong> standa teslim</span></li>
-        <li>${icon('truck')}Teslimat fiyata dahil</li>
-        <li>${icon('camera')}Fotoğraflı teslim onayı</li>
-      </ul>
       <div class="hero__cta">
-        <a class="btn" href="#urunler" data-track-location="hero-cta">${icon('shopping-bag')}Kataloğa bak</a>
-        <a class="btn btn--wa" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero-cta">${icon('message-circle')}WhatsApp’la sipariş</a>
+        <a class="shiny hero__catalog" href="#urunler" data-track-location="hero-cta"><span>${icon('shopping-bag')}Kataloğa bak</span></a>
+        <a class="shiny hero__wa" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="hero-cta"><span><img class="wa3d" src="/assets/icons/whatsapp-3d.webp" width="96" height="96" alt="" decoding="async">WhatsApp’la sipariş</span></a>
       </div>
-      ${heroFair()}
+      ${trust(true)}
     </div>
   </div>
 </section>`;
 }
 
-// Hero içindeki aktif fuar kartı: tarih bloğu, fuar adı ve yeri, resmi logolar, fuara özel sipariş.
-function heroFair() {
+// Aktif fuar kartı: hero'da değil, ürün listesinin altındaki ayrı bölümde (masaüstü ve mobil).
+function nextFair(titleId) {
   const venue = VENUES.find((v) => v.id === FAIR_DAYS.activeFairVenue);
   const mon = new Intl.DateTimeFormat('tr-TR', { month: 'long', timeZone: 'Europe/Istanbul' });
   const days = FAIR_DAYS.days;
   const first = days[0];
   const last = days[days.length - 1];
-  return `<div class="hero__fair" role="group" aria-labelledby="fuar-baslik">
+  return `<div class="hero__fair" role="group" aria-labelledby="${titleId}">
         <p class="hero__fair-date" aria-label="${trRange(days)} ${first.slice(0, 4)}"><strong>${Number(first.slice(8))}–${Number(last.slice(8))}</strong><span>${esc(mon.format(new Date(`${first}T12:00:00+03:00`)))}</span></p>
         <div class="hero__fair-body">
           <small>Sıradaki fuar · ${esc(venue.short)}</small>
-          <h2 id="fuar-baslik">${esc(FAIR_DAYS.activeFairName)}</h2>
-          <p class="hero__fair-links"><button type="button" data-drawer-open data-fair="${esc(FAIR_DAYS.activeFairName)}" data-venue="${esc(venue.name)}" data-track-location="hero-fair">Bu fuar için sipariş ${icon('arrow-right')}</button><a href="${FAIR_DAYS.activeFairPage}">Fuar sayfası</a></p>
+          <h2 id="${titleId}">${esc(FAIR_DAYS.activeFairName)}</h2>
+          <p class="hero__fair-links"><button type="button" data-drawer-open data-fair="${esc(FAIR_DAYS.activeFairName)}" data-venue="${esc(venue.name)}" data-track-location="home-fair" aria-label="${esc(FAIR_DAYS.activeFairName)} için sipariş ver" title="Bu fuar için sipariş"><span class="hero__fair-action-label">Bu fuar için sipariş</span><span class="hero__fair-action-compact" aria-hidden="true">Sipariş ver</span>${icon('arrow-right', 'icon hero__fair-arrow')}${icon('shopping-bag', 'icon hero__fair-bag')}</button><a href="${FAIR_DAYS.activeFairPage}">Fuar sayfası</a></p>
         </div>
         <a class="hero__fair-logos" href="${FAIR_DAYS.activeFairPage}" aria-label="${esc(FAIR_DAYS.activeFairName)} sayfası">
           <img src="/assets/fuar/avrasya-pencere-kapi-logo.webp" width="440" height="174" alt="Avrasya Pencere &amp; Kapı Fuarı logosu" decoding="async">
@@ -66,17 +62,18 @@ function heroFair() {
 }
 
 
-function trust() {
+function trust(compact = false) {
+  const titleId = compact ? 'neden-baslik-mobil' : 'neden-baslik';
   const items = [
-    ['zap', `${DELIVERY.minutes} dakikada standa teslimat`, 'TÜYAP ve İFM · Sipariş onayıyla'],
+    ['zap', `${DELIVERY.minutes} dakikada standa teslimat`, 'TÜYAP ve İFM'],
     ['camera', 'Teslimatta fotoğraf onayı', 'WhatsApp üzerinden'],
     ['receipt-text', 'Kurumsal e-Fatura', 'Şirket bilgilerinize düzenlenir'],
     ['leaf', 'Doğrudan seradan', 'Taze ve bakımlı bitkiler'],
   ];
   return `
-<section class="trust" aria-labelledby="neden-baslik">
-  <div class="wrap trust__inner">
-    <h2 class="trust__title" id="neden-baslik">Neden Fuar <em>Çiçekçim?</em></h2>
+<section class="trust${compact ? ' trust--hero' : ' trust--desktop'}" aria-labelledby="${titleId}">
+  <div class="${compact ? 'trust__inner' : 'wrap trust__inner'}">
+    <h2 class="trust__title" id="${titleId}">Neden Fuar <em>Çiçekçim?</em></h2>
     <ul class="trust__list">
       ${items.map(([ic, t, s]) => `<li class="trust__item"><span class="trust__icon">${icon(ic)}</span><span class="trust__text"><strong>${esc(t)}</strong><small>${esc(s)}</small></span></li>`).join('')}
     </ul>
@@ -85,10 +82,31 @@ function trust() {
 }
 
 
+function fairOffer() {
+  const venue = VENUES.find(v => v.id === FAIR_DAYS.activeFairVenue);
+  return `
+<aside class="fair-offer" data-fair-offer aria-labelledby="fair-offer-title" data-lenis-prevent hidden>
+  <div class="fair-offer__panel">
+    <button class="fair-offer__close" type="button" data-fair-offer-close aria-label="Kampanya kartını kapat">${icon('x')}</button>
+    <img class="fair-offer__art" src="/assets/hero/fuar-kampanyasi.webp" width="768" height="402" loading="lazy" decoding="async" alt="">
+    <div class="fair-offer__content">
+      <p class="eyebrow">${esc(venue.short)} · ${esc(trRange(FAIR_DAYS.days))}</p>
+      <h2 id="fair-offer-title">Fuara özel <em>çifte indirim</em></h2>
+      <ul class="fair-offer__rates">
+        <li><strong>%15</strong><span>Tüm çiçeklerde indirim</span></li>
+        <li><strong>+ %5</strong><span>Sepette ek indirim</span></li>
+      </ul>
+      <a class="btn fair-offer__cta" href="#urunler" data-fair-offer-catalog>Çiçekleri keşfet${icon('arrow-right')}</a>
+    </div>
+  </div>
+</aside>`;
+}
+
 function products(catalog) {
   const tabs = [['all', 'Tümü'], ...CATEGORIES.map((c) => [c.id, c.name]), ['vip', 'VİP']];
   return `
 <section class="section products" id="urunler" aria-labelledby="urunler-baslik">
+  ${fairOffer()}
   <div class="wrap">
     <h2 class="sr-only" id="urunler-baslik">Fuar çiçekleri ve fiyatları</h2>
     <div class="products__bar">
@@ -97,7 +115,7 @@ function products(catalog) {
       </div>
     </div>
     <div class="grid" data-grid>
-      ${catalog.products.map(card).join('')}
+      ${stockLast(homeProductOrder(catalog.products)).map(card).join('')}
     </div>
     <div class="grid-more"><button class="btn btn--ghost" type="button" data-more hidden>Daha fazla göster</button></div>
   </div>
@@ -120,20 +138,17 @@ const CLIENTS = [
 function clients() {
   // Kare ve geniş logolar göz kararı eşit büyüklükte görünsün: yükseklik en-boy oranına göre ayarlanır.
   const logo = ([file, name, w, h], hidden) => `<li style="--k:${Math.min(1, 1.6 * Math.pow(w / h, -0.45)).toFixed(2)}"><img src="/assets/musteriler/${file}.webp" width="${w}" height="${h}" alt="${hidden ? '' : esc(name)}" loading="lazy" decoding="async"></li>`;
-  // Şerit kesintisiz dönsün diye liste iki kez yazılır; ikinci kopya ekran okuyuculardan gizlenir.
-  const set = [...CLIENTS, ...CLIENTS];
+  // Eşit iki grup tek bir rayda ilerler; görsel kopya ekran okuyuculardan gizlenir.
   return `
-<section class="clients" aria-labelledby="musteri-baslik">
+<section class="clients" aria-labelledby="musteri-baslik" data-clients>
   <div class="wrap clients__head">
-    <p class="eyebrow" id="musteri-baslik">Bize güvenen firmalar</p>
+    <p class="eyebrow" id="musteri-baslik">Referanslarımız</p>
   </div>
   <div class="clients__marquee">
-    <ul class="clients__track">
-      ${set.map((c) => logo(c, false)).join('')}
-    </ul>
-    <ul class="clients__track" aria-hidden="true">
-      ${set.map((c) => logo(c, true)).join('')}
-    </ul>
+    <div class="clients__track">
+      <ul class="clients__group">${CLIENTS.map((c) => logo(c, false)).join('')}</ul>
+      <ul class="clients__group" aria-hidden="true">${CLIENTS.map((c) => logo(c, true)).join('')}</ul>
+    </div>
   </div>
 </section>`;
 }
@@ -181,7 +196,7 @@ function steps() {
 export const FAQ = [
   ['Teslimat ne kadar sürer?', `TÜYAP ve İFM’ye sipariş onayından itibaren ${DELIVERY.minutes} dakikada standa teslim ederiz. Süre sipariş onayından başlar; ürünün stokta ve fuar girişinin uygun olması gerekir. Fuar günleri için saat aralığı da seçebilirsiniz.`],
   ['Hangi fuar merkezlerine teslimat yapıyorsunuz?', `${VENUES.map((v) => `${v.name} (${v.district})`).join(' ve ')}. Siparişte teslim edilecek standın salon ve stant numarasını yazmanız yeterlidir; kendi standınız da olabilir, müşterinizin veya iş ortağınızın standı da.`],
-  ['Fiyatlara KDV ve teslimat dahil mi?', `Ürün fiyatları KDV hariçtir; %${PRICING.vatRate} KDV eklenir. TÜYAP ve İFM’ye standa teslimat fiyata dahildir. Sipariş çekmecesinde KDV hariç ve KDV dahil toplamı birlikte görürsünüz.`],
+  ['Fiyatlara teslimat dahil mi?', 'TÜYAP ve İFM’ye standa teslimat fiyata dahildir.'],
   ['Ödemeyi nasıl yapıyorum?', 'Sitede online ödeme alınmaz. Sipariş özetiniz WhatsApp’a iletilir; ödeme yöntemi ve onay aynı yazışmada netleşir.'],
   ['Kurumsal fatura kesiyor musunuz?', 'Evet. Firma ünvanı, vergi dairesi ve vergi numaranızı sipariş sırasında veya WhatsApp’tan paylaştığınızda kurumsal e-Fatura düzenleriz.'],
   ['Şeride ne yazabilirim?', 'Firma adınızı ve kısa bir mesajı (ör. “İyi Fuarlar”, “Hayırlı Olsun”) yazabilirsiniz. Türkçe karakterler doğru basılır; yazıyı sipariş sırasında şerit önizlemesinde görürsünüz.'],
@@ -217,9 +232,12 @@ export function home(catalog) {
   return page({
     path: '/',
     title: 'Fuar Çiçekçim | TÜYAP ve İFM Fuar Çiçekçisi, Standa Teslim',
-    description: `TÜYAP ve İFM fuar standlarına açılış çelengi, şeritli VIP orkide, stant aranjmanı ve saksı bitkisi. ${DELIVERY.promise}, fotoğraflı teslim onayı ve kurumsal e-Fatura.`,
+    description: `TÜYAP ve İFM fuar standlarına açılış çelengi, şeritli VIP orkide, stant aranjmanı ve saksı bitkisi. ${DELIVERY.promise}, fotoğraflı onay ve kurumsal e-Fatura.`,
     preload: `<link rel="preload" as="image" href="/assets/hero/tuyap-orkide-768.webp" imagesrcset="/assets/hero/tuyap-orkide-768.webp 768w, /assets/hero/tuyap-orkide.webp 1536w" imagesizes="100vw" fetchpriority="high">`,
     jsonld: schema(),
-    body: hero() + trust() + products(catalog) + clients() + corporate() + steps() + faq(),
+    body: hero()
+      + trust() + products(catalog)
+      + `<div class="home-fair"><div class="wrap">${nextFair('fuar-baslik')}</div></div>`
+      + clients() + corporate() + steps() + faq(),
   });
 }

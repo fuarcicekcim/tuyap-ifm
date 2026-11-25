@@ -1,20 +1,24 @@
 import { DELIVERY, PRICING, CONTACT } from '../../src/config/site-settings.js';
-import { esc, icon, tlPrice, trRange } from './html.mjs';
+import { esc, icon, trRange } from './html.mjs';
+import { renderDiscountRibbon, renderProductPrice } from './price-markup.mjs';
 import { waLink } from './layout.mjs';
 import { breadcrumbs } from './seo.mjs';
+import { awardBadge } from './award-badge.mjs';
 
-export function pageHero({ eyebrow, title, lead, crumbs, image, imageAlt, ctas = true }) {
+export function pageHero({ eyebrow, title, lead, crumbs, image, imageAlt, ctas = true, priceCategory, catalogAnchor, whatsappText }) {
   return `
 <section class="phero${image ? ' phero--media' : ''}">
   <div class="wrap phero__grid">
     <div class="phero__copy">
       ${crumbs ? breadcrumbs(crumbs) : ''}
-      ${eyebrow ? `<p class="eyebrow">${esc(eyebrow)}</p>` : ''}
+      ${eyebrow ? `<p class="eyebrow"${priceCategory ? ` data-price-category="${esc(priceCategory)}"` : ''}>${esc(eyebrow)}</p>` : ''}
       <h1 data-split>${title}</h1>
       ${lead ? `<p class="phero__lead">${lead}</p>` : ''}
       ${ctas ? `<div class="phero__ctas">
-        <button class="btn btn--gold" type="button" data-drawer-open data-track-location="page-hero" data-magnetic>${icon('shopping-bag')}Sipariş Oluştur</button>
-        <a class="btn btn--ghost-light" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="page-hero">${icon('message-circle')}WhatsApp</a>
+        ${catalogAnchor
+          ? `<a class="btn btn--gold" href="#${esc(catalogAnchor)}">${icon('shopping-bag')}Ürünleri Gör</a>`
+          : `<button class="btn btn--gold" type="button" data-drawer-open data-track-location="page-hero" data-magnetic>${icon('shopping-bag')}Sipariş Oluştur</button>`}
+        <a class="btn btn--ghost-light" href="${waLink(whatsappText)}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="page-hero">${icon('message-circle')}WhatsApp</a>
       </div>` : ''}
     </div>
     ${image ? `<figure class="phero__media"><img src="${image}.webp" srcset="${image}-768.webp 768w, ${image}.webp 1536w" sizes="(min-width: 1024px) 38vw, 100vw" width="1536" height="1024" alt="${esc(imageAlt)}" fetchpriority="high" decoding="async"></figure>` : ''}
@@ -50,19 +54,27 @@ export const orderAside = (title = 'Siparişi şimdi oluşturun') => `
   <a class="btn btn--ghost" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="aside">${icon('phone')}${esc(CONTACT.phoneDisplay)}</a>
 </div>`;
 
-export function productStrip(products, { title = 'Standa en çok yakışanlar', eyebrow = 'Koleksiyondan', link = '/#urunler', linkText = 'Tüm koleksiyon' } = {}) {
+export function cardAdd(p) {
+  if (p.inStock === false) return '<span class="stock-note">Stokta yok</span>';
+  return `<button class="card__add" type="button" data-add="${p.id}" aria-label="${esc(p.name)} ürününü siparişe ekle">${icon('plus')}<span>Siparişe ekle</span></button>`;
+}
+
+export function productStrip(products, { id, title = 'Standa en çok yakışanlar', eyebrow = 'Koleksiyondan', link = '/#urunler', linkText = 'Tüm koleksiyon' } = {}) {
   return `
-<section class="section strip">
+<section class="section strip"${id ? ` id="${esc(id)}"` : ''}>
   <div class="wrap">
     <div class="strip__head"><div><p class="eyebrow">${esc(eyebrow)}</p><h2 data-split>${title}</h2></div><a class="strip__link" href="${link}">${esc(linkText)} ${icon('arrow-up-right')}</a></div>
     <div class="strip__list">
       ${products.map((p) => `
       <article class="mini">
-        <a class="mini__media" href="${p.page}"><img src="${p.image}" width="800" height="1200" alt="${esc(p.alt)}" loading="lazy" decoding="async"></a>
-        <p class="card__cat">${esc(p.categoryName)}</p>
+        <a class="mini__media" href="${p.page}">
+          <img src="${p.image}" width="800" height="1200" alt="${esc(p.alt)}" loading="lazy" decoding="async">
+          ${p.badgeId === 'best-seller' ? awardBadge({ rank: p.bestsellerRank }) : ''}
+          ${renderDiscountRibbon(p)}
+        </a>
         <h3 class="mini__title"><a href="${p.page}">${esc(p.name)}</a></h3>
-        <p class="card__price"><strong data-price-id="${p.id}">${tlPrice(p.price)}</strong><span>+ %${PRICING.vatRate} KDV</span></p>
-        <button class="card__add" type="button" data-add="${p.id}" aria-label="${esc(p.name)} ürününü siparişe ekle">${icon('plus')}<span>Siparişe ekle</span></button>
+        ${renderProductPrice(p)}
+        ${cardAdd(p)}
       </article>`).join('')}
     </div>
   </div>

@@ -1,4 +1,5 @@
 import { SITE, DELIVERY, PRICING, VENUES } from '../../src/config/site-settings.js';
+import '../../catalog-pricing.js';
 import { esc, icon, tlPrice } from '../lib/html.mjs';
 import { page } from '../lib/layout.mjs';
 import { graph, businessNode, breadcrumbNode, breadcrumbs, abs } from '../lib/seo.mjs';
@@ -16,8 +17,8 @@ function priceTables(catalog) {
   return CATEGORIES.map((c) => {
     const items = catalog.products.filter((p) => p.category === c.id);
     return `<h2>${esc(c.name)}</h2>
-<div class="table-wrap"><table><thead><tr><th scope="col">Ürün</th><th scope="col">KDV hariç</th><th scope="col">KDV dahil</th></tr></thead><tbody>
-${items.map((p) => `<tr><td><a href="${p.page}">${esc(p.name)}</a></td><td data-price-id="${p.id}">${tlPrice(p.price)}</td><td>${tlPrice(p.price * (1 + PRICING.vatRate / 100))}</td></tr>`).join('')}
+<div class="table-wrap"><table><thead><tr><th scope="col">Ürün</th><th scope="col">Fiyat</th></tr></thead><tbody>
+${items.map((p) => `<tr><td><a href="${p.page}">${esc(p.name)}</a></td><td data-price-id="${p.id}">${tlPrice(p.price)}</td></tr>`).join('')}
 </tbody></table></div>`;
   }).join('');
 }
@@ -58,6 +59,7 @@ export const POSTS = [
   {
     slug: 'tuyapa-cicek-gonderme-rehberi',
     title: 'TÜYAP’a Çiçek Nasıl Gönderilir? Stand Teslimatı Rehberi',
+    metaTitle: 'TÜYAP’a Çiçek Nasıl Gönderilir? Stand Teslimatı | Fuar Çiçekçim',
     description: 'TÜYAP Fuar ve Kongre Merkezi’ndeki bir standa çiçek, çelenk veya orkide göndermek için gereken bilgiler, doğru teslim zamanı ve sık yapılan hatalar.',
     published: '2026-11-08',
     minutes: 5,
@@ -79,7 +81,7 @@ export const POSTS = [
 <h2>Teslimat nasıl yapılır?</h2>
 <p>Ürünü salon ve stant numarasına kendimiz teslim ediyor, teslimattan sonra standdaki fotoğrafını WhatsApp’tan gönderiyoruz. Çelenkler genellikle stant önüne, orkideler bankoya veya masaya yerleştirilir. Esenyurt’tan TÜYAP’a yol süremiz yaklaşık 5 dakikadır.</p>
 <h2>Fiyat ve fatura</h2>
-<p>TÜYAP’a standa teslimat ürün fiyatına dahildir; fiyatlara %${PRICING.vatRate} KDV eklenir. Ödeme havale/EFT, kredi kartı veya teslimatta nakit yapılabilir; firmanıza kurumsal e-Fatura düzenlenir.</p>
+<p>TÜYAP’a standa teslimat ürün fiyatına dahildir. Ödeme havale/EFT, kredi kartı veya teslimatta nakit yapılabilir; firmanıza kurumsal e-Fatura düzenlenir.</p>
 <h2>Sık yapılan hatalar</h2>
 <ul>
 <li><strong>Yanlış salon numarası:</strong> Numarayı davetiyeden teyit edin.</li>
@@ -91,7 +93,8 @@ export const POSTS = [
   {
     slug: 'ifm-istanbul-fuar-merkezine-cicek-gonderme-rehberi',
     title: 'İFM (İstanbul Fuar Merkezi)’ne Çiçek Gönderme Rehberi',
-    description: 'Yeşilköy’deki İstanbul Fuar Merkezi fuarlarına orkide, çelenk ve stant çiçeği göndermek için bilmeniz gerekenler: stant kodu, teslim zamanı, İngilizce şerit, otel teslimatı.',
+    metaTitle: 'İstanbul Fuar Merkezi’ne (İFM) Çiçek Gönderme | Fuar Çiçekçim',
+    description: 'Yeşilköy’deki İstanbul Fuar Merkezi fuarlarına orkide, çelenk ve stant çiçeği göndermek için gerekenler: stant kodu, teslim zamanı, İngilizce şerit, otel teslimatı.',
     published: '2026-11-06',
     minutes: 4,
     html: () => `
@@ -107,7 +110,7 @@ export const POSTS = [
 <h2>Otel teslimatı</h2>
 <p>Fuar katılımcılarının konakladığı otellere karşılama orkidesi ve çiçek gönderebiliyoruz. Otel adı ve misafirin adı yeterlidir.</p>
 <h2>Fiyatlar</h2>
-<p>İFM’ye standa teslimat ürün fiyatına dahildir; fiyatlara %${PRICING.vatRate} KDV eklenir. Güncel liste için <a href="/blog/fuar-cicegi-fiyatlari-2026.html">fiyat rehberine</a>, hizmet ayrıntıları için <a href="${IFM.page}">İFM fuar çiçekçisi</a> sayfamıza bakın.</p>`,
+<p>İFM’ye standa teslimat ürün fiyatına dahildir. Güncel liste için <a href="/blog/fuar-cicegi-fiyatlari-2026.html">fiyat rehberine</a>, hizmet ayrıntıları için <a href="${IFM.page}">İFM fuar çiçekçisi</a> sayfamıza bakın.</p>`,
   },
   {
     slug: 'fuar-acilis-celengi-serit-yazisi-ornekleri',
@@ -136,11 +139,11 @@ export const POSTS = [
     slug: 'fuar-cicegi-fiyatlari-2026',
     title: 'Fuar Çiçeği Fiyatları 2026: Çelenk, Orkide, Aranjman ve Saksı Bitkisi',
     metaTitle: 'Fuar Çiçeği Fiyatları 2026 | Fuar Çiçekçim',
-    description: '2026 fuar çiçeği fiyat rehberi: açılış çelengi, VIP orkide, stant aranjmanı ve saksı bitkisi fiyatları (KDV hariç ve dahil). TÜYAP ve İFM’de standa teslimat dahil.',
+    description: '2026 fuar çiçeği fiyat rehberi: açılış çelengi, VIP orkide, stant aranjmanı ve saksı bitkisi fiyatları. TÜYAP ve İFM’de standa teslimat dahil.',
     published: '2026-11-02',
     minutes: 4,
     html: (catalog) => `
-<p>Fuar çiçeği fiyatı ürünün türüne, boyutuna ve şerit/logo gibi kişiselleştirmelere göre değişir. Aşağıdaki tablolar sitemizdeki güncel katalog fiyatlarından otomatik oluşturulur. TÜYAP ve İFM’ye standa teslimat fiyata dahildir; fiyatlara %${PRICING.vatRate} KDV eklenir.</p>
+<p>Fuar çiçeği fiyatı ürünün türüne, boyutuna ve şerit/logo gibi kişiselleştirmelere göre değişir. Aşağıdaki tablolar sitemizdeki güncel katalog fiyatlarından otomatik oluşturulur. TÜYAP ve İFM’ye standa teslimat fiyata dahildir.</p>
 ${priceTables(catalog)}
 <h2>Fiyatı etkileyen faktörler</h2>
 <ul>

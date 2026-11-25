@@ -1,7 +1,7 @@
 // Fuar paketleri — tek ayar dosyası.
 // Kural (kullanıcı kararı 2026-11-16): paket fiyatı, içindeki ürünlerin products-data.js'teki
-// güncel fiyatlarının toplamıdır (indirim yok). Ürünler standa bir kez kurulur.
-// Paket fiyatı burada yazılmaz; derlemede ve tarayıcıdaki fiyat tazelemede otomatik hesaplanır.
+// güncel fiyatlarının toplamıdır. Paket için ayrı indirim uygulanmaz. Ürünler standa bir kez kurulur.
+// Paket fiyatı burada yazılmaz; ürünler, sepet ve SEO ile aynı katalog sürümünden derlemede hesaplanır.
 // items: [ürün kimliği, adet] — kimlikler products-data.js ile birebir aynı olmalıdır.
 
 export const PACKAGES = [

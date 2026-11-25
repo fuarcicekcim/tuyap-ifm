@@ -4,16 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#244736">
-  <title>Yönetim Paneli | Fuar Çiçekçim</title>
+  <meta name="theme-color" content="#173628">
+  <title>Ürün Yönetim Merkezi | Fuar Çiçekçim</title>
   <link rel="icon" href="assets/brand-plant-crest.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:wght@500;600&amp;display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com/3.4.17" defer></script>
-  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
-  <link rel="stylesheet" href="admin.css?v=2">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Playfair+Display:wght@500;600&amp;display=swap" rel="stylesheet">
+  <script src="assets/vendor/lucide.min.js" defer></script>
+  <link rel="stylesheet" href="admin.css?v=4">
+  <script src="admin-config.js" defer></script>
+  <script src="supabase-config.js" defer></script>
+  <script src="assets/vendor/supabase.js" defer></script>
+  <script src="admin-auth.js" defer></script>
   <script src="products-data.js" defer></script>
+  <script src="catalog-pricing.js" defer></script>
   <script src="catalog-store.js" defer></script>
   <script src="admin.js" defer></script>
 </head>
@@ -23,8 +27,9 @@
       <a class="lock-brand" href="./" aria-label="Fuar Çiçekçim ana sayfa"><img src="assets/fuar-cicekcim-logo-yatay.png" alt="Fuar Çiçekçim" width="720" height="240"></a>
       <span class="lock-symbol"><i data-lucide="lock-keyhole" aria-hidden="true"></i></span>
       <h1 id="login-title">Yönetici girişi</h1>
-      <p class="lock-description">Vitrininizi yönetmek için yönetici şifrenizi girin. Bu, yayın şifrenizle aynıdır.</p>
+      <p class="lock-description">Ürünlerinizi ve vitrin düzeninizi yönetmek için giriş yapın.</p>
       <form id="login-form">
+        <label class="form-field" id="login-email-field" hidden><span>E-posta adresi</span><input id="login-email" type="email" name="username" autocomplete="username" disabled></label>
         <label class="visually-hidden" for="login-input">Yönetici şifresi</label>
         <input class="login-input" id="login-input" name="password" type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" required aria-describedby="login-error" autofocus>
         <p class="field-error login-error" id="login-error" aria-live="polite"></p>
@@ -32,28 +37,30 @@
         <button class="admin-button admin-button--quiet lock-local" id="local-preview-button" type="button" hidden>Yerel önizleme olarak aç</button>
       </form>
       <a class="lock-back" href="./"><i data-lucide="arrow-up-left" aria-hidden="true"></i> Vitrine dön</a>
-      <p class="lock-note">Şifre sunucuda doğrulanır ve bu tarayıcıda saklanmaz.</p>
+      <p class="lock-note" id="login-note">Şifre sunucuda doğrulanır ve bu tarayıcıda saklanmaz.</p>
     </div>
   </section>
 
-  <div class="dashboard min-h-screen w-full" id="dashboard" hidden>
+  <div class="dashboard" id="dashboard" hidden>
     <button class="sidebar-scrim" id="sidebar-scrim" type="button" aria-label="Menüyü kapat" tabindex="-1"></button>
-    <aside class="admin-sidebar transition-all duration-300" id="sidebar" aria-label="Yönetim menüsü">
+    <aside class="admin-sidebar" id="sidebar" aria-label="Yönetim menüsü">
       <a class="sidebar-brand" href="admin.html" aria-label="Fuar Çiçekçim yönetim paneli">
-        <span class="sidebar-monogram" aria-hidden="true">FÇ</span>
-        <span class="sidebar-label brand-copy"><strong>Fuar Çiçekçim</strong><small>Yönetim Paneli (TÜYAP &amp; İFM)</small></span>
+        <span class="sidebar-label sidebar-brand-full"><span class="sidebar-logo-plate"><img class="sidebar-brand-logo" src="assets/fuar-cicekcim-logo-yatay.png" alt="Fuar Çiçekçim" width="720" height="240"></span><small>Ürün yönetim merkezi</small></span>
+        <img class="sidebar-brand-mark" src="assets/brand-plant-crest.png" alt="" aria-hidden="true" width="320" height="289">
       </a>
+      <p class="sidebar-section-label sidebar-label">ÇALIŞMA ALANI</p>
       <nav class="sidebar-nav" aria-label="Panel bölümleri">
         <button class="sidebar-option is-selected" type="button" data-view="overview" aria-current="page" title="Genel Bakış"><i data-lucide="layout-dashboard" aria-hidden="true"></i><span class="sidebar-label">Genel Bakış</span></button>
         <button class="sidebar-option" type="button" data-view="products" title="Ürün Yönetimi"><i data-lucide="flower-2" aria-hidden="true"></i><span class="sidebar-label">Ürün Yönetimi</span></button>
         <button class="sidebar-option" type="button" data-view="categories" title="Kategoriler & Rozetler"><i data-lucide="tags" aria-hidden="true"></i><span class="sidebar-label">Kategoriler &amp; Rozetler</span></button>
-        <button class="sidebar-option" type="button" data-view="settings" title="Fuar & İletişim Ayarları"><i data-lucide="sliders-horizontal" aria-hidden="true"></i><span class="sidebar-label">Fuar &amp; İletişim Ayarları</span></button>
+        <button class="sidebar-option" type="button" data-view="settings" title="Yayın Ayarları"><i data-lucide="sliders-horizontal" aria-hidden="true"></i><span class="sidebar-label">Yayın Ayarları</span></button>
         <a class="sidebar-option sidebar-external" href="./" target="_blank" rel="noopener" title="Siteyi Görüntüle"><i data-lucide="monitor" aria-hidden="true"></i><span class="sidebar-label">Siteyi Görüntüle</span><i class="sidebar-label external-icon" data-lucide="arrow-up-right" aria-hidden="true"></i></a>
       </nav>
       <div class="sidebar-help sidebar-label">
         <span class="help-leaf"><i data-lucide="sprout" aria-hidden="true"></i></span>
-        <strong>Vitrininizi güncel tutun.</strong>
-        <p>Ürün ve fiyat değişikliklerini kaydedin, hazır olduğunuzda yayınlayın.</p>
+        <strong>Her ayrıntısı özenli.</strong>
+        <p>Fotoğrafları, fiyatları ve vitrin sırasını aynı yerden düzenleyin.</p>
+        <span class="sidebar-venue">TÜYAP <span aria-hidden="true">·</span> İFM</span>
       </div>
       <div class="sidebar-bottom">
         <button class="sidebar-option" id="logout-button" type="button" title="Çıkış Yap (Kilitle)"><i data-lucide="log-out" aria-hidden="true"></i><span class="sidebar-label">Çıkış Yap (Kilitle)</span></button>
@@ -65,32 +72,33 @@
       <header class="admin-header">
         <div class="header-heading">
           <button class="icon-button mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Yönetim menüsünü aç" aria-controls="sidebar" aria-expanded="false"><i data-lucide="menu" aria-hidden="true"></i></button>
-          <div><h1 id="page-title">Genel Bakış</h1><p id="page-subtitle">Fuar vitrininizi tek yerden yönetin.</p></div>
+          <div><span class="workspace-eyebrow">FUAR ÇİÇEKÇİM / YÖNETİM</span><h1 id="page-title">Genel Bakış</h1><p id="page-subtitle">Fuar vitrininizi tek yerden yönetin.</p></div>
         </div>
         <div class="header-actions">
           <button class="icon-button" id="theme-toggle" type="button" aria-label="Koyu temaya geç" title="Temayı değiştir"><i data-lucide="moon" aria-hidden="true"></i></button>
           <span class="header-separator" aria-hidden="true"></span>
-          <span class="admin-avatar" aria-label="Yönetici">FÇ</span>
+          <span class="admin-avatar" aria-label="Yönetici"><i data-lucide="user-round" aria-hidden="true"></i></span>
         </div>
       </header>
 
       <main class="admin-content" id="admin-main-content">
-        <div class="publish-banner">
-          <div class="publish-copy"><span class="publish-icon"><i data-lucide="hard-drive-download" aria-hidden="true"></i></span><p><strong>Değişiklikleriniz bu tarayıcıya kaydedilir.</strong><span>Tüm ziyaretçilere yayınlamak için “Dışa aktar” penceresinden <strong>Sunucuya yayınla</strong>’yı kullanın.</span></p></div>
-          <button class="admin-button admin-button--terracotta" id="export-button" type="button"><i data-lucide="download" aria-hidden="true"></i><span>Güncel veriyi indir / kopyala</span></button>
+        <div class="publish-banner" data-state="local">
+          <div class="publish-copy"><span class="publish-icon"><i data-lucide="save" aria-hidden="true"></i></span><p><strong id="catalog-status-text">Bu tarayıcıdaki katalog</strong><span id="catalog-status-detail">Değişikliklerinizi düzenleyin; sunucu kaydını ve vitrin durumunu ayrıca kontrol edin.</span></p></div>
+          <div class="publish-actions"><button class="admin-button admin-button--quiet" id="catalog-check-button" type="button"><i data-lucide="refresh-cw" aria-hidden="true"></i><span>Durumu kontrol et</span></button><button class="admin-button admin-button--primary" id="export-button" type="button"><i data-lucide="cloud-upload" aria-hidden="true"></i><span>Kaydet &amp; dışa aktar</span></button></div>
         </div>
 
-        <section class="stats-grid" aria-label="Vitrin özeti">
+        <section class="view-panel" data-panel="overview" aria-label="Genel Bakış">
+          <div class="overview-intro"><div><p class="section-eyebrow">KATALOG ÖZETİ</p><h2>Vitrininiz, tek bakışta.</h2><p>Ürünlerinizi gözden geçirin, bir sonraki düzenlemenize buradan başlayın.</p></div><button class="admin-button admin-button--quiet" type="button" data-view="products">Ürünleri yönet <i data-lucide="arrow-up-right" aria-hidden="true"></i></button></div>
+          <section class="stats-grid" aria-label="Vitrin özeti">
           <article class="stat-card"><div class="stat-top"><span>Toplam aktif ürün</span><span class="stat-icon"><i data-lucide="package" aria-hidden="true"></i></span></div><strong class="stat-value" id="stat-active">—</strong><p>Vitrinde satışa açık ürünler</p></article>
           <article class="stat-card"><div class="stat-top"><span>Saksı &amp; orkide grubu</span><span class="stat-icon stat-icon--sage"><i data-lucide="sprout" aria-hidden="true"></i></span></div><strong class="stat-value" id="stat-green">—</strong><p>Aktif bitki ve aranjmanlar</p></article>
           <article class="stat-card"><div class="stat-top"><span>Çelenk grubu</span><span class="stat-icon stat-icon--clay"><i data-lucide="flower" aria-hidden="true"></i></span></div><strong class="stat-value" id="stat-wreath">—</strong><p>Aktif çelenk seçenekleri</p></article>
           <article class="stat-card"><div class="stat-top"><span>Aktif teslimat bölgeleri</span><span class="stat-icon stat-icon--blue"><i data-lucide="map-pin" aria-hidden="true"></i></span></div><strong class="stat-value" id="stat-regions">—</strong><p>TÜYAP &amp; İFM · 7/24</p></article>
-        </section>
+          </section>
 
-        <section class="view-panel" data-panel="overview" aria-label="Genel Bakış">
           <div class="overview-grid">
             <section class="admin-card overview-catalog">
-              <div class="card-heading"><div><h2>Vitrindeki ürünler</h2><p>Fotoğraf, fiyat ve ürün durumunu düzenleyin.</p></div><button class="text-button" type="button" data-view="products">Tüm ürünler <i data-lucide="arrow-right" aria-hidden="true"></i></button></div>
+              <div class="card-heading"><div><span class="section-eyebrow">ÜRÜN SEÇKİSİ</span><h2>Vitrindeki ürünler</h2><p>Güncel fotoğraf ve fiyatlara hızlı bir bakış.</p></div><button class="text-button" type="button" data-view="products">Tüm ürünler <i data-lucide="arrow-right" aria-hidden="true"></i></button></div>
               <div class="overview-products" id="overview-products"></div>
             </section>
             <div class="overview-side">
@@ -98,14 +106,55 @@
               <section class="admin-card activity-card"><div class="card-heading"><div><h2>Son değişiklikler</h2><p>Bu tarayıcıdaki işlemler</p></div><i data-lucide="history" aria-hidden="true"></i></div><ul class="activity-list" id="activity-list"></ul></section>
             </div>
           </div>
+          <section class="admin-card readiness-card" aria-labelledby="readiness-title"><div class="card-heading"><div><span class="section-eyebrow">KATALOG DURUMU</span><h2 id="readiness-title">Kaydınız ve vitrininiz</h2><p>Tarayıcıdaki düzenleme, sunucu kaydı ve vitrin aynı şey değildir.</p></div><i data-lucide="layers-2" aria-hidden="true"></i></div><div class="catalog-readiness" id="catalog-readiness" aria-live="polite"><p class="muted">Katalog durumu hazırlanıyor.</p></div></section>
         </section>
 
         <section class="view-panel" data-panel="products" aria-label="Ürün Yönetimi" hidden>
+          <form class="admin-card bestsellers" id="bestsellers-form" aria-labelledby="bestsellers-title" novalidate>
+            <div class="bestsellers__intro">
+              <div class="bestsellers__icon"><i data-lucide="trophy" aria-hidden="true"></i></div>
+              <div><h2 id="bestsellers-title">En çok satanlar</h2><p>Ana sayfada ilk sıralarda ve “En Çok Satan” madalyasıyla gösterilecek en fazla 5 ürünü seçin. Aynı ürünü başka sıraya seçerseniz iki sıra yer değiştirir.</p></div>
+            </div>
+            <ol class="bestsellers__slots" id="bestsellers-slots"></ol>
+            <p id="bestsellers-error" class="field-error" role="alert"></p>
+            <div class="bestsellers__actions">
+              <button class="admin-button admin-button--primary" id="bestsellers-save" type="submit" disabled><i data-lucide="check" aria-hidden="true"></i> Sıralamayı taslağa kaydet</button>
+              <button class="admin-button admin-button--quiet" id="bestsellers-reset" type="button" disabled>Değişiklikleri geri al</button>
+              <p class="bestsellers__note" id="bestsellers-note" role="status" aria-live="polite">Kayıt bu cihazdaki taslağa yapılır; vitrin değişmez.</p>
+            </div>
+          </form>
+          <section class="admin-card bulk-discount" aria-labelledby="bulk-discount-title">
+            <div class="bulk-discount__intro">
+              <div class="bulk-discount__icon"><i data-lucide="percent" aria-hidden="true"></i></div>
+              <div><h2 id="bulk-discount-title">Tüm ürünlere indirim uygula</h2><p>Bir oran seç, kampanyanın geçerli olacağı tarihleri belirle.</p></div>
+            </div>
+            <div class="bulk-discount__rates" role="group" aria-label="Toplu indirim oranı">
+              <button class="bulk-discount__rate" type="button" data-bulk-rate="10" aria-label="Tüm ürünlere yüzde 10 indirim uygula"><strong>%10</strong></button>
+              <button class="bulk-discount__rate" type="button" data-bulk-rate="15" aria-label="Tüm ürünlere yüzde 15 indirim uygula"><strong>%15</strong></button>
+              <button class="bulk-discount__rate" type="button" data-bulk-rate="20" aria-label="Tüm ürünlere yüzde 20 indirim uygula"><strong>%20</strong></button>
+            </div>
+            <p id="bulk-discount-feedback" class="bulk-discount__feedback" role="status" hidden></p>
+          </section>
+          <form class="admin-card cart-discount" id="cart-discount-form" aria-labelledby="cart-discount-title">
+            <div class="cart-discount__heading">
+              <div class="cart-discount__intro"><span class="cart-discount__icon"><i data-lucide="shopping-bag" aria-hidden="true"></i></span><div><h2 id="cart-discount-title">Sepette %5 indirim</h2><p>Ürün indirimlerinden sonra sepette ek %5.</p></div></div>
+              <label class="cart-discount__switch"><input id="cart-discount-enabled" type="checkbox" role="switch" aria-labelledby="cart-discount-title" aria-controls="cart-discount-dates"><span class="cart-discount__track" aria-hidden="true"><span></span></span><span id="cart-discount-toggle-label">Kapalı</span></label>
+            </div>
+            <div class="cart-discount__state"><span id="cart-discount-status" class="cart-discount__badge">Kapalı</span><p id="cart-discount-feedback" role="status" aria-live="polite">Katalog ayarı okunuyor.</p></div>
+            <fieldset id="cart-discount-dates" class="cart-discount__dates" disabled hidden>
+              <legend class="visually-hidden">Sepet indiriminin tarihleri</legend>
+              <label class="form-field"><span>Başlangıç günü</span><input id="cart-discount-start" type="date" required></label>
+              <label class="form-field"><span>Bitiş günü</span><input id="cart-discount-end" type="date" required></label>
+              <button class="admin-button admin-button--quiet" id="cart-discount-save" type="submit" disabled><i data-lucide="check" aria-hidden="true"></i> Tarihleri kaydet</button>
+              <p class="cart-discount__date-note">Başlangıç ve bitiş günleri dahildir · İstanbul saati.</p>
+            </fieldset>
+            <p id="cart-discount-error" class="field-error" role="alert"></p>
+          </form>
           <section class="admin-card product-management">
-            <div class="card-heading"><div><h2>Ürün kataloğu</h2><p id="product-count">Ürünler yükleniyor…</p></div><button class="admin-button admin-button--primary" id="add-product-button" type="button"><i data-lucide="plus" aria-hidden="true"></i> Yeni ürün ekle</button></div>
+            <div class="card-heading"><div><span class="section-eyebrow">VİTRİNİNİZİ DÜZENLEYİN</span><h2>Ürün kataloğu</h2><p id="product-count" aria-live="polite">Ürünler yükleniyor…</p></div><button class="admin-button admin-button--primary" id="add-product-button" type="button"><i data-lucide="plus" aria-hidden="true"></i> Yeni ürün ekle</button></div>
             <div class="table-tools">
-              <label class="search-field"><i data-lucide="search" aria-hidden="true"></i><span class="visually-hidden">Ürün ara</span><input id="product-search" type="search" placeholder="Ürün adıyla ara…" autocomplete="off"></label>
-              <label class="filter-field"><span class="visually-hidden">Kategoriye göre filtrele</span><select id="product-filter"><option value="all">Tüm kategoriler</option></select><i data-lucide="chevron-down" aria-hidden="true"></i></label>
+              <div class="catalog-search-row"><label class="search-field"><i data-lucide="search" aria-hidden="true"></i><span class="visually-hidden">Ürün ara</span><input id="product-search" type="search" placeholder="Ürün adıyla ara…" autocomplete="off"></label><button class="text-button filter-reset" id="clear-product-filters" type="button"><i data-lucide="rotate-ccw" aria-hidden="true"></i> Filtreleri temizle</button></div>
+              <div class="table-filter-row"><label class="filter-field"><span>Kategori</span><select id="product-filter"><option value="all">Tüm kategoriler</option></select></label><label class="filter-field"><span>Durum</span><select id="product-status-filter"><option value="all">Tüm ürünler</option><option value="active">Aktif ürünler</option><option value="inactive">Gizli ürünler</option><option value="out-of-stock">Stokta olmayan ürünler</option></select></label><label class="filter-field"><span>Sıralama</span><select id="product-sort"><option value="catalog">Vitrin sırası</option><option value="price-asc">Fiyat: düşükten yükseğe</option><option value="price-desc">Fiyat: yüksekten düşüğe</option><option value="name">Ürün adı: A–Z</option></select></label></div>
             </div>
             <div class="table-scroll"><table class="product-table"><thead><tr><th scope="col">Ürün</th><th scope="col">Kategori</th><th scope="col">Fiyat</th><th scope="col">Satış rozeti</th><th scope="col">Durum</th><th scope="col" class="text-right">İşlemler</th></tr></thead><tbody id="products-body"></tbody></table></div>
             <div class="empty-state" id="products-empty" hidden><i data-lucide="search-x" aria-hidden="true"></i><h3>Gösterilecek ürün bulunamadı.</h3><p>Aramanızı veya kategori filtrenizi değiştirin.</p></div>
@@ -114,60 +163,105 @@
 
         <section class="view-panel" data-panel="categories" aria-label="Kategoriler ve Rozetler" hidden>
           <form id="categories-form" class="taxonomy-grid">
-            <section class="admin-card settings-card"><div class="card-heading"><div><h2>Ürün kategorileri</h2><p>Kategori adları hem panelde hem vitrinde görünür.</p></div><i data-lucide="folders" aria-hidden="true"></i></div><div class="settings-fields" id="categories-fields"></div></section>
-            <section class="admin-card settings-card"><div class="card-heading"><div><h2>Satış rozetleri</h2><p>Ürünlere atayabileceğiniz rozet metinleri.</p></div><i data-lucide="badge-check" aria-hidden="true"></i></div><div class="settings-fields" id="badges-fields"></div></section>
-            <div class="form-bottom taxonomy-bottom"><p>Kaydedilen metinler ürün düzenleme seçeneklerine de yansır.</p><button class="admin-button admin-button--primary" id="save-taxonomy-button" type="submit"><i data-lucide="check" aria-hidden="true"></i> Değişiklikleri kaydet</button></div>
+            <section class="admin-card settings-card"><div class="card-heading"><div><h2>Ürün kategorileri</h2><p>Vitrinin merkezi kategori tanımları.</p></div><i data-lucide="folders" aria-hidden="true"></i></div><div class="settings-fields" id="categories-fields"></div></section>
+            <section class="admin-card settings-card"><div class="card-heading"><div><h2>Satış rozetleri</h2><p>Ürün düzenlerken seçebileceğiniz rozetler.</p></div><i data-lucide="badge-check" aria-hidden="true"></i></div><div class="settings-fields" id="badges-fields"></div></section>
+            <div class="form-bottom taxonomy-bottom"><p><i data-lucide="info" aria-hidden="true"></i> Kategoriler merkezi tanımlardır. Kaydettiğiniz rozet metinleri, yeniden derleme ve yayın sonrasında vitrinde görünür.</p><button class="admin-button admin-button--primary" id="save-taxonomy-button" type="submit"><i data-lucide="check" aria-hidden="true"></i> Rozetleri kaydet</button></div>
           </form>
         </section>
 
-        <section class="view-panel" data-panel="settings" aria-label="Fuar ve İletişim Ayarları" hidden>
+        <section class="view-panel" data-panel="settings" aria-label="Yayın Ayarları" hidden>
           <form id="settings-form" class="admin-card settings-card contact-settings">
-            <div class="card-heading"><div><h2>Fuar &amp; iletişim</h2><p>Sipariş bağlantılarını ve vitrin bilgilerini güncelleyin.</p></div><i data-lucide="settings-2" aria-hidden="true"></i></div>
+            <div class="card-heading"><div><span class="section-eyebrow">MERKEZİ AYARLAR</span><h2>Fuar &amp; iletişim</h2><p>Bu bilgiler vitrinin merkezi ayarlarından okunur.</p></div><i data-lucide="lock-keyhole" aria-hidden="true"></i></div>
             <div class="settings-fields settings-fields--two">
-              <label class="form-field"><span>WhatsApp numarası</span><input id="setting-whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="905475670406"><small>Ülke koduyla birlikte girin. Örneğin 905475670406.</small></label>
-              <label class="form-field"><span>KDV oranı (%)</span><input id="setting-vat" type="number" min="0" max="100" step="0.1" required><small>Ürün fiyatlarının yanında gösterilen oran.</small></label>
-              <label class="form-field form-field--full"><span>Üst duyuru barı metni</span><input id="setting-announcement" type="text" maxlength="160" required><small>Ana sayfanın en üstündeki duyuru metni.</small></label>
+              <label class="form-field"><span>WhatsApp numarası</span><input id="setting-whatsapp" type="tel" inputmode="tel" autocomplete="tel" readonly><small>Sipariş bağlantılarında kullanılan merkezi numara.</small></label>
+              <label class="form-field"><span>KDV oranı (%)</span><input id="setting-vat" type="number" min="0" max="100" step="0.1" readonly><small>Yalnızca kurumsal fatura bilgisi girilen siparişlerde eklenir.</small></label>
+              <label class="form-field form-field--full"><span>Üst duyuru barı metni</span><input id="setting-announcement" type="text" maxlength="160" readonly><small>Ana sayfanın en üstündeki duyuru metni.</small></label>
             </div>
-            <fieldset class="region-fieldset"><legend>Teslimat bölgeleri</legend><label class="region-option"><input id="setting-region-tuyap" type="checkbox"><span><strong>TÜYAP Fuar Alanı</strong><small>Büyükçekmece, İstanbul</small></span><i data-lucide="map-pin" aria-hidden="true"></i></label><label class="region-option"><input id="setting-region-ifm" type="checkbox"><span><strong>İstanbul Fuar Merkezi</strong><small>İFM, İstanbul</small></span><i data-lucide="map-pin" aria-hidden="true"></i></label></fieldset>
+            <fieldset class="region-fieldset" disabled><legend>Teslimat bölgeleri</legend><label class="region-option"><input id="setting-region-tuyap" type="checkbox"><span><strong>TÜYAP Fuar Alanı</strong><small>Büyükçekmece, İstanbul</small></span><i data-lucide="map-pin" aria-hidden="true"></i></label><label class="region-option"><input id="setting-region-ifm" type="checkbox"><span><strong>İstanbul Fuar Merkezi</strong><small>İFM, İstanbul</small></span><i data-lucide="map-pin" aria-hidden="true"></i></label></fieldset>
             <p class="field-error" id="settings-error" role="alert"></p>
-            <div class="form-bottom"><p>WhatsApp ve KDV değişiklikleri bütün ürünlere uygulanır.</p><button class="admin-button admin-button--primary" type="submit"><i data-lucide="check" aria-hidden="true"></i> Ayarları kaydet</button></div>
+            <div class="form-bottom central-settings-note"><p><i data-lucide="info" aria-hidden="true"></i> Bu ekrandaki bilgiler salt okunurdur. Merkezi ayar değişiklikleri yerel projede yapılır ve yeniden derlenerek yayımlanır.</p><span class="readonly-label">Merkezi ayarlar</span></div>
           </form>
         </section>
 
-        <footer class="admin-footer"><span>Fuar Çiçekçim <span aria-hidden="true">·</span> Vitrin yönetimi</span><button class="text-button reset-button" id="reset-button" type="button"><i data-lucide="rotate-ccw" aria-hidden="true"></i> Varsayılan ürünlere sıfırla</button></footer>
+        <footer class="admin-footer"><span>Fuar Çiçekçim <span aria-hidden="true">·</span> <span id="catalog-revision">Katalog sürümü okunuyor…</span></span><button class="text-button reset-button" id="reset-button" type="button"><i data-lucide="rotate-ccw" aria-hidden="true"></i> Varsayılan ürünlere sıfırla</button></footer>
       </main>
     </div>
   </div>
 
   <dialog class="admin-dialog product-dialog" id="product-dialog" aria-labelledby="product-dialog-title">
     <form id="product-form">
-      <div class="dialog-heading"><div><span class="dialog-eyebrow">ÜRÜN KATALOĞU</span><h2 id="product-dialog-title">Yeni ürün ekle</h2></div><button class="icon-button" type="button" data-close-dialog="product-dialog" aria-label="Ürün penceresini kapat"><i data-lucide="x" aria-hidden="true"></i></button></div>
+      <div class="dialog-heading"><div><span class="dialog-eyebrow">ÜRÜN KATALOĞU</span><h2 id="product-dialog-title">Yeni ürün ekle</h2><p>Fotoğraf, fiyat ve vitrin görünümü.</p></div><button class="icon-button" type="button" data-close-dialog="product-dialog" aria-label="Ürün penceresini kapat"><i data-lucide="x" aria-hidden="true"></i></button></div>
       <input id="product-id" type="hidden">
       <div class="product-editor-grid">
         <div class="image-editor">
           <div class="product-image-preview"><img id="product-preview" alt="Ürün fotoğrafı önizlemesi" hidden><div class="preview-placeholder" id="product-preview-empty"><i data-lucide="image" aria-hidden="true"></i><span>Ürün fotoğrafı</span></div></div>
-          <label class="product-dropzone" id="product-dropzone" for="product-file"><i data-lucide="upload-cloud" aria-hidden="true"></i><strong>Fotoğraf seçin veya sürükleyin</strong><span>JPG, PNG, WebP veya GIF</span><input class="visually-hidden" id="product-file" type="file" accept="image/jpeg,image/png,image/webp,image/gif"></label>
+          <section class="product-price-preview" aria-labelledby="product-price-preview-title"><p id="product-price-preview-title">Vitrin fiyatı önizlemesi</p><div id="product-price-preview" aria-live="polite"></div></section>
+          <label class="product-dropzone" id="product-dropzone" for="product-file"><i data-lucide="upload-cloud" aria-hidden="true"></i><strong>Fotoğraf seçin veya sürükleyin</strong><span>JPG, PNG, WebP veya GIF · en fazla 12 MB</span><input class="visually-hidden" id="product-file" type="file" accept="image/jpeg,image/png,image/webp,image/gif"></label>
+          <p class="photo-status" id="product-photo-status" role="status" aria-live="polite"></p>
           <label class="form-field image-url-field"><span>Görsel bağlantısı veya dosya yolu</span><input id="product-image" type="text" placeholder="assets/products/orkide.jpg" autocomplete="off"><small>Fotoğraf bu tarayıcıya kaydedilir ve dışa aktarılan veriye eklenir.</small></label>
         </div>
         <div class="product-editor-fields">
           <label class="form-field"><span>Ürün adı</span><input id="product-name" type="text" maxlength="100" required placeholder="Çift Dallı Beyaz Orkide" autocomplete="off"></label>
           <label class="form-field"><span>Kategori</span><select id="product-category" required></select></label>
-          <label class="form-field"><span>Fiyat (₺)</span><input id="product-price" type="number" min="0" max="9999999" step="0.01" inputmode="decimal" required placeholder="1500"><small>KDV hariç ürün fiyatını girin.</small></label>
+          <label class="form-field"><span>Normal fiyat (₺)</span><input id="product-price" type="number" min="0" max="9999999" step="0.01" inputmode="decimal" required placeholder="1500"><small>Normal ürün fiyatı. İndirim uyguladığınızda da bu tutar korunur.</small></label>
+          <section class="product-discount" aria-labelledby="product-discount-title">
+            <label class="discount-toggle"><input id="product-discount-enabled" type="checkbox" aria-controls="product-discount-fields" aria-expanded="false"><span><strong id="product-discount-title">İndirim uygula</strong><small>Fiyatı ve geçerli olduğu tarihleri belirleyin.</small></span></label>
+            <fieldset id="product-discount-fields" class="discount-fields" disabled hidden>
+              <legend class="visually-hidden">İndirim bilgileri</legend>
+              <label class="form-field"><span>İndirimli fiyat (₺)</span><input id="product-discount-price" type="number" min="0" max="9999999" step="0.01" inputmode="decimal" required><small>Önceki fiyattan düşük olmalı.</small></label>
+              <label class="form-field"><span>İndirim öncesi fiyat (₺)</span><input id="product-discount-previous-price" type="number" min="0" max="9999999" step="0.01" inputmode="decimal" required aria-describedby="product-discount-previous-note"><small id="product-discount-previous-note">Vitrinde indirimden önceki 10 günde uyguladığınız en düşük fiyatı girin. Çabuk bozulabilen ürünlerde indirimden hemen önceki fiyatı kullanın.</small></label>
+              <label class="form-field"><span>Başlangıç günü</span><input id="product-discount-start" type="date" required></label>
+              <label class="form-field"><span>Bitiş günü</span><input id="product-discount-end" type="date" required></label>
+              <p class="discount-date-note">Başlangıç ve bitiş günleri dahildir. Tarihler İstanbul saatine göre uygulanır.</p>
+            </fieldset>
+            <p class="discount-disabled-note" id="product-discount-disabled-note">İndirim kapalı. Vitrinde normal fiyat gösterilir.</p>
+          </section>
           <label class="form-field"><span>Satış rozeti</span><select id="product-badge"><option value="">Yok</option></select></label>
+          <fieldset class="product-priority"><legend>Vitrin önceliği</legend><label class="form-field"><span>Vitrin sırası</span><input id="product-sort-order" type="number" min="0" step="1" inputmode="numeric" placeholder="Otomatik"><small>Daha küçük sayı, daha önce gösterilir.</small></label><label class="form-field"><span>En çok satan sırası</span><input id="product-bestseller-rank" type="number" min="1" max="5" step="1" inputmode="numeric" placeholder="Yok"><small>İlk beş ürün için 1–5; seçili değilse boş bırakın.</small></label></fieldset>
           <label class="active-option"><input id="product-active" type="checkbox" checked><span><strong>Vitrinde göster</strong><small>Pasif ürünler müşterilere gösterilmez.</small></span></label>
+          <label class="active-option"><input id="product-out-of-stock" type="checkbox"><span><strong>Stokta yok</strong><small>Ürün vitrinde stokta yok olarak görünür ve siparişe kapanır.</small></span></label>
         </div>
       </div>
       <p class="field-error" id="product-form-error" role="alert"></p>
-      <div class="dialog-actions"><button class="admin-button admin-button--quiet" type="button" data-close-dialog="product-dialog">Vazgeç</button><button class="admin-button admin-button--primary" id="save-product-button" type="submit"><i data-lucide="check" aria-hidden="true"></i> Ürünü kaydet</button></div>
+      <div class="dialog-actions"><span class="dialog-save-note">Bu tarayıcıya kaydedilir.</span><button class="admin-button admin-button--quiet" type="button" data-close-dialog="product-dialog">Vazgeç</button><button class="admin-button admin-button--primary" id="save-product-button" type="submit"><i data-lucide="check" aria-hidden="true"></i> Ürünü kaydet</button></div>
     </form>
   </dialog>
 
   <dialog class="admin-dialog export-dialog" id="export-dialog" aria-labelledby="export-title">
-    <div class="dialog-heading"><div><span class="dialog-eyebrow">FUARCICEKCIM.COM</span><h2 id="export-title">Güncel veriyi sunucuya yayınlayın</h2></div><button class="icon-button" type="button" data-close-dialog="export-dialog" aria-label="Dışa aktarma penceresini kapat"><i data-lucide="x" aria-hidden="true"></i></button></div>
-    <p class="dialog-description">Yayın şifrenizi girip <strong>Sunucuya yayınla</strong>’ya basın; <code>products-data.js</code> doğrudan sitede güncellenir ve tüm ziyaretçilere yansır. (Şifre, panele girişte kullandığınızla aynıdır; sunucudaki <code>config.php</code> → <code>admin_sifre</code>. Bu sayfa açıkken giriş şifreniz otomatik doldurulur.) Alternatif olarak dosyayı indirip File Manager ile yükleyebilirsiniz.</p>
-    <label class="form-field"><span>Yayın şifresi</span><input id="publish-password" type="password" autocomplete="current-password" placeholder="config.php içindeki admin_sifre"></label>
-    <label class="form-field export-code-label"><span>Veri dosyasının içeriği</span><textarea id="export-code" rows="10" readonly spellcheck="false"></textarea></label>
-    <div class="dialog-actions"><button class="admin-button admin-button--quiet" id="copy-data-button" type="button"><i data-lucide="copy" aria-hidden="true"></i> Kodu kopyala</button><button class="admin-button admin-button--quiet" id="download-data-button" type="button"><i data-lucide="download" aria-hidden="true"></i> products-data.js indir</button><button class="admin-button admin-button--primary" id="publish-server-button" type="button"><i data-lucide="cloud-upload" aria-hidden="true"></i> Sunucuya yayınla</button></div>
+    <div class="dialog-heading"><div><span class="dialog-eyebrow">KAYIT &amp; DIŞA AKTARMA</span><h2 id="export-title">Kataloğunuzu güvenle kaydedin.</h2></div><button class="icon-button" type="button" data-close-dialog="export-dialog" aria-label="Dışa aktarma penceresini kapat"><i data-lucide="x" aria-hidden="true"></i></button></div>
+    <p class="dialog-description">Sunucu taslağı yalnızca yöneticinin eriştiği bir yedektir; kaydetmek canlı vitrini değiştirmez. Yayın için katalog verisini indirin, siteyi yerelde yeniden derleyin ve güncel çıktıyı Plesk'e yükleyin.</p>
+    <ol class="publish-steps"><li><span>01</span><div><strong>Taslağınızı saklayın</strong><p>Bu cihazdaki düzenlemeyi indirin veya yönetici şifrenizle sunucuda yedekleyin.</p></div></li><li><span>02</span><div><strong>Derleyin ve yükleyin</strong><p>Katalog verisini yerel projeye uygulayın; derleme çıktısını Plesk'e yükleyin.</p></div></li><li><span>03</span><div><strong>Vitrini doğrulayın</strong><p>Yayımlanan revizyonu panelde kontrol ederek sonucunuzu teyit edin.</p></div></li></ol>
+    <label class="form-field publish-password-field"><span>Yönetici şifresi</span><input id="publish-password" type="password" autocomplete="current-password" placeholder="Panele giriş yaptığınız şifre"></label>
+    <p class="publish-status" id="publish-status" role="status" aria-live="polite">Bir kayıt yöntemi seçin. Sunucu kaydı için yönetici şifresi gerekir.</p>
+    <div class="export-secondary-actions"><button class="admin-button admin-button--quiet" id="download-server-draft-button" type="button"><i data-lucide="cloud-download" aria-hidden="true"></i> Sunucu taslağını indir</button><button class="admin-button admin-button--quiet" id="export-json-button" type="button"><i data-lucide="file-json-2" aria-hidden="true"></i> JSON yedeği indir</button></div>
+    <details class="export-source"><summary>İndirilecek katalog verisini göster</summary><label class="form-field export-code-label"><span class="visually-hidden">Veri dosyasının içeriği</span><textarea id="export-code" rows="10" readonly spellcheck="false"></textarea></label></details>
+    <div class="dialog-actions"><button class="admin-button admin-button--quiet" id="copy-data-button" type="button"><i data-lucide="copy" aria-hidden="true"></i> Kodu kopyala</button><button class="admin-button admin-button--quiet" id="download-data-button" type="button"><i data-lucide="download" aria-hidden="true"></i> Dosyayı indir</button><button class="admin-button admin-button--primary" id="publish-server-button" type="button"><i data-lucide="cloud-upload" aria-hidden="true"></i> Sunucu taslağını kaydet</button></div>
+  </dialog>
+
+  <dialog class="admin-dialog bulk-discount-dialog" id="bulk-discount-dialog" aria-labelledby="bulk-discount-dialog-title" aria-describedby="bulk-discount-summary">
+    <form id="bulk-discount-form">
+      <div class="dialog-heading">
+        <h2 id="bulk-discount-dialog-title">Toplu indirim</h2>
+        <button type="button" class="icon-button" data-close-dialog="bulk-discount-dialog" aria-label="Toplu indirim penceresini kapat"><i data-lucide="x" aria-hidden="true"></i></button>
+      </div>
+      <div class="bulk-discount-dialog__body">
+        <p class="bulk-discount-dialog__summary" id="bulk-discount-summary"></p>
+        <p id="bulk-discount-impact" class="bulk-discount-dialog__impact" hidden></p>
+        <div class="bulk-discount-dialog__dates">
+          <label class="form-field"><span>Başlangıç günü</span><input id="bulk-discount-start" type="date" required></label>
+          <label class="form-field"><span>Bitiş günü</span><input id="bulk-discount-end" type="date" required></label>
+        </div>
+        <label class="active-option">
+          <input id="bulk-discount-verified" type="checkbox" required>
+          <span><strong>Normal fiyatların, bu kampanya için geçerli indirim öncesi fiyatlar olduğunu doğruluyorum.</strong><small>Önceki fiyat için kampanyadan önceki 10 günde bu vitrinde uygulanan en düşük fiyatı esas alın. Çabuk bozulabilen ürünlerde indirimden hemen önceki fiyatı kullanın.</small></span>
+        </label>
+        <p id="bulk-discount-error" class="field-error" role="alert"></p>
+      </div>
+      <div class="dialog-actions">
+        <button class="admin-button admin-button--quiet" type="button" data-close-dialog="bulk-discount-dialog">Vazgeç</button>
+        <button class="admin-button admin-button--primary" id="bulk-discount-submit" type="submit"><i data-lucide="check" aria-hidden="true"></i> <span id="bulk-discount-submit-label">İndirimi taslağa uygula</span></button>
+      </div>
+    </form>
   </dialog>
 
   <dialog class="admin-dialog confirm-dialog" id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-description">

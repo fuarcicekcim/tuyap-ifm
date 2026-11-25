@@ -39,8 +39,8 @@
 .card { display: flex; flex-direction: column; min-width: 0; }
 .card[hidden] { display: none; }
 .card__media {
-  position: relative; display: block; overflow: hidden;
-  aspect-ratio: 2 / 3; background: var(--paper); border: 1px solid var(--line);
+  position: relative; display: block; overflow: hidden; isolation: isolate;
+  aspect-ratio: 2 / 3; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-card);
 }
 .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease); }
 @media (hover: hover) { .card:hover .card__media img { transform: scale(1.04); } }
@@ -64,24 +64,62 @@
   background: var(--ink); color: var(--gold-soft); font-size: .75rem; font-weight: 600; letter-spacing: .04em;
 }
 .card__body { display: flex; flex-direction: column; flex: 1; padding-top: 1rem; }
-.card__cat { margin: 0 0 .35rem; font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .card__title { font-size: var(--step-2); line-height: 1.05; margin-bottom: .6rem; }
 .card__title a { text-decoration: none; }
 .card__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: .35rem; margin: 0 0 .25rem; }
 .card__price strong { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; }
 .card__price span { font-size: .78rem; color: var(--muted); }
-.card__meta { display: flex; align-items: center; gap: .4rem; margin: 0 0 .9rem; font-size: .78rem; color: var(--muted); }
-.card__meta .icon { width: 14px; height: 14px; color: var(--gold); }
+/* Fiyat satırı ile "Siparişe ekle" düğmesi arasındaki boşluk (eskiden KDV satırı veriyordu). */
+.card__body > .product-price { margin-bottom: .9rem; }
 .card__add {
   margin-top: auto; display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
-  min-height: 46px; padding: 0 1rem; border: 1px solid var(--ink); border-radius: var(--radius);
-  background: transparent; font-size: .88rem; font-weight: 600;
-  transition: background .25s var(--ease), color .25s var(--ease);
+  min-height: 46px; padding: 0 .85rem; border: 1px solid rgb(23 54 40 / .3); border-radius: var(--radius-control);
+  background: rgb(23 54 40 / .055); color: var(--forest); font-size: .88rem; font-weight: 700;
+  transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
 }
+.stock-note {
+  display: inline-flex; align-items: center; width: fit-content; min-height: 36px; margin: 0;
+  padding: .4rem .65rem; border: 1px solid var(--line); border-radius: var(--radius-control);
+  background: var(--paper); color: var(--gold-text); font-size: .82rem; font-weight: 700;
+}
+.card__body > .stock-note { margin-top: auto; }
 .card__add .icon { width: 16px; height: 16px; }
 .card__add.is-added { background: var(--forest); border-color: var(--forest); color: var(--cream); }
-@media (hover: hover) { .card__add:hover { background: var(--ink); color: var(--cream); } }
+@media (hover: hover) { .card__add:hover { background: var(--forest); border-color: var(--forest); color: var(--cream); } }
+
+/* Sepet geri bildirimi */
+.cart-notice {
+  position: fixed;
+  z-index: 47;
+  inset-inline-start: var(--gutter);
+  inset-block-end: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px) + .75rem);
+  max-inline-size: calc(100% - 2 * var(--gutter));
+  margin: 0;
+  padding: .65rem 1rem;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  background: var(--forest);
+  color: var(--cream);
+  box-shadow: 0 .3rem 1rem rgba(20, 20, 20, .16);
+  font-size: .85rem;
+  font-weight: 700;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(.35rem);
+  transition: opacity .18s var(--ease), transform .18s var(--ease);
+}
+.cart-notice.is-visible { opacity: 1; transform: none; }
+.drawer__head { position: relative; z-index: 2; }
+.drawer__head .cart-notice {
+  position: absolute;
+  inset-block: calc(100% + .55rem) auto;
+  inset-inline: 1.25rem auto;
+  max-inline-size: calc(100% - 2.5rem);
+}
+@media (min-width: 1024px) { body > .cart-notice { inset-block-end: 1.5rem; } }
+@media (prefers-reduced-motion: reduce) { .cart-notice { transform: none; transition: none; } }
 .grid-more { display: flex; justify-content: center; margin-top: var(--space-l); }
+.grid-more > button[hidden] { display: none; }
 
 /* ---------- Fuar paketleri ---------- */
 .pkg-grid { display: grid; gap: var(--space-m); }

@@ -1,16 +1,16 @@
-import { SITE, CONTACT, DELIVERY, VENUES, FAIR_DAYS, PRICING, RIBBON } from '../../src/config/site-settings.js';
+import { SITE, CONTACT, DELIVERY, VENUES, FAIR_DAYS, PRICING, ANALYTICS, PARTICIPANT_LISTS } from '../../src/config/site-settings.js';
 import { esc, icon, trDay } from './html.mjs';
 import { INTRO_BOOT, INTRO_CRITICAL_CSS } from './intro-boot.mjs';
 import { BRAND_PATHS } from './brand-icons.mjs';
 
-const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,500;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap';
+const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,500;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap';
 
 export const waLink = (text = 'Merhaba, fuar standına çiçek siparişi vermek istiyorum.') =>
   `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(text)}`;
 
 const NAV = [
-  ['/fuar-paketleri.html', 'Fuar Paketleri'],
   ['/#urunler', 'Ürünler'],
+  ['/fuar-paketleri.html', 'Fuar Paketleri'],
   ['/#kurumsal', 'Kurumsal'],
   [VENUES[0].page, 'TÜYAP'],
   [VENUES[1].page, 'İFM'],
@@ -19,37 +19,68 @@ const NAV = [
 ];
 
 
-function header() {
+function header(overHero) {
+  const logo = 'src="/assets/brand/logo-yatay-360.webp" srcset="/assets/brand/logo-yatay-360.webp 360w, /assets/brand/logo-yatay-540.webp 540w" sizes="(min-width: 1024px) 225px, 192px" width="720" height="240"';
   return `
 <a class="skip-link" href="#icerik">İçeriğe geç</a>
 <div class="topbar">
   <div class="wrap">
     <p class="topbar__msgs">
-      <a class="topbar__msg topbar__call" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="topbar"><span class="topbar__call-icon"><img class="topbar__phone3d" src="/assets/icons/telefon-3d.webp" width="76" height="72" alt="" decoding="async"></span><span class="topbar__long"><b class="topbar__247">7/24</b> · <u>${esc(CONTACT.phoneDisplay)}</u></span><span class="topbar__short"><b class="topbar__247">7/24</b> Arayın</span></a>
-      <span class="topbar__msg"><img class="topbar__bolt" src="/assets/icons/simsek-3d.webp" width="36" height="64" alt="" decoding="async"><span class="topbar__long">TÜYAP ve İFM’ye <strong>${DELIVERY.minutes} Dakikada</strong> Standa Teslimat</span><span class="topbar__short">TÜYAP &amp; İFM’ye <strong>${DELIVERY.minutes} dk’da</strong> teslimat</span></span>
+      <a class="topbar__msg topbar__call" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="topbar"><span class="topbar__call-icon"><img class="topbar__phone3d" src="/assets/icons/telefon-3d.webp" width="76" height="72" alt="" decoding="async"></span><span class="topbar__long"><b class="topbar__247">7/24</b> · <u>${esc(CONTACT.phoneDisplay)}</u></span><span class="topbar__short"><b class="topbar__247">7/24</b> · <u>${esc(CONTACT.phoneDisplay)}</u></span></a>
+      <span class="topbar__msg"><img class="topbar__bolt" src="/assets/icons/simsek-3d.webp" width="36" height="64" alt="" decoding="async"><span class="topbar__long">TÜYAP ve İFM’ye <strong>${DELIVERY.minutes} Dakikada</strong> Standa Teslimat</span><span class="topbar__short" aria-label="TÜYAP ve İFM’ye ${DELIVERY.minutes} dakikada teslimat"><span class="topbar__venues">TÜYAP &amp; İFM · </span><strong>${DELIVERY.minutes} dk’da</strong> teslimat</span></span>
     </p>
     <span class="topbar__extra">
       <span>${icon('receipt-text')}Kurumsal e-Fatura</span>
     </span>
   </div>
 </div>
-<header class="header">
+<header class="header${overHero ? ' header--over-hero' : ''}">
   <div class="wrap">
+    <button class="menu-toggle" type="button" data-menu-open aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobile-navigation">${icon('menu', 'icon menu-glyph')}</button>
     <a class="brand" href="/" aria-label="${esc(SITE.name)} ana sayfa">
-      <img class="brand__logo" src="/assets/brand/logo-yatay-360.webp" srcset="/assets/brand/logo-yatay-360.webp 360w, /assets/brand/logo-yatay-540.webp 540w" sizes="(min-width: 1024px) 225px, 192px" width="720" height="240" alt="${esc(SITE.name)}" decoding="async" fetchpriority="high">
+      <img class="brand__logo" ${logo} alt="${esc(SITE.name)}" decoding="async" fetchpriority="high">
+      ${overHero ? `<img class="brand__logo brand__logo--light" ${logo} alt="" aria-hidden="true" decoding="async">` : ''}
     </a>
     <nav class="nav" aria-label="Ana menü">
       <ul>${NAV.map(([href, label]) => `<li><a href="${href}">${esc(label)}</a></li>`).join('')}</ul>
     </nav>
     <div class="header__actions">
-      <a class="shiny header__wa" href="${waLink()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="header"><span><img class="wa3d" src="/assets/icons/whatsapp-3d.webp" width="96" height="96" alt="" decoding="async">WhatsApp</span></a>
-      <button class="cart-btn" type="button" data-drawer-open aria-label="Sipariş sepetini aç">${icon('shopping-bag')}<span class="cart-btn__label">Sepet</span><span class="cart-btn__count" data-cart-count data-count="0">0</span></button>
+      <button class="cart-btn" type="button" data-drawer-open aria-label="Sepetim, siparişi aç"><span class="shiny cart-btn__surface"><span>${icon('shopping-bag')}<span class="cart-btn__label">Sepetim</span></span></span><span class="cart-btn__count" data-cart-count data-count="0">0</span></button>
     </div>
   </div>
 </header>`;
 }
 
-function dock() {
+function mobileMenu() {
+  return `
+<dialog class="mobile-menu" id="mobile-navigation" data-mobile-menu aria-labelledby="mobile-menu-title">
+  <div class="mobile-menu__panel" data-menu-panel data-lenis-prevent>
+    <div class="mobile-menu__head">
+      <img class="mobile-menu__logo" src="/assets/brand/logo-yatay-360.webp" width="720" height="240" alt="${esc(SITE.name)}" decoding="async">
+      <button class="mobile-menu__close" type="button" data-menu-close aria-label="Menüyü kapat" autofocus>${icon('menu', 'icon menu-glyph')}</button>
+    </div>
+    <p class="mobile-menu__eyebrow" id="mobile-menu-title">Menü</p>
+    <nav class="mobile-menu__nav" aria-label="Mobil ana menü">
+      <ul>${NAV.map(([href, label], n) => `<li><a class="mobile-menu__link${n === 0 ? ' mobile-menu__link--primary' : ''}" href="${href}" data-menu-link><span class="mobile-menu__number" aria-hidden="true">${String(n + 1).padStart(2, '0')}</span><span class="mobile-menu__label">${esc(label)}</span>${icon('arrow-right')}</a></li>`).join('')}</ul>
+    </nav>
+    <div class="mobile-menu__contact">
+      <a class="mobile-menu__phone" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="mobile-menu">${icon('phone')}<span><small>7/24 sipariş hattı</small><strong>${esc(CONTACT.phoneDisplay)}</strong></span>${icon('arrow-up-right')}</a>
+    </div>
+  </div>
+</dialog>`;
+}
+
+function dock(productOrder) {
+  if (productOrder) {
+    const id = esc(productOrder.id);
+    return `
+<div class="dock dock--product" role="region" aria-label="Hızlı ürün siparişi">
+  <button class="btn btn--gold dock__add" type="button" data-add="${id}" data-open-drawer>${icon('shopping-bag')}Sepete ekle</button>
+  <a class="btn btn--ghost-light dock__wa" href="${esc(productOrder.whatsappUrl)}" target="_blank" rel="noopener" aria-label="Ürünü WhatsApp’tan sor" data-track="whatsapp_click" data-track-location="product-dock"${productOrder.hasDiscount ? ` data-price-whatsapp="${id}"` : ''}><img class="wa3d wa3d--dock" src="/assets/icons/whatsapp-3d.webp" width="96" height="96" alt="" decoding="async"><span class="dock__wa-label">WhatsApp</span></a>
+  <a class="btn btn--ghost-light" href="tel:${CONTACT.phoneE164}" aria-label="Ara" data-track="phone_click" data-track-location="product-dock">${icon('phone')}</a>
+</div>`;
+  }
+
   return `
 <div class="dock" role="region" aria-label="Hızlı sipariş">
   <a class="btn btn--ghost-light" href="tel:${CONTACT.phoneE164}" data-track="phone_click" data-track-location="dock">${icon('phone')}Ara</a>
@@ -80,69 +111,85 @@ function fab() {
 </nav>`;
 }
 
-function drawer() {
+// Sipariş çekmecesinde hol/stant alanının altına yerleşen yardım kartı şablonu. Uygun grubu src/js/drawer.js seçer
+// (fuar adındaki sözcüklere göre fuarın listesi, yoksa seçili fuar merkezinin takvimi).
+function standHelpTemplate() {
+  const link = (l) => `<a href="${esc(l.href)}" target="_blank" rel="noopener noreferrer" data-track="participant_list_click" data-track-location="drawer">${esc(l.label)}${icon('arrow-up-right')}<span class="sr-only"> (yeni sekmede açılır)</span></a>`;
+  const groups = [
+    ...PARTICIPANT_LISTS.fairs.map((f) => `<div data-help-group="${esc(f.id)}" data-help-match="${esc(f.match.join('|'))}" hidden><p class="stand-help__text">${esc(f.text)}</p><p class="stand-help__links">${f.links.map(link).join('')}</p></div>`),
+    ...PARTICIPANT_LISTS.venues.map((v) => `<div data-help-group="venue-${esc(v.venue)}" data-help-venue="${esc(VENUES.find((x) => x.id === v.venue).short)}" hidden><p class="stand-help__text">${esc(v.text)}</p><p class="stand-help__links">${link(v)}</p></div>`),
+  ];
+  return `<template data-stand-help-template><aside class="stand-help" data-stand-help hidden><p class="stand-help__title"><span class="stand-help__icon" aria-hidden="true">${icon('search')}</span><span>Hol veya stant numarasını bilmiyor musunuz?</span></p>${groups.join('')}</aside></template>`;
+}
+
+function cartNotice() {
+  return `<p class="cart-notice" role="status" aria-live="polite" aria-atomic="true" data-cart-notice></p>`;
+}
+
+function drawer({ venue = FAIR_DAYS.activeFairVenue, fairName = FAIR_DAYS.activeFairName, days = FAIR_DAYS.days, catalogAnchor } = {}) {
   const venueOpts = VENUES.map((v) => `
-      <label class="choice"><input type="radio" name="merkez" value="${esc(v.short)}" required${v.id === FAIR_DAYS.activeFairVenue ? ' checked' : ''}><span><strong>${esc(v.short)}</strong><small>${esc(v.name.replace(/ \(İFM\)$/, ''))}</small></span></label>`).join('');
-  const dayOpts = FAIR_DAYS.days.map((d) => `<option value="${esc(trDay(d))}">${esc(trDay(d))}</option>`).join('');
+      <label class="choice"><input type="radio" name="merkez" value="${esc(v.short)}" required${v.id === venue ? ' checked' : ''}><span><strong>${esc(v.short)}</strong><small>${esc(v.name.replace(/ \(İFM\)$/, ''))}</small></span></label>`).join('');
+  const deliveryDate = days?.length
+    ? `<select name="tarih">${days.map((day) => `<option value="${esc(day)}">${esc(trDay(day))}</option>`).join('')}<option value="Diğer (nota yazıldı)">Diğer gün (nota yazın)</option></select>`
+    : '<input type="date" name="tarih" required>';
   const slotOpts = FAIR_DAYS.timeSlots.map((s) => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
   return `
 <div class="drawer-root" data-drawer inert>
+  ${standHelpTemplate()}
   <div class="drawer__scrim" data-drawer-close></div>
   <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-baslik">
     <header class="drawer__head">
       <div><p class="eyebrow">${esc(DELIVERY.promise)}</p><h2 id="drawer-baslik">Siparişiniz</h2></div>
       <button class="drawer__close" type="button" data-drawer-close aria-label="Sipariş çekmecesini kapat">${icon('x')}</button>
+      ${cartNotice()}
     </header>
     <div class="drawer__scroll">
-      <section class="drawer__cart" aria-label="Sepetteki ürünler">
-        <ul class="cart-list" data-cart-list></ul>
-        <p class="cart-empty" data-cart-empty>Henüz ürün eklemediniz. <a href="/#urunler" data-drawer-close>Koleksiyona göz atın</a> ya da istediğiniz ürünü aşağıdaki not alanına yazın.</p>
-        <div data-general-ship></div>
-      </section>
+      <div class="drawer__body">
+        <div class="drawer__content">
+          <section class="drawer__cart" aria-label="Sepetteki ürünler">
+            <ul class="cart-list" data-cart-list></ul>
+            <p class="cart-empty" data-cart-empty>Henüz ürün eklemediniz. <a href="${catalogAnchor ? `#${esc(catalogAnchor)}` : '/#urunler'}" data-drawer-close>Koleksiyona göz atın</a> ya da istediğiniz ürünü aşağıdaki not alanına yazın.</p>
+            <div data-general-ship></div>
+          </section>
 
-      <form class="order" id="siparis-formu" data-order-form novalidate>
-        <fieldset class="order__set">
-          <legend>Fuar ve teslim zamanı</legend>
-          <p class="field__hint order__lead">Tüm ürünler için geçerlidir. Stant, teslim alacak firma ve şerit yazısını yukarıda her ürünün altına yazın.</p>
-          <div class="choices">${venueOpts}</div>
-          <label class="field"><span>Fuar adı</span><input name="fuar_adi" autocomplete="off" value="${esc(FAIR_DAYS.activeFairName)}" maxlength="200"></label>
-          <div class="field-row">
-            <label class="field"><span>Teslim günü</span><select name="tarih">${dayOpts}<option value="Diğer (nota yazıldı)">Diğer gün (nota yazın)</option></select></label>
-            <label class="field"><span>Saat aralığı</span><select name="saat"><option value="En kısa sürede">En kısa sürede (${DELIVERY.minutes} dk)</option>${slotOpts}</select></label>
-          </div>
-        </fieldset>
+          <form class="order" id="siparis-formu" data-order-form novalidate>
+            <fieldset class="order__set">
+              <legend>Fuar ve teslim zamanı</legend>
+              <div class="choices">${venueOpts}</div>
+              <label class="field"><span>Fuar adı</span><input name="fuar_adi" autocomplete="off" value="${esc(fairName)}" maxlength="200"></label>
+              <div class="field-row">
+                <label class="field"><span>Teslim günü</span>${deliveryDate}</label>
+                <label class="field"><span>Saat aralığı</span><select name="saat"><option value="En kısa sürede">En kısa sürede (${DELIVERY.minutes} dk)</option>${slotOpts}</select></label>
+              </div>
+            </fieldset>
 
-        <fieldset class="order__set">
-          <legend>Sipariş veren</legend>
-          <label class="field"><span>Firma adı <b aria-hidden="true">*</b></span><input name="firma" required autocomplete="organization" maxlength="120"></label>
-          <label class="field"><span>Yetkili ad soyad <b aria-hidden="true">*</b></span><input name="adsoyad" required autocomplete="name" maxlength="120"></label>
-          <label class="field"><span>Telefon <b aria-hidden="true">*</b></span><input name="telefon" type="tel" required inputmode="tel" autocomplete="tel" maxlength="20" placeholder="05XX XXX XX XX"></label>
-          <label class="field"><span>E-posta</span><input name="eposta" type="email" inputmode="email" autocomplete="email" maxlength="120"></label>
-          <details class="invoice">
-            <summary>${icon('receipt-text')}Kurumsal fatura bilgisi <small>(isteğe bağlı)</small></summary>
-            <label class="field"><span>Firma ünvanı</span><input name="fatura_unvan" autocomplete="organization" maxlength="160"></label>
-            <div class="field-row">
-              <label class="field"><span>Vergi dairesi</span><input name="vergi_dairesi" maxlength="60"></label>
-              <label class="field"><span>Vergi / TC no</span><input name="vergi_no" inputmode="numeric" maxlength="11"></label>
+            <div class="order__set">
+              <details class="invoice">
+                <summary>${icon('receipt-text')}Kurumsal fatura bilgisi <small>(isteğe bağlı)</small></summary>
+                <label class="field"><span>Firma ünvanı</span><input name="fatura_unvan" autocomplete="organization" maxlength="160"></label>
+                <div class="field-row">
+                  <label class="field"><span>Vergi dairesi</span><input name="vergi_dairesi" maxlength="60"></label>
+                  <label class="field"><span>Vergi / TC no</span><input name="vergi_no" inputmode="numeric" maxlength="11"></label>
+                </div>
+              </details>
+              <label class="field"><span>Not</span><textarea name="not" rows="3" maxlength="800" placeholder="Katalog dışı ürün, birden fazla stant veya gün, özel istekler…"></textarea></label>
+              <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
             </div>
-          </details>
-          <label class="field"><span>Not</span><textarea name="not" rows="3" maxlength="800" placeholder="Katalog dışı ürün, birden fazla stant veya gün, özel istekler…"></textarea></label>
-          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-        </fieldset>
 
-        <label class="consent"><input type="checkbox" name="kvkk" required><span><a href="/kvkk.html" target="_blank" rel="noopener">KVKK aydınlatma metnini</a> okudum; sipariş için iletişim bilgilerimin işlenmesini kabul ediyorum.</span></label>
-        <p class="order__status" role="status" aria-live="polite" data-order-status></p>
-      </form>
+            <p class="order__status" role="status" aria-live="polite" data-order-status></p>
+          </form>
+        </div>
+        <footer class="drawer__foot">
+          <dl class="totals">
+            <div data-total-before-discount hidden><dt>Ürünler</dt><dd data-total-subtotal>0 TL</dd></div>
+            <div class="totals__discount" data-total-discount-row hidden><dt><span class="totals__discount-mark">%5</span> Sepet indirimi</dt><dd data-total-discount>0 TL</dd></div>
+            <div class="totals__grand"><dt>Toplam</dt><dd><span data-total-net>0 TL</span> <small data-total-vat hidden>+ KDV</small></dd></div>
+          </dl>
+          <button class="btn btn--wa drawer__submit" type="submit" form="siparis-formu" data-order-submit><span class="icon drawer__submit-logo" aria-hidden="true"><img class="wa3d wa3d--dock" src="/assets/icons/whatsapp-3d.webp" width="96" height="96" alt="" decoding="async"></span>WhatsApp’ta Siparişi Gönder</button>
+          <p class="drawer__note">${icon('shield-check')}${esc(PRICING.paymentNote)} Teslimat fiyata dahildir.</p>
+        </footer>
+      </div>
     </div>
-    <footer class="drawer__foot">
-      <dl class="totals">
-        <div><dt>Ara toplam <small>(KDV hariç)</small></dt><dd data-total-net>0 TL</dd></div>
-        <div><dt>KDV %${PRICING.vatRate}</dt><dd data-total-vat>0 TL</dd></div>
-        <div class="totals__grand"><dt>Toplam <small>(KDV dahil)</small></dt><dd data-total-gross>0 TL</dd></div>
-      </dl>
-      <button class="btn btn--wa drawer__submit" type="submit" form="siparis-formu" data-order-submit>${icon('message-circle')}WhatsApp’ta Siparişi Gönder</button>
-      <p class="drawer__note">${icon('shield-check')}${esc(PRICING.paymentNote)} Teslimat fiyata dahildir.</p>
-    </footer>
   </aside>
 </div>`;
 }
@@ -180,6 +227,7 @@ function footer() {
         <div class="footer__intro">
           <p class="footer__brand">Fuar <em>Çiçekçim</em></p>
           <p class="footer__tag">TÜYAP ve İstanbul Fuar Merkezi’ndeki standlara çelenk, orkide, aranjman ve saksı bitkisi. ${esc(DELIVERY.promise)}.</p>
+          <p class="footer__tag footer__tag--note">${esc(DELIVERY.condition)}</p>
         </div>
         <nav class="footer__cols" aria-label="Alt menü">
           ${col('Fuar merkezleri', [...VENUES.map((v) => [v.page, `${esc(v.short)} fuar çiçekçisi`]), ['/fuar-cicekcisi.html', 'Fuar çiçekçisi'], ['/fuar-takvimi.html', 'Fuar takvimi'], ['/teslimat-sureci.html', 'Teslimat süreci']])}
@@ -207,8 +255,12 @@ function footer() {
 }
 
 let catalogJson = '[]';
-export function setCatalogData(products) {
-  catalogJson = JSON.stringify(products.map(({ id, name, price, image, categoryName }) => ({ id, name, price, image, cat: categoryName }))).replace(/</g, '\\u003c');
+let cartDiscountJson = '';
+export function setCatalogData(products, cartDiscount = null) {
+  cartDiscountJson = cartDiscount ? JSON.stringify(cartDiscount).replace(/</g, '\\u003c') : '';
+  catalogJson = JSON.stringify(products.map(({ id, name, price, basePrice, discount, image, page, category, categoryName, inStock }) => ({
+    id, name, price, image, ...(page ? { page } : {}), category, cat: categoryName, ...(inStock === false ? { inStock: false } : {}), ...(discount ? { basePrice, discount } : {}),
+  }))).replace(/</g, '\\u003c');
 }
 
 // Açılış (preloader): "Çift kapı". Görünüm: src/styles/intro.css, davranış: src/js/intro.js,
@@ -243,14 +295,42 @@ function intro() {
 </div>`;
 }
 
-export function page({ path, title, description, body, jsonld = '', preload = '', robots = 'index, follow', ogImage = '/assets/og/fuar-cicekcim-og.jpg' }) {
+function googleTagHead() {
+  if (ANALYTICS.enabled !== true) return '';
+  const ids = [...new Set([ANALYTICS.ga4Id, ANALYTICS.adsId].filter((id) => /^[A-Z]+-[A-Z0-9]+$/.test(id)))];
+  if (!ids.length) return '';
+
+  const canonicalHost = new URL(SITE.url).hostname.toLowerCase();
+  const allowedHosts = [canonicalHost, canonicalHost.replace(/^www\./, '')];
+  const configurations = ids.map((id) => `  gtag('config', ${JSON.stringify(id)});`).join('\n');
+  const scriptUrl = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ids[0])}`;
+
+  // Yükleyici, Google'ın kurulum ekranında verdiği gibi kaynak kodda sabit yazılır
+  // (21 Kasım 2026: JS ile sonradan eklenen yükleyiciyi Ads "Bağlantıyı test et" algılamadı).
+  // Ölçüm başlatma ve config yalnızca gerçek site alan adlarında çalışır; yerel/önizleme
+  // alan adlarında gtag tanımlanmaz, dolayısıyla veri gönderilmez.
+  return `<script async src=${JSON.stringify(scriptUrl)}></script>
+<script id="fuar-google-tag">
+(() => {
+  if (!${JSON.stringify(allowedHosts)}.includes(window.location.hostname.toLowerCase())) return;
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('js', new Date());
+${configurations}
+})();
+</script>`;
+}
+
+export function page({ path, title, description, body, jsonld = '', preload = '', robots = 'index, follow', ogImage = '/assets/og/fuar-cicekcim-og.jpg', productOrder, drawerDefaults }) {
   const canonical = SITE.url + path;
   return `<!doctype html>
 <html lang="tr">
 <head>
 <meta charset="utf-8">
+${googleTagHead()}
 <script>${INTRO_BOOT}</script>
-<style>${INTRO_CRITICAL_CSS}</style>
+<style>${INTRO_CRITICAL_CSS}[data-drawer]{visibility:hidden}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
@@ -266,6 +346,9 @@ export function page({ path, title, description, body, jsonld = '', preload = ''
 <meta property="og:image" content="${SITE.url}${ogImage}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/brand/crest-80.webp" type="image/webp">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="stylesheet" href="/src/styles/site.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="${FONT_CSS}">
@@ -276,15 +359,18 @@ ${jsonld}
 </head>
 <body>
 ${intro()}
-${header()}
+${header(path === '/')}
 <main id="icerik">
 ${body}
 </main>
 ${footer()}
-${dock()}
+${dock(productOrder)}
 ${fab()}
-${drawer()}
+${mobileMenu()}
+${cartNotice()}
+${drawer(drawerDefaults)}
 <script type="application/json" id="catalog-data">${catalogJson}</script>
+${cartDiscountJson ? `<script type="application/json" id="cart-discount-data">${cartDiscountJson}</script>` : ''}
 </body>
 </html>
 `;

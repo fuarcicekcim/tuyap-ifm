@@ -17,7 +17,22 @@ export function initFab() {
   }
 
   const footer = document.querySelector('.footer');
-  if (footer && 'IntersectionObserver' in window) {
+  if (!('IntersectionObserver' in window)) return;
+  if (footer) {
     new IntersectionObserver(([e]) => fab.classList.toggle('is-away', e.isIntersecting), { rootMargin: '0px 0px -28% 0px' }).observe(footer);
+  }
+
+  const homeCards = document.querySelectorAll('.trust--hero, .home-fair');
+  if (homeCards.length) {
+    const visible = new Set();
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) visible.add(entry.target);
+        else visible.delete(entry.target);
+      }
+      // Kartlar yalnızca mobilde sağ alttaki düğmelerle çakışır; masaüstünde küme yerinde kalır.
+      fab.classList.toggle('is-over-home-card', visible.size > 0 && matchMedia('(max-width: 1023px)').matches);
+    });
+    homeCards.forEach(card => observer.observe(card));
   }
 }

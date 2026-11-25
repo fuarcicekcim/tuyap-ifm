@@ -29,7 +29,14 @@ function initSplitHeadings() {
   const splits = [];
   document.querySelectorAll('[data-split]').forEach((el) => {
     const inHero = !!el.closest('.hero');
+    // Perde yoksa başlık zaten görünür: geç gelen hareket paketi onu yeniden gizlememeli.
+    if (inHero && !document.documentElement.classList.contains('intro-on')) return;
     const split = SplitText.create(el, { type: 'lines', mask: 'lines', autoSplit: true, onSplit: (self) => {
+      // Font veya boyut değişimi, perde açıldıktan sonra başlığı başa sarmasın.
+      if (inHero && !document.documentElement.classList.contains('intro-on')) {
+        gsap.set(self.lines, { yPercent: 0 });
+        return;
+      }
       const tw = gsap.from(self.lines, {
         yPercent: 105, duration: 1.1, ease: 'expo.out', stagger: 0.08,
         scrollTrigger: inHero ? undefined : { trigger: el, start: 'top 85%', once: true },

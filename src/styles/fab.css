@@ -83,8 +83,8 @@
 .fab.is-in .fab__item { animation: fab-in .8s var(--ease) both; animation-delay: calc(var(--i, 0) * 90ms); }
 @keyframes fab-in { from { opacity: 0; transform: translateY(18px) scale(.88); } }
 
-/* Altbilgi görünürken küme çekilir. */
-.fab.is-away { opacity: 0; transform: translateY(14px); visibility: hidden; transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s linear .3s; }
+/* Altbilgi ya da mobil ana sayfa kartları görünürken küme çekilir. */
+.fab:is(.is-away, .is-over-home-card) { opacity: 0; transform: translateY(14px); visibility: hidden; transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s linear .3s; }
 
 @media (prefers-reduced-motion: reduce) {
   .fab.is-in .fab__item { animation: none; }

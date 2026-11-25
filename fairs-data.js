@@ -23,7 +23,7 @@ window.FUAR_TAKVIMI = {
     { id: "iftex-2026", name: "IFTEX Filtre Endüstrisi Fuarı", start: "2026-11-26", end: "2026-11-28", venue: "ifm", sector: "Endüstri" },
     { id: "ev-charge-show-2026", name: "EV Charge Show", start: "2026-11-26", end: "2026-11-28", venue: "ifm", sector: "Enerji" },
     { id: "nadmex-2026", name: "NADMEX Afet Yönetimi Fuarı", start: "2026-12-02", end: "2026-12-04", venue: "ifm", sector: "Afet Yönetimi" },
-    { id: "plast-eurasia-2026", name: "Plast Eurasia İstanbul", start: "2026-12-02", end: "2026-12-05", venue: "tuyap", sector: "Plastik" },
+    { id: "plast-eurasia-2026", name: "Plast Eurasia İstanbul", start: "2026-12-02", end: "2026-12-05", venue: "tuyap", sector: "Plastik", page: "/plast-eurasia-2026.html", url: "https://www.tuyap.com.tr/fuarlar/plast-eurasia-istanbul" },
     { id: "istanbul-kitap-fuari-2026", name: "İstanbul Kitap Fuarı", start: "2026-12-12", end: "2026-12-20", venue: "tuyap", sector: "Yayıncılık" },
     { id: "worldfood-istanbul-2026", name: "WorldFood İstanbul", start: "2026-12-15", end: "2026-12-18", venue: "ifm", sector: "Gıda" },
     { id: "icfe-2027", name: "ICFE Carpet & Flooring Expo", start: "2027-01-06", end: "2027-01-09", venue: "ifm", sector: "Halı & Zemin" },

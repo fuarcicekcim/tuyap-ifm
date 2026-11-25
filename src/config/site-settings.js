@@ -66,22 +66,48 @@ export const FAIR_DAYS = {
   timeSlots: ['08:00–10:00', '10:00–12:00', '12:00–14:00', '14:00–16:00', '16:00–18:00'],
 };
 
-export const RIBBON = {
-  maxChars: 40,
+// Hol/stant numarasını bilmeyen müşteriler için sipariş çekmecesinde gösterilen resmî katılımcı listesi bağlantıları.
+// Adresler organizatör sitelerinden alındı ve 21 Kasım 2026'da açıldığı doğrulandı; listede her firma için "Salon" (hol) ve
+// "Stant" yazar. Fuar adı `match` sözcüklerinden birini (küçük harfle) içeriyorsa o fuarın listesi gösterilir; eşleşme yoksa
+// seçili fuar merkezinin resmî fuar takvimine gidilir. Yeni fuar için `fairs` listesine bir satır ekleyin.
+export const PARTICIPANT_LISTS = {
+  fairs: [
+    {
+      id: 'avrasya',
+      match: ['pencere', 'avrasya cam', 'avrasya kapı'],
+      text: 'Fuarın resmî katılımcı listesinde firmanızı aratın. Hol, listede “Salon” olarak yazar.',
+      links: [
+        { label: 'Pencere & Kapı fuarı', href: 'https://www.avrasyapencerekapifuari.com/katilimci-listesi' },
+        { label: 'Cam fuarı', href: 'https://avrasyacamfuari.com/katilimci-listesi' },
+      ],
+    },
+  ],
+  venues: [
+    { venue: 'tuyap', text: 'Fuarınızı takvimden seçin; fuarın sayfasındaki katılımcı listesinde firmanızı bulabilirsiniz.', label: 'TÜYAP fuar takvimi', href: 'https://tuyap.com.tr/fuar-takvimi' },
+    { venue: 'ifm', text: 'Fuarınızı takvimden seçin; fuarın sayfasındaki katılımcı listesinde firmanızı bulabilirsiniz.', label: 'İFM fuar takvimi', href: 'https://ifm.com.tr/tr/ifm-fuar-takvimi' },
+  ],
 };
 
 export const ANALYTICS = {
+  // Veri çıkarma (text) önizlemesi ve kaydı 18 Kasım 2026'da kullanıcıyla doğrulandı.
+  // Yalnızca gerçek site alan adlarında çalışır; yerel önizlemeler ölçüme dahil edilmez.
+  enabled: true,
   // Boş bırakılan kimlik için hiçbir Google etiketi yüklenmez; site yine sorunsuz çalışır.
   // GA4 ölçüm kimliği: Google Analytics → Yönetici → Veri akışları → "G-XXXXXXXXXX".
-  ga4Id: '',
+  ga4Id: 'G-M6JLD9BHE0',
   // Google Ads etiket kimliği: Google Ads → Hedefler → Dönüşümler → etiket kurulumu → "AW-XXXXXXXXXX".
-  adsId: '',
+  // 21 Kasım 2026: kampanyaların bulunduğu Ads hesabının (fuarcicekcim@gmail.com, 500-387-9539) etiketi.
+  // Not: aynı gün yanlışlıkla Onur ZORLU özel ders hesabının etiketi (AW-16549271570) kullanılmıştı; düzeltildi.
+  adsId: 'AW-18577301598',
   // Her dönüşüm işleminin etiketi (send_to'daki "/" işaretinden sonraki kısım, ör. "AbC1dEfGhIjK").
   // Etiketi boş olan işlem Google Ads'e dönüşüm olarak gönderilmez (GA4'e olay olarak yine gider).
   conversions: {
-    order_submit: '', // Sipariş gönderimi (sepet tutarı, KDV dahil, TRY)
-    whatsapp_click: '', // Herhangi bir WhatsApp butonuna tıklama
-    phone_click: '', // Telefon numarasına tıklama
-    corporate_quote_submit: '', // Kurumsal teklif formunun gönderilmesi
+    // Siparişler Ads'e GA4'ten aktarılır (Ads eylemi "Web Sitesi Sipariş Talebi" = GA4 olayı order_submit).
+    // Burada etiket yazılırsa her sipariş iki kez sayılır; boş bırakın.
+    order_submit: '',
+    // WhatsApp ve telefon tıklaması için Ads'te henüz eylem yok; oluşturulunca etiketi buraya yazın.
+    whatsapp_click: '',
+    phone_click: '',
+    corporate_quote_submit: '1wijCLjzkLwdEN7ArJpF', // Ads eylemi "Fiyat teklifi isteyin" (web sitesi etiketi)
   },
 };

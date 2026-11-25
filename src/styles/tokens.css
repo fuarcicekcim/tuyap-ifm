@@ -36,9 +36,11 @@
   --gutter: clamp(1rem, .5rem + 2.4vw, 3rem);
   --max: 1560px;
   --radius: 2px;
+  --radius-card: clamp(14px, 1.4vw, 22px); /* ürün kartı fotoğraf köşesi: telefonda 14, masaüstünde ~20 px */
+  --radius-control: 12px; /* kart altı düğme ve stok notu */
   --ease: cubic-bezier(.22, 1, .36, 1);
   --header-h: 80px;
-  --dock-h: 64px;
+  --dock-h: 67px;
 }
 
 @media (max-width: 1023px) { :root { --header-h: 76px; } }

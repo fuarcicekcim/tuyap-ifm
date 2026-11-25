@@ -1,9 +1,11 @@
 import { SITE, DELIVERY, PRICING, VENUES } from '../../src/config/site-settings.js';
 import { esc, icon, tlPrice } from '../lib/html.mjs';
+import { renderDiscountRibbon, renderProductPrice } from '../lib/price-markup.mjs';
 import { page, waLink } from '../lib/layout.mjs';
 import { graph, businessNode, breadcrumbNode, faqNode, breadcrumbs, abs } from '../lib/seo.mjs';
-import { productStrip, faqBlock, ctaBand, pageHero } from '../lib/blocks.mjs';
-import { CATEGORIES } from '../lib/catalog.mjs';
+import { cardAdd, productStrip, faqBlock, ctaBand, pageHero } from '../lib/blocks.mjs';
+import { CATEGORIES, categoryDisplayOrder } from '../lib/catalog.mjs';
+import { awardBadge } from '../lib/award-badge.mjs';
 
 const M = DELIVERY.minutes;
 
@@ -61,22 +63,21 @@ export const CATEGORY_COPY = {
   },
 };
 
-export const thumb = (img, w = 400) => img.replace(/\.webp$/, `-${w}.webp`);
-const fuarImg = (p) => p.image.replace(/\.webp$/, '-fuar.webp');
+export const thumb = (img, w = 400) => img.replace(/\.(?:webp|png|jpe?g|gif|avif)$/i, `-${w}.webp`);
+const fuarImg = (p) => p.fuarImage;
 
 export function card(p, i = 9) {
   return `
-<article class="card${i === 0 ? ' card--feature' : ''}" data-cat="${p.category}"${p.vip ? ' data-vip' : ''}>
+<article class="card${i === 0 ? ' card--feature' : ''}" data-product-id="${p.id}" data-cat="${p.category}"${p.vip ? ' data-vip' : ''}${p.badgeId === 'best-seller' ? ` data-best="${p.bestsellerRank ?? 50}"` : ''}${p.inStock === false ? ' data-oos' : ''}>
   <a class="card__media" href="${p.page}" tabindex="-1" aria-hidden="true">
     <img src="${thumb(p.image)}" srcset="${thumb(p.image)} 400w, ${p.image} 800w" sizes="(min-width: 1024px) ${i === 0 ? '46vw' : '22vw'}, (min-width: 768px) 30vw, 46vw" width="800" height="1200" alt="${esc(p.alt)}" loading="${i < 4 ? 'eager' : 'lazy'}" decoding="async">
-    ${p.badge ? `<span class="card__badge">${esc(p.badge)}</span>` : ''}
+    ${p.badgeId === 'best-seller' ? awardBadge({ rank: p.bestsellerRank }) : p.badge ? `<span class="card__badge">${esc(p.badge)}</span>` : ''}
+    ${renderDiscountRibbon(p)}
   </a>
   <div class="card__body">
-    <p class="card__cat">${esc(p.categoryName)}</p>
     <h3 class="card__title"><a href="${p.page}">${esc(p.name)}</a></h3>
-    <p class="card__price"><strong data-price-id="${p.id}">${tlPrice(p.price)}</strong><span>+ %${PRICING.vatRate} KDV</span></p>
-    <p class="card__meta">${icon('truck')}Standa teslimat dahil</p>
-    <button class="card__add" type="button" data-add="${p.id}" aria-label="${esc(p.name)} ürününü siparişe ekle">${icon('plus')}<span>Siparişe ekle</span></button>
+    ${renderProductPrice(p)}
+    ${cardAdd(p)}
   </div>
 </article>`;
 }
@@ -90,19 +91,22 @@ function tier(price) {
 export function productPage(p, catalog) {
   const cat = CATEGORIES.find((c) => c.id === p.category);
   const copy = CATEGORY_COPY[p.category];
-  const vat = Math.round(p.price * PRICING.vatRate) / 100;
   const related = catalog.products.filter((x) => x.category === p.category && x.id !== p.id).slice(0, 4);
   const crumbs = [['Ana sayfa', '/'], [cat.name, `/kategori/${cat.slug}.html`], [p.name, p.page]];
   const long = `${p.name} | ${cat.name} | Fuar Çiçekçim`;
   const title = long.length <= 62 ? long : `${p.name} | Fuar Çiçekçim`;
-  const description = `${p.name}: ${tlPrice(p.price)} + KDV. TÜYAP ve İFM’de standa teslimat dahil, ${DELIVERY.promise}. Şeritte firma adı ve logo, e-Fatura.`;
-  const shareImg = `/assets/share/${p.id}.jpg`;
+  const description = `${p.discount ? `${p.name}.` : `${p.name}: ${tlPrice(p.price)}.`} TÜYAP ve İFM’de standa teslimat dahil, ${DELIVERY.promise}. Şeritte firma adı ve logo, e-Fatura.`;
+  const shareImg = p.shareImage || p.image;
+  const available = p.active !== false && p.inStock !== false;
+  const whatsappUrl = waLink(!available
+    ? `Merhaba, ${p.name} ürününün yeniden satışa açılması hakkında bilgi almak istiyorum.`
+    : `Merhaba, ${p.name} (${tlPrice(p.price)}) için fuar standına sipariş vermek istiyorum.`);
   const productNode = {
     '@type': 'Product',
     '@id': `${abs(p.page)}#urun`,
     name: p.name,
-    image: [abs(p.image), abs(fuarImg(p))],
-    description: `${p.name} (${cat.name}). ${tier(p.price)} TÜYAP ve İFM’de standa teslim.`,
+    image: [abs(p.image), ...(fuarImg(p) ? [abs(fuarImg(p))] : [])],
+    description: `${p.name} (${cat.name}). ${tier(p.basePrice)} TÜYAP ve İFM’de standa teslim.`,
     category: cat.name,
     sku: p.id,
     brand: { '@type': 'Brand', name: SITE.name },
@@ -111,8 +115,9 @@ export function productPage(p, catalog) {
       url: abs(p.page),
       priceCurrency: 'TRY',
       price: p.price.toFixed(2),
-      priceSpecification: { '@type': 'UnitPriceSpecification', price: p.price.toFixed(2), priceCurrency: 'TRY', valueAddedTaxIncluded: false },
-      availability: 'https://schema.org/InStock',
+      ...(p.activeDiscount ? { priceValidUntil: p.activeDiscount.endsOn } : {}),
+      priceSpecification: { '@type': 'UnitPriceSpecification', price: p.price.toFixed(2), priceCurrency: 'TRY' },
+      availability: !available ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
       itemCondition: 'https://schema.org/NewCondition',
       seller: { '@id': `${SITE.url}/#isletme` },
       areaServed: VENUES.map((v) => v.name),
@@ -123,18 +128,18 @@ export function productPage(p, catalog) {
   <div class="wrap pdp__grid">
     <div class="pdp__gallery">
       <figure class="pdp__main"><img src="${p.image}" width="800" height="1200" alt="${esc(p.alt)}" fetchpriority="high" decoding="async"></figure>
-      <figure class="pdp__alt"><img src="${thumb(fuarImg(p), 600)}" srcset="${thumb(fuarImg(p), 600)} 600w, ${fuarImg(p)} 1000w" sizes="(min-width: 1024px) 25vw, 50vw" width="1000" height="1500" alt="${esc(p.name)} bir fuar standına teslim edilmiş hâlde, şeritte gönderen firma adıyla" loading="lazy" decoding="async"><figcaption>Standa teslim örneği · şeritteki firma adı örnektir</figcaption></figure>
+      ${fuarImg(p) ? `<figure class="pdp__alt"><img src="${thumb(fuarImg(p), 600)}" srcset="${thumb(fuarImg(p), 600)} 600w, ${fuarImg(p)} 1000w" sizes="(min-width: 1024px) 25vw, 50vw" width="1000" height="1500" alt="${esc(p.name)} örnek firma şeridiyle temsili fuar standı görünümü" loading="lazy" decoding="async"><figcaption>Temsili fuar görünümü · Şeritteki firma adı örnektir</figcaption></figure>` : ''}
     </div>
     <div class="pdp__info">
       ${breadcrumbs(crumbs)}
+      ${p.badgeId === 'best-seller' ? `<div class="pdp__award">${awardBadge({ size: 'lg', rank: p.bestsellerRank })}</div>` : ''}
       <p class="eyebrow">${esc(cat.name)}</p>
       <h1>${esc(p.name)}</h1>
-      <p class="pdp__price"><strong data-price-id="${p.id}">${tlPrice(p.price)}</strong><span>+ %${PRICING.vatRate} KDV</span></p>
-      <p class="pdp__vat">KDV dahil ${tlPrice(p.price + vat)} · ${esc(PRICING.deliveryIncluded)}</p>
-      <p class="pdp__lead">${esc(tier(p.price))} ${esc(copy.use)} uygundur.</p>
+      ${renderProductPrice(p, { detailed: true })}
+      <p class="pdp__lead">${esc(tier(p.basePrice))} ${esc(copy.use)} uygundur.</p>
       <div class="pdp__ctas">
-        <button class="btn btn--gold" type="button" data-add="${p.id}" data-open-drawer data-magnetic>${icon('shopping-bag')}<span>Siparişe ekle</span></button>
-        <a class="btn btn--wa" href="${waLink(`Merhaba, ${p.name} (${tlPrice(p.price)} + KDV) için fuar standına sipariş vermek istiyorum.`)}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="product">${icon('message-circle')}WhatsApp’tan sor</a>
+        ${!available ? `<p class="stock-note">${p.active === false ? 'Bu ürün şu anda satışa kapalı.' : 'Stokta yok'}</p>` : `<button class="btn btn--gold" type="button" data-add="${p.id}" data-open-drawer data-magnetic>${icon('shopping-bag')}<span>Siparişe ekle</span></button>`}
+        <a class="btn btn--wa" href="${esc(whatsappUrl)}" target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="product"${p.discount ? ` data-price-whatsapp="${p.id}"` : ''}>${icon('message-circle')}WhatsApp’tan sor</a>
       </div>
       <ul class="pdp__values">
         <li>${icon('truck')}<span><strong>${esc(DELIVERY.promise)}</strong> TÜYAP ve İFM’de salon ve stant numarasına</span></li>
@@ -151,6 +156,7 @@ export function productPage(p, catalog) {
     + ctaBand();
   return page({
     path: p.page, title, description, ogImage: shareImg,
+    productOrder: available ? { id: p.id, whatsappUrl, hasDiscount: Boolean(p.discount) } : undefined,
     preload: `<link rel="preload" as="image" href="${p.image}" fetchpriority="high">`,
     jsonld: graph(productNode, breadcrumbNode(crumbs)),
     body,
@@ -159,17 +165,21 @@ export function productPage(p, catalog) {
 
 export function categoryPage(cat, catalog) {
   const copy = CATEGORY_COPY[cat.id];
-  const items = catalog.products.filter((p) => p.category === cat.id);
+  const items = categoryDisplayOrder(catalog.products.filter((p) => p.category === cat.id));
   const path = `/kategori/${cat.slug}.html`;
   const crumbs = [['Ana sayfa', '/'], [cat.name, path]];
-  const min = Math.min(...items.map((p) => p.price));
-  const body = pageHero({ crumbs, eyebrow: `${items.length} ürün · ${tlPrice(min)}’den başlayan fiyatlar`, title: copy.title, lead: copy.lead })
+  const available = items.filter(p => p.inStock !== false);
+  const startingPrice = available.length ? tlPrice(Math.min(...available.map(p => p.price))) : '';
+  const priceSummary = startingPrice ? `${items.length} ürün · ${startingPrice}’den başlayan fiyatlar` : 'Bu kategoride şu anda satışa açık ürün yok';
+  const hasDiscount = items.some((p) => p.discount);
+  const body = pageHero({ crumbs, eyebrow: priceSummary, title: copy.title, lead: copy.lead, priceCategory: hasDiscount ? cat.id : undefined })
     + `
 <section class="section products">
   <div class="wrap">
     <h2 class="sr-only">${esc(cat.name)} modelleri ve fiyatları</h2>
     <div class="grid" data-grid="static">${items.map((p, i) => card(p, i + 1)).join('')}</div>
-    <div class="prose cat-prose">${copy.body}<p>Fiyatlar KDV hariçtir; %${PRICING.vatRate} KDV eklenir. ${esc(PRICING.deliveryIncluded)}</p></div>
+    ${items.length ? '' : '<p role="status">Bu kategorideki ürünler şu anda satışa kapalı. Alternatifler için bizimle iletişime geçebilirsiniz.</p>'}
+    <div class="prose cat-prose">${copy.body}<p>${esc(PRICING.deliveryIncluded)}</p></div>
   </div>
 </section>`
     + faqBlock(copy.faq)
@@ -177,7 +187,7 @@ export function categoryPage(cat, catalog) {
   return page({
     path,
     title: `${cat.name} Fiyatları | TÜYAP & İFM | Fuar Çiçekçim`,
-    description: `${cat.name}: ${items.length} model, ${tlPrice(min)}’den başlayan fiyatlar (+KDV). TÜYAP ve İFM’de standa teslimat dahil, ${DELIVERY.promise}, şeride firma adı ve logo.`,
+    description: startingPrice ? `${cat.name}: ${items.length} model${hasDiscount ? '' : `, ${startingPrice}’den başlayan fiyatlar`}. TÜYAP ve İFM’de standa teslimat dahil, ${DELIVERY.promise}, şeride firma adı ve logo.` : `${cat.name}: şu anda satışa açık ürün yok. Alternatifler için Fuar Çiçekçim ile iletişime geçebilirsiniz.`,
     jsonld: graph(
       businessNode(),
       breadcrumbNode(crumbs),

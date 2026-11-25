@@ -41,14 +41,14 @@ export function teklif() {
           <label class="field"><span>Fuar merkezi</span><select name="merkez">${VENUES.map((v) => `<option value="${esc(v.short)}">${esc(v.short)}</option>`).join('')}<option value="Her ikisi">Her ikisi</option><option value="Diğer">Diğer</option></select></label>
         </div>
         <label class="field"><span>Stantlar ve teslim günleri <b aria-hidden="true">*</b></span><textarea name="stant" required rows="4" maxlength="800" placeholder="Örn. Salon 5 / B12 – 21 Kasım sabah&#10;Salon 7 / 714 – 22 Kasım"></textarea></label>
-        <label class="field"><span>Bütçe aralığı (KDV hariç)</span><select name="butce">${BUDGETS.map((b) => `<option>${esc(b)}</option>`).join('')}</select></label>
+        <label class="field"><span>Bütçe aralığı</span><select name="butce">${BUDGETS.map((b) => `<option>${esc(b)}</option>`).join('')}</select></label>
         <label class="field"><span>Not</span><textarea name="not" rows="3" maxlength="800" placeholder="Ürün tercihleri, şerit yazıları, logo, renk, kiralama veya lansman çiçeklendirmesi…"></textarea></label>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       </fieldset>
       <label class="consent"><input type="checkbox" name="kvkk" required><span><a href="/kvkk.html" target="_blank" rel="noopener">KVKK aydınlatma metnini</a> okudum; teklif için iletişim bilgilerimin işlenmesini kabul ediyorum.</span></label>
       <p class="order__status" role="status" aria-live="polite" data-quote-status></p>
       <button class="btn btn--gold quote__submit" type="submit" data-quote-submit>${icon('send')}Teklif İste</button>
-      <p class="drawer__note">${icon('shield-check')}Talebiniz WhatsApp’a ve e-postamıza iletilir. ${esc(PRICING.paymentNote)}</p>
+      <p class="drawer__note">${icon('shield-check')}Talebiniz için bir WhatsApp mesajı hazırlanır. ${esc(PRICING.paymentNote)}</p>
     </form>
   </div>
 </section>`;

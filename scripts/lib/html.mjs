@@ -14,7 +14,10 @@ export function icon(name, cls = 'icon') {
   return `<svg class="${cls}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${inner}</svg>`;
 }
 
-export const tlPrice = (n) => new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 0 }).format(n) + ' TL';
+// catalog-pricing.js `format` ile aynı kural: tam lira "4.038 TL", kuruşlu "4.037,50 TL".
+export const tlPrice = (n) => (Math.round(n * 100) % 100 === 0
+  ? new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 0 })
+  : new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })).format(n) + ' TL';
 
 const trFmt = (opts) => new Intl.DateTimeFormat('tr-TR', { timeZone: 'Europe/Istanbul', ...opts });
 export const trDay = (iso) => trFmt({ day: 'numeric', month: 'long', weekday: 'long' }).format(new Date(`${iso}T12:00:00+03:00`));

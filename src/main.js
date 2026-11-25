@@ -1,33 +1,33 @@
-import './styles/tokens.css';
-import './styles/base.css';
-import './styles/layout.css';
-import './styles/intro.css';
 import { runIntro } from './js/intro.js';
-import { track, initAnalytics } from './js/analytics.js';
+import { track } from './js/analytics.js';
 import { initReveal } from './js/reveal.js';
 import { initHero } from './js/hero.js';
+import { initFairOffer } from './js/fair-offer.js';
+import { initHeader } from './js/header.js';
 import { initDrawer } from './js/drawer.js';
+import { initMobileMenu } from './js/mobile-menu.js';
 import { initCatalog } from './js/catalog.js';
 import { refreshPrices } from './js/prices.js';
 import { initQuote } from './js/quote.js';
 import { initFooter } from './js/footer.js';
 import { initFab } from './js/fab.js';
-import './styles/content.css';
-import './styles/sections.css';
-import './styles/drawer.css';
-import './styles/fab.css';
+import { initAwardBadge } from './js/award-badge.js';
 
 // Açılış (preloader) masaüstünde hareket paketinin (GSAP) yüklenmesini de bekler; böylece perde açılınca
 // hero başlığı önce düz görünüp sonradan yeniden animasyona girmez. Söz, aşağıda loadMotion atar.
 let motionReady = Promise.resolve();
 runIntro({ motion: () => motionReady });
-initAnalytics();
 initHero();
+initHeader();
 initDrawer();
-refreshPrices(initCatalog());
+initMobileMenu();
+const products = initCatalog();
+refreshPrices(products);
+initFairOffer(products);
 initQuote();
 initFooter();
 initFab();
+initAwardBadge();
 
 const DESKTOP = '(min-width: 1024px) and (pointer: fine) and (prefers-reduced-motion: no-preference)';
 
@@ -43,7 +43,7 @@ document.addEventListener('click', (e) => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (window.__lenis) window.__lenis.scrollTo(0, { duration: 1.1 });
     else window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
-    if (location.hash) history.replaceState(null, '', location.pathname);
+    if (location.hash) history.replaceState(history.state, '', location.pathname + location.search);
   }
 });
 
