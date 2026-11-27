@@ -40,6 +40,7 @@
   let reviewedDraftHash = '';
   let editorState = '';
   let editorRanking = '';
+  let discountLink = null;
   let bulkCampaign;
   let cartDiscountSnapshot;
   let cartDiscountDateDraft = null;
@@ -311,6 +312,35 @@
       price: amount('product-discount-price'), previousPrice: amount('product-discount-previous-price'),
       startsOn: get('product-discount-start').value, endsOn: get('product-discount-end').value,
     };
+  }
+
+  // Önceki fiyat normal fiyata eşitse ikisi bağlıdır: normal fiyat değişince önceki fiyat onu izler,
+  // indirimli fiyat tam bir yüzdeyse (ör. %15) aynı yüzdeyle yeniden hesaplanır.
+  function captureDiscountLink() {
+    const pricing = globalThis.FuarPricing;
+    const value = id => get(id).value.trim() === '' ? NaN : Number(get(id).value);
+    const price = value('product-price');
+    const discounted = value('product-discount-price');
+    if (!pricing || !Number.isFinite(price) || price <= 0 || value('product-discount-previous-price') !== price) {
+      discountLink = null;
+      return;
+    }
+    const rate = Number.isFinite(discounted) ? Math.round((1 - discounted / price) * 100) : NaN;
+    discountLink = { price, rate: rate > 0 && rate < 100 && pricing.discountedPrice(price, rate) === discounted ? rate : null };
+  }
+
+  function syncDiscountToPrice() {
+    const link = discountLink;
+    const text = get('product-price').value.trim();
+    const price = Number(text);
+    if (!link || !get('product-discount-enabled').checked || text === '' || !Number.isFinite(price) || price <= 0) return;
+    if (Number(get('product-discount-previous-price').value) !== link.price) {
+      discountLink = null;
+      return;
+    }
+    get('product-discount-previous-price').value = String(price);
+    if (link.rate !== null) get('product-discount-price').value = String(globalThis.FuarPricing.discountedPrice(price, link.rate));
+    discountLink = { price, rate: link.rate };
   }
 
   function updateDiscountPreview() {
@@ -909,6 +939,7 @@
     imageVersion += 1;
     editingSnapshot = product ? JSON.stringify(product) : '';
     previewImage(selectedImage);
+    captureDiscountLink();
     updateDiscountPreview();
     openDialog(get('product-dialog'));
     editorState = editorValue();
@@ -1193,9 +1224,12 @@
         if (!get('product-discount-end').value) get('product-discount-end').value = today;
       }
     }
+    captureDiscountLink();
     updateDiscountPreview();
   });
-  for (const id of ['product-price', 'product-discount-price', 'product-discount-previous-price', 'product-discount-start', 'product-discount-end']) {
+  get('product-price').addEventListener('input', syncDiscountToPrice);
+  for (const id of ['product-discount-price', 'product-discount-previous-price']) get(id).addEventListener('input', captureDiscountLink);
+  for (const id of ['product-price','product-discount-price', 'product-discount-previous-price', 'product-discount-start', 'product-discount-end']) {
     get(id).addEventListener('input', updateDiscountPreview);
     get(id).addEventListener('change', updateDiscountPreview);
   }
