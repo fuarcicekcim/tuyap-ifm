@@ -744,6 +744,8 @@ html.dark .status-toggle.is-active { color: #c1d9b5; background: #2b4432; border
 .live-dialog { width: min(680px, calc(100vw - 36px)); }
 .live-signin { display: grid; gap: 16px; padding: 24px 28px 28px; }
 .live-signin .admin-button { justify-self: start; }
+.live-signin .live-remember { min-height: 0; padding: 0; align-items: flex-start; }
+.live-signin .live-remember input { margin-top: 1px; }
 .live-signin__note, .live-review__note { color: var(--admin-muted); font-size: 12px; line-height: 1.8; }
 .live-review { padding: 6px 28px 8px; }
 .live-review > .field-error:not(:empty) { margin: 12px 0 0; padding: 10px 12px; border: 1px solid #ac493c55; border-radius: 6px; background: #ac493c07; }

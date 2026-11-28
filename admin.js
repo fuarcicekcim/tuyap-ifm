@@ -1464,6 +1464,22 @@
   let remembered = false;
   try { remembered = sessionStorage.getItem(sessionKey) === 'unlocked'; }
   catch { /* Giriş yine çalışır; yalnızca sayfa yenilenince yeniden giriş gerekir. */ }
+  // "Bu telefonda oturumum açık kalsın": admin-live.js kayıtlı canlı yayın oturumunu ve yönetici yetkisini doğrularsa panel
+  // şifresiz açılır. Bu yalnız arayüzü açar; canlı yazma yetkisini veritabanı (RLS) verir, PHP işlemleri yine şifre ister.
+  let liveRemembered = false;
+  try { liveRemembered = !auth?.enabled && window.FUAR_LIVE?.enabled === true && localStorage.getItem('fc-live-remember-v1') === '1'; }
+  catch { /* Depolama kapalıysa normal giriş kullanılır. */ }
+  if (liveRemembered) {
+    const note = get('login-note').textContent;
+    get('login-note').textContent = 'Bu cihazdaki oturum kontrol ediliyor…';
+    window.addEventListener('fuar-live-restore', event => {
+      get('login-note').textContent = note;
+      if (event.detail === true && get('dashboard').hidden) {
+        adminPassword = '';
+        showDashboard();
+      }
+    }, { once: true });
+  }
   if (auth?.enabled) {
     get('login-email-field').hidden = false;
     get('login-email').disabled = false;

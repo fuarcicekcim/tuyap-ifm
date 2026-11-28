@@ -14,6 +14,9 @@ const pricing = window.FuarPricing;
 const $ = (id) => document.getElementById(id);
 const BASELINE_KEY = 'fc-live-baseline-v1';
 const LAST_KEY = 'fc-live-last-v1';
+// "Bu telefonda oturumum açık kalsın" seçiliyse oturum localStorage'da kalır (çıkışa kadar); değilse sekme kapanınca biter.
+// admin.js bu anahtarı okuyup kayıtlı oturumla paneli şifresiz açmayı bekler.
+const REMEMBER_KEY = 'fc-live-remember-v1';
 
 if (cfg?.enabled && store && pricing && $('live-bar')) init();
 
@@ -54,9 +57,26 @@ function init() {
   const icons = () => window.lucide?.createIcons();
   // Kullanıcıya olduğu gibi gösterilecek hata (kind: 'auth' | 'denied' | 'other').
   const userError = (message, kind) => Object.assign(new Error(message), { userMessage: true, kind });
+  function remembered() {
+    try { return localStorage.getItem(REMEMBER_KEY) === '1'; } catch { return false; }
+  }
+  function setRemember(on) {
+    try { if (on) localStorage.setItem(REMEMBER_KEY, '1'); else localStorage.removeItem(REMEMBER_KEY); } catch { /* Depolama kapalıysa oturum sekmeyle sınırlı kalır. */ }
+  }
+  // Supabase oturumu, seçime göre localStorage (kalıcı) ya da sessionStorage'da (sekmeyle biter) tutulur; silme ikisinden de siler.
+  const authStorage = {
+    getItem(key) { try { return (remembered() ? localStorage : sessionStorage).getItem(key); } catch { return null; } },
+    setItem(key, value) { try { (remembered() ? localStorage : sessionStorage).setItem(key, value); } catch { /* Depolama kapalı. */ } },
+    removeItem(key) {
+      try { localStorage.removeItem(key); } catch { /* Depolama kapalı. */ }
+      try { sessionStorage.removeItem(key); } catch { /* Depolama kapalı. */ }
+    },
+  };
   async function safeSignOut() {
     if (auth?.enabled) return;
     try { await sb().auth.signOut({ scope: 'local' }); } catch { /* Oturum zaten yok ya da SDK yüklenemedi. */ }
+    authStorage.removeItem('fc-live-auth-v1');
+    setRemember(false);
   }
 
   function sb() {
@@ -64,7 +84,7 @@ function init() {
     if (!client) {
       if (!window.supabase?.createClient) throw new Error('Giriş bileşeni yüklenemedi. Sayfayı yenileyin.');
       client = window.supabase.createClient(cfg.url, cfg.publishableKey, {
-        auth: { storage: sessionStorage, storageKey: 'fc-live-auth-v1', autoRefreshToken: true, persistSession: true, detectSessionInUrl: false },
+        auth: { storage: authStorage, storageKey: 'fc-live-auth-v1', autoRefreshToken: true, persistSession: true, detectSessionInUrl: false },
         global: { fetch: (url, init) => fetch(url, { ...init, signal: init?.signal || AbortSignal.timeout(15000) }) },
       });
     }
@@ -464,6 +484,7 @@ function init() {
     state.busy = true; render();
     $('live-signin-submit').setAttribute('aria-busy', 'true');
     try {
+      setRemember(!auth?.enabled && $('live-remember').checked);
       const { error } = await sb().auth.signInWithPassword({ email, password });
       if (error) throw new Error('E-posta veya şifre doğrulanamadı.');
       $('live-password').value = '';
@@ -473,6 +494,7 @@ function init() {
       dialog.close();
       toast('Canlı yayın bağlandı.');
     } catch (error) {
+      if (!state.user) setRemember(false);
       $('live-signin-error').textContent = error.message || core.explainError(error).message;
     } finally {
       $('live-password').value = '';
@@ -511,9 +533,23 @@ function init() {
     await run(async () => {
       const { data } = await sb().auth.getSession();
       if (!data?.session) return;
-      await verifyRole();
+      if (!state.user) await verifyRole();
       await refresh({ adopt: true });
     });
+  }
+
+  // Panel kilitliyken kayıtlı oturum varsa: oturum ve yönetici yetkisi doğrulanınca admin.js paneli şifresiz açar.
+  // Oturum geçersizse veya yetki yoksa kayıt silinir; ağ hatasında kayıt korunur, panel şifresi istenir.
+  async function restoreRemembered() {
+    let ok = false;
+    try {
+      const { data } = await sb().auth.getSession();
+      if (data?.session) {
+        await verifyRole();
+        ok = true;
+      } else setRemember(false);
+    } catch (error) { fail(error); }
+    window.dispatchEvent(new CustomEvent('fuar-live-restore', { detail: ok }));
   }
 
   function reset() {
@@ -557,5 +593,7 @@ function init() {
     catalogNote: 'Düzenlemeler tarayıcıda saklanıyor. Fiyat, stok, sıra, rozet ve indirim “Canlıya al” ile vitrine gider; ad, fotoğraf ve yeni ürün yayın turu ister.',
   });
 
+  if (auth?.enabled) $('live-remember').closest('label').hidden = true;
   if (!$('dashboard').hidden) void start();
+  else if (!auth?.enabled && remembered()) void restoreRemembered();
 }
